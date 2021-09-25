@@ -1,14 +1,14 @@
-<script>
+<script lang="typescript">
 	import { onMount } from 'svelte';
-	import config from '../../config'
+	import { formatAssetUrl, getAdventures } from '$lib/services/adventureService'
+	import type { Adventure } from '$lib/types';
 
-	let adventures = [];
+	let adventures: Adventure[] = [];
 	let error = null
 
 	onMount(async () => {
 		try {
-			const res = await fetch(`${config.BASE_API_URL}/adventures`);
-			adventures = await res.json()
+			adventures = await getAdventures()
 		} catch (e) {
 			error = e
 		}
@@ -23,6 +23,11 @@
 		<div class="row">
 			{#each adventures as adventure}
 				<div class="column one-half">
+					{#if adventure.pictures.length > 0}
+					<img
+						src="{formatAssetUrl(adventure.pictures[0].formats.small.url)}"
+						alt="{adventure.pictures[0].alternativeText}" />
+					{/if}
 					<h3>{adventure.title}</h3>
 					<p>
 						<b>Date</b> : {adventure.date} <br />
