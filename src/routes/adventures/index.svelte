@@ -22,20 +22,22 @@
 		<h1>Our Little Adventures</h1>
 		<div class="row">
 			{#each adventures as adventure}
-				<div class="column one-half">
-					{#if adventure.pictures.length > 0}
-					<img
-						src="{formatAssetUrl(adventure.pictures[0].formats.small.url)}"
-						alt="{adventure.pictures[0].alternativeText}" />
-					{/if}
-					<h3>{adventure.title}</h3>
-					<p>
-						<b>Date</b> : {adventure.date} <br />
-						<b>Cotation</b> : {adventure.cotation} <br />
-						<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
-						<b>Description</b> : {adventure.description} <br />
-					</p>
-				</div>
+				<a href={`/adventures/${adventure.id}`}>
+					<div class="column one-half">
+						{#if adventure.pictures.length > 0}
+						<img
+							src="{formatAssetUrl(adventure.pictures[0].formats.small.url)}"
+							alt="{adventure.pictures[0].alternativeText}" />
+						{/if}
+						<h3>{adventure.title}</h3>
+						<p>
+							<b>Date</b> : {adventure.date} <br />
+							<b>Cotation</b> : {adventure.cotation} <br />
+							<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
+							<b>Description</b> : {adventure.description} <br />
+						</p>
+					</div>
+				</a>
 			{/each}
 		</div>
 	</div>
