@@ -13,4 +13,5 @@ export const getAdventureById = async (adventureId: string): Promise<Adventure> 
 	return adventures;
 };
 
-export const formatAssetUrl = (assetUrl: string): string => `${config.BASE_API_URL}${assetUrl}`;
+export const formatAssetUrl = (assetUrl: string): string =>
+	assetUrl.startsWith('/') ? `${config.BASE_API_URL}${assetUrl}` : assetUrl;
