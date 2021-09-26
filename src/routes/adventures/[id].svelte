@@ -10,7 +10,6 @@
 
 	onMount(async () => {
 		try {
-			console.log(page);
 			adventure = await getAdventureById($page.params.id);
 		} catch (e) {
 			error = e;

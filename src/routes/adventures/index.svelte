@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getAdventures } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
+	import TopoLink from '$lib/components/topoLink.svelte';
 
 	let adventures: Adventure[] = [];
 	let error = null;
@@ -28,6 +29,10 @@
 						<p>
 							<b>Date</b> : {adventure.date} <br />
 							<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
+							<b>Topo</b> : {#each adventure.topo as topo}
+								<TopoLink topo={topo} />
+								<br>
+							{/each}
 						</p>
 					</a>
 				</div>

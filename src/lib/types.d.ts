@@ -1,3 +1,5 @@
+import { AdventureStatus, CardinalPoints, TopoSource } from '$lib/constants'
+
 /**
  * Can be made globally available by placing this
  * inside `global.d.ts` and removing `export` keyword
@@ -29,33 +31,11 @@ export type Adventure = {
 	periods: Period[];
 };
 
-export enum AdventureStatus {
-	DONE = 'DONE',
-	PLANNED = 'PLANNED',
-	ABORTED = 'ABORTED'
-}
-
-export enum CardinalPoints {
-	N = 'N',
-	NE = 'NE',
-	E = 'E',
-	SE = 'SE',
-	S = 'S',
-	SW = 'SW',
-	W = 'W',
-	NW = 'NW'
-}
-
 export type Topo = {
 	id: number;
 	url: string;
 	source: TopoSource;
 };
-
-export enum TopoSource {
-	C2C = 'C2C',
-	Skitour = 'Skitour'
-}
 
 export type Picture = {
 	id: number;
