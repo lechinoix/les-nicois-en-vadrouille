@@ -1,7 +1,7 @@
 <script lang="typescript">
 	import lightGallery from 'lightgallery';
-	import lgThumbnail from 'lightgallery/plugins/thumbnail';
-	import lgZoom from 'lightgallery/plugins/zoom';
+	import lgThumbnail from 'lightgallery/plugins/thumbnail/lg-thumbnail.umd';
+	import lgZoom from 'lightgallery/plugins/zoom/lg-zoom.umd';
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Picture } from '$lib/types';
 
