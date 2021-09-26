@@ -1,5 +1,6 @@
 <script lang="ts">
 	import Slider from '$lib/components/slider.svelte';
+	import TopoLink from '$lib/components/topoLink.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { getAdventureById } from '$lib/services/adventureService';
@@ -34,6 +35,10 @@
 				<b>Cotation</b> : {adventure.cotation} <br />
 				<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
 				<b>Description</b> : {adventure.description} <br />
+				<b>Topo</b> : {#each adventure.topo as topo}
+					<TopoLink topo={topo} />
+					<br>
+				{/each}
 			</p>
 		{/if}
 	</div>
