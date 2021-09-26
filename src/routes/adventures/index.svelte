@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import { onMount } from 'svelte';
 	import { getAdventures } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';

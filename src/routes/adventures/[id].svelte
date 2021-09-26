@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import Slider from '$lib/components/slider.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';

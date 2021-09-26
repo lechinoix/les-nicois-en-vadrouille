@@ -22,7 +22,7 @@
 		"prettier-plugin-svelte": "^2.4.0",
 		"svelte": "^3.34.0",
 		"svelte-check": "^2.2.6",
-		"svelte-preprocess": "^4.9.4",
+		"svelte-preprocess": "^4.9.5",
 		"typescript": "^4.4.3"
 	},
 	"type": "module",

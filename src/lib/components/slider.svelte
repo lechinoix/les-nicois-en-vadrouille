@@ -1,4 +1,4 @@
-<script lang="typescript">
+<script lang="ts">
 	import lightGallery from 'lightgallery';
 	import lgThumbnail from 'lightgallery/plugins/thumbnail/lg-thumbnail.umd';
 	import lgZoom from 'lightgallery/plugins/zoom/lg-zoom.umd';
