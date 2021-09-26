@@ -1,9 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
-	import lightGallery from 'lightgallery';
-	import lgThumbnail from 'lightgallery/plugins/thumbnail/lg-thumbnail.umd';
-	import lgZoom from 'lightgallery/plugins/zoom/lg-zoom.umd';
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Picture } from '$lib/types';
 
@@ -11,8 +8,14 @@
 	export let pictures: Picture[] = [];
 	export let galleryName: string = 'lightgallery';
 
-	onMount(() => {
+	onMount(async () => {
 		if (!browser) return;
+		const { default: lightGallery } = await import('lightgallery');
+		const { default: lgThumbnail } = await import(
+			'lightgallery/plugins/thumbnail/lg-thumbnail.umd'
+		);
+		const { default: lgZoom } = await import('lightgallery/plugins/zoom/lg-zoom.umd');
+
 		lightGallery(document.getElementById('lightgallery'), {
 			plugins: [lgZoom, lgThumbnail],
 			speed: 500
