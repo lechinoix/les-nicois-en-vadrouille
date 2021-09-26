@@ -26,10 +26,10 @@
 		{#if adventure === null}
 			<p>Loading...</p>
 		{:else}
+			<h2>{adventure.title}</h2>
 			{#if adventure.pictures.length > 0}
 				<Slider pictures={adventure.pictures} />
 			{/if}
-			<h3>{adventure.title}</h3>
 			<p>
 				<b>Date</b> : {adventure.date} <br />
 				<b>Cotation</b> : {adventure.cotation} <br />
