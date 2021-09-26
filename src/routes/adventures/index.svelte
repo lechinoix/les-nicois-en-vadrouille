@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { getAdventures } from '$lib/services/adventureService';
+	import { getAdventuresDone } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 	import TopoLink from '$lib/components/topoLink.svelte';
 
@@ -9,7 +9,7 @@
 
 	onMount(async () => {
 		try {
-			adventures = await getAdventures();
+			adventures = await getAdventuresDone();
 		} catch (e) {
 			error = e;
 		}
