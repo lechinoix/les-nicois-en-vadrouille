@@ -1,7 +1,8 @@
 <script lang="typescript">
+  import Slider from '$lib/components/slider.svelte'
 	import { onMount } from 'svelte';
   import { page } from '$app/stores';
-	import { formatAssetUrl, getAdventureById } from '$lib/services/adventureService';
+	import { getAdventureById } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 
 	let adventure: Adventure = null;
@@ -26,9 +27,7 @@
         <p>Loading...</p>
       {:else}
         {#if adventure.pictures.length > 0}
-        <img
-          src="{formatAssetUrl(adventure.pictures[0].formats.small.url)}"
-          alt="{adventure.pictures[0].alternativeText}" />
+          <Slider pictures={adventure.pictures} />
         {/if}
         <h3>{adventure.title}</h3>
         <p>

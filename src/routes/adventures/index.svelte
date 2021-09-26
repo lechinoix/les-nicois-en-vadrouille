@@ -1,6 +1,6 @@
 <script lang="typescript">
 	import { onMount } from 'svelte';
-	import { formatAssetUrl, getAdventures } from '$lib/services/adventureService'
+	import { getAdventures } from '$lib/services/adventureService'
 	import type { Adventure } from '$lib/types';
 
 	let adventures: Adventure[] = [];
