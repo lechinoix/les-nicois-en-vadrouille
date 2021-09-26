@@ -1,7 +1,8 @@
 export enum AdventureStatus {
 	DONE = 'DONE',
 	PLANNED = 'PLANNED',
-	ABORTED = 'ABORTED'
+	ABORTED = 'ABORTED',
+	TODO = 'TODO'
 }
 
 export enum CardinalPoints {

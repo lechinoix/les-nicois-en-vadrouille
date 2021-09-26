@@ -1,4 +1,4 @@
-import { AdventureStatus, CardinalPoints, TopoSource } from '$lib/constants'
+import { AdventureStatus, CardinalPoints, TopoSource } from '$lib/constants';
 
 /**
  * Can be made globally available by placing this

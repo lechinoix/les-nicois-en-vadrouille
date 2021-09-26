@@ -36,8 +36,8 @@
 				<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
 				<b>Description</b> : {adventure.description} <br />
 				<b>Topo</b> : {#each adventure.topo as topo}
-					<TopoLink topo={topo} />
-					<br>
+					<TopoLink {topo} />
+					<br />
 				{/each}
 			</p>
 		{/if}
