@@ -2,7 +2,7 @@ import config from '$lib/config';
 import type { Adventure } from '$lib/types';
 
 export const getAdventures = async (): Promise<Adventure[]> => {
-	const res = await fetch(`${config.BASE_API_URL}/adventures`);
+	const res = await fetch(`${config.BASE_API_URL}/adventures?_sort=date:DESC`);
 	const adventures = await res.json();
 	return adventures;
 };
