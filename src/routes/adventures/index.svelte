@@ -1,23 +1,23 @@
 <script lang="typescript">
 	import { onMount } from 'svelte';
-	import { getAdventures } from '$lib/services/adventureService'
+	import { getAdventures } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 
 	let adventures: Adventure[] = [];
-	let error = null
+	let error = null;
 
 	onMount(async () => {
 		try {
-			adventures = await getAdventures()
+			adventures = await getAdventures();
 		} catch (e) {
-			error = e
+			error = e;
 		}
 	});
+</script>
 
-	</script>
-	{#if error !== null}
-		{error}
-	{:else}
+{#if error !== null}
+	{error}
+{:else}
 	<div class="container">
 		<h1>Our Little Adventures</h1>
 		<div class="row">
@@ -34,4 +34,4 @@
 			{/each}
 		</div>
 	</div>
-	{/if}
+{/if}
