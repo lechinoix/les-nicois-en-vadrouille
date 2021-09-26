@@ -1,4 +1,4 @@
-<script>
+<script lang="typescript">
 import lightGallery from 'lightgallery';
 import lgThumbnail from 'lightgallery/plugins/thumbnail'
 import lgZoom from 'lightgallery/plugins/zoom'
