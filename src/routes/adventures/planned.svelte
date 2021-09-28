@@ -19,13 +19,9 @@
 {#if error !== null}
 	{error}
 {:else}
-	<div class="container">
-		<div class="row">
-			{#each adventures as adventure}
-				<div class="column one-half">
-					<AdventureCard {adventure} />
-				</div>
-			{/each}
-		</div>
+	<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+		{#each adventures as adventure}
+			<AdventureCard {adventure} />
+		{/each}
 	</div>
 {/if}
