@@ -30,6 +30,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@themesberg/flowbite": "^1.0.3",
 		"lightgallery": "^2.2.1"
 	},
 	"lint-staged": {

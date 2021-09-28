@@ -20,26 +20,21 @@
 
 {#if error !== null}
 	{error}
+{:else if adventure === null}
+	<p>Loading...</p>
 {:else}
-	<div class="container">
-		<h1>Our Little Adventures</h1>
-		{#if adventure === null}
-			<p>Loading...</p>
-		{:else}
-			<h2>{adventure.title}</h2>
-			{#if adventure.pictures.length > 0}
-				<Slider pictures={adventure.pictures} />
-			{/if}
-			<p>
-				<b>Date</b> : {adventure.date} <br />
-				<b>Cotation</b> : {adventure.cotation} <br />
-				<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
-				<b>Description</b> : {adventure.description} <br />
-				<b>Topo</b> : {#each adventure.topo as topo}
-					<TopoLink {topo} />
-					<br />
-				{/each}
-			</p>
-		{/if}
-	</div>
+	<h2>{adventure.title}</h2>
+	{#if adventure.pictures.length > 0}
+		<Slider pictures={adventure.pictures} />
+	{/if}
+	<p>
+		<b>Date</b> : {adventure.date} <br />
+		<b>Cotation</b> : {adventure.cotation} <br />
+		<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
+		<b>Description</b> : {adventure.description} <br />
+		<b>Topo</b> : {#each adventure.topo as topo}
+			<TopoLink {topo} />
+			<br />
+		{/each}
+	</p>
 {/if}
