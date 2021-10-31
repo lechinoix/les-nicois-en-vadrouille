@@ -11,7 +11,9 @@
 
 <main>
 	<Header />
-	<slot />
+	<div class="pt-20">
+		<slot />
+	</div>
 </main>
 
 <footer />
