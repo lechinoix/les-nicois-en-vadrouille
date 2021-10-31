@@ -23,11 +23,8 @@
 {:else if adventure === null}
 	<p>Loading...</p>
 {:else}
-	<h2>{adventure.title}</h2>
-	{#if adventure.pictures.length > 0}
-		<Slider pictures={adventure.pictures} />
-	{/if}
-	<p>
+	<h2 class="text-4xl">{adventure.title}</h2>
+	<p class="mt-5">
 		<b>Date</b> : {adventure.date} <br />
 		<b>Cotation</b> : {adventure.cotation} <br />
 		<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />
@@ -36,5 +33,10 @@
 			<TopoLink {topo} />
 			<br />
 		{/each}
+		{#if adventure.pictures.length > 0}
+			<div class="mt-5">
+				<Slider pictures={adventure.pictures} />
+			</div>
+		{/if}
 	</p>
 {/if}

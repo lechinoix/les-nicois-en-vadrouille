@@ -10,10 +10,8 @@
 </script>
 
 <main>
-	<div class="container mx-auto px-4">
-		<Header />
-		<slot />
-	</div>
+	<Header />
+	<slot />
 </main>
 
 <footer />

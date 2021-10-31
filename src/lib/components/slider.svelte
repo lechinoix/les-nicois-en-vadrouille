@@ -23,7 +23,7 @@
 	});
 </script>
 
-<div id={galleryName}>
+<div id={galleryName} class="cursor-pointer">
 	{#each pictures as picture}
 		<a
 			data-lg-size={`${picture.width}-${picture.height}`}
@@ -32,7 +32,7 @@
 			<img
 				alt={picture.alternativeText}
 				src={formatAssetUrl(picture.formats.small.url)}
-				class="image__inpage"
+				class="max-w-xl"
 			/>
 		</a>
 	{/each}
@@ -42,8 +42,4 @@
 	@import 'lightgallery/css/lightgallery.css';
 	@import 'lightgallery/css/lg-zoom.css';
 	@import 'lightgallery/css/lg-thumbnail.css';
-
-	.image__inpage {
-		max-width: 400px;
-	}
 </style>

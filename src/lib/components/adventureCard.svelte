@@ -1,21 +1,29 @@
 <script lang="ts">
 	import type { Adventure } from '$lib/types';
-	import TopoLink from './topoLink.svelte';
+	import { Sports } from '$lib/constants';
+	import PictoSport from './pictoSport/index.svelte';
 
 	export let adventure: Adventure;
 </script>
 
-<a
-	href={`/adventures/${adventure.id}`}
-	class="flex flex-col md:flex-row md:max-w-xl rounded-lg bg-white hover:bg-gray-100 border shadow-md items-start"
->
-	<div class="p-4 flex flex-col justify-between leading-normal">
-		<h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">
-			{adventure.title}
-		</h5>
-		<p class="font-normal text-gray-700 mb-3">{adventure.short_description}</p>
-		{#if adventure.topo.length > 0}
-			<TopoLink topo={adventure.topo[0]} />
-		{/if}
+<div>
+	<a href={`/adventures/${adventure.id}`} class="relative w-screen h-96 flex bg-gray-400">
+		<div class="absolute w-full h-full flex justify-center">
+			<strong class="block text-white font-bold text-5xl mr-2 mb-2 self-center">
+				{adventure.title}
+			</strong>
+		</div>
+		<img
+			class="w-screen max-w-full object-cover"
+			src={adventure.pictures[0].url}
+			alt={adventure.pictures[0].alternativeText}
+		/>
+	</a>
+	<div class="flex p-5">
+		<p>
+			{adventure.description}
+		</p>
+		<!-- <PictoSport sport={adventure.sports[0].slug} /> -->
+		<PictoSport sport={Sports.ALPINISM} />
 	</div>
-</a>
+</div>

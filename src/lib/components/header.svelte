@@ -3,7 +3,7 @@
 	import LinkButton from './ui/linkButton.svelte';
 </script>
 
-<nav class="bg-white border-gray-200 my-5">
+<nav class="bg-white border-gray-200 border-b my-5 pb-3">
 	<div class="container mx-auto flex flex-wrap justify-between">
 		<a href={ROUTES.HOME} class="flex mb-3">
 			<span class="self-center text-2xl font-semibold whitespace-nowrap">

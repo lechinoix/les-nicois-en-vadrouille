@@ -1,4 +1,4 @@
-import { AdventureStatus, CardinalPoints, TopoSource } from '$lib/constants';
+import { AdventureStatus, CardinalPoints, TopoSource, Sports } from '$lib/constants';
 
 /**
  * Can be made globally available by placing this
@@ -96,6 +96,7 @@ export type Place = {
 export type Sport = {
 	id: number;
 	name: string;
+	slug: Sports;
 	created_at: string;
 	updated_at: string;
 };

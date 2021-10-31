@@ -20,3 +20,13 @@ export enum TopoSource {
 	C2C = 'C2C',
 	Skitour = 'Skitour'
 }
+
+export enum Sports {
+	SKI_ALPIN = 'SKI_ALPIN',
+	SKI_DE_RANDO = 'SKI_DE_RANDO',
+	ESCALADE_COUENNE = 'ESCALADE_COUENNE',
+	ESCALADE_GRANDE_VOIE = 'ESCALADE_GRANDE_VOIE',
+	SPELEO = 'SPELEO',
+	HIKING = 'HIKING',
+	ALPINISM = 'ALPINISM'
+}
