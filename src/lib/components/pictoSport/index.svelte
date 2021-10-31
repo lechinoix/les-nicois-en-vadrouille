@@ -21,6 +21,6 @@
 	let picto = sportToPicto[sport];
 </script>
 
-<div>
+<div class="w-16 h-16 rounded-full border border-black p-4 flex justify-center">
 	<svelte:component this={picto} />
 </div>
