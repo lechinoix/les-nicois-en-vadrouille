@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Slider from '$lib/components/slider.svelte';
 	import TopoLink from '$lib/components/topoLink.svelte';
+	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
 	import { getAdventureById } from '$lib/services/adventureService';
@@ -23,7 +24,7 @@
 {:else if adventure === null}
 	<p>Loading...</p>
 {:else}
-	<h2 class="text-4xl">{adventure.title}</h2>
+	<AdventureCard {adventure} />
 	<p class="mt-5">
 		<b>Date</b> : {adventure.date} <br />
 		<b>Cotation</b> : {adventure.cotation} <br />
