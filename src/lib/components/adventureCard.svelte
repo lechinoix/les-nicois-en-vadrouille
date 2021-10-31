@@ -27,8 +27,6 @@
 				</div>
 			</div>
 		{/if}
-		<p class="pt-7">
-			{adventure.description}
-		</p>
+		<slot />
 	</div>
 </div>

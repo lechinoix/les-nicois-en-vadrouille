@@ -25,7 +25,7 @@
 	<p>Loading...</p>
 {:else}
 	<AdventureCard {adventure} />
-	<p class="mt-5">
+	<p class="mt-5 container mx-auto">
 		<b>Date</b> : {adventure.date} <br />
 		<b>Cotation</b> : {adventure.cotation} <br />
 		<b>Sports</b> : {adventure.sports.reduce((acc, el) => `${acc} ${el.name}`, '')} <br />

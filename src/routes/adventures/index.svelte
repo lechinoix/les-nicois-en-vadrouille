@@ -20,6 +20,10 @@
 	{error}
 {:else}
 	{#each adventures as adventure}
-		<AdventureCard {adventure} />
+		<AdventureCard {adventure}>
+			<p class="pt-7">
+				{adventure.description}
+			</p>
+		</AdventureCard>
 	{/each}
 {/if}
