@@ -2,6 +2,7 @@
 	import { onMount } from 'svelte';
 	import { getAdventuresDone } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
+	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 
 	let adventures: Adventure[] = [];
@@ -22,7 +23,7 @@
 	{#each adventures as adventure}
 		<AdventureCard {adventure}>
 			<p class="pt-7">
-				{adventure.description}
+				{adventure.short_description || truncateText(adventure.description)}
 			</p>
 		</AdventureCard>
 	{/each}
