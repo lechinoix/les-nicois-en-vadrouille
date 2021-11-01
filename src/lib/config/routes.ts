@@ -1,5 +1,5 @@
 export const ROUTES = {
-	HOME: '/adventures',
+	HOME: '/',
 	ADVENTURES: {
 		TODO: '/adventures/todo',
 		PLANNED: '/adventures/planned',
