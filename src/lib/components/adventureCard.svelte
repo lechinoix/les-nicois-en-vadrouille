@@ -5,6 +5,8 @@
 	import Picto from './picto/index.svelte';
 
 	export let adventure: Adventure;
+
+	let iconFillColor = 'rgba(75, 85, 99)';
 </script>
 
 <div>
@@ -31,12 +33,12 @@
 		<div class="flex justify-center pt-7">
 			{#if adventure.date}
 				<Picto label={adventure.date}>
-					<Calendar />
+					<Calendar fill={iconFillColor} />
 				</Picto>
 			{/if}
 			{#if adventure.sports && adventure.sports.length > 0}
 				<Picto label={adventure.sports[0].name}>
-					<PictoSport sport={adventure.sports[0].slug} />
+					<PictoSport sport={adventure.sports[0].slug} fill={iconFillColor} />
 				</Picto>
 			{/if}
 		</div>

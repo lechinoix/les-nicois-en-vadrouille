@@ -18,8 +18,9 @@
 	};
 
 	export let sport;
+	export let fill;
 
 	let picto = sportToPicto[sport];
 </script>
 
-<svelte:component this={picto} />
+<svelte:component this={picto} {fill} />

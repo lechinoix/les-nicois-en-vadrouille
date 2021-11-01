@@ -1,4 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 24" style="fill: rgb(5, 40, 51);"
+<script lang="ts">
+	export let fill = 'gray';
+</script>
+
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 21 24" style={`fill: ${fill};`}
 	><path
 		d="M9.22704 2.82872C9.85074 2.56142 10.1626 1.80407 9.89529 1.18037C9.62799 0.556672 8.87064 0.244822 8.24694 0.512122C7.62324 0.779422 7.31139 1.53677 7.57869 2.16047C7.84599 2.78417 8.60334 3.09602 9.22704 2.82872Z"
 	/><path
