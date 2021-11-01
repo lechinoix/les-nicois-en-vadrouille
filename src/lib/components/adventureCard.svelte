@@ -3,6 +3,7 @@
 	import PictoSport from './picto/pictoSport.svelte';
 	import Calendar from './icons/calendar.svelte';
 	import Picto from './picto/index.svelte';
+	import StrongArm from './icons/strongArm.svelte';
 
 	export let adventure: Adventure;
 
@@ -39,6 +40,11 @@
 			{#if adventure.sports && adventure.sports.length > 0}
 				<Picto label={adventure.sports[0].name}>
 					<PictoSport sport={adventure.sports[0].slug} fill={iconFillColor} />
+				</Picto>
+			{/if}
+			{#if adventure.cotation}
+				<Picto label={adventure.cotation}>
+					<StrongArm fill={iconFillColor} />
 				</Picto>
 			{/if}
 		</div>
