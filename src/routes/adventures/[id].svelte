@@ -29,10 +29,13 @@
 		{adventure.description}
 		<br />
 		<br />
-		<b>Topo</b> : {#each adventure.topo as topo}
-			<TopoLink {topo} />
-			<br />
-		{/each}
+		{#if adventure.topo && adventure.topo.length > 0}
+			<b>Topo</b> :
+			{#each adventure.topo as topo}
+				<TopoLink {topo} />
+				<br />
+			{/each}
+		{/if}
 		{#if adventure.pictures.length > 0}
 			<div class="mt-5">
 				<Slider pictures={adventure.pictures} />
