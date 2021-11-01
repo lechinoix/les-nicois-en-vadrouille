@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { formatAssetUrl } from '$lib/services/adventureService';
+
 	import type { Adventure } from '$lib/types';
 	import PictoSport from './picto/pictoSport.svelte';
 	import Calendar from './icons/calendar.svelte';
@@ -24,11 +26,13 @@
 				{adventure.title}
 			</strong>
 		</div>
-		<img
-			class="w-screen max-w-full object-cover"
-			src={adventure.pictures[0].url}
-			alt={adventure.pictures[0].alternativeText}
-		/>
+		{#if adventure.pictures && adventure.pictures.length > 0}
+			<img
+				class="w-screen max-w-full object-cover"
+				src={adventure.pictures[0].formats.large.url}
+				alt={adventure.pictures[0].alternativeText}
+			/>
+		{/if}
 	</a>
 	<div class="flex flex-col justify-center px-5 pb-7">
 		<div class="flex justify-center pt-7">
