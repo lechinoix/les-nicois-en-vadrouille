@@ -23,7 +23,7 @@
 	});
 </script>
 
-<div id={galleryName} class="cursor-pointer">
+<div id={galleryName} class="cursor-pointer grid-cols-4 grid gap-2">
 	{#each pictures as picture}
 		<a
 			data-lg-size={`${picture.width}-${picture.height}`}
@@ -32,7 +32,7 @@
 			<img
 				alt={picture.alternativeText}
 				src={formatAssetUrl(picture.formats.small.url)}
-				class="max-w-xl"
+				class="w-full h-full object-contain"
 			/>
 		</a>
 	{/each}
