@@ -16,7 +16,7 @@
 			<strong
 				class="
 				block text-white font-bold text-5xl
-				py-3 self-center
+				py-3 px-2 self-center
 				bg-gray-900 bg-opacity-10 bg-clip-border
 				border-t-2 border-b-2 border-white
 			"
