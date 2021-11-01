@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { Adventure } from '$lib/types';
-	import PictoSport from './pictoSport/index.svelte';
+	import PictoSport from './picto/pictoSport.svelte';
+	import Calendar from './icons/calendar.svelte';
+	import Picto from './picto/index.svelte';
 
 	export let adventure: Adventure;
 </script>
@@ -25,15 +27,19 @@
 			alt={adventure.pictures[0].alternativeText}
 		/>
 	</a>
-	<div class="flex flex-col justify-center px-5	pb-7">
-		{#if adventure.sports.length > 0}
-			<div class="flex justify-center pt-7">
-				<div class="flex flex-col items-center">
+	<div class="flex flex-col justify-center px-5 pb-7">
+		<div class="flex justify-center pt-7">
+			{#if adventure.date}
+				<Picto label={adventure.date}>
+					<Calendar />
+				</Picto>
+			{/if}
+			{#if adventure.sports && adventure.sports.length > 0}
+				<Picto label={adventure.sports[0].name}>
 					<PictoSport sport={adventure.sports[0].slug} />
-					<p class="pt-2 text-sm">{adventure.sports[0].name}</p>
-				</div>
-			</div>
-		{/if}
+				</Picto>
+			{/if}
+		</div>
 		<slot />
 	</div>
 </div>

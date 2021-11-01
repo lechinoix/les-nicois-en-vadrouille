@@ -1,10 +1,11 @@
 <script lang="ts">
+	import Picto from './index.svelte';
 	import { Sports } from '$lib/constants';
-	import HikingIcon from './icons/hiking.svelte';
-	import MountaineeringIcon from './icons/mountaineering.svelte';
-	import ResortSkiingIcon from './icons/resortSkiing.svelte';
-	import RockClimbingIcon from './icons/rockClimbing.svelte';
-	import SkiTouringIcon from './icons/skiTouring.svelte';
+	import HikingIcon from '../icons/sport/hiking.svelte';
+	import MountaineeringIcon from '../icons/sport/mountaineering.svelte';
+	import ResortSkiingIcon from '../icons/sport/resortSkiing.svelte';
+	import RockClimbingIcon from '../icons/sport/rockClimbing.svelte';
+	import SkiTouringIcon from '../icons/sport/skiTouring.svelte';
 
 	const sportToPicto = {
 		[Sports.HIKING]: HikingIcon,
@@ -21,6 +22,4 @@
 	let picto = sportToPicto[sport];
 </script>
 
-<div class="w-16 h-16 rounded-full border border-black p-4 flex justify-center">
-	<svelte:component this={picto} />
-</div>
+<svelte:component this={picto} />
