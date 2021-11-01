@@ -8,7 +8,14 @@
 <div>
 	<a href={`/adventures/${adventure.id}`} class="relative w-screen h-96 flex bg-gray-400">
 		<div class="absolute w-full h-full flex justify-center">
-			<strong class="block text-white font-bold text-5xl mr-2 mb-2 self-center">
+			<strong
+				class="
+				block text-white font-bold text-5xl
+				py-3 self-center
+				bg-gray-900 bg-opacity-10 bg-clip-border
+				border-t-2 border-b-2 border-white
+			"
+			>
 				{adventure.title}
 			</strong>
 		</div>
