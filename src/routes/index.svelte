@@ -5,6 +5,7 @@
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import Loader from '$lib/components/loader.svelte';
+	import Description from '$lib/components/description.svelte';
 
 	let adventures: Adventure[] = [];
 	let error = null;
@@ -25,9 +26,9 @@
 {:else}
 	{#each adventures as adventure}
 		<AdventureCard {adventure}>
-			<p class="pt-7">
+			<Description className="pt-7">
 				{adventure.short_description || truncateText(adventure.description)}
-			</p>
+			</Description>
 		</AdventureCard>
 	{/each}
 {/if}

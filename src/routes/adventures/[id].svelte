@@ -7,6 +7,8 @@
 	import { getAdventureById } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 	import Loader from '$lib/components/loader.svelte';
+	import Description from '$lib/components/description.svelte';
+	import Container from '$lib/components/Container.svelte';
 
 	let adventure: Adventure = null;
 	let error = null;
@@ -26,8 +28,8 @@
 	<Loader />
 {:else}
 	<AdventureCard {adventure} />
-	<p class="my-5 container mx-auto">
-		{adventure.description}
+	<Container>
+		<Description>{adventure.description}</Description>
 		<br />
 		<br />
 		{#if adventure.topo && adventure.topo.length > 0}
@@ -42,5 +44,5 @@
 				<Slider pictures={adventure.pictures} />
 			</div>
 		{/if}
-	</p>
+	</Container>
 {/if}
