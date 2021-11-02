@@ -6,6 +6,7 @@
 	import { page } from '$app/stores';
 	import { getAdventureById } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
+	import Loader from '$lib/components/loader.svelte';
 
 	let adventure: Adventure = null;
 	let error = null;
@@ -22,7 +23,7 @@
 {#if error !== null}
 	{error}
 {:else if adventure === null}
-	<p>Loading...</p>
+	<Loader />
 {:else}
 	<AdventureCard {adventure} />
 	<p class="my-5 container mx-auto">

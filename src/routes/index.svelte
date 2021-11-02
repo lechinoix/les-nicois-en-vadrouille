@@ -4,6 +4,7 @@
 	import type { Adventure } from '$lib/types';
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
+	import Loader from '$lib/components/loader.svelte';
 
 	let adventures: Adventure[] = [];
 	let error = null;
@@ -19,6 +20,8 @@
 
 {#if error !== null}
 	{error}
+{:else if adventures.length === 0}
+	<Loader />
 {:else}
 	{#each adventures as adventure}
 		<AdventureCard {adventure}>
