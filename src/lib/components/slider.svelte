@@ -23,9 +23,10 @@
 	});
 </script>
 
-<div id={galleryName} class="cursor-pointer grid-cols-4 grid gap-2">
+<div id={galleryName} class="cursor-pointer w-full h-40 p-1 overflow-x-scroll overflow-y-hidden">
 	{#each pictures as picture}
 		<a
+			class="inline-block mr-2 h-full"
 			data-lg-size={`${picture.width}-${picture.height}`}
 			data-src={formatAssetUrl(picture.formats.large.url)}
 		>
