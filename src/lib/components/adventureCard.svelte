@@ -43,7 +43,7 @@
 		{/if}
 	</a>
 	<Container>
-		<div class="flex flex-col justify-center px-5 pb-7">
+		<div class="flex flex-col justify-center pb-7">
 			<div class="flex justify-center pt-7">
 				{#if adventure.date}
 					<Picto label={adventure.date}>
