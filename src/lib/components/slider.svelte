@@ -28,7 +28,7 @@
 		<a
 			class="inline-block mr-2 h-full"
 			data-lg-size={`${picture.width}-${picture.height}`}
-			data-src={formatAssetUrl(picture.formats.large.url)}
+			data-src={formatAssetUrl(picture.url)}
 		>
 			<img
 				alt={picture.alternativeText}

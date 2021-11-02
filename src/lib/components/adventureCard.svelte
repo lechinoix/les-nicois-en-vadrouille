@@ -9,6 +9,13 @@
 
 	export let adventure: Adventure;
 
+	const getCoverUrlFromAdventure = (adventure: Adventure) => {
+		if (adventure.pictures.length === 0) return null;
+		const firstPicture = adventure.pictures[0];
+		console.log(firstPicture);
+		return firstPicture.formats.xlarge ? firstPicture.formats.xlarge.url : firstPicture.url;
+	};
+
 	let iconFillColor = 'rgba(75, 85, 99)';
 </script>
 
@@ -29,7 +36,7 @@
 		{#if adventure.pictures && adventure.pictures.length > 0}
 			<img
 				class="w-screen max-w-full object-cover"
-				src={adventure.pictures[0].formats.large.url}
+				src={getCoverUrlFromAdventure(adventure)}
 				alt={adventure.pictures[0].alternativeText}
 			/>
 		{/if}
