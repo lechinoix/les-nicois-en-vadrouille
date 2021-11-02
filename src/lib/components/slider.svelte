@@ -23,7 +23,10 @@
 	});
 </script>
 
-<div id={galleryName} class="cursor-pointer w-full h-40 p-1 overflow-x-scroll overflow-y-hidden">
+<div
+	id={galleryName}
+	class="cursor-pointer w-full h-40 overflow-x-scroll overflow-y-hidden whitespace-nowrap"
+>
 	{#each pictures as picture}
 		<a
 			class="inline-block mr-2 h-full"
