@@ -46,6 +46,7 @@ export type Picture = {
 	height: number;
 	formats: {
 		thumbnail: PictureFormat;
+		xlarge?: PictureFormat;
 		large: PictureFormat;
 		medium: PictureFormat;
 		small: PictureFormat;
