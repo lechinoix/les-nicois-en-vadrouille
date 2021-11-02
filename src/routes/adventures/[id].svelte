@@ -1,4 +1,5 @@
 <script lang="ts">
+	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
 	import TopoLink from '$lib/components/topoLink.svelte';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
@@ -8,7 +9,7 @@
 	import type { Adventure } from '$lib/types';
 	import Loader from '$lib/components/loader.svelte';
 	import Description from '$lib/components/description.svelte';
-	import Container from '$lib/components/Container.svelte';
+	import Container from '$lib/components/container.svelte';
 
 	let adventure: Adventure = null;
 	let error = null;
@@ -29,7 +30,7 @@
 {:else}
 	<AdventureCard {adventure} />
 	<Container>
-		<Description>{adventure.description}</Description>
+		<Description>{@html marked(adventure.description)}</Description>
 		<br />
 		<br />
 		{#if adventure.topo && adventure.topo.length > 0}
