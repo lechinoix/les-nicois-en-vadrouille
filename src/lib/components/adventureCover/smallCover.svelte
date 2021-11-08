@@ -5,7 +5,7 @@
 	export let adventure: Adventure;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
-		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
+		picture.formats.medium ? picture.formats.medium.url : picture.url;
 </script>
 
 <CoverContainer
