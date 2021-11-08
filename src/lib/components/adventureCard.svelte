@@ -6,7 +6,7 @@
 	import Calendar from './icons/calendar.svelte';
 	import Picto from './picto/index.svelte';
 	import StrongArm from './icons/strongArm.svelte';
-	import Container from '$lib/components/Container.svelte';
+	import Container from '$lib/components/container.svelte';
 
 	export let adventure: Adventure;
 
