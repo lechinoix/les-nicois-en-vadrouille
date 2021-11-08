@@ -2,26 +2,36 @@ import config from '$lib/config';
 import { AdventureStatus } from '$lib/constants';
 import type { Adventure } from '$lib/types';
 
-export const getAdventuresDone = async (): Promise<Adventure[]> => {
-	const res = await fetch(
-		`${config.BASE_API_URL}/adventures?status=${AdventureStatus.DONE}&_sort=date:DESC`
-	);
+const fetchAdventures = async (searchParams: URLSearchParams) => {
+	const res = await fetch(`${config.BASE_API_URL}/adventures?${searchParams.toString()}`);
 	const adventures = await res.json();
 	return adventures;
+};
+
+export const getAdventuresDone = async (): Promise<Adventure[]> => {
+	const searchParams = new URLSearchParams({
+		status: AdventureStatus.DONE,
+		_sort: 'date:DESC'
+	});
+
+	return await fetchAdventures(searchParams);
 };
 
 export const getAdventuresPlanned = async (): Promise<Adventure[]> => {
-	const res = await fetch(
-		`${config.BASE_API_URL}/adventures?status=${AdventureStatus.PLANNED}&_sort=date:DESC`
-	);
-	const adventures = await res.json();
-	return adventures;
+	const searchParams = new URLSearchParams({
+		status: AdventureStatus.PLANNED,
+		_sort: 'date:DESC'
+	});
+
+	return await fetchAdventures(searchParams);
 };
 
 export const getAdventuresTodo = async (): Promise<Adventure[]> => {
-	const res = await fetch(`${config.BASE_API_URL}/adventures?status=${AdventureStatus.TODO}`);
-	const adventures = await res.json();
-	return adventures;
+	const searchParams = new URLSearchParams({
+		status: AdventureStatus.TODO
+	});
+
+	return await fetchAdventures(searchParams);
 };
 
 export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
@@ -36,7 +46,7 @@ export const getAdventuresBySportSlug = async (sportSlug: string): Promise<Adven
 
 	if (sports.length === 0) throw new Error('Unkown sport');
 
-	return sports[0].adventures;
+	return sports[0].adventures.filter((adventure) => adventure.status === AdventureStatus.DONE);
 };
 
 export const formatAssetUrl = (assetUrl: string): string =>
