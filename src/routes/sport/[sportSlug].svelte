@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { page } from '$app/stores';
-	import { getAdventuresBySportSlug } from '$lib/services/adventureService';
+	import { getAdventuresBySportSlug } from '$lib/services/sportService';
 	import type { Adventure } from '$lib/types';
 	import Loader from '$lib/components/loader.svelte';
 	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
