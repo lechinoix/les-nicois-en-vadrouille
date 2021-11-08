@@ -26,12 +26,22 @@
 {:else}
 	<div class="flex justify-center">
 		<div
-			class="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 grid-flow-row gap-5 justify-self-auto"
+			class="
+				inline-grid
+				xl:grid-cols-3 md:grid-cols-2 grid-cols-1
+				grid-flow-row gap-5 justify-self-auto
+				m-5"
 		>
 			{#each adventures as adventure}
-				<div class="relative md:w-96 h-52 w-full overflow-hidden mx-3 my-4 bg-gray-300">
+				<a
+					href={`/adventures/${adventure.id}`}
+					class="
+						block relative md:w-96 w-full h-52
+						overflow-hidden bg-gray-300
+					"
+				>
 					<SmallCover {adventure} />
-				</div>
+				</a>
 			{/each}
 		</div>
 	</div>
