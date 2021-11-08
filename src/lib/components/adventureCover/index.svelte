@@ -15,18 +15,13 @@
 	};
 
 	export let adventure: Adventure;
-
-	const chooseFormatUrlFromPicture = (picture: Picture) =>
-		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
+	export let renderTitle: (title: string) => string;
+	export let renderImage: (picture: Picture, coverStyle: string) => string;
 
 	const getCoverPictureFromAdventure = (adventure: Adventure) => {
 		if (adventure?.cover_picture?.picture) return adventure.cover_picture.picture;
 		if (adventure.pictures.length === 0) return adventure.pictures[0];
 		return null;
-	};
-
-	const getCoverUrlFromAdventure = (adventure: Adventure) => {
-		return chooseFormatUrlFromPicture(getCoverPictureFromAdventure(adventure));
 	};
 
 	const getCoverPositionStyle = (adventure: Adventure) => {
@@ -35,22 +30,7 @@
 	};
 </script>
 
-<div class="absolute w-full h-full flex justify-center">
-	<strong
-		class="
-    block text-white font-bold text-5xl text-center
-    py-3 px-2 self-center
-    bg-gray-900 bg-opacity-10 bg-clip-border
-    border-t-2 border-b-2 border-white
-  "
-	>
-		{adventure.title}
-	</strong>
-</div>
+{@html renderTitle(adventure.title)}
 {#if !!getCoverPictureFromAdventure(adventure)}
-	<img
-		class={`w-screen max-w-full object-cover ${getCoverPositionStyle(adventure)}`}
-		src={getCoverUrlFromAdventure(adventure)}
-		alt={getCoverPictureFromAdventure(adventure).alternativeText}
-	/>
+	{@html renderImage(getCoverPictureFromAdventure(adventure), getCoverPositionStyle(adventure))}
 {/if}

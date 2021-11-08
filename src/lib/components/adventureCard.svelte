@@ -2,7 +2,7 @@
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 
-	import AdventureCover from './adventureCover.svelte';
+	import AdventureCover from './adventureCover/largeCover.svelte';
 	import PictoSport from './picto/pictoSport.svelte';
 	import Calendar from './icons/calendar.svelte';
 	import Picto from './picto/index.svelte';
