@@ -20,7 +20,7 @@
 
 	const getCoverPictureFromAdventure = (adventure: Adventure) => {
 		if (adventure?.cover_picture?.picture) return adventure.cover_picture.picture;
-		if (adventure.pictures.length === 0) return adventure.pictures[0];
+		if (adventure.pictures.length !== 0) return adventure.pictures[0];
 		return null;
 	};
 
