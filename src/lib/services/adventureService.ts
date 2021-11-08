@@ -30,5 +30,14 @@ export const getAdventureById = async (adventureId: string): Promise<Adventure> 
 	return adventures;
 };
 
+export const getAdventuresBySportSlug = async (sportSlug: string): Promise<Adventure[]> => {
+	const res = await fetch(`${config.BASE_API_URL}/sports?slug=${sportSlug}`);
+	const sports = await res.json();
+
+	if (sports.length === 0) throw new Error('Unkown sport');
+
+	return sports[0].adventures;
+};
+
 export const formatAssetUrl = (assetUrl: string): string =>
 	assetUrl.startsWith('/') ? `${config.BASE_API_URL}${assetUrl}` : assetUrl;
