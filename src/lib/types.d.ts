@@ -120,3 +120,8 @@ export type Period = {
 	created_at: string;
 	updated_at: string;
 };
+
+export type Link = {
+	url: string;
+	label: string;
+};

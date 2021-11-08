@@ -12,7 +12,6 @@
 	onMount(async () => {
 		try {
 			adventures = await getAdventuresBySportSlug($page.params.sportSlug);
-			console.log(adventures);
 		} catch (e) {
 			error = e;
 		}

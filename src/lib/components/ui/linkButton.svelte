@@ -1,9 +1,10 @@
 <script lang="ts">
-	export let url: string;
+	import type { Link } from '$lib/types';
+
 	export let color: string;
-	export let content: string;
+	export let link: Link;
 </script>
 
-<a href={url} class="bg-{color} px-5 py-2 text-white inline-block rounded" aria-current="page">
-	{content}
+<a href={link.url} class="bg-{color} px-5 py-2 text-white inline-block rounded" aria-current="page">
+	{link.label}
 </a>
