@@ -11,22 +11,23 @@
 <CoverContainer
 	{adventure}
 	renderTitle={(title) => `
-		<div class="absolute w-full h-full flex justify-center">
-			<strong
-				class="
-				block text-white font-bold text-5xl text-center
-				py-3 px-2 self-center
-				bg-gray-900 bg-opacity-10 bg-clip-border
-				border-t-2 border-b-2 border-white
-			"
-			>
+		<div
+      class="
+        absolute w-full h-full
+        opacity-0 hover:opacity-100
+        flex justify-center
+        bg-gray-900 bg-opacity-10
+        px-5
+      "
+    >
+			<strong class="block text-white font-bold text-2xl text-center self-center">
 				${title}
 			</strong>
 		</div>
 	`}
 	renderImage={(picture, coverStyle) => `
 		<img
-			class="w-screen max-w-full object-cover ${coverStyle}"
+			class="object-cover ${coverStyle} min-h-full"
 			src="${chooseFormatUrlFromPicture(picture)}"
 			alt="${picture.alternativeText}"
 		/>

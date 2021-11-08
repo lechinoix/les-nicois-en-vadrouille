@@ -24,7 +24,15 @@
 {:else if adventures === null}
 	<Loader />
 {:else}
-	{#each adventures as adventure}
-		<SmallCover {adventure} />
-	{/each}
+	<div class="flex justify-center">
+		<div
+			class="inline-grid xl:grid-cols-3 md:grid-cols-2 grid-cols-1 grid-flow-row gap-5 justify-self-auto"
+		>
+			{#each adventures as adventure}
+				<div class="relative md:w-96 h-52 w-full overflow-hidden mx-3 my-4 bg-gray-300">
+					<SmallCover {adventure} />
+				</div>
+			{/each}
+		</div>
+	</div>
 {/if}

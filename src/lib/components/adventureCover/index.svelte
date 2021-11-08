@@ -2,9 +2,11 @@
 	import type { Adventure, Picture } from '$lib/types';
 	import { PicturePosition } from '$lib/constants';
 
+	const DEFAULT_POSITION = 'object-center';
+
 	const postitionToStyle = {
+		[PicturePosition.CENTER]: DEFAULT_POSITION,
 		[PicturePosition.BOTTOM]: 'object-bottom',
-		[PicturePosition.CENTER]: 'object-center',
 		[PicturePosition.LEFT]: 'object-left',
 		[PicturePosition.BOTTOM_LEFT]: 'object-left-bottom',
 		[PicturePosition.TOP_LEFT]: 'object-left-top',
@@ -25,7 +27,7 @@
 	};
 
 	const getCoverPositionStyle = (adventure: Adventure) => {
-		if (!adventure?.cover_picture?.position) return '';
+		if (!adventure?.cover_picture?.position) return DEFAULT_POSITION;
 		return postitionToStyle[adventure.cover_picture.position];
 	};
 </script>
