@@ -30,3 +30,15 @@ export enum Sports {
 	HIKING = 'HIKING',
 	ALPINISM = 'ALPINISM'
 }
+
+export enum PicturePosition {
+	CENTER = 'CENTER',
+	TOP = 'TOP',
+	RIGHT = 'RIGHT',
+	BOTTOM = 'BOTTOM',
+	LEFT = 'LEFT',
+	TOP_RIGHT = 'TOP_RIGHT',
+	TOP_LEFT = 'TOP_LEFT',
+	BOTTOM_LEFT = 'BOTTOM_LEFT',
+	BOTTOM_RIGHT = 'BOTTOM_RIGHT'
+}

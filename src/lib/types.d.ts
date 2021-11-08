@@ -1,4 +1,10 @@
-import { AdventureStatus, CardinalPoints, TopoSource, Sports } from '$lib/constants';
+import {
+	AdventureStatus,
+	CardinalPoints,
+	TopoSource,
+	PicturePosition,
+	Sports
+} from '$lib/constants';
 
 /**
  * Can be made globally available by placing this
@@ -12,6 +18,11 @@ export type Adventure = {
 	id: number;
 	title: string;
 	cotation: string;
+	cover_picture: {
+		id: number;
+		picture: Picture;
+		position: PicturePosition;
+	};
 	description: string;
 	status: AdventureStatus;
 	notation: number;
