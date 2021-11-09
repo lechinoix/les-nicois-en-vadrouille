@@ -42,3 +42,5 @@ export enum PicturePosition {
 	BOTTOM_LEFT = 'BOTTOM_LEFT',
 	BOTTOM_RIGHT = 'BOTTOM_RIGHT'
 }
+
+export const iconFillColor = 'rgba(75, 85, 99)';

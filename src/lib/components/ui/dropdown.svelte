@@ -47,14 +47,7 @@
 				tabindex="-1"
 			>
 				<div class="py-1" role="none">
-					{#each links as link}
-						<a
-							href={link.url}
-							class="text-gray-700 block px-4 py-2 text-sm"
-							role="menuitem"
-							tabindex="-1">{link.label}</a
-						>
-					{/each}
+					<slot />
 				</div>
 			</div>
 		{/if}

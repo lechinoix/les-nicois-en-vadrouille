@@ -2,15 +2,15 @@
 	import { onMount } from 'svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import { getAllSports } from '$lib/services/sportService';
-	import type { Link } from '$lib/types';
 	import Dropdown from './ui/dropdown.svelte';
+	import type { Sport } from '$lib/types';
+	import PictoSport from './picto/pictoSport.svelte';
+	import { iconFillColor } from '$lib/constants';
 
-	let sportLinks: Link[] = null;
+	let sports: Sport[] = null;
 
 	onMount(async () => {
-		const sports = await getAllSports();
-
-		sportLinks = sports.map((sport) => ({ url: `/sport/${sport.slug}`, label: sport.name }));
+		sports = await getAllSports();
 	});
 </script>
 
@@ -20,5 +20,17 @@
 	<a href={ROUTES.HOME} class="block">
 		<span class="text-2xl font-semibold whitespace-nowrap"> Our Little Adventures </span>
 	</a>
-	<Dropdown links={sportLinks} title="Sports" />
+	<Dropdown title="Sports">
+		{#each sports as sport}
+			<a
+				href={`/sport/${sport.slug}`}
+				class="text-gray-700 block px-4 py-2 text-sm"
+				role="menuitem"
+				tabindex="-1"
+			>
+				<PictoSport sport={sport.slug} fill={iconFillColor} />
+				<p>{sport.name}</p>
+			</a>
+		{/each}
+	</Dropdown>
 </nav>

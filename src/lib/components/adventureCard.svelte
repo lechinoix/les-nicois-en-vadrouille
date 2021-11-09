@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
+	import { iconFillColor } from '$lib/constants';
 
 	import AdventureCover from './adventureCover/largeCover.svelte';
 	import PictoSport from './picto/pictoSport.svelte';
@@ -10,8 +11,6 @@
 	import Container from '$lib/components/container.svelte';
 
 	export let adventure: Adventure;
-
-	let iconFillColor = 'rgba(75, 85, 99)';
 </script>
 
 <div>
