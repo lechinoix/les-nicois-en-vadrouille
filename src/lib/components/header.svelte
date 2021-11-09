@@ -21,16 +21,20 @@
 		<span class="text-2xl font-semibold whitespace-nowrap"> Our Little Adventures </span>
 	</a>
 	<Dropdown title="Sports">
-		{#each sports as sport}
-			<a
-				href={`/sport/${sport.slug}`}
-				class="text-gray-700 block px-4 py-2 text-sm"
-				role="menuitem"
-				tabindex="-1"
-			>
-				<PictoSport sport={sport.slug} fill={iconFillColor} />
-				<p>{sport.name}</p>
-			</a>
-		{/each}
+		{#if !!sports}
+			{#each sports as sport}
+				<a
+					href={`/sport/${sport.slug}`}
+					class="flex text-gray-700 block px-4 py-2 text-sm justify-start items-center"
+					role="menuitem"
+					tabindex="-1"
+				>
+					<div class="w-7 h-7 rounded-full border border-gray-300 p-1 flex justify-center mr-2">
+						<PictoSport sport={sport.slug} fill={iconFillColor} />
+					</div>
+					<p>{sport.name}</p>
+				</a>
+			{/each}
+		{/if}
 	</Dropdown>
 </nav>
