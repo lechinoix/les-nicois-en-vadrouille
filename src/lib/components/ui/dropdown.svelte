@@ -3,10 +3,17 @@
 
 	let isOpen = false;
 
-	const toggleIsOpen = () => {
-		isOpen = !isOpen;
+	const open = (event: any) => {
+		if (!isOpen) event.stopPropagation();
+		isOpen = true;
+	};
+
+	const close = () => {
+		isOpen = false;
 	};
 </script>
+
+<svelte:body on:click={close} />
 
 <div class="relative inline-block text-left">
 	<div>
@@ -15,7 +22,7 @@
 			class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
 			aria-expanded="true"
 			aria-haspopup="true"
-			on:click={toggleIsOpen}
+			on:click={open}
 		>
 			{title}
 			<svg
