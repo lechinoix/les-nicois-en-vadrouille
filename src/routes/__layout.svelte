@@ -11,7 +11,7 @@
 
 <main>
 	<Header />
-	<div class="pt-20">
+	<div class="pt-20 pb-14">
 		<slot />
 	</div>
 </main>
