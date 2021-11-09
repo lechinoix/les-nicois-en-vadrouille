@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { afterUpdate, onMount } from 'svelte';
+	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { getAdventuresBySportSlug } from '$lib/services/sportService';
 	import type { Adventure } from '$lib/types';
@@ -8,20 +8,17 @@
 
 	let adventures: Adventure[] = null;
 	let error = null;
-	let sportSlug;
 
-	$: sportSlug = $page.params.sportSlug;
-
-	const updateAdventures = async () => {
+	const updateAdventures = async (pageValue) => {
 		try {
-			adventures = await getAdventuresBySportSlug(sportSlug);
+			adventures = await getAdventuresBySportSlug(pageValue.params.sportSlug);
 		} catch (e) {
 			error = e;
 		}
 	};
 
-	afterUpdate(updateAdventures);
-	onMount(updateAdventures);
+	const unsubscribe = page.subscribe(updateAdventures);
+	onDestroy(unsubscribe);
 </script>
 
 {#if error !== null}
