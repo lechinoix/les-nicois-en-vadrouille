@@ -1,15 +1,13 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import { getAllSports } from '$lib/services/sportService';
-	import type { Sport } from '$lib/types';
 	import PictoSport from '../picto/pictoSport.svelte';
 	import { iconFillColor } from '$lib/constants';
 	import BurgerIcon from './burgerIcon.svelte';
 	import Loader from '../loader.svelte';
 
 	let isOpen = false;
-	let getSportsPromise: Promise<Sport[]>;
+	let getSportsPromise = getAllSports();
 
 	const openMenu = (event: any) => {
 		if (!isOpen) event.stopPropagation();
@@ -18,10 +16,6 @@
 	const closeMenu = () => {
 		isOpen = false;
 	};
-
-	onMount(() => {
-		getSportsPromise = getAllSports();
-	});
 </script>
 
 <svelte:body on:click={closeMenu} />

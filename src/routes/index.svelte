@@ -1,17 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { getLatestAdventures } from '$lib/services/adventureService';
-	import type { Adventure } from '$lib/types';
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import Loader from '$lib/components/loader.svelte';
 	import Description from '$lib/components/description.svelte';
 
-	let latestAdventuresPromise: Promise<Adventure[]>;
-
-	onMount(async () => {
-		latestAdventuresPromise = getLatestAdventures();
-	});
+	let latestAdventuresPromise = getLatestAdventures();
 </script>
 
 {#await latestAdventuresPromise}
