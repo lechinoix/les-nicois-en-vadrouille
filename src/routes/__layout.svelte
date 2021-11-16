@@ -20,4 +20,14 @@
 
 <style>
 	@import '@themesberg/flowbite/dist/flowbite.min.css';
+
+	@font-face {
+		font-family: 'abadi-extra-light';
+
+		src: url('/fonts/abadi-mt-std-extra-light.otf') format('otf');
+	}
+
+	:global(.font-title) {
+		font-family: 'abadi-extra-light' sans-serif;
+	}
 </style>
