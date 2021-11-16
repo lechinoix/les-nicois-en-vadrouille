@@ -17,6 +17,11 @@ export const getAdventuresDone = async (): Promise<Adventure[]> => {
 	return await fetchAdventures(searchParams);
 };
 
+export const getLatestAdventures = async (): Promise<Adventure[]> => {
+	const adventures = await getAdventuresDone();
+	return adventures.slice(0, 2);
+};
+
 export const getAdventuresPlanned = async (): Promise<Adventure[]> => {
 	const searchParams = new URLSearchParams({
 		status: AdventureStatus.PLANNED,

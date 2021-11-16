@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Adventure } from '$lib/types';
 	import { iconFillColor } from '$lib/constants';
 
