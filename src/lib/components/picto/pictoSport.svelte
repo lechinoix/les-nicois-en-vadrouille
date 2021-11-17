@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Picto from './index.svelte';
 	import { Sports } from '$lib/constants';
 	import HikingIcon from '../icons/sport/hiking.svelte';
 	import MountaineeringIcon from '../icons/sport/mountaineering.svelte';

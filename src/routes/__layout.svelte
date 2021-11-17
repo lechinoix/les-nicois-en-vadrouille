@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/header.svelte';
+	import Header from '$lib/components/newHeader/index.svelte';
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 
@@ -11,7 +11,7 @@
 
 <main>
 	<Header />
-	<div class="pt-20 pb-14">
+	<div class="pb-14">
 		<slot />
 	</div>
 </main>

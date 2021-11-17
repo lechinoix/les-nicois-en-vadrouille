@@ -3,6 +3,7 @@
 	import Loader from '$lib/components/loader.svelte';
 	import HomeCover from '$lib/components/adventureCover/homeCover.svelte';
 	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
+	import { ROUTES } from '$lib/config/routes';
 
 	const COVER_ADVENTURE_ID = '17';
 
@@ -46,6 +47,7 @@
 					</div>
 				{/each}
 			</div>
+			<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
 		{:catch error}
 			{error}
 		{/await}
