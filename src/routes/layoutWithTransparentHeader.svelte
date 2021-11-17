@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Header from '$lib/components/header/transparentHeader.svelte';
+	import Header from '$lib/components/newHeader/index.svelte';
 	import { browser } from '$app/env';
 	import { onMount } from 'svelte';
 

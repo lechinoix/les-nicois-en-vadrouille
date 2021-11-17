@@ -17,7 +17,7 @@
 	};
 
 	export let adventure: Adventure;
-	export let renderTitle: (title: string) => string;
+	export let renderOverlay: (title: string) => string;
 	export let renderImage: (picture: Picture, coverStyle: string) => string;
 
 	const getCoverPictureFromAdventure = (adventure: Adventure) => {
@@ -32,7 +32,7 @@
 	};
 </script>
 
-{@html renderTitle(adventure.title)}
+{@html renderOverlay(adventure.title)}
 {#if !!getCoverPictureFromAdventure(adventure)}
 	{@html renderImage(getCoverPictureFromAdventure(adventure), getCoverPositionStyle(adventure))}
 {/if}

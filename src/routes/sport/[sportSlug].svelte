@@ -35,15 +35,7 @@
 				m-5"
 		>
 			{#each adventures as adventure}
-				<a
-					href={`/adventures/${adventure.id}`}
-					class="
-						block relative md:w-96 w-full h-52
-						overflow-hidden bg-gray-300
-					"
-				>
-					<SmallCover {adventure} />
-				</a>
+				<SmallCover {adventure} />
 			{/each}
 		</div>
 	</div>

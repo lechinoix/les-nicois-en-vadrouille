@@ -10,7 +10,7 @@
 
 <CoverContainer
 	{adventure}
-	renderTitle={(title) => `
+	renderOverlay={(title) => `
 		<div class="absolute w-full h-full flex justify-center">
 			<strong
 				class="
