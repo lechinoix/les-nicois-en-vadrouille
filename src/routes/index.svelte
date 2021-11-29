@@ -16,18 +16,19 @@
 {:then coverAdventure}
 	<HomeCover adventure={coverAdventure} />
 	<div class="p-10 flex flex-col w-full justify-center items-center">
-		<div class="flex justify-center">
-			<div class="flex flex-col">
+		<div class="flex justify-center flex-col md:flex-row mx-5">
+			<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
 				<strong class="font-title font-light text-3xl">Hello 👋</strong>
 				<br />
-				<p class=" text-xl w-96 text-justify mr-10">
+				<p class=" text-xl text-justify">
 					Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en
-					montagne ! Basés sur Grenoble, on pratique l'alpinisme, l'escalade et le ski.
+					montagne ! Basés sur Grenoble, nous pratiquons l'alpinisme, l'escalade et le ski.
 				</p>
 			</div>
 			<img
 				src="https://res.cloudinary.com/dowsxscl0/image/upload/v1637106159/IMG_0062_ee3ed1b552.jpg"
-				class="w-96"
+				class="w-full md:w-96"
+				alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
 			/>
 		</div>
 		{#await latestAdventuresPromise}
