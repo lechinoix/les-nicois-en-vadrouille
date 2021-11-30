@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Adventure, Picture } from '$lib/types';
+	import type { Adventure } from '$lib/types';
 	import { PicturePosition } from '$lib/constants';
 
 	const DEFAULT_POSITION = 'object-center';
@@ -17,8 +17,6 @@
 	};
 
 	export let adventure: Adventure;
-	export let renderOverlay: (title: string) => string;
-	export let renderImage: (picture: Picture, coverStyle: string) => string;
 
 	const getCoverPictureFromAdventure = (adventure: Adventure) => {
 		if (adventure?.cover_picture?.picture) return adventure.cover_picture.picture;
@@ -32,7 +30,9 @@
 	};
 </script>
 
-{@html renderOverlay(adventure.title)}
-{#if !!getCoverPictureFromAdventure(adventure)}
-	{@html renderImage(getCoverPictureFromAdventure(adventure), getCoverPositionStyle(adventure))}
-{/if}
+<slot name="overlay" title={adventure.title} />
+<slot
+	name="picture"
+	picture={getCoverPictureFromAdventure(adventure)}
+	addedStyle={getCoverPositionStyle(adventure)}
+/>
