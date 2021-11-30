@@ -1,9 +1,9 @@
 <script lang="ts">
+	import { slide } from 'svelte/transition';
 	import { ROUTES } from '$lib/config/routes';
 	import { getAllSports } from '$lib/services/sportService';
 	import PictoSport from '../picto/pictoSport.svelte';
 	import BurgerIcon from './burgerIcon.svelte';
-	import Loader from '../loader.svelte';
 
 	let isOpen = false;
 	let getSportsPromise = getAllSports();
@@ -30,10 +30,10 @@
 	<div class="flex flex-col items-end">
 		<BurgerIcon {isOpen} onClick={openMenu} ratio={3} />
 		{#if isOpen}
-			<div class="pt-3">
-				{#await getSportsPromise}
-					<div />
-				{:then sports}
+			{#await getSportsPromise}
+				<div />
+			{:then sports}
+				<div transition:slide class="pt-3">
 					{#each sports as sport}
 						<a
 							href={`/sport/${sport.slug}`}
@@ -47,8 +47,8 @@
 							<p>{sport.name}</p>
 						</a>
 					{/each}
-				{/await}
-			</div>
+				</div>
+			{/await}
 		{/if}
 	</div>
 </nav>
