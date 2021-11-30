@@ -4,12 +4,16 @@
 
 	const DISPLAY_LOADER_KEY = 'DISPLAY_LOADER';
 
+	export let fadeDuration = 400;
+	export let waitBeforeLoader = 400;
+	export let showLoaderDuration = 1000;
 	export let contentPromise;
+
 	let pageVisible = true;
 	let showLoader = false;
 
 	let pageContentPromise = Promise.race([
-		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 400)),
+		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), waitBeforeLoader)),
 		contentPromise
 	]).then((result) => {
 		if (result === DISPLAY_LOADER_KEY) {
@@ -17,7 +21,7 @@
 
 			return Promise.all([
 				contentPromise,
-				new Promise((resolve) => setTimeout(resolve, 1000))
+				new Promise((resolve) => setTimeout(resolve, showLoaderDuration))
 			]).then(([adventure]) => adventure);
 		}
 
@@ -28,7 +32,7 @@
 {#await pageContentPromise}
 	{#if showLoader}
 		<div
-			transition:fade={{ duration: 400 }}
+			transition:fade={{ duration: fadeDuration }}
 			on:introstart={() => (pageVisible = false)}
 			on:outroend={() => (pageVisible = true)}
 			class="w-screen h-screen flex justify-center items-center"
@@ -40,7 +44,7 @@
 	{/if}
 {:then content}
 	{#if pageVisible}
-		<div in:fade={{ duration: 500 }}>
+		<div in:fade={{ duration: fadeDuration }}>
 			<slot name="content" {content} />
 		</div>
 	{/if}
