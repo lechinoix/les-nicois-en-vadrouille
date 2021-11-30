@@ -9,7 +9,7 @@
 	let showLoader = false;
 
 	let pageContentPromise = Promise.race([
-		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 500)),
+		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 400)),
 		contentPromise
 	]).then((result) => {
 		if (result === DISPLAY_LOADER_KEY) {
@@ -44,4 +44,6 @@
 			<slot name="content" {content} />
 		</div>
 	{/if}
+{:catch}
+	<slot name="error">Something wrong happened...</slot>
 {/await}

@@ -2,22 +2,20 @@
 	import { getAdventuresDone } from '$lib/services/adventureService';
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
-	import Loader from '$lib/components/loader.svelte';
 	import Description from '$lib/components/description.svelte';
+	import Suspense from '$lib/components/suspense.svelte';
 
 	let adventuresPromise = getAdventuresDone();
 </script>
 
-{#await adventuresPromise}
-	<Loader />
-{:then adventures}
-	{#each adventures as adventure}
-		<AdventureCard {adventure}>
-			<Description className="pt-7">
-				{adventure.short_description || truncateText(adventure.description)}
-			</Description>
-		</AdventureCard>
-	{/each}
-{:catch error}
-	{error}
-{/await}
+<Suspense contentPromise={adventuresPromise}>
+	<div slot="content" let:content={adventures}>
+		{#each adventures as adventure}
+			<AdventureCard {adventure}>
+				<Description className="pt-7">
+					{adventure.short_description || truncateText(adventure.description)}
+				</Description>
+			</AdventureCard>
+		{/each}
+	</div>
+</Suspense>

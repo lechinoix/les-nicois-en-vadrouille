@@ -1,32 +1,22 @@
 <script lang="ts">
+	import Suspense from '$lib/components/suspense.svelte';
 	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { getAdventuresBySportSlug } from '$lib/services/sportService';
-	import type { Adventure } from '$lib/types';
-	import Loader from '$lib/components/loader.svelte';
 	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
 
-	let adventures: Adventure[] = null;
-	let error = null;
+	let getAdventuresPromise;
 
 	const updateAdventures = async (pageValue) => {
-		try {
-			adventures = await getAdventuresBySportSlug(pageValue.params.sportSlug);
-		} catch (e) {
-			error = e;
-		}
+		getAdventuresPromise = getAdventuresBySportSlug(pageValue.params.sportSlug);
 	};
 
 	const unsubscribe = page.subscribe(updateAdventures);
 	onDestroy(unsubscribe);
 </script>
 
-{#if error !== null}
-	{error}
-{:else if adventures === null}
-	<Loader />
-{:else}
-	<div class="flex justify-center">
+<Suspense contentPromise={getAdventuresPromise}>
+	<div slot="content" let:content={adventures} class="flex justify-center">
 		<div
 			class="
 				inline-grid
@@ -39,4 +29,4 @@
 			{/each}
 		</div>
 	</div>
-{/if}
+</Suspense>

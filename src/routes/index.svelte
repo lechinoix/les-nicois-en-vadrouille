@@ -13,8 +13,8 @@
 </script>
 
 <Suspense contentPromise={coverAdventurePromise}>
-	<div slot="content" let:content>
-		<HomeCover adventure={content} />
+	<div slot="content" let:content={coverAdventure}>
+		<HomeCover adventure={coverAdventure} />
 		<div class="p-10 flex flex-col w-full justify-center items-center">
 			<div class="flex justify-center flex-col md:flex-row mx-5">
 				<div class="flex flex-col mb-10 md:mb-0 md:mr-10">

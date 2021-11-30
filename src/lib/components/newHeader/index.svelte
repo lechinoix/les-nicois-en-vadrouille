@@ -32,7 +32,7 @@
 		{#if isOpen}
 			<div class="pt-3">
 				{#await getSportsPromise}
-					<Loader />
+					<div />
 				{:then sports}
 					{#each sports as sport}
 						<a
