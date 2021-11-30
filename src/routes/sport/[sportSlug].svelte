@@ -1,18 +1,11 @@
 <script lang="ts">
 	import Suspense from '$lib/components/suspense.svelte';
-	import { onDestroy } from 'svelte';
 	import { page } from '$app/stores';
 	import { getAdventuresBySportSlug } from '$lib/services/sportService';
-	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
+	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
+	import { CoverTypes } from '$lib/constants';
 
-	let getAdventuresPromise;
-
-	const updateAdventures = async (pageValue) => {
-		getAdventuresPromise = getAdventuresBySportSlug(pageValue.params.sportSlug);
-	};
-
-	const unsubscribe = page.subscribe(updateAdventures);
-	onDestroy(unsubscribe);
+	let getAdventuresPromise = getAdventuresBySportSlug($page.params.sportSlug);
 </script>
 
 <Suspense contentPromise={getAdventuresPromise}>
@@ -25,7 +18,7 @@
 				m-5"
 		>
 			{#each adventures as adventure}
-				<SmallCover {adventure} />
+				<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
 			{/each}
 		</div>
 	</div>

@@ -1,9 +1,8 @@
 <script lang="ts">
-	import { HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
+	import { CoverTypes, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
 	import Suspense from '$lib/components/suspense.svelte';
 	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
-	import HomeCover from '$lib/components/adventureCover/homeCover.svelte';
-	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
+	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import Loader from '$lib/components/loader.svelte';
 
@@ -15,7 +14,7 @@
 
 <Suspense contentPromise={coverAdventurePromise}>
 	<div slot="content" let:content={coverAdventure}>
-		<HomeCover adventure={coverAdventure} />
+		<AdventureCover adventure={coverAdventure} coverType={CoverTypes.HOME} />
 		<div class="p-10 flex flex-col w-full justify-center items-center">
 			<div class="flex justify-center flex-col md:flex-row mx-5">
 				<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
@@ -48,7 +47,7 @@
 				>
 					{#each latestAdventures as adventure}
 						<div class="flex w-full justify-center">
-							<SmallCover {adventure} />
+							<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
 						</div>
 					{/each}
 				</div>

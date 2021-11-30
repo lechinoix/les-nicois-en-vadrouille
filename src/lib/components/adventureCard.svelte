@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Adventure } from '$lib/types';
-	import { iconFillColor } from '$lib/constants';
+	import { CoverTypes, iconFillColor } from '$lib/constants';
 
-	import AdventureCover from './adventureCover/largeCover.svelte';
+	import AdventureCover from './coverPicture/adventureCover.svelte';
 	import PictoSport from './picto/pictoSport.svelte';
 	import Calendar from './icons/calendar.svelte';
 	import Picto from './picto/index.svelte';
@@ -13,9 +13,7 @@
 </script>
 
 <div>
-	<a href={`/adventures/${adventure.id}`} class="relative w-screen h-96 flex bg-gray-400">
-		<AdventureCover {adventure} />
-	</a>
+	<AdventureCover {adventure} coverType={CoverTypes.LARGE} />
 	<Container>
 		<div class="flex flex-col justify-center pb-7">
 			<div class="flex justify-center pt-7">

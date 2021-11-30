@@ -1,11 +1,9 @@
 <script lang="ts">
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
-	import type { Adventure, Picture } from '$lib/types';
+	import type { Picture } from '$lib/types';
 
-	export let adventure: Adventure;
-
-	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
-	let position = adventure.cover_picture?.position;
+	export let picture: Picture;
+	export let position: string;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
