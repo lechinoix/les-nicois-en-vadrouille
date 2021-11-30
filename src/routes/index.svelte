@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
 	import Suspense from '$lib/components/suspense.svelte';
 	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
 	import HomeCover from '$lib/components/adventureCover/homeCover.svelte';
@@ -26,7 +27,7 @@
 					</p>
 				</div>
 				<img
-					src="https://res.cloudinary.com/dowsxscl0/image/upload/v1637106159/IMG_0062_ee3ed1b552.jpg"
+					src={HOMEPAGE_US_IMAGE_URL}
 					class="w-full md:w-96"
 					alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
 				/>

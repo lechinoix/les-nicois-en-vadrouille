@@ -44,3 +44,5 @@ export enum PicturePosition {
 }
 
 export const iconFillColor = 'rgba(75, 85, 99)';
+export const HOMEPAGE_US_IMAGE_URL =
+	'https://res.cloudinary.com/dowsxscl0/image/upload/v1638305939/IMG_0063_2_0c22cc2fb2.jpg';
