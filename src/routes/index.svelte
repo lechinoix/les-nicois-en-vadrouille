@@ -1,4 +1,4 @@
-<script lang="ts">
+<script>
 	import { fade } from 'svelte/transition';
 	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
 	import Loader from '$lib/components/loader.svelte';
@@ -7,24 +7,46 @@
 	import { ROUTES } from '$lib/config/routes';
 
 	const COVER_ADVENTURE_ID = '17';
+	const DISPLAY_LOADER_KEY = 'DISPLAY_LOADER';
 
-	let pageVisible = false;
+	let pageVisible = true;
+	let showLoader = false;
+
+	const setLoaderVisible = () => {
+		showLoader = true;
+	};
+
 	let latestAdventuresPromise = getLatestAdventures();
-	let coverAdventurePromise = Promise.all([
-		getAdventureById(COVER_ADVENTURE_ID),
-		new Promise((resolve) => setTimeout(resolve, 1000))
-	]).then(([adventure]) => adventure);
+	let coverAdventurePromise = getAdventureById(COVER_ADVENTURE_ID);
+
+	let pageContentPromise = Promise.race([
+		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 200)),
+		coverAdventurePromise
+	]).then((result) => {
+		if (result === DISPLAY_LOADER_KEY) {
+			setLoaderVisible();
+
+			return Promise.all([
+				coverAdventurePromise,
+				new Promise((resolve) => setTimeout(resolve, 1000))
+			]).then(([adventure]) => adventure);
+		}
+
+		return result;
+	});
 </script>
 
-{#await coverAdventurePromise}
-	<div
-		transition:fade={{ duration: 400 }}
-		on:introstart={() => (pageVisible = false)}
-		on:outroend={() => (pageVisible = true)}
-		class="w-screen h-screen flex justify-center items-center"
-	>
-		<Loader />
-	</div>
+{#await pageContentPromise}
+	{#if showLoader}
+		<div
+			transition:fade={{ duration: 400 }}
+			on:introstart={() => (pageVisible = false)}
+			on:outroend={() => (pageVisible = true)}
+			class="w-screen h-screen flex justify-center items-center"
+		>
+			<Loader />
+		</div>
+	{/if}
 {:then coverAdventure}
 	{#if pageVisible}
 		<div in:fade={{ duration: 500 }}>
