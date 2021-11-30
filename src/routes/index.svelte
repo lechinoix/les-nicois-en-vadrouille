@@ -1,96 +1,58 @@
-<script>
-	import { fade } from 'svelte/transition';
+<script lang="ts">
+	import Suspense from '$lib/components/suspense.svelte';
 	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
-	import Loader from '$lib/components/loader.svelte';
 	import HomeCover from '$lib/components/adventureCover/homeCover.svelte';
 	import SmallCover from '$lib/components/adventureCover/smallCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
+	import Loader from '$lib/components/loader.svelte';
 
 	const COVER_ADVENTURE_ID = '17';
-	const DISPLAY_LOADER_KEY = 'DISPLAY_LOADER';
-
-	let pageVisible = true;
-	let showLoader = false;
-
-	const setLoaderVisible = () => {
-		showLoader = true;
-	};
 
 	let latestAdventuresPromise = getLatestAdventures();
 	let coverAdventurePromise = getAdventureById(COVER_ADVENTURE_ID);
-
-	let pageContentPromise = Promise.race([
-		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 500)),
-		coverAdventurePromise
-	]).then((result) => {
-		if (result === DISPLAY_LOADER_KEY) {
-			setLoaderVisible();
-
-			return Promise.all([
-				coverAdventurePromise,
-				new Promise((resolve) => setTimeout(resolve, 1000))
-			]).then(([adventure]) => adventure);
-		}
-
-		return result;
-	});
 </script>
 
-{#await pageContentPromise}
-	{#if showLoader}
-		<div
-			transition:fade={{ duration: 400 }}
-			on:introstart={() => (pageVisible = false)}
-			on:outroend={() => (pageVisible = true)}
-			class="w-screen h-screen flex justify-center items-center"
-		>
-			<Loader />
-		</div>
-	{/if}
-{:then coverAdventure}
-	{#if pageVisible}
-		<div in:fade={{ duration: 500 }}>
-			<HomeCover adventure={coverAdventure} />
-			<div class="p-10 flex flex-col w-full justify-center items-center">
-				<div class="flex justify-center flex-col md:flex-row mx-5">
-					<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
-						<strong class="font-title font-light text-3xl">Hello 👋</strong>
-						<br />
-						<p class=" text-xl text-justify">
-							Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en
-							montagne ! Basés sur Grenoble, nous pratiquons l'alpinisme, l'escalade et le ski.
-						</p>
-					</div>
-					<img
-						src="https://res.cloudinary.com/dowsxscl0/image/upload/v1637106159/IMG_0062_ee3ed1b552.jpg"
-						class="w-full md:w-96"
-						alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
-					/>
+<Suspense contentPromise={coverAdventurePromise}>
+	<div slot="content" let:content>
+		<HomeCover adventure={content} />
+		<div class="p-10 flex flex-col w-full justify-center items-center">
+			<div class="flex justify-center flex-col md:flex-row mx-5">
+				<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
+					<strong class="font-title font-light text-3xl">Hello 👋</strong>
+					<br />
+					<p class=" text-xl text-justify">
+						Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en
+						montagne ! Basés sur Grenoble, nous pratiquons l'alpinisme, l'escalade et le ski.
+					</p>
 				</div>
-				{#await latestAdventuresPromise}
-					<Loader />
-				{:then latestAdventures}
-					<p class="font-title text-2xl mt-10">Nos dernières sorties</p>
-					<div
-						class="
-							inline-grid w-full
-							xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-							grid-flow-row gap-5
-							mt-12"
-					>
-						{#each latestAdventures as adventure}
-							<div class="flex w-full justify-center">
-								<SmallCover {adventure} />
-							</div>
-						{/each}
-					</div>
-					<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}
-						>En voir plus</a
-					>
-				{:catch error}
-					{error}
-				{/await}
+				<img
+					src="https://res.cloudinary.com/dowsxscl0/image/upload/v1637106159/IMG_0062_ee3ed1b552.jpg"
+					class="w-full md:w-96"
+					alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
+				/>
 			</div>
+			{#await latestAdventuresPromise}
+				<Loader />
+			{:then latestAdventures}
+				<p class="font-title text-2xl mt-10">Nos dernières sorties</p>
+				<div
+					class="
+						inline-grid w-full
+						xl:grid-cols-3 md:grid-cols-2 grid-cols-1
+						grid-flow-row gap-5
+						mt-12"
+				>
+					{#each latestAdventures as adventure}
+						<div class="flex w-full justify-center">
+							<SmallCover {adventure} />
+						</div>
+					{/each}
+				</div>
+				<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a
+				>
+			{:catch error}
+				{error}
+			{/await}
 		</div>
-	{/if}
-{/await}
+	</div>
+</Suspense>

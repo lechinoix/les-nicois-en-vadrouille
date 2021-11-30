@@ -1,12 +1,9 @@
+<script context="module">
+	export const prerender = true;
+</script>
+
 <script lang="ts">
 	import Header from '$lib/components/newHeader/index.svelte';
-	import { browser } from '$app/env';
-	import { onMount } from 'svelte';
-
-	onMount(async () => {
-		if (!browser) return;
-		await import('@themesberg/flowbite/dist/flowbite.bundle');
-	});
 </script>
 
 <main>
