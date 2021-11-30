@@ -20,7 +20,7 @@
 	let coverAdventurePromise = getAdventureById(COVER_ADVENTURE_ID);
 
 	let pageContentPromise = Promise.race([
-		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 200)),
+		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), 500)),
 		coverAdventurePromise
 	]).then((result) => {
 		if (result === DISPLAY_LOADER_KEY) {
