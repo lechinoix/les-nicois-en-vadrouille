@@ -22,8 +22,10 @@
 					<strong class="font-title font-light text-3xl">Hello 👋</strong>
 					<br />
 					<p class=" text-xl text-justify">
-						Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en
-						montagne ! Basés sur Grenoble, nous pratiquons l'alpinisme, l'escalade et le ski.
+						Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en montagne ! Basés sur Grenoble, on pratique l'alpinisme, l'escalade et le ski. 
+						<br /> 
+						Notre objectif : raconter nos aventures, donner envie de s’installer dans cette belle région et de se lancer dans l’aventure outdoor quel quelle soit ..
+
 					</p>
 				</div>
 				<img
