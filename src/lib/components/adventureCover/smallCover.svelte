@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Adventure, Picture } from '$lib/types';
-	import CoverContainer from './index.svelte';
 
 	export let adventure: Adventure;
+
+	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
+	let position = adventure.cover_picture?.position;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.medium ? picture.formats.medium.url : picture.url;
@@ -15,29 +18,22 @@
 		overflow-hidden bg-gray-300
 	"
 >
-	<CoverContainer {adventure}>
-		<div
-			slot="overlay"
-			let:title
-			class="
+	<div
+		class="
 				absolute w-full h-full
 				opacity-0 hover:opacity-100
 				flex justify-center
 				bg-gray-900 bg-opacity-10
 				px-5
 			"
-		>
-			<strong class="block text-white font-bold text-2xl text-center self-center">
-				{title}
-			</strong>
-		</div>
-		<img
-			slot="picture"
-			let:picture
-			let:addedStyle={coverStyle}
-			class="object-cover {coverStyle} min-h-full"
-			src={chooseFormatUrlFromPicture(picture)}
-			alt={picture.alternativeText}
-		/>
-	</CoverContainer>
+	>
+		<strong class="block text-white font-bold text-2xl text-center self-center">
+			{adventure.title}
+		</strong>
+	</div>
+	<img
+		class="object-cover {getCoverPositionStyle(position)} min-h-full"
+		src={chooseFormatUrlFromPicture(picture)}
+		alt={picture.alternativeText}
+	/>
 </a>

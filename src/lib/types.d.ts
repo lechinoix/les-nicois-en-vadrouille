@@ -18,11 +18,7 @@ export type Adventure = {
 	id: number;
 	title: string;
 	cotation: string;
-	cover_picture: {
-		id: number;
-		picture: Picture;
-		position: PicturePosition;
-	};
+	cover_picture: CoverPicture;
 	description: string;
 	status: AdventureStatus;
 	notation: number;
@@ -72,6 +68,12 @@ export type Picture = {
 	provider_metadata: string;
 	created_at: string;
 	updated_at: string;
+};
+
+export type CoverPicture = {
+	id: number;
+	picture: Picture;
+	position: PicturePosition;
 };
 
 export type PictureFormat = {
