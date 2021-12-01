@@ -2,14 +2,16 @@
 	import { CoverTypes, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
 	import Suspense from '$lib/components/suspense.svelte';
 	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
+	import { getAllSports } from '$lib/services/sportService';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
-	import Loader from '$lib/components/loader.svelte';
+	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
 
 	const COVER_ADVENTURE_ID = '17';
 
 	let latestAdventuresPromise = getLatestAdventures();
 	let coverAdventurePromise = getAdventureById(COVER_ADVENTURE_ID);
+	let sportsPromise = getAllSports();
 </script>
 
 <Suspense contentPromise={coverAdventurePromise}>
@@ -34,28 +36,42 @@
 					alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
 				/>
 			</div>
-			{#await latestAdventuresPromise}
-				<Loader />
-			{:then latestAdventures}
-				<p class="font-title text-2xl mt-10">Nos dernières sorties</p>
-				<div
-					class="
-						inline-grid w-full
-						xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-						grid-flow-row gap-5
-						mt-12"
-				>
-					{#each latestAdventures as adventure}
-						<div class="flex w-full justify-center">
-							<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
-						</div>
+			<Suspense contentPromise={latestAdventuresPromise}>
+				<div slot="content" let:content={latestAdventures}>
+					<p class="font-title text-2xl mt-10">Nos dernières sorties</p>
+					<div
+						class="
+							inline-grid w-full
+							xl:grid-cols-3 md:grid-cols-2 grid-cols-1
+							grid-flow-row gap-5
+							mt-12"
+					>
+						{#each latestAdventures as adventure}
+							<div class="flex w-full justify-center">
+								<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
+							</div>
+						{/each}
+					</div>
+					<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}
+						>En voir plus</a
+					>
+				</div>
+			</Suspense>
+			<Suspense contentPromise={sportsPromise}>
+				<div slot="content" let:content={sports}>
+					<p class="font-title text-2xl mt-10">Nos sports</p>
+					{#each sports as sport}
+						{#if sport.cover_picture}
+							<LargeCover
+								picture={sport.cover_picture.picture}
+								position={sport.cover_picture.position}
+								title={sport.name}
+								href={`/sport/${sport.slug}`}
+							/>
+						{/if}
 					{/each}
 				</div>
-				<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a
-				>
-			{:catch error}
-				{error}
-			{/await}
+			</Suspense>
 		</div>
 	</div>
 </Suspense>

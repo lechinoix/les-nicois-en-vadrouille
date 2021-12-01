@@ -113,6 +113,7 @@ export type Sport = {
 	slug: Sports;
 	created_at: string;
 	updated_at: string;
+	cover_picture: CoverPicture;
 };
 
 export type Period = {
