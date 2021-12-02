@@ -22,7 +22,7 @@
 	export let adventure: Adventure;
 </script>
 
-<AdventureCard {adventure} />
+<AdventureCard {adventure} withLink={false} />
 <Container>
 	<Description>{@html marked(adventure.description)}</Description>
 	<br />

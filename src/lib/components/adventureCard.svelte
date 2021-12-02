@@ -10,10 +10,11 @@
 	import Container from '$lib/components/container.svelte';
 
 	export let adventure: Adventure;
+	export let withLink = true;
 </script>
 
 <div>
-	<AdventureCover {adventure} coverType={CoverTypes.LARGE} />
+	<AdventureCover {adventure} coverType={CoverTypes.LARGE} {withLink} />
 	<Container>
 		<div class="flex flex-col justify-center pb-7">
 			<div class="flex justify-center pt-7">

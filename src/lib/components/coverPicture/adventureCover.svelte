@@ -13,10 +13,12 @@
 
 	export let adventure: Adventure;
 	export let coverType: CoverTypes = CoverTypes.LARGE;
+	export let withLink = true;
+
 	let position = adventure.cover_picture?.position;
 	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
 	let title = adventure.title;
-	let href = `/adventures/${adventure.id}`;
+	let href = withLink ? `/adventures/${adventure.id}` : null;
 
 	let coverTypeComponent = mapTypeToComponent[coverType];
 </script>
