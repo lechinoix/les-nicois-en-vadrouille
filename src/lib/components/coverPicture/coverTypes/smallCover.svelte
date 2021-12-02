@@ -2,7 +2,7 @@
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Picture } from '$lib/types';
 
-	export let picture;
+	export let picture: Picture;
 	export let position = null;
 	export let href = '#';
 	export let title = '';

@@ -4,7 +4,7 @@
 
 	const EMPTY_HREF = '#';
 
-	export let picture;
+	export let picture: Picture;
 	export let position = null;
 	export let title = '';
 	export let href = EMPTY_HREF;
