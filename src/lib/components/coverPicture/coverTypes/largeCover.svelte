@@ -2,16 +2,21 @@
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Picture } from '$lib/types';
 
+	const EMPTY_HREF = '#';
+
 	export let picture;
 	export let position = null;
 	export let title = '';
-	export let href = '#';
+	export let href = EMPTY_HREF;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
 </script>
 
-<a {href} class="relative w-screen h-96 flex bg-gray-400">
+<a
+	{href}
+	class={`relative w-screen h-96 flex bg-gray-400 ${href === EMPTY_HREF ? 'cursor-default' : ''}`}
+>
 	<div class="absolute w-full h-full flex justify-center">
 		<strong
 			class="
