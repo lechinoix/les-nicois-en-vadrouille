@@ -1,7 +1,7 @@
 import config from '$lib/config';
 import type { Sport } from '$lib/types';
 
-export const getSportBySlug = async (sportSlug: string): Promise<Sport> => {
+export const getSportBySlug = async (fetch: any, sportSlug: string): Promise<Sport> => {
 	const res = await fetch(`${config.BASE_API_URL}/sports?slug=${sportSlug}`);
 	const sports = await res.json();
 

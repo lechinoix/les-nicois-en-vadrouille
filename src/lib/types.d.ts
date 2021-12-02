@@ -114,6 +114,7 @@ export type Sport = {
 	created_at: string;
 	updated_at: string;
 	cover_picture: CoverPicture;
+	adventures: Adventure[];
 };
 
 export type Period = {
