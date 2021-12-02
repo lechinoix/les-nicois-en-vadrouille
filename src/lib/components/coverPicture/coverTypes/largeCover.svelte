@@ -20,7 +20,7 @@
 	<div class="absolute w-full h-full flex justify-center">
 		<strong
 			class="
-					block text-white font-bold text-5xl text-center
+					block text-white text-5xl text-center
 					py-3 px-2 self-center
 					bg-gray-900 bg-opacity-10 bg-clip-border
 					border-t-2 border-b-2 border-white
