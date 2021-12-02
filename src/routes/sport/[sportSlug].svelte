@@ -10,13 +10,22 @@
 </script>
 
 <script lang="ts">
-	import type { Sport } from '$lib/types';
+	import type { Adventure, Sport } from '$lib/types';
 	import { getSportBySlug } from '$lib/services/sportService';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { AdventureStatus, CoverTypes } from '$lib/constants';
 	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
+	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 
 	export let sport: Sport;
+
+	let sportTiles: { component: any; props: { adventure: Adventure; coverType: string } }[] =
+		sport.adventures
+			.filter((adventure) => adventure.status === AdventureStatus.DONE)
+			.map((adventure) => ({
+				component: AdventureCover,
+				props: { adventure, coverType: CoverTypes.SMALL }
+			}));
 </script>
 
 {#if sport?.cover_picture}
@@ -26,18 +35,6 @@
 		title={sport.name}
 	/>
 {/if}
-<div class="flex justify-center">
-	<div
-		class="
-			inline-grid
-			xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-			grid-flow-row gap-5 justify-self-auto
-			m-5"
-	>
-		{#each sport.adventures as adventure}
-			{#if adventure.status === AdventureStatus.DONE}
-				<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
-			{/if}
-		{/each}
-	</div>
+<div class="my-10 mx-12">
+	<ResponsiveGrid items={sportTiles} />
 </div>

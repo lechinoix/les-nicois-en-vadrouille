@@ -14,7 +14,7 @@
 <a
 	{href}
 	class="
-		block relative md:w-96 w-full h-52
+		block relative w-full h-full
 		overflow-hidden bg-gray-300
 	"
 >
