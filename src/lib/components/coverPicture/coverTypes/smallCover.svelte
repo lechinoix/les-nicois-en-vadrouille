@@ -21,9 +21,8 @@
 	<div
 		class="
 				absolute w-full h-full
-				opacity-0 hover:opacity-100
 				flex justify-center
-				bg-gray-900 bg-opacity-10
+				bg-gray-900 bg-opacity-20
 				px-5
 			"
 	>
