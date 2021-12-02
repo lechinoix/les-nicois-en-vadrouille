@@ -23,6 +23,7 @@
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
+	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
 
 	export let latestAdventures: Adventure[];
 	export let coverAdventure: Adventure;
@@ -49,13 +50,13 @@
 			alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
 		/>
 	</div>
-	<p class="font-title text-2xl mt-10">Nos dernières sorties</p>
+	<SeparatorTitle title="Nos dernières sorties" />
 	<div
 		class="
-							inline-grid w-full
-							xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-							grid-flow-row gap-5
-							mt-12"
+			inline-grid w-full
+			xl:grid-cols-3 md:grid-cols-2 grid-cols-1
+			grid-flow-row gap-5
+			mt-12"
 	>
 		{#each latestAdventures as adventure}
 			<div class="flex w-full justify-center">
@@ -64,15 +65,17 @@
 		{/each}
 	</div>
 	<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
-	<p class="font-title text-2xl mt-10">Nos sports</p>
+	<SeparatorTitle title="Nos sports" />
 	{#each sports as sport}
 		{#if sport.cover_picture}
-			<LargeCover
-				picture={sport.cover_picture.picture}
-				position={sport.cover_picture.position}
-				title={sport.name}
-				href={`/sport/${sport.slug}`}
-			/>
+			<div class="mt-10">
+				<LargeCover
+					picture={sport.cover_picture.picture}
+					position={sport.cover_picture.position}
+					title={sport.name}
+					href={`/sport/${sport.slug}`}
+				/>
+			</div>
 		{/if}
 	{/each}
 </div>
