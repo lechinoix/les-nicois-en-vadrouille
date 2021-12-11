@@ -2,7 +2,6 @@
 	import type { Sport } from '$lib/types';
 	import { slide } from 'svelte/transition';
 	import { ROUTES } from '$lib/config/routes';
-	import PictoSport from '../picto/pictoSport.svelte';
 	import BurgerIcon from './burgerIcon.svelte';
 
 	export let sports: Sport[];
