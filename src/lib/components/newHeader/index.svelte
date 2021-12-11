@@ -23,11 +23,7 @@
 <nav class="absolute bg-linear-b-w pt-5 z-10 mx-auto w-screen px-5 pb-10">
 	<div class="flex items-start justify-between">
 		<a href={ROUTES.HOME} class="flex items-center">
-			<img
-				src="/img/les-nicois-100x100.png"
-				alt="Un dessin d'Ambre et Nicolas grimpant"
-				class="h-20"
-			/>
+			<img src="/img/les-nicois.png" alt="Un dessin d'Ambre et Nicolas grimpant" class="h-20" />
 			<span class="text-2xl text-white font-title font-extralight ml-4">
 				Les Niçois en Vadrouille
 			</span>
