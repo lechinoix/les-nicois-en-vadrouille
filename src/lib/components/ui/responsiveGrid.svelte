@@ -21,7 +21,7 @@
 
 	.responsive-grid__item {
 		position: relative;
-		padding-bottom: 33.33%;
+		padding-bottom: 50%;
 	}
 
 	.responsive-grid__item-content {
