@@ -20,6 +20,10 @@
 	export let sports: Sport[];
 </script>
 
+<svelte:head>
+	<title>Les Niçois en Vadrouille</title>
+</svelte:head>
+
 <main>
 	<Header {sports} />
 	<div class="pb-14">
