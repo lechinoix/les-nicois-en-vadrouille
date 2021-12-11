@@ -1,17 +1,3 @@
-<script context="module">
-	import { getAllSports } from '$lib/services/sportService';
-
-	export const prerender = true;
-	export async function load() {
-		let sports = await getAllSports();
-
-		return {
-			props: { sports },
-			maxage: 86400
-		};
-	}
-</script>
-
 <script lang="ts">
 	import type { Sport } from '$lib/types';
 	import { slide } from 'svelte/transition';

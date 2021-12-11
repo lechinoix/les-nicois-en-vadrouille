@@ -1,17 +1,11 @@
 <script lang="ts">
-	import { onMount } from 'svelte';
 	import { ROUTES } from '$lib/config/routes';
-	import { getAllSports } from '$lib/services/sportService';
 	import Dropdown from './ui/dropdown.svelte';
 	import type { Sport } from '$lib/types';
 	import PictoSport from './picto/pictoSport.svelte';
 	import { iconFillColor } from '$lib/constants';
 
-	let sports: Sport[] = null;
-
-	onMount(async () => {
-		sports = await getAllSports();
-	});
+	export let sports: Sport[];
 </script>
 
 <nav

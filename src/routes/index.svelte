@@ -3,12 +3,12 @@
 	import { getAllSports } from '$lib/services/sportService';
 
 	export const prerender = true;
-	export async function load() {
+	export async function load({ fetch }) {
 		const COVER_ADVENTURE_ID = '17';
 
 		let latestAdventures = await getLatestAdventures();
 		let coverAdventure = await getAdventureById(COVER_ADVENTURE_ID);
-		let sports = await getAllSports();
+		let sports = await getAllSports(fetch);
 
 		return {
 			props: { latestAdventures, coverAdventure, sports },
