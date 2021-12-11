@@ -1,12 +1,27 @@
+<script context="module">
+	import { getAllSports } from '$lib/services/sportService';
+
+	export const prerender = true;
+	export async function load() {
+		let sports = await getAllSports();
+
+		return {
+			props: { sports },
+			maxage: 86400
+		};
+	}
+</script>
+
 <script lang="ts">
+	import type { Sport } from '$lib/types';
 	import { slide } from 'svelte/transition';
 	import { ROUTES } from '$lib/config/routes';
-	import { getAllSports } from '$lib/services/sportService';
 	import PictoSport from '../picto/pictoSport.svelte';
 	import BurgerIcon from './burgerIcon.svelte';
 
+	export let sports: Sport[];
+
 	let isOpen = false;
-	let getSportsPromise = getAllSports();
 
 	const openMenu = (event: any) => {
 		if (!isOpen) event.stopPropagation();
@@ -30,25 +45,21 @@
 	<div class="flex flex-col items-end">
 		<BurgerIcon {isOpen} onClick={openMenu} ratio={3} />
 		{#if isOpen}
-			{#await getSportsPromise}
-				<div />
-			{:then sports}
-				<div transition:slide class="pt-3">
-					{#each sports as sport}
-						<a
-							href={`/sport/${sport.slug}`}
-							class="flex text-white block px-4 py-2 text-sm justify-start items-center"
-							role="menuitem"
-							tabindex="-1"
-						>
-							<div class="w-7 h-7 rounded-full border border-white p-1 flex justify-center mr-2">
-								<PictoSport sport={sport.slug} fill="white" />
-							</div>
-							<p>{sport.name}</p>
-						</a>
-					{/each}
-				</div>
-			{/await}
+			<div transition:slide class="pt-3">
+				{#each sports as sport}
+					<a
+						href={`/sport/${sport.slug}`}
+						class="flex text-white block px-4 py-2 text-sm justify-start items-center"
+						role="menuitem"
+						tabindex="-1"
+					>
+						<div class="w-7 h-7 rounded-full border border-white p-1 flex justify-center mr-2">
+							<PictoSport sport={sport.slug} fill="white" />
+						</div>
+						<p>{sport.name}</p>
+					</a>
+				{/each}
+			</div>
 		{/if}
 	</div>
 </nav>
