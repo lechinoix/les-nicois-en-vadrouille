@@ -24,6 +24,7 @@
 	import { ROUTES } from '$lib/config/routes';
 	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
+	import SmallCover from '$lib/components/coverPicture/coverTypes/smallCover.svelte';
 
 	export let latestAdventures: Adventure[];
 	export let coverAdventure: Adventure;
@@ -66,16 +67,24 @@
 	</div>
 	<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
 	<SeparatorTitle title="Nos sports" />
-	{#each sports as sport}
-		{#if sport.cover_picture}
-			<div class="mt-10">
-				<LargeCover
-					picture={sport.cover_picture.picture}
-					position={sport.cover_picture.position}
-					title={sport.name}
-					href={`/sport/${sport.slug}`}
-				/>
-			</div>
-		{/if}
-	{/each}
+	<div
+		class="
+			inline-grid w-full
+			xl:grid-cols-3 md:grid-cols-2 grid-cols-1
+			grid-flow-row gap-5
+			mt-12"
+	>
+		{#each sports as sport}
+			{#if sport.cover_picture}
+				<div class="flex w-full justify-center">
+					<SmallCover
+						picture={sport.cover_picture.picture}
+						position={sport.cover_picture.position}
+						title={sport.name}
+						href={`/sport/${sport.slug}`}
+					/>
+				</div>
+			{/if}
+		{/each}
+	</div>
 </div>
