@@ -35,7 +35,7 @@
 				{#each sports as sport}
 					<a
 						href={`/sport/${sport.slug}`}
-						class="flex text-white block px-4 py-2 text-sm justify-start items-center"
+						class="flex text-white block px-4 py-2 text-sm justify-start items-center uppercase"
 						role="menuitem"
 						tabindex="-1"
 					>
