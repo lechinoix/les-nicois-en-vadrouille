@@ -19,13 +19,19 @@
 
 	export let sport: Sport;
 
-	let sportTiles: { component: any; props: { adventure: Adventure; coverType: string } }[] =
-		sport.adventures
-			.filter((adventure) => adventure.status === AdventureStatus.DONE)
-			.map((adventure) => ({
-				component: AdventureCover,
-				props: { adventure, coverType: CoverTypes.SMALL }
-			}));
+	let sportTiles: {
+		component: any;
+		props: { adventure: Adventure; coverType: string };
+		key: string;
+	}[];
+
+	$: sportTiles = sport.adventures
+		.filter((adventure) => adventure.status === AdventureStatus.DONE)
+		.map((adventure) => ({
+			component: AdventureCover,
+			props: { adventure, coverType: CoverTypes.SMALL },
+			key: `${adventure.id}`
+		}));
 </script>
 
 {#if sport?.cover_picture}

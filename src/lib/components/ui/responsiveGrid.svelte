@@ -1,9 +1,9 @@
 <script lang="ts">
-	export let items: { component: any; props: {} }[];
+	export let items: { component: any; props: {}; key: string }[];
 </script>
 
 <div class="responsive-grid">
-	{#each items as item}
+	{#each items as item (item.key)}
 		<div class="responsive-grid__item">
 			<div class="responsive-grid__item-content">
 				<svelte:component this={item.component} {...item.props} />
