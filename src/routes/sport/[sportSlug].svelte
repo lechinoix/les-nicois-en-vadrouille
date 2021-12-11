@@ -41,6 +41,6 @@
 		title={sport.name}
 	/>
 {/if}
-<div class="my-10 mx-12">
+<div class="my-7 mx-5 lg:mx-12 lg:my-10">
 	<ResponsiveGrid items={sportTiles} />
 </div>
