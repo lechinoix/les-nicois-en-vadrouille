@@ -18,17 +18,42 @@
 </script>
 
 <script lang="ts">
-	import type { Adventure, Sport } from '$lib/types';
-	import { CoverTypes, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
+	import type { Adventure, Picture, ResponsiveItem, Sport } from '$lib/types';
+	import { CoverTypes, HOMEPAGE_US_IMAGE_URL, PicturePosition } from '$lib/constants';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
-	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
+	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import SmallCover from '$lib/components/coverPicture/coverTypes/smallCover.svelte';
 
 	export let latestAdventures: Adventure[];
 	export let coverAdventure: Adventure;
 	export let sports: Sport[];
+
+	let adventureItems: ResponsiveItem<{ adventure: Adventure; coverType: CoverTypes }>[];
+	let sportItems: ResponsiveItem<{
+		picture: Picture;
+		position: PicturePosition;
+		title: string;
+		href: string;
+	}>[];
+
+	$: adventureItems = latestAdventures.map((adventure) => ({
+		component: AdventureCover,
+		props: { adventure, coverType: CoverTypes.SMALL },
+		key: `${adventure.id}`
+	}));
+
+	$: sportItems = sports.map((sport) => ({
+		component: SmallCover,
+		props: {
+			picture: sport.cover_picture.picture,
+			position: sport.cover_picture.position,
+			title: sport.name,
+			href: `/sport/${sport.slug}`
+		},
+		key: `${sport.id}`
+	}));
 </script>
 
 <AdventureCover adventure={coverAdventure} coverType={CoverTypes.HOME} />
@@ -52,39 +77,12 @@
 		/>
 	</div>
 	<SeparatorTitle title="Nos dernières sorties" />
-	<div
-		class="
-			inline-grid w-full
-			xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-			grid-flow-row gap-5
-			mt-12"
-	>
-		{#each latestAdventures as adventure}
-			<div class="flex w-full justify-center">
-				<AdventureCover {adventure} coverType={CoverTypes.SMALL} />
-			</div>
-		{/each}
+	<div class="w-full">
+		<ResponsiveGrid items={adventureItems} />
 	</div>
 	<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
 	<SeparatorTitle title="Nos sports" />
-	<div
-		class="
-			inline-grid w-full
-			xl:grid-cols-3 md:grid-cols-2 grid-cols-1
-			grid-flow-row gap-5
-			mt-12"
-	>
-		{#each sports as sport}
-			{#if sport.cover_picture}
-				<div class="flex w-full justify-center">
-					<SmallCover
-						picture={sport.cover_picture.picture}
-						position={sport.cover_picture.position}
-						title={sport.name}
-						href={`/sport/${sport.slug}`}
-					/>
-				</div>
-			{/if}
-		{/each}
+	<div class="w-full">
+		<ResponsiveGrid items={sportItems} />
 	</div>
 </div>

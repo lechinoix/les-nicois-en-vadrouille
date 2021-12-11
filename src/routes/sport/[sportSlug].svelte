@@ -10,7 +10,7 @@
 </script>
 
 <script lang="ts">
-	import type { Adventure, Sport } from '$lib/types';
+	import type { Adventure, ResponsiveItem, Sport } from '$lib/types';
 	import { getSportBySlug } from '$lib/services/sportService';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { AdventureStatus, CoverTypes } from '$lib/constants';
@@ -19,11 +19,7 @@
 
 	export let sport: Sport;
 
-	let sportTiles: {
-		component: any;
-		props: { adventure: Adventure; coverType: string };
-		key: string;
-	}[];
+	let sportTiles: ResponsiveItem<{ adventure: Adventure; coverType: string }>[];
 
 	$: sportTiles = sport.adventures
 		.filter((adventure) => adventure.status === AdventureStatus.DONE)

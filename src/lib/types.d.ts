@@ -124,3 +124,9 @@ export type Period = {
 	created_at: string;
 	updated_at: string;
 };
+
+export type ResponsiveItem<PropsType> = {
+	component: any;
+	props: PropsType;
+	key: string;
+};
