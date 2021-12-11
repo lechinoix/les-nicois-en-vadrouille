@@ -23,9 +23,10 @@
 <nav
 	class="absolute bg-linear-b-w pt-5 flex items-start z-10 mx-auto w-screen px-10 justify-between"
 >
-	<a href={ROUTES.HOME} class="block">
-		<span class="text-2xl text-white font-title font-extralight whitespace-nowrap">
-			Our Little Adventures
+	<a href={ROUTES.HOME} class="flex items-center">
+		<img src="/img/les-nicois.png" alt="Un dessin d'Ambre et Nicolas grimpant" class="h-20" />
+		<span class="text-2xl text-white font-title font-extralight whitespace-nowrap ml-4">
+			Les Niçois en Vadrouille
 		</span>
 	</a>
 	<div class="flex flex-col items-end">
