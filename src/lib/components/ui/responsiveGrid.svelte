@@ -16,7 +16,12 @@
 	.responsive-grid {
 		display: grid;
 		grid-gap: 16px;
-		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+	}
+
+	@media (min-width: 768px) {
+		.responsive-grid {
+			grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+		}
 	}
 
 	.responsive-grid__item {
