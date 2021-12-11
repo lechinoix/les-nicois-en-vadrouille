@@ -16,7 +16,7 @@
 	.responsive-grid {
 		display: grid;
 		grid-gap: 16px;
-		grid-template-columns: repeat(auto-fit, minmax(400px, calc(1fr - 10px)));
+		grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 	}
 
 	.responsive-grid__item {
