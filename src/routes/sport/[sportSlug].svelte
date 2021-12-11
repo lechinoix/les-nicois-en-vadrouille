@@ -23,6 +23,7 @@
 
 	$: sportTiles = sport.adventures
 		.filter((adventure) => adventure.status === AdventureStatus.DONE)
+		.sort((a: Adventure, b: Adventure) => new Date(b.date).getTime() - new Date(a.date).getTime())
 		.map((adventure) => ({
 			component: AdventureCover,
 			props: { adventure, coverType: CoverTypes.SMALL },
