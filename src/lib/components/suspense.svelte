@@ -11,7 +11,6 @@
 
 	let pageVisible = true;
 	let showLoader = false;
-	let pageContentPromise;
 
 	$: pageContentPromise = Promise.race([
 		new Promise((resolve) => setTimeout(() => resolve(DISPLAY_LOADER_KEY), waitBeforeLoader)),

@@ -18,8 +18,8 @@
 </script>
 
 <script lang="ts">
-	import type { Adventure, Picture, ResponsiveItem, Sport } from '$lib/types';
-	import { CoverTypes, HOMEPAGE_US_IMAGE_URL, PicturePosition } from '$lib/constants';
+	import type { Adventure, Sport } from '$lib/types';
+	import { CoverTypes, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
@@ -29,14 +29,6 @@
 	export let latestAdventures: Adventure[];
 	export let coverAdventure: Adventure;
 	export let sports: Sport[];
-
-	let adventureItems: ResponsiveItem<{ adventure: Adventure; coverType: CoverTypes }>[];
-	let sportItems: ResponsiveItem<{
-		picture: Picture;
-		position: PicturePosition;
-		title: string;
-		href: string;
-	}>[];
 
 	$: adventureItems = latestAdventures.map((adventure) => ({
 		component: AdventureCover,
