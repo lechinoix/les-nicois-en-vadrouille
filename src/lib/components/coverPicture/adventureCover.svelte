@@ -4,6 +4,8 @@
 	import HomeCover from './coverTypes/homeCover.svelte';
 	import SmallCover from './coverTypes/smallCover.svelte';
 	import type { Adventure } from '$lib/types';
+	import { ROUTES } from '$lib/config/routes';
+	import { slugify } from '$lib/utils/string';
 
 	const mapTypeToComponent = {
 		[CoverTypes.LARGE]: LargeCover,
@@ -18,7 +20,9 @@
 	let position = adventure.cover_picture?.position;
 	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
 	let title = adventure.title;
-	let href = withLink ? `/adventures/${adventure.id}` : null;
+	let href = withLink
+		? `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`
+		: null;
 
 	let coverTypeComponent = mapTypeToComponent[coverType];
 </script>
