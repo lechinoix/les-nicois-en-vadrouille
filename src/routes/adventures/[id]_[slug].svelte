@@ -17,7 +17,6 @@
 	import TopoLink from '$lib/components/topoLink.svelte';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import { getAdventureById } from '$lib/services/adventureService';
-	import Description from '$lib/components/description.svelte';
 	import Container from '$lib/components/container.svelte';
 	import { slugify } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
@@ -34,7 +33,9 @@
 
 <AdventureCard {adventure} withLink={false} />
 <Container>
-	<Description>{@html marked(adventure.description)}</Description>
+	<p class="text-justify text-gray-600 text-xl font-serif font-light leading-relaxed">
+		{@html marked(adventure.description)}
+	</p>
 	<br />
 	<br />
 	{#if adventure.topo && adventure.topo.length > 0}

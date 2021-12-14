@@ -14,15 +14,14 @@
 	import { getAdventuresDone } from '$lib/services/adventureService';
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventureCard.svelte';
-	import Description from '$lib/components/description.svelte';
 
 	export let adventures: Adventure[];
 </script>
 
 {#each adventures as adventure}
 	<AdventureCard {adventure}>
-		<Description className="pt-7">
+		<p class="text-justify text-gray-600 text-xl font-serif font-light leading-relaxed pt-7">
 			{adventure.short_description || truncateText(adventure.description)}
-		</Description>
+		</p>
 	</AdventureCard>
 {/each}
