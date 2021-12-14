@@ -39,7 +39,7 @@
 						role="menuitem"
 						tabindex="-1"
 					>
-						<p>{sport.name}</p>
+						<p>{sport.name} ({sport.adventures.length})</p>
 					</a>
 				{/each}
 			</div>
