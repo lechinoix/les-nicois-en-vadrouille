@@ -3,8 +3,7 @@
 	export async function load() {
 		const adventures = await getAdventuresDone();
 		return {
-			props: { adventures },
-			maxage: 86400
+			props: { adventures }
 		};
 	}
 </script>

@@ -6,8 +6,7 @@
 		let sports = await getAllSports(fetch);
 
 		return {
-			props: { sports },
-			maxage: 86400
+			props: { sports }
 		};
 	}
 </script>

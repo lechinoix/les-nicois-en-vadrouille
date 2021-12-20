@@ -11,8 +11,7 @@
 		let sports = await getAllSports(fetch);
 
 		return {
-			props: { latestAdventures, coverAdventure, sports },
-			maxage: 86400
+			props: { latestAdventures, coverAdventure, sports }
 		};
 	}
 </script>

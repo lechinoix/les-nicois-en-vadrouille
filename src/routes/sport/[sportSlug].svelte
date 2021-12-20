@@ -3,8 +3,7 @@
 	export async function load({ page, fetch }) {
 		const sport = await getSportBySlug(fetch, page.params.sportSlug);
 		return {
-			props: { sport },
-			maxage: 86400
+			props: { sport }
 		};
 	}
 </script>

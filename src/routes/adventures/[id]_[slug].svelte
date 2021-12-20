@@ -3,8 +3,7 @@
 	export async function load({ page }) {
 		const adventure = await getAdventureById(page.params.id);
 		return {
-			props: { adventure },
-			maxage: 86400
+			props: { adventure }
 		};
 	}
 </script>
