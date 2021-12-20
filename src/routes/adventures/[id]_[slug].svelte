@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-	import type { Adventure } from '$lib/types';
+	import type { Adventure, Picture } from '$lib/types';
 	import { page } from '$app/stores';
 	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
@@ -17,18 +17,33 @@
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import { getAdventureById } from '$lib/services/adventureService';
 	import Container from '$lib/components/container.svelte';
-	import { slugify } from '$lib/utils/string';
+	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
 	import { browser } from '$app/env';
 
 	export let adventure: Adventure;
 
-	if (browser) {
-		let adventureSlug = slugify(adventure.title);
-		if ($page.params.slug !== adventureSlug)
+	let picture: Picture;
+	let adventureSlug: string;
+
+	$: {
+		adventureSlug = slugify(adventure.title);
+		if (browser && $page.params.slug !== adventureSlug)
 			window.history.replaceState(null, null, getUrlWithNewSlug(location, adventureSlug));
 	}
+
+	$: picture = adventure.cover_picture?.picture || adventure.pictures[0];
 </script>
+
+<svelte:head>
+	<meta property="og:image" content={picture.formats.medium.url} />
+	<meta property="og:url" content={getUrlWithNewSlug(location, adventureSlug)} />
+	<meta property="og:title" content={adventure.title} />
+	<meta
+		property="og:description"
+		content={adventure.short_description || truncateText(adventure.description)}
+	/>
+</svelte:head>
 
 <AdventureCard {adventure} withLink={false} />
 <Container>
