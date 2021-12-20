@@ -45,9 +45,9 @@ export enum PicturePosition {
 
 export const iconFillColor = 'rgba(75, 85, 99)';
 export const HOMEPAGE_US_IMAGE_URL =
-	'https://res.cloudinary.com/dowsxscl0/image/upload/v1638305939/IMG_0063_2_0c22cc2fb2.jpg';
+	'https://res.cloudinary.com/dowsxscl0/image/upload/v1638305939/medium_IMG_0063_2_0c22cc2fb2.jpg';
 
-export const DEFAULT_DESCRIPTION = "Le blog de montagne (et de chill) d'Ambre et Nicolas.";
+export const DEFAULT_DESCRIPTION = "Le site de montagne (et de chill) d'Ambre et Nicolas.";
 export const DEFAULT_TITLE = 'Les Niçois en Vadrouille';
 
 export enum CoverTypes {
