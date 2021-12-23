@@ -25,11 +25,13 @@
 
 	let picture: Picture;
 	let adventureSlug: string;
+	let pageUrl: string;
 
 	$: {
 		adventureSlug = slugify(adventure.title);
+		if (browser) pageUrl = getUrlWithNewSlug(location, adventureSlug);
 		if (browser && $page.params.slug !== adventureSlug)
-			window.history.replaceState(null, null, getUrlWithNewSlug(location, adventureSlug));
+			window.history.replaceState(null, null, pageUrl);
 	}
 
 	$: picture = adventure.cover_picture?.picture || adventure.pictures[0];
@@ -37,7 +39,7 @@
 
 <svelte:head>
 	<meta property="og:image" content={picture.formats.medium.url} />
-	<meta property="og:url" content={getUrlWithNewSlug(location, adventureSlug)} />
+	<meta property="og:url" content={pageUrl} />
 	<meta property="og:title" content={adventure.title} />
 	<meta
 		property="og:description"
