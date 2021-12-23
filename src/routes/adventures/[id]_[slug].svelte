@@ -49,8 +49,8 @@
 
 <AdventureCard {adventure} withLink={false} />
 <Container>
-	<p class="text-justify text-gray-600 text-xl font-serif font-light leading-relaxed">
-		{@html marked(adventure.description)}
+	<p class="text-justify text-gray-600 text-xl font-sans font-thin leading-relaxed">
+		{@html marked(adventure.description || '')}
 	</p>
 	<br />
 	<br />
