@@ -61,7 +61,7 @@
 			<br />
 		{/each}
 	{/if}
-	{#if adventure.pictures.length > 0}
+	{#if adventure.pictures && adventure.pictures.length > 0}
 		<div class="mt-5">
 			<Slider pictures={adventure.pictures} />
 		</div>
