@@ -28,6 +28,12 @@
 		}));
 </script>
 
+<svelte:head>
+	<meta property="og:image" content={sport.cover_picture.picture.formats.medium.url} />
+	<meta property="og:title" content={sport.name} />
+	<meta property="og:description" content={`Toutes les sorties de ${sport.name}`} />
+</svelte:head>
+
 {#if sport?.cover_picture}
 	<LargeCover
 		picture={sport.cover_picture.picture}

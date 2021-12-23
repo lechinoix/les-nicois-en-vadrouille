@@ -20,6 +20,8 @@
 	import {
 		CoverTypes,
 		COVER_PICTURE_ID,
+		DEFAULT_DESCRIPTION,
+		DEFAULT_TITLE,
 		HOMEPAGE_US_IMAGE_URL,
 		PicturePosition
 	} from '$lib/constants';
@@ -51,6 +53,12 @@
 		key: `${sport.id}`
 	}));
 </script>
+
+<svelte:head>
+	<meta property="og:image" content={coverPicture.formats.medium.url} />
+	<meta property="og:title" content={DEFAULT_TITLE} />
+	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
+</svelte:head>
 
 <HomeCover picture={coverPicture} position={PicturePosition.TOP} />
 <div class="p-10 flex flex-col w-full justify-center items-center">

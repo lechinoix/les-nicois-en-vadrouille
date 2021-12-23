@@ -22,10 +22,6 @@
 
 <svelte:head>
 	<title>{DEFAULT_TITLE}</title>
-
-	<meta property="og:image" content={HOMEPAGE_US_IMAGE_URL} />
-	<meta property="og:title" content={DEFAULT_TITLE} />
-	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
 </svelte:head>
 
 <main>
