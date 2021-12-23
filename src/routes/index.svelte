@@ -1,32 +1,37 @@
 <script context="module">
-	import { getAdventureById, getLatestAdventures } from '$lib/services/adventureService';
+	import { getLatestAdventures } from '$lib/services/adventureService';
 	import { getAllSports } from '$lib/services/sportService';
+	import { fetchPictureById } from '$lib/services/uploadPluginService';
 
 	export const prerender = true;
 	export async function load({ fetch }) {
-		const COVER_ADVENTURE_ID = '17';
-
 		let latestAdventures = await getLatestAdventures();
-		let coverAdventure = await getAdventureById(COVER_ADVENTURE_ID);
+		let coverPicture = await fetchPictureById(fetch, COVER_PICTURE_ID);
 		let sports = await getAllSports(fetch);
 
 		return {
-			props: { latestAdventures, coverAdventure, sports }
+			props: { latestAdventures, coverPicture, sports }
 		};
 	}
 </script>
 
 <script lang="ts">
-	import type { Adventure, Sport } from '$lib/types';
-	import { CoverTypes, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
+	import type { Adventure, Picture, Sport } from '$lib/types';
+	import {
+		CoverTypes,
+		COVER_PICTURE_ID,
+		HOMEPAGE_US_IMAGE_URL,
+		PicturePosition
+	} from '$lib/constants';
 	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import SmallCover from '$lib/components/coverPicture/coverTypes/smallCover.svelte';
+	import HomeCover from '$lib/components/coverPicture/coverTypes/homeCover.svelte';
 
 	export let latestAdventures: Adventure[];
-	export let coverAdventure: Adventure;
+	export let coverPicture: Picture;
 	export let sports: Sport[];
 
 	$: adventureItems = latestAdventures.map((adventure) => ({
@@ -47,7 +52,7 @@
 	}));
 </script>
 
-<AdventureCover adventure={coverAdventure} coverType={CoverTypes.HOME} />
+<HomeCover picture={coverPicture} position={PicturePosition.TOP} />
 <div class="p-10 flex flex-col w-full justify-center items-center">
 	<div class="flex justify-center flex-col md:flex-row mx-5">
 		<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
