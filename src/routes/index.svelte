@@ -60,7 +60,7 @@
 	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
 </svelte:head>
 
-<HomeCover picture={coverPicture} position={PicturePosition.TOP} />
+<HomeCover picture={coverPicture} position={PicturePosition.TOP_LEFT} />
 <div class="p-10 flex flex-col w-full justify-center items-center">
 	<div class="flex justify-center flex-col md:flex-row mx-5">
 		<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
