@@ -66,7 +66,7 @@
 		<div class="flex flex-col mb-10 md:mb-0 md:mr-10">
 			<strong class="font-title font-light text-3xl">HELLO</strong>
 			<br />
-			<p class="text-xl text-justify font-light">
+			<p class="text-xl text-justify font-sans font-thin">
 				Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en montagne
 				! Basés sur Grenoble, on pratique l'alpinisme, l'escalade et le ski.
 				<br />
