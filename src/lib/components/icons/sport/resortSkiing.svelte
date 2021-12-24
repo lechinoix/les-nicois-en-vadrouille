@@ -2,7 +2,7 @@
 	export let fill = 'gray';
 </script>
 
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 21" style={`fill: ${fill};`}
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 23 21" style={`fill: ${fill}; width: inherit;`}
 	><path
 		d="M18.3257 2.56347C18.9953 2.88306 19.7931 2.59686 20.1112 1.9243C20.4294 1.25174 20.1444 0.450384 19.4749 0.130797C18.8053 -0.188789 18.0076 0.0974076 17.6894 0.76997C17.3712 1.44253 17.6562 2.24388 18.3257 2.56347Z"
 	/><path
