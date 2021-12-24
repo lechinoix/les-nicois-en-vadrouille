@@ -18,7 +18,8 @@
 
 		lightGallery(document.getElementById('lightgallery'), {
 			plugins: [lgZoom, lgThumbnail],
-			speed: 500
+			speed: 500,
+			mobileSettings: { showCloseIcon: true }
 		});
 	});
 </script>
