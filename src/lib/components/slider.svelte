@@ -37,7 +37,7 @@
 				<img
 					alt={picture.alternativeText}
 					src={formatAssetUrl(picture.formats.small.url)}
-					class="w-full h-full object-contain"
+					class="h-full object-contain"
 				/>
 			</a>
 		{/if}
