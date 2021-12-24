@@ -4,9 +4,9 @@
 
 	import AdventureCover from './coverPicture/adventureCover.svelte';
 	import PictoSport from './picto/pictoSport.svelte';
-	import Calendar from './icons/calendar.svelte';
+	import Calendar from './icons/various/old/calendar.svelte';
 	import Picto from './picto/index.svelte';
-	import StrongArm from './icons/strongArm.svelte';
+	import StrongArm from './icons/various/old/strongArm.svelte';
 	import Container from '$lib/components/container.svelte';
 
 	export let adventure: Adventure;

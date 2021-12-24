@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Sports } from '$lib/constants';
-	import HikingIcon from '../icons/sport/hiking.svelte';
-	import MountaineeringIcon from '../icons/sport/mountaineering.svelte';
-	import ResortSkiingIcon from '../icons/sport/resortSkiing.svelte';
-	import RockClimbingIcon from '../icons/sport/rockClimbing.svelte';
-	import SkiTouringIcon from '../icons/sport/skiTouring.svelte';
+	import HikingIcon from '../icons/sport/old/hiking.svelte';
+	import MountaineeringIcon from '../icons/sport/old/mountaineering.svelte';
+	import ResortSkiingIcon from '../icons/sport/old/resortSkiing.svelte';
+	import RockClimbingIcon from '../icons/sport/old/rockClimbing.svelte';
+	import SkiTouringIcon from '../icons/sport/old/skiTouring.svelte';
 
 	const sportToPicto = {
 		[Sports.HIKING]: HikingIcon,
