@@ -23,12 +23,12 @@
 						<Calendar fill={iconFillColor} />
 					</Picto>
 				{/if}
-				{#if adventure.sports && adventure.sports.length > 0}
+				{#if adventure?.sports?.length > 0}
 					<Picto label={adventure.sports[0].name}>
 						<PictoSport sport={adventure.sports[0].slug} fill={iconFillColor} />
 					</Picto>
 				{/if}
-				{#if adventure.cotation}
+				{#if adventure?.cotation}
 					<Picto label={adventure.cotation}>
 						<StrongArm fill={iconFillColor} />
 					</Picto>

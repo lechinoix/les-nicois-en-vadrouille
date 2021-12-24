@@ -1,5 +1,5 @@
 export const truncateText = (text: string, limit = 200): string =>
-	text.length > limit ? `${text.slice(0, limit)}...` : text;
+	text?.length > limit ? `${text.slice(0, limit)}...` : text;
 
 export const slugify = (str: string): string => {
 	str = str.replace(/^\s+|\s+$/g, ''); // trim

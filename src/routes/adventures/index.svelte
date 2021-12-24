@@ -19,7 +19,7 @@
 
 	let latestAdventurePictureUrl = HOMEPAGE_US_IMAGE_URL;
 
-	$: if (adventures.length > 0 && adventures[0].cover_picture)
+	$: if (adventures?.length > 0 && adventures[0].cover_picture)
 		latestAdventurePictureUrl = adventures[0].cover_picture.picture.formats.medium.url;
 </script>
 

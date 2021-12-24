@@ -54,14 +54,14 @@
 	</p>
 	<br />
 	<br />
-	{#if adventure.topo && adventure.topo.length > 0}
+	{#if adventure.topo?.length > 0}
 		<b>Topo</b> :
 		{#each adventure.topo as topo}
 			<TopoLink {topo} />
 			<br />
 		{/each}
 	{/if}
-	{#if adventure.pictures && adventure.pictures.length > 0}
+	{#if adventure.pictures?.length > 0}
 		<div class="mt-5">
 			<Slider pictures={adventure.pictures} />
 		</div>
