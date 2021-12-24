@@ -18,11 +18,6 @@
 	<Container>
 		<div class="flex flex-col justify-center pb-7">
 			<div class="flex justify-center pt-7">
-				{#if adventure.date}
-					<Picto label={adventure.date}>
-						<Calendar fill={iconFillColor} />
-					</Picto>
-				{/if}
 				{#if adventure?.sports?.length > 0}
 					<Picto label={adventure.sports[0].name}>
 						<PictoSport sport={adventure.sports[0].slug} fill={iconFillColor} />

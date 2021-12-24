@@ -17,6 +17,7 @@
 	import AdventureCard from '$lib/components/adventureCard.svelte';
 	import { getAdventureById } from '$lib/services/adventureService';
 	import Container from '$lib/components/container.svelte';
+	import { formatFrenchDate } from '$lib/utils/date';
 	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
 	import { browser } from '$app/env';
@@ -50,7 +51,12 @@
 <AdventureCard {adventure} withLink={false} />
 <Container>
 	<p class="text-justify text-gray-600 text-xl font-sans font-thin leading-relaxed">
-		{@html marked(adventure.description || '')}
+		{#if adventure.date}
+			<span class="italic">{formatFrenchDate(adventure.date)}</span>
+			<br />
+			<br />
+		{/if}
+		<span>{@html marked(adventure.description || '')}</span>
 	</p>
 	<br />
 	<br />
