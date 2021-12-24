@@ -15,14 +15,14 @@
 
 	export let adventure: Adventure;
 	export let coverType: CoverTypes = CoverTypes.LARGE;
-	export let withLink = true;
+	export let linkUrl: string = '';
 
+	let href;
 	let position = adventure.cover_picture?.position;
 	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
 	let title = adventure.title;
-	let href = withLink
-		? `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`
-		: null;
+
+	$: href = linkUrl || `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;
 
 	let coverTypeComponent = mapTypeToComponent[coverType];
 </script>

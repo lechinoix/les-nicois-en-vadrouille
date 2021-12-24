@@ -12,11 +12,11 @@
 	import Compass from './icons/various/new/compass.svelte';
 
 	export let adventure: Adventure;
-	export let withLink = true;
+	export let linkUrl = '';
 </script>
 
 <div>
-	<AdventureCover {adventure} coverType={CoverTypes.LARGE} {withLink} />
+	<AdventureCover {adventure} {linkUrl} coverType={CoverTypes.LARGE} />
 	<Container>
 		<div class="flex flex-col justify-center py-7">
 			<div class="flex flex-wrap gap-5 justify-around">

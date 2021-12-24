@@ -48,7 +48,7 @@
 	/>
 </svelte:head>
 
-<AdventureCard {adventure} withLink={false} />
+<AdventureCard {adventure} linkUrl={`${pageUrl}#slider`} />
 <Container>
 	<p class="text-justify text-gray-600 text-xl font-sans font-thin leading-relaxed">
 		{#if adventure.date}
@@ -68,7 +68,7 @@
 		{/each}
 	{/if}
 	{#if adventure.pictures?.length > 0}
-		<div class="mt-5">
+		<div class="mt-5" id="slider">
 			<Slider pictures={adventure.pictures} />
 		</div>
 	{/if}

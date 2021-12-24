@@ -15,7 +15,7 @@
 	import '../global.postcss';
 	import type { Sport } from '$lib/types';
 	import Header from '$lib/components/newHeader/index.svelte';
-	import { DEFAULT_DESCRIPTION, DEFAULT_TITLE, HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
+	import { DEFAULT_TITLE } from '$lib/constants';
 
 	export let sports: Sport[];
 </script>
@@ -30,3 +30,9 @@
 </main>
 
 <footer />
+
+<style>
+	:root {
+		scroll-behavior: auto;
+	}
+</style>
