@@ -30,9 +30,3 @@
 </main>
 
 <footer />
-
-<style>
-	:root {
-		scroll-behavior: smooth;
-	}
-</style>

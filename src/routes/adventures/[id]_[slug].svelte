@@ -48,7 +48,7 @@
 	/>
 </svelte:head>
 
-<AdventureCard {adventure} linkUrl={`${pageUrl}#slider`} />
+<AdventureCard {adventure} />
 <Container>
 	<p class="text-justify text-gray-600 text-xl font-sans font-thin leading-relaxed">
 		{#if adventure.date}
