@@ -33,6 +33,6 @@
 
 <style>
 	:root {
-		scroll-behavior: auto;
+		scroll-behavior: smooth;
 	}
 </style>
