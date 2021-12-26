@@ -84,7 +84,7 @@
 	<div class="w-full">
 		<ResponsiveGrid items={adventureItems} />
 	</div>
-	<a class="pt-5 text-xl text-gray-600 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
+	<a class="pt-5 text-xl text-gray-800 self-end" href={ROUTES.ADVENTURES.DONE}>En voir plus</a>
 	<SeparatorTitle title="Nos sports" />
 	<div class="w-full">
 		<ResponsiveGrid items={sportItems} />

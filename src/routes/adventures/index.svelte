@@ -31,7 +31,7 @@
 
 {#each adventures as adventure}
 	<AdventureCard {adventure}>
-		<p class="text-justify text-gray-600 text-xl font-serif font-light leading-relaxed pt-7">
+		<p class="text-justify text-gray-800 text-xl font-serif font-light leading-relaxed pt-7">
 			{adventure.short_description || truncateText(adventure.description)}
 		</p>
 	</AdventureCard>

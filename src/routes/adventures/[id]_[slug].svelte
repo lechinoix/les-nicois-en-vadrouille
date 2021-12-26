@@ -50,7 +50,7 @@
 
 <AdventureCard {adventure} />
 <Container>
-	<p class="text-justify text-gray-600 text-xl font-sans font-thin leading-relaxed">
+	<p class="text-justify text-gray-800 text-xl font-sans font-thin leading-relaxed">
 		{#if adventure.date}
 			<span class="italic">{formatFrenchDate(adventure.date)}</span>
 			<br />
