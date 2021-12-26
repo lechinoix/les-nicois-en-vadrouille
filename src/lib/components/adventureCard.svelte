@@ -19,7 +19,7 @@
 	<AdventureCover {adventure} {linkUrl} coverType={CoverTypes.LARGE} />
 	<Container>
 		<div class="flex flex-col justify-center py-7">
-			<div class="flex flex-wrap gap-5 justify-around">
+			<div class="flex flex-wrap gap-y-7 justify-center">
 				{#if adventure?.places?.length > 0}
 					<Picto label={adventure.places[0].name}>
 						<Mountain fill={iconFillColor} />
