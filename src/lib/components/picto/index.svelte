@@ -8,7 +8,7 @@
 	<div class="h-10 w-10 md:w-14 md:h-14">
 		<slot />
 	</div>
-	<p class="pt-2 text-sm text-center font-sans" style={`color: ${iconFillColor}`}>{label}</p>
+	<p class="pt-2 text-xs text-center font-sans" style={`color: ${iconFillColor}`}>{label}</p>
 </div>
 
 <style>
