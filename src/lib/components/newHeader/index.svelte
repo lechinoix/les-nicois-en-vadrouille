@@ -19,7 +19,7 @@
 
 <svelte:body on:click={closeMenu} />
 
-<nav class="absolute bg-linear-b-w py-5 z-10 mx-auto w-screen px-5">
+<nav class="absolute bg-linear-b-w py-5 z-10 mx-auto w-full px-5">
 	<div class="flex items-start justify-between items-center">
 		<a href={ROUTES.HOME} class="flex items-center">
 			<img src="/img/les-nicois.png" alt="Un dessin d'Ambre et Nicolas grimpant" class="w-14" />

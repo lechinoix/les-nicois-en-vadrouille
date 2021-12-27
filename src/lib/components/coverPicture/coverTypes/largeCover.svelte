@@ -15,7 +15,7 @@
 
 <a
 	{href}
-	class={`relative w-screen h-96 flex bg-gray-400 ${href === EMPTY_HREF ? 'cursor-default' : ''}`}
+	class={`relative w-full h-96 flex bg-gray-400 ${href === EMPTY_HREF ? 'cursor-default' : ''}`}
 >
 	<div class="absolute w-full h-full flex justify-center">
 		<strong
@@ -30,7 +30,7 @@
 		</strong>
 	</div>
 	<img
-		class="w-screen max-w-full object-cover {getCoverPositionStyle(position)}"
+		class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
 		src={chooseFormatUrlFromPicture(picture)}
 		alt={picture.alternativeText}
 	/>

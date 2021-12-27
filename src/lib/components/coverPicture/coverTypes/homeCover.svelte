@@ -9,7 +9,7 @@
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
 </script>
 
-<div class="relative w-screen flex bg-gray-400 min-h-80 h-1/3 max-h-140">
+<div class="relative w-full flex bg-gray-400 min-h-80 h-1/3 max-h-140">
 	<div class="absolute w-full h-full flex justify-end pb-8 pr-10 bg-gray-900 bg-opacity-10">
 		<strong class="block text-white text-3xl text-right font-title font-light self-end">
 			Bienvenue sur le blog d'aventures
@@ -18,7 +18,7 @@
 		</strong>
 	</div>
 	<img
-		class="w-screen max-w-full object-cover {getCoverPositionStyle(position)}"
+		class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
 		src={chooseFormatUrlFromPicture(picture)}
 		alt={picture.alternativeText}
 	/>

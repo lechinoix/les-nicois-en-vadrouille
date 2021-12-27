@@ -35,7 +35,7 @@
 			transition:fade={{ duration: fadeDuration }}
 			on:introstart={() => (pageVisible = false)}
 			on:outroend={() => ((showLoader = false), (pageVisible = true))}
-			class="w-screen h-screen flex justify-center items-center"
+			class="w-full h-full flex justify-center items-center"
 		>
 			<slot name="loader">
 				<Loader />

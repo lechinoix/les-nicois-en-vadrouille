@@ -9,7 +9,7 @@
 </script>
 
 <nav
-	class="fixed bg-white h-20 flex items-center z-10 mx-auto w-screen px-10 shadow-lg justify-between"
+	class="fixed bg-white h-20 flex items-center z-10 mx-auto w-full px-10 shadow-lg justify-between"
 >
 	<a href={ROUTES.HOME} class="block">
 		<span class="text-2xl font-extralight font-title whitespace-nowrap">
