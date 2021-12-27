@@ -11,7 +11,7 @@
 
 <div class="relative w-full flex bg-gray-400 min-h-80 h-1/3 max-h-140">
 	<div class="absolute w-full h-full flex justify-end pb-8 pr-10 bg-gray-900 bg-opacity-10">
-		<strong class="block text-white text-3xl text-right font-title font-light self-end">
+		<strong class="block text-white text-3xl text-right font-light self-end">
 			Bienvenue sur le blog d'aventures
 			<br />
 			d'Ambre et Nico !

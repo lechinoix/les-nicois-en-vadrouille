@@ -12,9 +12,7 @@
 	class="fixed bg-white h-20 flex items-center z-10 mx-auto w-full px-10 shadow-lg justify-between"
 >
 	<a href={ROUTES.HOME} class="block">
-		<span class="text-2xl font-extralight font-title whitespace-nowrap">
-			Our Little Adventures
-		</span>
+		<span class="text-2xl font-extralight whitespace-nowrap"> Our Little Adventures </span>
 	</a>
 	<Dropdown title="Sports">
 		{#if !!sports}

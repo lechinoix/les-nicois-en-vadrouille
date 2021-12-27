@@ -23,9 +23,7 @@
 	<div class="flex items-start justify-between items-center">
 		<a href={ROUTES.HOME} class="flex items-center">
 			<img src="/img/les-nicois.png" alt="Un dessin d'Ambre et Nicolas grimpant" class="w-14" />
-			<span class="text-2xl text-white font-title font-extralight ml-4">
-				Les Niçois en Vadrouille
-			</span>
+			<span class="text-2xl text-white font-extralight ml-4"> Les Niçois en Vadrouille </span>
 		</a>
 		<BurgerIcon {isOpen} onClick={openMenu} ratio={3} />
 	</div>
