@@ -3,6 +3,8 @@ import type { Sport } from '$lib/types';
 
 export const getSportBySlug = async (fetch: any, sportSlug: string): Promise<Sport> => {
 	const res = await fetch(`${config.BASE_API_URL}/sports?slug=${sportSlug}`);
+	if (!res.ok) throw new Error(res.statusText);
+
 	const sports = await res.json();
 
 	if (sports.length === 0) throw new Error('Unkown sport');
@@ -12,6 +14,8 @@ export const getSportBySlug = async (fetch: any, sportSlug: string): Promise<Spo
 
 export const getAllSports = async (fetch: any): Promise<Sport[]> => {
 	const res = await fetch(`${config.BASE_API_URL}/sports`);
+	if (!res.ok) throw new Error(res.statusText);
+
 	const sports = await res.json();
 
 	if (sports.length === 0) throw new Error('Unkown sport');
