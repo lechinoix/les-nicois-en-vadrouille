@@ -4,7 +4,7 @@ import type { Adventure } from '$lib/types';
 
 const fetchAdventures = async (searchParams: URLSearchParams) => {
 	const res = await fetch(`${config.BASE_API_URL}/adventures?${searchParams.toString()}`);
-	const adventures = await res.json();
+	const { data: adventures } = await res.json();
 	return adventures;
 };
 
@@ -41,7 +41,7 @@ export const getAdventuresTodo = async (): Promise<Adventure[]> => {
 
 export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
 	const res = await fetch(`${config.BASE_API_URL}/adventures/${adventureId}`);
-	const adventures = await res.json();
+	const { data: adventures } = await res.json();
 	return adventures;
 };
 
