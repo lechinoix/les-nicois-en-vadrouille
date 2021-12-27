@@ -6,7 +6,7 @@
 	export const prerender = true;
 	export async function load({ fetch }) {
 		let latestAdventures = await getLatestAdventures();
-		let coverPicture = await fetchPictureById(fetch, COVER_PICTURE_ID);
+		let coverPicture = await fetchPictureById(fetch, env.COVER_PICTURE_ID);
 		let sports = await getAllSports(fetch);
 
 		return {
@@ -19,7 +19,6 @@
 	import type { Adventure, Picture, Sport } from '$lib/types';
 	import {
 		CoverTypes,
-		COVER_PICTURE_ID,
 		DEFAULT_DESCRIPTION,
 		DEFAULT_TITLE,
 		HOMEPAGE_US_IMAGE_URL,
@@ -31,6 +30,7 @@
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import SmallCover from '$lib/components/coverPicture/coverTypes/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/coverTypes/homeCover.svelte';
+	import env from '$lib/config/index';
 
 	export let latestAdventures: Adventure[];
 	export let coverPicture: Picture;
