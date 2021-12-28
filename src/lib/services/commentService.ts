@@ -22,7 +22,7 @@ const formatCommentPayloadFromAdventureForm = (input: CommentPayload) => ({
 	]
 });
 
-export const postComment = async (input: CommentPayload) => {
+export const postComment = async (input: CommentPayload): Promise<Comment> => {
 	const res = await fetch(`${config.BASE_API_URL}/comments/adventure:${input.adventureId}`, {
 		method: 'POST',
 		body: JSON.stringify(formatCommentPayloadFromAdventureForm(input)),
@@ -32,5 +32,5 @@ export const postComment = async (input: CommentPayload) => {
 	});
 	if (!res.ok) throw new Error(res.statusText);
 
-	return true;
+	return await res.json();
 };

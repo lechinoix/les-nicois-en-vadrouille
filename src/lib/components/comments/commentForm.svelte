@@ -1,14 +1,18 @@
 <script lang="ts">
 	import { postComment } from '$lib/services/commentService';
+	import type { Comment } from '$lib/types';
 	import { form, field } from 'svelte-forms';
 	import { email, required } from 'svelte-forms/validators';
 
 	export let adventureId: number;
+	export let onSuccess: (comment: Comment) => void;
 
 	const name = field('name', '', [required()]);
 	const emailInput = field('emailInput', '', [email(), required()]);
 	const content = field('content', '', [required()]);
 	const commentForm = form(name, emailInput, content);
+
+	let errorOnSave = false;
 
 	const formatPayloadFromForm = () => ({
 		name: $name.value,
@@ -18,10 +22,17 @@
 	});
 
 	const submitForm = async () => {
+		errorOnSave = false;
 		await commentForm.validate();
 		if (!$commentForm.valid) return;
 
-		return await postComment(formatPayloadFromForm());
+		try {
+			const comment = await postComment(formatPayloadFromForm());
+			onSuccess(comment);
+		} catch (e) {
+			console.error(e);
+			errorOnSave = true;
+		}
 	};
 </script>
 
@@ -42,5 +53,8 @@
 	{/if}
 	<textarea bind:value={$content.value} id="content" class="border mb-5" />
 
+	{#if errorOnSave}
+		<div class="text-red-600 text-sm">Your comment could not be saved</div>
+	{/if}
 	<button on:click={submitForm} class="border px-5 py-2 bg-gray-200">Send</button>
 </section>

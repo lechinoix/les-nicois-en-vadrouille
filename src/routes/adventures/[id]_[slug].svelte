@@ -9,7 +9,7 @@
 </script>
 
 <script lang="ts">
-	import type { Adventure, Picture } from '$lib/types';
+	import type { Adventure, Picture, Comment } from '$lib/types';
 	import { page } from '$app/stores';
 	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
@@ -21,8 +21,9 @@
 	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
 	import { browser } from '$app/env';
-	import Comment from '$lib/components/comments/commentForm.svelte';
+	import CommentForm from '$lib/components/comments/commentForm.svelte';
 	import CommentBox from '$lib/components/comments/commentBox.svelte';
+	import uniqBy from 'lodash/uniqBy';
 
 	export let adventure: Adventure;
 
@@ -30,9 +31,15 @@
 	let adventureSlug: string;
 	let pageUrl: string;
 	let isCreatingComment = false;
+	let comments: Comment[] = [];
 
 	const openCommentCreation = () => {
 		isCreatingComment = true;
+	};
+
+	const onCommentSave = (comment: Comment) => {
+		isCreatingComment = false;
+		comments = [...comments, comment];
 	};
 
 	$: {
@@ -43,6 +50,8 @@
 	}
 
 	$: picture = adventure.cover_picture?.picture || adventure.pictures[0];
+
+	$: comments = uniqBy([...comments, ...adventure.comments], 'id');
 </script>
 
 <svelte:head>
@@ -82,8 +91,8 @@
 
 	<div class="w-full mt-10">
 		<h2 class="text-2xl">Commentaires</h2>
-		{#if adventure.comments.length > 0}
-			{#each adventure.comments as comment}
+		{#if comments.length > 0}
+			{#each comments as comment}
 				<div class="my-5">
 					<CommentBox {comment} />
 				</div>
@@ -92,11 +101,11 @@
 			No comment for the moment
 		{/if}
 		{#if !isCreatingComment}
-			<button class="p-2 bg-gray-200 border border-gray-600" on:click={openCommentCreation}
+			<button class="block p-2 bg-gray-200 border border-gray-600" on:click={openCommentCreation}
 				>Post comment</button
 			>
 		{:else}
-			<Comment adventureId={adventure.id} />
+			<CommentForm adventureId={adventure.id} onSuccess={onCommentSave} />
 		{/if}
 	</div>
 </Container>
