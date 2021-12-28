@@ -80,13 +80,8 @@
 		</div>
 	{/if}
 
-	<div class="w-full">
-		{#if !isCreatingComment}
-			<button on:click={openCommentCreation}>Post comment</button>
-		{:else}
-			<Comment adventureId={adventure.id} />
-		{/if}
-
+	<div class="w-full mt-10">
+		<h2 class="text-2xl">Commentaires</h2>
 		{#if adventure.comments.length > 0}
 			{#each adventure.comments as comment}
 				<div class="my-5">
@@ -95,6 +90,13 @@
 			{/each}
 		{:else}
 			No comment for the moment
+		{/if}
+		{#if !isCreatingComment}
+			<button class="p-2 bg-gray-200 border border-gray-600" on:click={openCommentCreation}
+				>Post comment</button
+			>
+		{:else}
+			<Comment adventureId={adventure.id} />
 		{/if}
 	</div>
 </Container>
