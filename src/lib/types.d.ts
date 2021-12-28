@@ -133,7 +133,7 @@ export type Comment = {
 	blocked: boolean;
 	content: string;
 	created_at: string;
-	id: number;
+	id: string;
 	updated_at: string;
 };
 

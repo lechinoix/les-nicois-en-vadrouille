@@ -51,7 +51,9 @@
 
 	$: picture = adventure.cover_picture?.picture || adventure.pictures[0];
 
-	$: comments = uniqBy([...comments, ...adventure.comments], 'id');
+	$: comments = uniqBy([...comments, ...adventure.comments], 'id').filter(
+		(comment) => !comment.blocked
+	);
 </script>
 
 <svelte:head>
@@ -94,7 +96,7 @@
 		{#if comments.length > 0}
 			{#each comments as comment}
 				<div class="my-5">
-					<CommentBox {comment} />
+					<CommentBox {comment} adventureId={adventure.id} />
 				</div>
 			{/each}
 		{:else}

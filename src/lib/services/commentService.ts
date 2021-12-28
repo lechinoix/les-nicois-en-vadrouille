@@ -1,5 +1,6 @@
 import config from '$lib/config';
 import { nanoid } from 'nanoid';
+import type { Comment } from '$lib/types';
 
 type CommentPayload = {
 	name: string;
@@ -30,6 +31,25 @@ export const postComment = async (input: CommentPayload): Promise<Comment> => {
 			'Content-Type': 'application/json'
 		}
 	});
+	if (!res.ok) throw new Error(res.statusText);
+
+	return await res.json();
+};
+
+export const reportComment = async (adventureId: number, commentId: string): Promise<boolean> => {
+	const res = await fetch(
+		`${config.BASE_API_URL}/comments/adventure:${adventureId}/comment/${commentId}/report-abuse`,
+		{
+			method: 'POST',
+			body: JSON.stringify({
+				reason: 'OTHER',
+				content: 'Asked for deletion'
+			}),
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		}
+	);
 	if (!res.ok) throw new Error(res.statusText);
 
 	return await res.json();
