@@ -73,5 +73,5 @@
 			<Slider pictures={adventure.pictures} />
 		</div>
 	{/if}
-	<Comment />
+	<Comment adventureId={adventure.id} />
 </Container>
