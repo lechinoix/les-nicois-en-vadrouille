@@ -36,7 +36,8 @@
 	"type": "module",
 	"dependencies": {
 		"lightgallery": "^2.2.1",
-		"marked": "^3.0.8"
+		"marked": "^3.0.8",
+		"svelte-forms": "^2.0.7"
 	},
 	"lint-staged": {
 		"*.js": "eslint --cache --fix",

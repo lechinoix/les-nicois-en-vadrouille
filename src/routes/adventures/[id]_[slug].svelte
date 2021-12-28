@@ -21,6 +21,7 @@
 	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
 	import { browser } from '$app/env';
+	import Comment from '$lib/components/comments/index.svelte';
 
 	export let adventure: Adventure;
 
@@ -72,4 +73,5 @@
 			<Slider pictures={adventure.pictures} />
 		</div>
 	{/if}
+	<Comment />
 </Container>
