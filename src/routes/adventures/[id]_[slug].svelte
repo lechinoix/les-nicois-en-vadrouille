@@ -21,13 +21,19 @@
 	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
 	import { browser } from '$app/env';
-	import Comment from '$lib/components/comments/index.svelte';
+	import Comment from '$lib/components/comments/commentForm.svelte';
+	import CommentBox from '$lib/components/comments/commentBox.svelte';
 
 	export let adventure: Adventure;
 
 	let picture: Picture;
 	let adventureSlug: string;
 	let pageUrl: string;
+	let isCreatingComment = false;
+
+	const openCommentCreation = () => {
+		isCreatingComment = true;
+	};
 
 	$: {
 		adventureSlug = slugify(adventure.title);
@@ -73,5 +79,22 @@
 			<Slider pictures={adventure.pictures} />
 		</div>
 	{/if}
-	<Comment adventureId={adventure.id} />
+
+	<div class="w-full">
+		{#if !isCreatingComment}
+			<button on:click={openCommentCreation}>Post comment</button>
+		{:else}
+			<Comment adventureId={adventure.id} />
+		{/if}
+
+		{#if adventure.comments.length > 0}
+			{#each adventure.comments as comment}
+				<div class="my-5">
+					<CommentBox {comment} />
+				</div>
+			{/each}
+		{:else}
+			No comment for the moment
+		{/if}
+	</div>
 </Container>

@@ -17,6 +17,7 @@ export interface Locals {
 export type Adventure = {
 	id: number;
 	title: string;
+	comments: Comment[];
 	cotation: string;
 	cover_picture: CoverPicture;
 	description: string;
@@ -122,6 +123,17 @@ export type Period = {
 	name: string;
 	published_at: string;
 	created_at: string;
+	updated_at: string;
+};
+
+export type Comment = {
+	authorEmail: string;
+	authorId: string;
+	authorName: string;
+	blocked: boolean;
+	content: string;
+	created_at: string;
+	id: number;
 	updated_at: string;
 };
 
