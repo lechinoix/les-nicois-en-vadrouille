@@ -27,6 +27,7 @@
 	import findIndex from 'lodash/findIndex.js';
 	import { typography } from '$lib/styles';
 	import { sliderRef } from '$lib/stores/slider';
+	import type { LightGallery } from 'lightgallery/lightgallery';
 
 	export let adventure: Adventure;
 
@@ -36,6 +37,11 @@
 	let isCreatingComment = false;
 	let comments: Comment[] = [];
 	let pictures: Picture[];
+	let gallery: LightGallery;
+
+	sliderRef.subscribe((galleryInstance: LightGallery) => {
+		gallery = galleryInstance;
+	});
 
 	$: {
 		adventureSlug = slugify(adventure.title);
@@ -59,9 +65,7 @@
 	};
 
 	const openSlider = () => {
-		sliderRef.subscribe((gallery) =>
-			gallery.openGallery(findIndex(pictures, ['id', coverPicture.id]))
-		);
+		gallery.openGallery(findIndex(pictures, ['id', coverPicture.id]));
 	};
 </script>
 
