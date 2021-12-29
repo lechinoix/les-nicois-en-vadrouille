@@ -24,6 +24,8 @@
 	import CommentForm from '$lib/components/comments/commentForm.svelte';
 	import CommentBox from '$lib/components/comments/commentBox.svelte';
 	import uniqBy from 'lodash/uniqBy';
+	import { typography } from '$lib/styles';
+	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 
 	export let adventure: Adventure;
 
@@ -68,7 +70,7 @@
 
 <AdventureCard {adventure} />
 <Container>
-	<p class="text-justify text-gray-800 text-xl font-sans font-thin leading-relaxed">
+	<p class={`text-justify ${typography.text}`}>
 		{#if adventure.date}
 			<span class="italic">{formatFrenchDate(adventure.date)}</span>
 			<br />
@@ -99,12 +101,11 @@
 					<CommentBox {comment} adventureId={adventure.id} />
 				</div>
 			{/each}
-		{:else}
-			No comment for the moment
 		{/if}
 		{#if !isCreatingComment}
-			<button class="block p-2 bg-gray-200 border border-gray-600" on:click={openCommentCreation}
-				>Post comment</button
+			<button
+				class="block px-3 py-2 border border-gray-600 text-gray-600 rounded-md mt-5"
+				on:click={openCommentCreation}>Commenter</button
 			>
 		{:else}
 			<CommentForm adventureId={adventure.id} onSuccess={onCommentSave} />

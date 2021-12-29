@@ -41,7 +41,7 @@
 <div class="flex mx-4 my-3 flex-col">
 	<p>{comment.content}</p>
 	<button on:click={reportCommentAction} class="text-gray-400 text-xs self-start mt-2"
-		>Ask for deletion</button
+		>Demander la suppression</button
 	>
 	{#if reportSucceeded}
 		<p class="text-xs text-green-600">Votre demande a été prise en compte</p>
