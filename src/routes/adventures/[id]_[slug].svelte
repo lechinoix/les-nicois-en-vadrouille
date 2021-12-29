@@ -23,9 +23,8 @@
 	import { browser } from '$app/env';
 	import CommentForm from '$lib/components/comments/commentForm.svelte';
 	import CommentBox from '$lib/components/comments/commentBox.svelte';
-	import uniqBy from 'lodash/uniqBy';
+	import uniqBy from 'lodash/uniqBy.js';
 	import { typography } from '$lib/styles';
-	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
 
 	export let adventure: Adventure;
 
