@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Picture } from '$lib/types';
+	import { sliderRef } from '$lib/stores/slider';
 
 	export const ssr = false;
 	export let pictures: Picture[] = [];
@@ -16,11 +17,13 @@
 		);
 		const { default: lgZoom } = await import('lightgallery/plugins/zoom/lg-zoom.umd');
 
-		lightGallery(document.getElementById('lightgallery'), {
+		const gallery = lightGallery(document.getElementById('lightgallery'), {
 			plugins: [lgZoom, lgThumbnail],
 			speed: 500,
 			mobileSettings: { showCloseIcon: true }
 		});
+
+		sliderRef.set(gallery);
 	});
 </script>
 

@@ -24,15 +24,30 @@
 	import CommentForm from '$lib/components/comments/commentForm.svelte';
 	import CommentBox from '$lib/components/comments/commentBox.svelte';
 	import uniqBy from 'lodash/uniqBy.js';
+	import findIndex from 'lodash/findIndex.js';
 	import { typography } from '$lib/styles';
+	import { sliderRef } from '$lib/stores/slider';
 
 	export let adventure: Adventure;
 
-	let picture: Picture;
+	let coverPicture: Picture;
 	let adventureSlug: string;
 	let pageUrl: string;
 	let isCreatingComment = false;
 	let comments: Comment[] = [];
+	let pictures: Picture[];
+
+	$: {
+		adventureSlug = slugify(adventure.title);
+		if (browser) pageUrl = getUrlWithNewSlug(location, adventureSlug);
+		if (browser && $page.params.slug !== adventureSlug)
+			window.history.replaceState(null, null, pageUrl);
+	}
+	$: coverPicture = adventure.cover_picture?.picture || adventure.pictures[0];
+	$: pictures = uniqBy([coverPicture, ...adventure.pictures], 'id');
+	$: comments = uniqBy([...comments, ...adventure.comments], 'id').filter(
+		(comment) => !comment.blocked
+	);
 
 	const openCommentCreation = () => {
 		isCreatingComment = true;
@@ -43,22 +58,15 @@
 		comments = [...comments, comment];
 	};
 
-	$: {
-		adventureSlug = slugify(adventure.title);
-		if (browser) pageUrl = getUrlWithNewSlug(location, adventureSlug);
-		if (browser && $page.params.slug !== adventureSlug)
-			window.history.replaceState(null, null, pageUrl);
-	}
-
-	$: picture = adventure.cover_picture?.picture || adventure.pictures[0];
-
-	$: comments = uniqBy([...comments, ...adventure.comments], 'id').filter(
-		(comment) => !comment.blocked
-	);
+	const openSlider = () => {
+		sliderRef.subscribe((gallery) =>
+			gallery.openGallery(findIndex(pictures, ['id', coverPicture.id]))
+		);
+	};
 </script>
 
 <svelte:head>
-	<meta property="og:image" content={picture.formats.medium.url} />
+	<meta property="og:image" content={coverPicture.formats.medium.url} />
 	<meta property="og:url" content={pageUrl} />
 	<meta property="og:title" content={adventure.title} />
 	<meta
@@ -67,7 +75,7 @@
 	/>
 </svelte:head>
 
-<AdventureCard {adventure} />
+<AdventureCard {adventure} onClick={openSlider} />
 <Container>
 	<p class={`text-justify ${typography.text}`}>
 		{#if adventure.date}
@@ -88,7 +96,7 @@
 	{/if}
 	{#if adventure.pictures?.length > 0}
 		<div class="mt-5" id="slider">
-			<Slider pictures={uniqBy([picture, ...adventure.pictures], 'id')} />
+			<Slider {pictures} />
 		</div>
 	{/if}
 

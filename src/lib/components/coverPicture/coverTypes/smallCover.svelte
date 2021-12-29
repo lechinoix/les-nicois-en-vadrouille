@@ -6,6 +6,7 @@
 	export let position = null;
 	export let href = '#';
 	export let title = '';
+	export let onClick: () => void | null = null;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.medium ? picture.formats.medium.url : picture.url;
@@ -13,6 +14,7 @@
 
 <a
 	{href}
+	on:click={onClick}
 	class="
 		block relative w-full h-full
 		overflow-hidden bg-gray-300

@@ -8,6 +8,7 @@
 	export let position = null;
 	export let title = '';
 	export let href = EMPTY_HREF;
+	export let onClick: () => void | null = null;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
@@ -15,7 +16,10 @@
 
 <a
 	{href}
-	class={`relative w-full h-96 flex bg-gray-400 ${href === EMPTY_HREF ? 'cursor-default' : ''}`}
+	on:click={onClick}
+	class={`relative w-full h-96 flex bg-gray-400 ${
+		href === EMPTY_HREF && onClick !== null ? 'cursor-default' : 'cursor-pointer'
+	}`}
 >
 	<div class="absolute w-full h-full flex justify-center">
 		<strong

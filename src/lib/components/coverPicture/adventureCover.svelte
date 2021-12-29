@@ -15,16 +15,19 @@
 
 	export let adventure: Adventure;
 	export let coverType: CoverTypes = CoverTypes.LARGE;
-	export let linkUrl: string = '';
+	export let onClick: () => void | null = null;
 
 	let href;
 	let position = adventure.cover_picture?.position;
 	let picture = adventure.cover_picture?.picture || adventure.pictures[0];
 	let title = adventure.title;
 
-	$: href = linkUrl || `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;
+	$: href =
+		onClick !== null
+			? null
+			: `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;
 
 	let coverTypeComponent = mapTypeToComponent[coverType];
 </script>
 
-<svelte:component this={coverTypeComponent} {picture} {position} {title} {href} />
+<svelte:component this={coverTypeComponent} {picture} {position} {title} {href} {onClick} />
