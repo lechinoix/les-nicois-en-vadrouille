@@ -88,7 +88,7 @@
 	{/if}
 	{#if adventure.pictures?.length > 0}
 		<div class="mt-5" id="slider">
-			<Slider pictures={adventure.pictures} />
+			<Slider pictures={uniqBy([picture, ...adventure.pictures], 'id')} />
 		</div>
 	{/if}
 
