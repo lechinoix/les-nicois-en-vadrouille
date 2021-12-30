@@ -49,5 +49,20 @@ export const getAdventureById = async (adventureId: string): Promise<Adventure> 
 	return adventures;
 };
 
+export const getPreviewById = async (adventureId: string, apiToken: string): Promise<Adventure> => {
+	const res = await fetch(
+		`${config.BASE_API_URL}/content-manager/collection-types/application::adventure.adventure/${adventureId}`,
+		{
+			headers: {
+				Authorization: `Bearer ${apiToken}`
+			}
+		}
+	);
+	if (!res.ok) throw new Error(res.statusText);
+
+	const adventures = await res.json();
+	return adventures;
+};
+
 export const formatAssetUrl = (assetUrl: string): string =>
 	assetUrl.startsWith('/') ? `${config.BASE_API_URL}${assetUrl}` : assetUrl;

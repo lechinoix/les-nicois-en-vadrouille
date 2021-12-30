@@ -33,9 +33,11 @@
 			{title}
 		</strong>
 	</div>
-	<img
-		class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
-		src={chooseFormatUrlFromPicture(picture)}
-		alt={picture.alternativeText}
-	/>
+	{#if picture}
+		<img
+			class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
+			src={chooseFormatUrlFromPicture(picture)}
+			alt={picture.alternativeText}
+		/>
+	{/if}
 </a>
