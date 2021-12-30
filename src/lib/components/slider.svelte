@@ -4,6 +4,7 @@
 	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Picture } from '$lib/types';
 	import { sliderRef } from '$lib/stores/slider';
+	import isMobile from '$lib/utils/isMobile';
 
 	export const ssr = false;
 	export let pictures: Picture[] = [];
@@ -20,7 +21,9 @@
 		const gallery = lightGallery(document.getElementById('lightgallery'), {
 			plugins: [lgZoom, lgThumbnail],
 			speed: 500,
-			mobileSettings: { showCloseIcon: true }
+			mobileSettings: { showCloseIcon: true },
+			toggleThumb: isMobile(),
+			allowMediaOverlap: isMobile()
 		});
 
 		sliderRef.set(gallery);
