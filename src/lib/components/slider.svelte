@@ -13,17 +13,21 @@
 	onMount(async () => {
 		if (!browser) return;
 		const { default: lightGallery } = await import('lightgallery');
-		const { default: lgThumbnail } = await import(
-			'lightgallery/plugins/thumbnail/lg-thumbnail.umd'
-		);
 		const { default: lgZoom } = await import('lightgallery/plugins/zoom/lg-zoom.umd');
 
+		const plugins = [lgZoom];
+
+		if (!isMobile()) {
+			const { default: lgThumbnail } = await import(
+				'lightgallery/plugins/thumbnail/lg-thumbnail.umd'
+			);
+			plugins.push(lgThumbnail);
+		}
+
 		const gallery = lightGallery(document.getElementById('lightgallery'), {
-			plugins: [lgZoom, lgThumbnail],
+			plugins,
 			speed: 500,
-			mobileSettings: { showCloseIcon: true },
-			toggleThumb: isMobile(),
-			allowMediaOverlap: isMobile()
+			mobileSettings: { showCloseIcon: true }
 		});
 
 		sliderRef.set(gallery);
