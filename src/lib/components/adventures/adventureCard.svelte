@@ -11,7 +11,7 @@
 
 <div>
 	{#if coverPicture}
-		<img src={coverPicture.formats.medium.url} alt={coverPicture.alternativeText} />
+		<img src={coverPicture.formats.thumbnail.url} alt={coverPicture.alternativeText} />
 	{/if}
 	<strong>{adventure.title}</strong>
 	<div>Cotation: {adventure.cotation}</div>
