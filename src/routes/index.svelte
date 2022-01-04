@@ -25,11 +25,11 @@
 		HOMEPAGE_US_IMAGE_URL,
 		PicturePosition
 	} from '$lib/constants';
-	import AdventureCover from '$lib/components/adventures/coverPicture/adventureCover.svelte';
+	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
-	import SmallCover from '$lib/components/adventures/coverPicture/coverTypes/smallCover.svelte';
+	import SmallCover from '$lib/components/coverPicture/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
 	import env from '$lib/config/index';
 

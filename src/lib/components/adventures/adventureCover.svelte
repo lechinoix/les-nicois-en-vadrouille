@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { CoverTypes } from '$lib/constants';
-	import LargeCover from '../coverPicture/coverTypes/largeCover.svelte';
+	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
-	import SmallCover from '../coverPicture/coverTypes/smallCover.svelte';
+	import SmallCover from '../coverPicture/smallCover.svelte';
 	import type { Adventure } from '$lib/types';
 	import { ROUTES } from '$lib/config/routes';
 	import { slugify } from '$lib/utils/string';

@@ -13,9 +13,9 @@
 <script lang="ts">
 	import type { Adventure, Sport } from '$lib/types';
 	import { getSportBySlug } from '$lib/services/sportService';
-	import AdventureCover from '$lib/components/adventures/coverPicture/adventureCover.svelte';
+	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
 	import { AdventureStatus, CoverTypes } from '$lib/constants';
-	import LargeCover from '$lib/components/adventures/coverPicture/coverTypes/largeCover.svelte';
+	import LargeCover from '$lib/components/coverPicture/largeCover.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 
 	export let sport: Sport;
