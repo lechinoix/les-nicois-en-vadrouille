@@ -1,10 +1,11 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { getLatestAdventures } from '$lib/services/adventureService';
 	import { getAllSports } from '$lib/services/sportService';
 	import { fetchPictureById } from '$lib/services/uploadPluginService';
+	import type { LoadInput } from '@sveltejs/kit';
 
 	export const prerender = true;
-	export async function load({ fetch }) {
+	export async function load({ fetch }: LoadInput) {
 		let latestAdventures = await getLatestAdventures();
 		let coverPicture = await fetchPictureById(fetch, env.COVER_PICTURE_ID);
 		let sports = await getAllSports(fetch);
@@ -24,12 +25,12 @@
 		HOMEPAGE_US_IMAGE_URL,
 		PicturePosition
 	} from '$lib/constants';
-	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
+	import AdventureCover from '$lib/components/adventures/coverPicture/adventureCover.svelte';
 	import { ROUTES } from '$lib/config/routes';
 	import SeparatorTitle from '$lib/components/ui/separatorTitle.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
-	import SmallCover from '$lib/components/coverPicture/coverTypes/smallCover.svelte';
-	import HomeCover from '$lib/components/coverPicture/coverTypes/homeCover.svelte';
+	import SmallCover from '$lib/components/adventures/coverPicture/coverTypes/smallCover.svelte';
+	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
 	import env from '$lib/config/index';
 
 	export let latestAdventures: Adventure[];

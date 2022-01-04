@@ -4,7 +4,7 @@
 	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
 	import TopoLink from '$lib/components/topoLink.svelte';
-	import AdventureCard from '$lib/components/adventureCard.svelte';
+	import AdventureCard from '$lib/components/adventures/adventureHeader.svelte';
 	import Container from '$lib/components/container.svelte';
 	import { formatFrenchDate } from '$lib/utils/date';
 	import { slugify, truncateText } from '$lib/utils/string';
@@ -15,16 +15,18 @@
 	import { typography } from '$lib/styles';
 	import { sliderRef } from '$lib/stores/slider';
 	import type { LightGallery } from 'lightgallery/lightgallery';
+	import { getCoverPicture } from '$lib/services/adventureService';
 
 	export let adventure: Adventure;
 
-	let coverPicture: Picture;
+	let coverPicture: Picture | null;
 	let adventureSlug: string;
 	let pageUrl: string;
 	let pictures: Picture[];
 	let gallery: LightGallery;
 
-	sliderRef.subscribe((galleryInstance: LightGallery) => {
+	sliderRef.subscribe((galleryInstance: LightGallery | null) => {
+		if (!galleryInstance) return;
 		gallery = galleryInstance;
 	});
 
@@ -32,12 +34,16 @@
 		adventureSlug = slugify(adventure.title);
 		if (browser) pageUrl = getUrlWithNewSlug(location, adventureSlug);
 		if (browser && $page.params.slug !== adventureSlug)
-			window.history.replaceState(null, null, pageUrl);
+			window.history.replaceState(null, '', pageUrl);
 	}
-	$: coverPicture = adventure.cover_picture?.picture || adventure.pictures[0];
-	$: pictures = uniqBy([coverPicture, ...adventure.pictures], 'id');
+	$: coverPicture = getCoverPicture(adventure);
+	$: pictures =
+		coverPicture !== null
+			? uniqBy([coverPicture, ...adventure.pictures], 'id')
+			: adventure.pictures;
 
 	const openSlider = () => {
+		if (!coverPicture) return;
 		gallery.openGallery(findIndex(pictures, ['id', coverPicture.id]));
 	};
 </script>

@@ -14,7 +14,7 @@ const postitionToStyle = {
 	[PicturePosition.TOP]: 'object-top'
 };
 
-export const getCoverPositionStyle = (position: string): string => {
+export const getCoverPositionStyle = (position: PicturePosition | null): string => {
 	if (!position) return DEFAULT_POSITION;
 	return postitionToStyle[position];
 };

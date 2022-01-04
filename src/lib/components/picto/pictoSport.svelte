@@ -16,10 +16,10 @@
 		[Sports.SKI_DE_RANDO]: SkiBoot
 	};
 
-	export let sport;
-	export let fill;
+	export let sportSlug: Sports;
+	export let fill: string = '';
 
-	let picto = sportToPicto.hasOwnProperty(sport) ? sportToPicto[sport] : DEFAULT_ICON;
+	let picto = sportToPicto.hasOwnProperty(sportSlug) ? sportToPicto[sportSlug] : DEFAULT_ICON;
 </script>
 
 <svelte:component this={picto} {fill} />

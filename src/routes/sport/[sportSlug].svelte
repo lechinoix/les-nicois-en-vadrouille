@@ -1,6 +1,8 @@
-<script context="module">
+<script context="module" lang="ts">
+	import type { LoadInput } from '@sveltejs/kit';
+
 	export const prerender = true;
-	export async function load({ page, fetch }) {
+	export async function load({ page, fetch }: LoadInput) {
 		const sport = await getSportBySlug(fetch, page.params.sportSlug);
 		return {
 			props: { sport }
@@ -11,9 +13,9 @@
 <script lang="ts">
 	import type { Adventure, Sport } from '$lib/types';
 	import { getSportBySlug } from '$lib/services/sportService';
-	import AdventureCover from '$lib/components/coverPicture/adventureCover.svelte';
+	import AdventureCover from '$lib/components/adventures/coverPicture/adventureCover.svelte';
 	import { AdventureStatus, CoverTypes } from '$lib/constants';
-	import LargeCover from '$lib/components/coverPicture/coverTypes/largeCover.svelte';
+	import LargeCover from '$lib/components/adventures/coverPicture/coverTypes/largeCover.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 
 	export let sport: Sport;

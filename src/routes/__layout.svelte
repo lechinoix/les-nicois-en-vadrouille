@@ -1,8 +1,9 @@
-<script context="module">
+<script context="module" lang="ts">
 	import { getAllSports } from '$lib/services/sportService';
+	import type { LoadInput } from '@sveltejs/kit';
 
 	export const prerender = true;
-	export async function load({ fetch }) {
+	export async function load({ fetch }: LoadInput) {
 		let sports = await getAllSports(fetch);
 
 		return {

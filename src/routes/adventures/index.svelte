@@ -13,7 +13,7 @@
 	import type { Adventure } from '$lib/types';
 	import { getAdventuresDone } from '$lib/services/adventureService';
 	import { truncateText } from '$lib/utils/string';
-	import AdventureCard from '$lib/components/adventureCard.svelte';
+	import AdventureCard from '$lib/components/adventures/adventureHeader.svelte';
 
 	export let adventures: Adventure[];
 
