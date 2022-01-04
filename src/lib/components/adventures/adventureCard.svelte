@@ -9,12 +9,26 @@
 	$: coverPicture = getCoverPicture(adventure);
 </script>
 
-<div>
-	{#if coverPicture}
-		<img src={coverPicture.formats.thumbnail.url} alt={coverPicture.alternativeText} />
-	{/if}
-	<strong>{adventure.title}</strong>
-	<div>Cotation: {adventure.cotation}</div>
-	<div>Orientation: {adventure.orientation}</div>
-	<p>{adventure.short_description}</p>
+<div class="flex my-5">
+	<div class="w-40 h-24 overflow-hidden rounded-xl flex-shrink-0">
+		{#if coverPicture}
+			<img
+				class="object-cover w-full"
+				src={coverPicture.formats.thumbnail.url}
+				alt={coverPicture.alternativeText}
+			/>
+		{/if}
+	</div>
+	<div class="ml-3">
+		<strong>{adventure.title}</strong>
+		{#if adventure.cotation}
+			<div>Cotation: {adventure.cotation}</div>
+		{/if}
+		{#if adventure.orientation}
+			<div>Orientation: {adventure.orientation}</div>
+		{/if}
+		{#if adventure.short_description}
+			<p>{adventure.short_description}</p>
+		{/if}
+	</div>
 </div>

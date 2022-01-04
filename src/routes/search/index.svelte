@@ -19,7 +19,7 @@
 </script>
 
 <main class="h-screen pt-20 grid grid-cols-2">
-	<section class="h-full overflow-hidden">
+	<section class="h-full overflow-hidden pl-3">
 		<VirtualList items={adventures} let:item>
 			<AdventureCard adventure={item} />
 		</VirtualList>
