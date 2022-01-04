@@ -1,14 +1,18 @@
 <script lang="ts">
-	import type { Adventure } from '$lib/types';
+	import { getCoverPicture } from '$lib/services/adventureService';
+
+	import type { Adventure, Picture } from '$lib/types';
 
 	export let adventure: Adventure;
+	let coverPicture: Picture | null;
+
+	$: coverPicture = getCoverPicture(adventure);
 </script>
 
 <div>
-	<img
-		src={adventure.cover_picture.picture.formats.medium.url}
-		alt={adventure.cover_picture.picture.alternativeText}
-	/>
+	{#if coverPicture}
+		<img src={coverPicture.formats.medium.url} alt={coverPicture.alternativeText} />
+	{/if}
 	<strong>{adventure.title}</strong>
 	<div>Cotation: {adventure.cotation}</div>
 	<div>Orientation: {adventure.orientation}</div>
