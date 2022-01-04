@@ -1,12 +1,14 @@
 <script lang="ts">
+	import type { PicturePosition } from '$lib/constants';
+
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Picture } from '$lib/types';
 
-	export let picture: Picture;
-	export let position = null;
+	export let picture: Picture | null;
+	export let position: PicturePosition | null = null;
 	export let href = '#';
 	export let title = '';
-	export let onClick: () => void | null = null;
+	export let onClick: (() => void) | null = null;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.medium ? picture.formats.medium.url : picture.url;
@@ -32,9 +34,11 @@
 			{title}
 		</strong>
 	</div>
-	<img
-		class="object-cover {getCoverPositionStyle(position)} h-full w-full"
-		src={chooseFormatUrlFromPicture(picture)}
-		alt={picture.alternativeText}
-	/>
+	{#if picture}
+		<img
+			class="object-cover {getCoverPositionStyle(position)} h-full w-full"
+			src={chooseFormatUrlFromPicture(picture)}
+			alt={picture.alternativeText}
+		/>
+	{/if}
 </a>

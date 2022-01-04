@@ -1,14 +1,16 @@
 <script lang="ts">
+	import type { PicturePosition } from '$lib/constants';
+
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Picture } from '$lib/types';
 
 	const EMPTY_HREF = '#';
 
-	export let picture: Picture;
-	export let position = null;
+	export let picture: Picture | null;
+	export let position: PicturePosition | null = null;
 	export let title = '';
 	export let href = EMPTY_HREF;
-	export let onClick: () => void | null = null;
+	export let onClick: (() => void) | null = null;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;

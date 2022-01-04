@@ -1,9 +1,11 @@
 <script lang="ts">
+	import type { PicturePosition } from '$lib/constants';
+
 	import { getCoverPositionStyle } from '$lib/services/coverPictureService';
 	import type { Picture } from '$lib/types';
 
-	export let picture: Picture;
-	export let position: string = '';
+	export let picture: Picture | null;
+	export let position: PicturePosition | null = null;
 
 	const chooseFormatUrlFromPicture = (picture: Picture) =>
 		picture.formats.xlarge ? picture.formats.xlarge.url : picture.url;
@@ -17,11 +19,13 @@
 			d'Ambre et Nico !
 		</strong>
 	</div>
-	<img
-		class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
-		src={chooseFormatUrlFromPicture(picture)}
-		alt={picture.alternativeText}
-	/>
+	{#if picture}
+		<img
+			class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
+			src={chooseFormatUrlFromPicture(picture)}
+			alt={picture.alternativeText}
+		/>
+	{/if}
 </div>
 
 <style>

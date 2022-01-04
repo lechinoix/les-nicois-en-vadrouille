@@ -2,17 +2,17 @@
 	import type { Adventure } from '$lib/types';
 	import { CoverTypes, iconFillColor } from '$lib/constants';
 
-	import AdventureCover from './coverPicture/adventureCover.svelte';
-	import PictoSport from './picto/pictoSport.svelte';
-	import Picto from './picto/index.svelte';
-	import StrongArm from './icons/various/new/strength.svelte';
+	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
+	import PictoSport from '../picto/pictoSport.svelte';
+	import Picto from '../picto/index.svelte';
+	import StrongArm from '../icons/various/new/strength.svelte';
 	import Container from '$lib/components/container.svelte';
-	import Mountain from './icons/various/new/mountain.svelte';
-	import SandClock from './icons/various/new/sandClock.svelte';
-	import Compass from './icons/various/new/compass.svelte';
+	import Mountain from '../icons/various/new/mountain.svelte';
+	import SandClock from '../icons/various/new/sandClock.svelte';
+	import Compass from '../icons/various/new/compass.svelte';
 
 	export let adventure: Adventure;
-	export let onClick: () => void | null = null;
+	export let onClick: (() => void) | null = null;
 </script>
 
 <div>
