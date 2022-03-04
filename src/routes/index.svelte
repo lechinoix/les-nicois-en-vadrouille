@@ -68,11 +68,17 @@
 			<strong class="font-light text-3xl">HELLO</strong>
 			<br />
 			<p class="text-xl text-justify font-sans font-thin">
-				Nous sommes un couple de jeunes aventuriers à la recherche de sensations fortes en montagne
-				! Basés sur Grenoble, on pratique l'alpinisme, l'escalade et le ski.
+				Bienvenue sur notre blog qui recensent toutes nos sorties Outdoor : ski, escalade, rando, alpi, cascade de glace ou encore spéléo. 
+				Nous sommes installés actuellement sur Grenoble donc beaucoup de nos aventures sont dans cette magnifique région : 
+				Belledonne, les Ecrins, le Vercors ...
 				<br />
-				Notre objectif : raconter nos aventures, donner envie de s’installer dans cette belle région
-				et de se lancer dans l’aventure outdoor quel quelle soit ..
+				Notre objectif : raconter nos aventures pour se souvenir dans 50 ans, mais aussi donner envie de s’installer dans cette belle région
+				et de se lancer dans l’aventure outdoor quelle qu'elle soit .. et bientôt vous aider à planifier ou trouver la course qui correpsond le mieux
+				à vos envies du moment !
+				<br /><br />
+				A bientôt dans les montagnes
+				<br />
+				Ambre & Nico
 			</p>
 		</div>
 		<img
