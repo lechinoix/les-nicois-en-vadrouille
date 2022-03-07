@@ -68,7 +68,7 @@
 			<strong class="font-light text-3xl">HELLO</strong>
 			<br />
 			<p class="text-xl text-justify font-sans font-thin">
-				Bienvenue sur notre blog qui recensent toutes nos sorties Outdoor : ski, escalade, rando, alpi, cascade de glace ou encore spéléo. 
+				Bienvenue sur notre blog qui recense toutes nos sorties Outdoor : ski, escalade, rando, alpi, cascade de glace ou encore spéléo. 
 				Nous sommes installés actuellement sur Grenoble donc beaucoup de nos aventures sont dans cette magnifique région : 
 				Belledonne, les Ecrins, le Vercors ...
 				<br />
