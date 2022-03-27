@@ -68,7 +68,7 @@
 			<br />
 			<br />
 		{/if}
-		<span>{@html marked(adventure.description || '')}</span>
+		<span class="cms-content">{@html marked(adventure.description || '')}</span>
 	</p>
 	<br />
 	<br />

@@ -13,7 +13,7 @@
 </script>
 
 <script lang="ts">
-	import '../global.postcss';
+	import '../global.css';
 	import type { Sport } from '$lib/types';
 	import Header from '$lib/components/newHeader/index.svelte';
 	import { DEFAULT_TITLE } from '$lib/constants';
