@@ -1,7 +1,7 @@
 import config from '$lib/config';
 import type { Adventure, AdventureData, Picture } from '$lib/types';
-import adventuresData from 'data/adventure_data.json';
-import adventuresContent from 'data/adventure_content.json';
+import adventuresData from '$lib/data/adventure_data.json';
+import adventuresContent from '$lib/data/adventure_content.json';
 
 export const getAllAdventures = async (): Promise<AdventureData[]> => adventuresData;
 

@@ -1,17 +1,14 @@
 <script context="module" lang="ts">
 	import { getLatestAdventures } from '$lib/services/adventureService';
 	import { getAllSports } from '$lib/services/sportService';
-	import { fetchPictureById } from '$lib/services/uploadPluginService';
-	import type { LoadInput } from '@sveltejs/kit';
 
 	export const prerender = true;
-	export async function load({ fetch }: LoadInput) {
+	export async function load() {
 		let latestAdventures = await getLatestAdventures();
-		let coverPicture = await fetchPictureById(fetch, env.COVER_PICTURE_ID);
 		let sports = await getAllSports();
 
 		return {
-			props: { latestAdventures, coverPicture, sports }
+			props: { latestAdventures, coverPicture: getHomepageCover(), sports }
 		};
 	}
 </script>
@@ -32,6 +29,7 @@
 	import SmallCover from '$lib/components/coverPicture/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
 	import env from '$lib/config/index';
+	import { getHomepageCover } from '$lib/services/coverPictureService';
 
 	export let latestAdventures: Adventure[];
 	export let coverPicture: Picture;

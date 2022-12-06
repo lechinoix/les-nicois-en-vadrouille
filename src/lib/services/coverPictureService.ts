@@ -1,4 +1,5 @@
 import { PicturePosition } from '$lib/constants';
+import type { CoverPicture } from '$lib/types';
 
 const DEFAULT_POSITION = 'object-center';
 
@@ -18,3 +19,38 @@ export const getCoverPositionStyle = (position: PicturePosition | null): string 
 	if (!position) return DEFAULT_POSITION;
 	return postitionToStyle[position];
 };
+
+export const getHomepageCover = (): CoverPicture => ({
+	formats: {
+		thumbnail: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295015/thumbnail_monaco_2bdf322c6b.jpg',
+			width: 245,
+			height: 138
+		},
+		xlarge: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295016/xlarge_monaco_2bdf322c6b.jpg',
+			width: 1920,
+			height: 1078
+		},
+		medium: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295017/medium_monaco_2bdf322c6b.jpg',
+			width: 750,
+			height: 421
+		},
+		small: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295017/small_monaco_2bdf322c6b.jpg',
+			width: 500,
+			height: 281
+		},
+		large: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295016/large_monaco_2bdf322c6b.jpg',
+			width: 1000,
+			height: 562
+		}
+	},
+	url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1640295015/monaco_2bdf322c6b.jpg',
+	width: 2048,
+	height: 1150,
+	id: 121,
+	position: PicturePosition.CENTER.toString()
+});

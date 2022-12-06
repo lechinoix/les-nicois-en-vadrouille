@@ -2,7 +2,40 @@
 	{
 		"slug": "ESCALADE_GRANDE_VOIE",
 		"name": "Escalade",
-		"cover": null
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816144/thumbnail_PXL_20210826_131044506_d08729f1af.jpg",
+					"width": 88,
+					"height": 156
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816144/xlarge_PXL_20210826_131044506_d08729f1af.jpg",
+					"width": 1080,
+					"height": 1920
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816146/medium_PXL_20210826_131044506_d08729f1af.jpg",
+					"width": 422,
+					"height": 750
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816146/small_PXL_20210826_131044506_d08729f1af.jpg",
+					"width": 281,
+					"height": 500
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816145/large_PXL_20210826_131044506_d08729f1af.jpg",
+					"width": 563,
+					"height": 1000
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635816142/PXL_20210826_131044506_d08729f1af.jpg",
+			"width": 2268,
+			"height": 4032,
+			"id": 2,
+			"position": null
+		}
 	},
 	{
 		"slug": "SKI_ALPIN",
