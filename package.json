@@ -12,6 +12,18 @@
 		"prepare": "husky install"
 	},
 	"devDependencies": {
+		"@milkdown/core": "^6.5.4",
+		"@milkdown/plugin-block": "^6.5.4",
+		"@milkdown/plugin-clipboard": "^6.5.4",
+		"@milkdown/plugin-history": "^6.5.4",
+		"@milkdown/plugin-indent": "^6.5.4",
+		"@milkdown/plugin-listener": "^6.5.4",
+		"@milkdown/plugin-menu": "^6.5.4",
+		"@milkdown/plugin-slash": "^6.5.4",
+		"@milkdown/plugin-upload": "^6.5.4",
+		"@milkdown/preset-commonmark": "^6.5.4",
+		"@milkdown/prose": "^6.5.4",
+		"@milkdown/theme-nord": "^6.5.4",
 		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",

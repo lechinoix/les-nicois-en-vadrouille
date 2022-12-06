@@ -1,6 +1,5 @@
 <script context="module" lang="ts">
 	import { getAllSports } from '$lib/services/sportService';
-	import type { LoadInput } from '@sveltejs/kit';
 
 	export const prerender = true;
 	export async function load() {
