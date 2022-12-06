@@ -12,11 +12,7 @@
 <div class="flex my-5">
 	<div class="w-40 h-24 overflow-hidden rounded-xl flex-shrink-0">
 		{#if coverPicture}
-			<img
-				class="object-cover w-full"
-				src={coverPicture.formats.thumbnail.url}
-				alt={coverPicture.alternativeText}
-			/>
+			<img class="object-cover w-full" src={coverPicture.formats.thumbnail.url} />
 		{/if}
 	</div>
 	<div class="ml-3">
@@ -26,9 +22,6 @@
 		{/if}
 		{#if adventure.orientation}
 			<div>Orientation: {adventure.orientation}</div>
-		{/if}
-		{#if adventure.short_description}
-			<p>{adventure.short_description}</p>
 		{/if}
 	</div>
 </div>

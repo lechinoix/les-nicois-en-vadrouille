@@ -3,8 +3,8 @@
 	import type { LoadInput } from '@sveltejs/kit';
 
 	export const prerender = true;
-	export async function load({ fetch }: LoadInput) {
-		let sports = await getAllSports(fetch);
+	export async function load() {
+		let sports = await getAllSports();
 
 		return {
 			props: { sports }

@@ -1,0 +1,269 @@
+[
+	{
+		"slug": "ESCALADE_GRANDE_VOIE",
+		"name": "Escalade",
+		"cover": null
+	},
+	{
+		"slug": "SKI_ALPIN",
+		"name": "Ski alpin",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376230/thumbnail_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 208,
+					"height": 156
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/xlarge_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 1920,
+					"height": 1440
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/medium_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 750,
+					"height": 563
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376232/small_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 500,
+					"height": 375
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/large_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 1000,
+					"height": 750
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376229/PXL_20210725_112855800_MP_11b270fa96.jpg",
+			"width": 4032,
+			"height": 3024,
+			"position": null,
+			"id": 57
+		}
+	},
+	{
+		"slug": "SKI_DE_RANDO",
+		"name": "Ski de randonnée",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909206/thumbnail_PXL_20211112_155429688_80ddb26945.jpg",
+					"width": 245,
+					"height": 138
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909207/xlarge_PXL_20211112_155429688_80ddb26945.jpg",
+					"width": 1920,
+					"height": 1080
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909207/medium_PXL_20211112_155429688_80ddb26945.jpg",
+					"width": 750,
+					"height": 422
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909207/small_PXL_20211112_155429688_80ddb26945.jpg",
+					"width": 500,
+					"height": 281
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909207/large_PXL_20211112_155429688_80ddb26945.jpg",
+					"width": 1000,
+					"height": 563
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636909205/PXL_20211112_155429688_80ddb26945.jpg",
+			"width": 4032,
+			"height": 2268,
+			"position": null,
+			"id": 65
+		}
+	},
+	{
+		"slug": "ALPINISM",
+		"name": "Alpinisme",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635771404/thumbnail_2021_04_17_3_03bb645665.jpg",
+					"width": 245,
+					"height": 138
+				},
+				"xlarge": null,
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635771405/medium_2021_04_17_3_03bb645665.jpg",
+					"width": 750,
+					"height": 422
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635771405/small_2021_04_17_3_03bb645665.jpg",
+					"width": 500,
+					"height": 281
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635771404/large_2021_04_17_3_03bb645665.jpg",
+					"width": 1000,
+					"height": 563
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1635771403/2021_04_17_3_03bb645665.jpg",
+			"width": 4032,
+			"height": 2268,
+			"position": null,
+			"id": 15
+		}
+	},
+	{
+		"slug": "HIKING",
+		"name": "Randonnée",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907780/thumbnail_PXL_20211112_160202488_99d4a97a54.jpg",
+					"width": 245,
+					"height": 138
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907781/xlarge_PXL_20211112_160202488_99d4a97a54.jpg",
+					"width": 1920,
+					"height": 1080
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907783/medium_PXL_20211112_160202488_99d4a97a54.jpg",
+					"width": 750,
+					"height": 422
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907784/small_PXL_20211112_160202488_99d4a97a54.jpg",
+					"width": 500,
+					"height": 281
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907782/large_PXL_20211112_160202488_99d4a97a54.jpg",
+					"width": 1000,
+					"height": 563
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636907780/PXL_20211112_160202488_99d4a97a54.jpg",
+			"width": 4032,
+			"height": 2268,
+			"position": null,
+			"id": 63
+		}
+	},
+	{
+		"slug": "SPELEO",
+		"name": "Spéléo",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376230/thumbnail_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 208,
+					"height": 156
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/xlarge_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 1920,
+					"height": 1440
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/medium_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 750,
+					"height": 563
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376232/small_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 500,
+					"height": 375
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376231/large_PXL_20210725_112855800_MP_11b270fa96.jpg",
+					"width": 1000,
+					"height": 750
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1636376229/PXL_20210725_112855800_MP_11b270fa96.jpg",
+			"width": 4032,
+			"height": 3024,
+			"position": null,
+			"id": 57
+		}
+	},
+	{
+		"slug": "TREK",
+		"name": "Trek",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219353/thumbnail_PXL_20211030_112130321_2_0cf38a7768.jpg",
+					"width": 245,
+					"height": 138
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219354/xlarge_PXL_20211030_112130321_2_0cf38a7768.jpg",
+					"width": 1920,
+					"height": 1080
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219355/medium_PXL_20211030_112130321_2_0cf38a7768.jpg",
+					"width": 750,
+					"height": 422
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219355/small_PXL_20211030_112130321_2_0cf38a7768.jpg",
+					"width": 500,
+					"height": 281
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219355/large_PXL_20211030_112130321_2_0cf38a7768.jpg",
+					"width": 1000,
+					"height": 563
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1638219353/PXL_20211030_112130321_2_0cf38a7768.jpg",
+			"width": 4032,
+			"height": 2268,
+			"position": null,
+			"id": 67
+		}
+	},
+	{
+		"slug": "VANLIFE",
+		"name": "Vanlife",
+		"cover": {
+			"formats": {
+				"thumbnail": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027653/thumbnail_IMG_2899_dab8ecaa56.jpg",
+					"width": 208,
+					"height": 156
+				},
+				"xlarge": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027654/xlarge_IMG_2899_dab8ecaa56.jpg",
+					"width": 1920,
+					"height": 1440
+				},
+				"medium": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027655/medium_IMG_2899_dab8ecaa56.jpg",
+					"width": 750,
+					"height": 563
+				},
+				"small": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027655/small_IMG_2899_dab8ecaa56.jpg",
+					"width": 500,
+					"height": 375
+				},
+				"large": {
+					"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027654/large_IMG_2899_dab8ecaa56.jpg",
+					"width": 1000,
+					"height": 750
+				}
+			},
+			"url": "https://res.cloudinary.com/dowsxscl0/image/upload/v1640027653/IMG_2899_dab8ecaa56.jpg",
+			"width": 4032,
+			"height": 3024,
+			"position": null,
+			"id": 107
+		}
+	}
+]

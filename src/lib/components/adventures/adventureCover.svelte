@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { CoverTypes } from '$lib/constants';
+	import { CoverTypes, PicturePosition } from '$lib/constants';
 	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
 	import SmallCover from '../coverPicture/smallCover.svelte';
@@ -18,14 +18,15 @@
 	export let coverType: CoverTypes = CoverTypes.LARGE;
 	export let onClick: (() => void) | null = null;
 
-	let href: string | null;
-	let position = adventure.cover_picture?.position;
+	let href: string | undefined;
+	// @ts-ignore
+	let position = PicturePosition[adventure.cover?.position] ?? PicturePosition.CENTER;
 	let picture = getCoverPicture(adventure);
 	let title = adventure.title;
 
 	$: href =
 		onClick !== null
-			? null
+			? undefined
 			: `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;
 
 	let coverTypeComponent = mapTypeToComponent[coverType];

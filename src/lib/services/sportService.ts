@@ -1,24 +1,14 @@
 import config from '$lib/config';
 import type { Sport } from '$lib/types';
+import sports from 'data/sports.json';
 
-export const getSportBySlug = async (fetch: any, sportSlug: string): Promise<Sport> => {
-	const res = await fetch(`${config.BASE_API_URL}/sports?slug=${sportSlug}`);
-	if (!res.ok) throw new Error(res.statusText);
+export const getSportBySlug = async (sportSlug: string): Promise<Sport> => {
+	const sport = sports.find((sport) => sport.slug === sportSlug);
+	if (!sport) throw new Error('Could not find sport by slug');
 
-	const sports = await res.json();
-
-	if (sports.length === 0) throw new Error('Unkown sport');
-
-	return sports[0];
+	return sport;
 };
 
-export const getAllSports = async (fetch: any): Promise<Sport[]> => {
-	const res = await fetch(`${config.BASE_API_URL}/sports`);
-	if (!res.ok) throw new Error(res.statusText);
-
-	const sports = await res.json();
-
-	if (sports.length === 0) throw new Error('Unkown sport');
-
-	return sports.filter((sport) => sport.adventures.length > 0);
+export const getAllSports = async (): Promise<Sport[]> => {
+	return sports;
 };

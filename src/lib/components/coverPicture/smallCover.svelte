@@ -38,7 +38,6 @@
 		<img
 			class="object-cover {getCoverPositionStyle(position)} h-full w-full"
 			src={chooseFormatUrlFromPicture(picture)}
-			alt={picture.alternativeText}
 		/>
 	{/if}
 </a>

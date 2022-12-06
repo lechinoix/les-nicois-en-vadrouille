@@ -14,131 +14,68 @@ export interface Locals {
 	userid: string;
 }
 
-export type Adventure = {
+export type Adventure = AdventureContent & AdventureData;
+
+export type AdventureContent = {
+	id: number;
+	content: string;
+	pictures: Picture[] | null;
+	topos: Topo[] | null;
+};
+
+export type AdventureData = {
 	id: number;
 	title: string;
-	comments: Comment[];
-	cotation: string;
-	cover_picture: CoverPicture;
-	description: string;
-	status: AdventureStatus;
-	notation: number;
+	cotation: string | null;
+	cover: CoverPicture | null;
 	date: string;
-	short_description: string;
-	elevation: number;
-	number_of_days: number;
-	orientation: CardinalPoints;
-	published_at: string;
-	created_at: string;
-	updated_at: string;
-	topo: Topo[];
-	pictures: Picture[];
-	participants: Participant[];
-	places: Place[];
-	sports: Sport[];
-	periods: Period[];
+	elevation: number | null;
+	orientation: string | null;
+	participants: Participant[] | null;
+	places: Place[] | null;
+	sports: string[] | null;
+	periods: string[] | null;
 };
 
 export type Topo = {
-	id: number;
 	url: string;
-	source: TopoSource;
+	source: string;
 };
 
 export type Picture = {
-	id: number;
-	name: string;
-	alternativeText: string;
-	caption: string;
-	width: number;
-	height: number;
 	formats: {
 		thumbnail: PictureFormat;
-		xlarge?: PictureFormat;
+		xlarge: PictureFormat | null;
 		large: PictureFormat;
 		medium: PictureFormat;
 		small: PictureFormat;
 	};
-	hash: string;
-	ext: string;
-	mime: string;
-	size: 1942.68;
-	url: string;
-	previewUrl: string;
-	provider: string;
-	provider_metadata: string;
-	created_at: string;
-	updated_at: string;
-};
-
-export type CoverPicture = {
 	id: number;
-	picture: Picture;
-	position: PicturePosition;
-};
+} & PictureFormat;
 
 export type PictureFormat = {
-	name: string;
-	hash: string;
-	ext: string;
-	mime: string;
+	url: string;
 	width: number;
 	height: number;
-	size: number;
-	path: string;
-	url: string;
+};
+
+export type CoverPicture = Picture & {
+	position: string | null;
 };
 
 export type Participant = {
-	id: number;
 	name: string;
 	surname: string;
-	published_at: string;
-	created_at: string;
-	updated_at: string;
 };
 
 export type Place = {
-	id: number;
-	name: string;
-	description: string;
-	location: string;
-	created_at: string;
-	updated_at: string;
-	pictures: Picture[];
+	name: string | null;
+	description: string | null;
+	location: string | null;
 };
 
 export type Sport = {
-	id: number;
 	name: string;
-	slug: Sports;
-	created_at: string;
-	updated_at: string;
-	cover_picture: CoverPicture;
-	adventures: Adventure[];
-};
-
-export type Period = {
-	id: number;
-	name: string;
-	published_at: string;
-	created_at: string;
-	updated_at: string;
-};
-
-export type Comment = {
-	authorEmail: string;
-	authorId: string;
-	authorName: string;
-	blocked: boolean;
-	content: string;
-	created_at: string;
-	id: string;
-	updated_at: string;
-};
-
-export type ResponsiveItem<PropsType> = {
-	component: any;
-	props: PropsType;
-	key: string;
+	slug: string;
+	cover: CoverPicture | null;
 };

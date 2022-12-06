@@ -39,7 +39,6 @@
 		<img
 			class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
 			src={chooseFormatUrlFromPicture(picture)}
-			alt={picture.alternativeText}
 		/>
 	{/if}
 </a>

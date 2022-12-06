@@ -15,14 +15,12 @@
 	<div class="absolute w-full h-full flex justify-end pb-8 pr-10 bg-gray-900 bg-opacity-10">
 		<strong class="block text-white text-4xl text-right font-light self-end">
 			Bienvenue sur notre blog d'aventures Outdoor
-			
 		</strong>
 	</div>
 	{#if picture}
 		<img
 			class="w-full max-w-full object-cover {getCoverPositionStyle(position)}"
 			src={chooseFormatUrlFromPicture(picture)}
-			alt={picture.alternativeText}
 		/>
 	{/if}
 </div>

@@ -8,7 +8,7 @@
 	export async function load({ fetch }: LoadInput) {
 		let latestAdventures = await getLatestAdventures();
 		let coverPicture = await fetchPictureById(fetch, env.COVER_PICTURE_ID);
-		let sports = await getAllSports(fetch);
+		let sports = await getAllSports();
 
 		return {
 			props: { latestAdventures, coverPicture, sports }
@@ -46,12 +46,12 @@
 	$: sportItems = sports.map((sport) => ({
 		component: SmallCover,
 		props: {
-			picture: sport.cover_picture.picture,
-			position: sport.cover_picture.position,
+			picture: sport.cover,
+			position: sport.cover?.position,
 			title: sport.name,
 			href: `/sport/${sport.slug}`
 		},
-		key: `${sport.id}`
+		key: `${sport.slug}`
 	}));
 </script>
 
@@ -68,13 +68,15 @@
 			<strong class="font-light text-3xl">HELLO</strong>
 			<br />
 			<p class="text-xl text-justify font-sans font-thin">
-				Bienvenue sur notre blog qui recense toutes nos sorties Outdoor : ski, escalade, rando, alpi, cascade de glace ou encore spéléo. 
-				Nous sommes installés actuellement sur Grenoble donc beaucoup de nos aventures sont dans cette magnifique région : 
-				Belledonne, les Ecrins, le Vercors ...
+				Bienvenue sur notre blog qui recense toutes nos sorties Outdoor : ski, escalade, rando,
+				alpi, cascade de glace ou encore spéléo. Nous sommes installés actuellement sur Grenoble
+				donc beaucoup de nos aventures sont dans cette magnifique région : Belledonne, les Ecrins,
+				le Vercors ...
 				<br />
-				Notre objectif : raconter nos aventures pour se souvenir dans 50 ans, mais aussi donner envie de s’installer dans cette belle région
-				et de se lancer dans l’aventure outdoor quelle qu'elle soit .. et bientôt vous aider à planifier ou trouver la course qui correpsond le mieux
-				à vos envies du moment !
+				Notre objectif : raconter nos aventures pour se souvenir dans 50 ans, mais aussi donner envie
+				de s’installer dans cette belle région et de se lancer dans l’aventure outdoor quelle qu'elle
+				soit .. et bientôt vous aider à planifier ou trouver la course qui correpsond le mieux à vos
+				envies du moment !
 				<br /><br />
 				A bientôt dans les montagnes
 				<br />

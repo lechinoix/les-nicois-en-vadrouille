@@ -3,6 +3,7 @@
 	import { slide } from 'svelte/transition';
 	import { ROUTES } from '$lib/config/routes';
 	import BurgerIcon from './burgerIcon.svelte';
+	import { getAdventureDataBySportSlug } from '$lib/services/adventureService';
 
 	export let sports: Sport[];
 
@@ -37,7 +38,7 @@
 						role="menuitem"
 						tabindex="-1"
 					>
-						<p>{sport.name} ({sport.adventures.length})</p>
+						<p>{sport.name} ({getAdventureDataBySportSlug(sport.slug).length})</p>
 					</a>
 				{/each}
 			</div>

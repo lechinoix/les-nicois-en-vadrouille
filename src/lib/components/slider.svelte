@@ -45,11 +45,7 @@
 				data-lg-size={`${picture.width}-${picture.height}`}
 				data-src={formatAssetUrl(picture.url)}
 			>
-				<img
-					alt={picture.alternativeText}
-					src={formatAssetUrl(picture.formats.small.url)}
-					class="h-full object-contain"
-				/>
+				<img src={formatAssetUrl(picture.formats.small.url)} class="h-full object-contain" />
 			</a>
 		{/if}
 	{/each}

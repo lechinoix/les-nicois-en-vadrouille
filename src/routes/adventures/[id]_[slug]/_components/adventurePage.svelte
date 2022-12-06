@@ -38,7 +38,7 @@
 	}
 	$: coverPicture = getCoverPicture(adventure);
 	$: pictures =
-		coverPicture !== null
+		coverPicture !== null && adventure.pictures !== null
 			? uniqBy([coverPicture, ...adventure.pictures], 'id')
 			: adventure.pictures;
 
@@ -54,10 +54,7 @@
 	{/if}
 	<meta property="og:url" content={pageUrl} />
 	<meta property="og:title" content={adventure.title} />
-	<meta
-		property="og:description"
-		content={adventure.short_description || truncateText(adventure.description)}
-	/>
+	<meta property="og:description" content={truncateText(adventure.content)} />
 </svelte:head>
 
 <AdventureCard {adventure} onClick={openSlider} />
@@ -68,18 +65,18 @@
 			<br />
 			<br />
 		{/if}
-		<span class="cms-content">{@html marked(adventure.description || '')}</span>
+		<span class="cms-content">{@html marked(adventure.content || '')}</span>
 	</p>
 	<br />
 	<br />
-	{#if adventure.topo?.length > 0}
+	{#if adventure.topos && adventure.topos.length > 0}
 		<b>Topo</b> :
-		{#each adventure.topo as topo}
+		{#each adventure.topos as topo}
 			<TopoLink {topo} />
 			<br />
 		{/each}
 	{/if}
-	{#if adventure.pictures?.length > 0}
+	{#if adventure.pictures && adventure.pictures.length > 0}
 		<div class="mt-5" id="slider">
 			<Slider {pictures} />
 		</div>
