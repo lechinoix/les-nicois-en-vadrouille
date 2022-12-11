@@ -55,10 +55,12 @@ const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[]
 
 export const publishContent = (adventure: Adventure) => {
 	modifyFileOnGithub(
+		'Update adventure Data',
 		adventureDataPath,
 		JSON.stringify(getUpdatedAdventureData(adventure), null, 2)
 	);
 	modifyFileOnGithub(
+		'Update adventure Content',
 		adventureContentPath,
 		JSON.stringify(getUpdatedAdventureContent(adventure), null, 2)
 	);

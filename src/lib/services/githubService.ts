@@ -18,7 +18,11 @@ const getFileContentOnGithub = async (filePath: string) => {
 	return await response.json();
 };
 
-export const modifyFileOnGithub = async (filePath: string, fileContent: string) => {
+export const modifyFileOnGithub = async (
+	message: string,
+	filePath: string,
+	fileContent: string
+) => {
 	const encodedContent = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse(fileContent));
 
 	const { sha } = await getFileContentOnGithub(filePath);
@@ -30,7 +34,7 @@ export const modifyFileOnGithub = async (filePath: string, fileContent: string) 
 			Authorization: `Bearer ${getSecrets().githubToken}`
 		},
 		body: JSON.stringify({
-			message: 'Update adventureData',
+			message,
 			committer: { name: 'Frontend', email: 'nicolas.ngomai@gmail.com' },
 			content: encodedContent,
 			sha
