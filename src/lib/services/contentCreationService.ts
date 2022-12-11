@@ -18,6 +18,10 @@ export const getDraft = (contentId: number): Adventure | null => {
 	return JSON.parse(draftData);
 };
 
+export const clearDraft = (contentId: number): void => {
+	localStorage.removeItem(draftKeyFromId(contentId));
+};
+
 const draftKeyFromId = (contentId: number) => `draft-${contentId}`;
 
 const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
@@ -55,12 +59,12 @@ const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[]
 
 export const publishContent = (adventure: Adventure) => {
 	modifyFileOnGithub(
-		'Update adventure Data',
+		`Update adventure ${adventure.id} Data`,
 		adventureDataPath,
 		JSON.stringify(getUpdatedAdventureData(adventure), null, 2)
 	);
 	modifyFileOnGithub(
-		'Update adventure Content',
+		`Update adventure ${adventure.id} Content`,
 		adventureContentPath,
 		JSON.stringify(getUpdatedAdventureContent(adventure), null, 2)
 	);

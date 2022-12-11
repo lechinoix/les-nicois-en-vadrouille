@@ -23,10 +23,28 @@
 	import { nord } from '@milkdown/theme-nord';
 	import type { Adventure } from '$lib/types';
 	import Container from '$lib/components/container.svelte';
-	import { getDraft, publishContent, saveDraft } from '$lib/services/contentCreationService';
+	import {
+		clearDraft,
+		getDraft,
+		publishContent,
+		saveDraft
+	} from '$lib/services/contentCreationService';
 	import { onMount } from 'svelte';
+	import isEqual from 'lodash/isEqual';
 
 	export let adventure: Adventure;
+
+	export let submitContent = async () => {
+		const ongoingDraft = getDraft(adventure.id);
+		if (!ongoingDraft) throw new Error('Failed to read ongoing draft');
+		if (isEqual(ongoingDraft, adventure)) {
+			console.log('No changes to publish');
+			return;
+		}
+
+		await publishContent(ongoingDraft);
+		clearDraft(adventure.id);
+	};
 
 	onMount(() => {
 		const ongoingDraft = getDraft(adventure.id);
@@ -61,7 +79,7 @@
 
 <Container>
 	<div class="pt-24" use:editor />
-	<button on:click={() => publishContent(adventure)}>Publish</button>
+	<button on:click={submitContent}>Publish</button>
 </Container>
 
 <style></style>
