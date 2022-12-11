@@ -24,6 +24,7 @@
 		"@milkdown/preset-commonmark": "^6.5.4",
 		"@milkdown/prose": "^6.5.4",
 		"@milkdown/theme-nord": "^6.5.4",
+		"@octokit/rest": "^19.0.5",
 		"@sveltejs/adapter-vercel": "next",
 		"@sveltejs/kit": "next",
 		"@typescript-eslint/eslint-plugin": "^4.31.1",
