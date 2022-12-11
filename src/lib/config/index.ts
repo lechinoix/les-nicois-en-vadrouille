@@ -8,7 +8,7 @@ const config = {
 
 const sharedConfig = {
 	GITHUB_REPO_OWNER: 'lechinoix',
-	GITHUB_REPO: 'our-little-adventure-front',
+	GITHUB_REPO: 'les-nicois-en-vadrouille',
 	GITHUB_MAIN_BRANCH: 'main'
 };
 

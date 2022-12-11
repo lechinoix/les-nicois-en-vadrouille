@@ -79,3 +79,7 @@ export type Sport = {
 	slug: string;
 	cover: CoverPicture | null;
 };
+
+export type Secrets = {
+	githubToken: string;
+};

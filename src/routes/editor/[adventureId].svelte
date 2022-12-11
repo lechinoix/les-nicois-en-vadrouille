@@ -23,16 +23,27 @@
 	import { nord } from '@milkdown/theme-nord';
 	import type { Adventure } from '$lib/types';
 	import Container from '$lib/components/container.svelte';
+	import { getDraft, publishContent, saveDraft } from '$lib/services/contentCreationService';
+	import { onMount } from 'svelte';
 
 	export let adventure: Adventure;
+
+	onMount(() => {
+		const ongoingDraft = getDraft(adventure.id);
+		if (ongoingDraft) {
+			adventure = ongoingDraft;
+		} else {
+			saveDraft(adventure);
+		}
+	});
 
 	function editor(dom: HTMLElement) {
 		Editor.make()
 			.config((ctx: any) => {
 				ctx.set(rootCtx, dom);
 				ctx.set(defaultValueCtx, adventure.content);
-				ctx.get(listenerCtx).markdownUpdated((_, markdown: string) => {
-					console.log(markdown);
+				ctx.get(listenerCtx).markdownUpdated((_: any, markdown: string) => {
+					saveDraft({ ...adventure, content: markdown });
 				});
 			})
 			.use(nord)
@@ -50,6 +61,7 @@
 
 <Container>
 	<div class="pt-24" use:editor />
+	<button on:click={() => publishContent(adventure)}>Publish</button>
 </Container>
 
 <style></style>
