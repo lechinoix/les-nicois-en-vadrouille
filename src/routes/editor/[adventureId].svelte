@@ -55,6 +55,10 @@
 			saveDraft(adventure);
 		}
 		ready = true;
+
+		return () => {
+			ready = false;
+		};
 	});
 
 	function editor(dom: HTMLElement) {
@@ -86,6 +90,7 @@
 		<Input name="title" label="Titre" bind:value={adventure.title} />
 		<div class="flex flex-row gap-5">
 			<Input name="cotation" label="Cotation" bind:value={adventure.cotation} />
+			<Input name="elevation" label="Elevation" bind:value={adventure.elevation} type="number" />
 			<Select
 				name="orientation"
 				label="Orientation"
