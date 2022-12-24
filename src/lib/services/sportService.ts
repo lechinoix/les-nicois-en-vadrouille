@@ -8,6 +8,6 @@ export const getSportBySlug = async (sportSlug: string): Promise<Sport> => {
 	return sport;
 };
 
-export const getAllSports = async (): Promise<Sport[]> => {
+export const getAllSports = (): Sport[] => {
 	return sports;
 };

@@ -5,7 +5,7 @@
 	export const prerender = true;
 	export async function load() {
 		let latestAdventures = await getLatestAdventures();
-		let sports = await getAllSports();
+		let sports = getAllSports();
 
 		return {
 			props: { latestAdventures, coverPicture: getHomepageCover(), sports }

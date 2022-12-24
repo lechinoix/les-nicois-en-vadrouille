@@ -16,13 +16,11 @@ export const getLatestAdventures = async (): Promise<AdventureData[]> => {
 	return adventures.slice(0, 3);
 };
 
-export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
+export const getAdventureById = async (adventureId: number): Promise<Adventure> => {
 	const adventureContent = adventuresContent.find(
-		(adventureContent) => String(adventureContent.id) === adventureId
+		(adventureContent) => adventureContent.id === adventureId
 	);
-	const adventureData = adventuresData.find(
-		(adventureData) => String(adventureData.id) === adventureId
-	);
+	const adventureData = adventuresData.find((adventureData) => adventureData.id === adventureId);
 	if (!adventureData || !adventureContent) throw new Error('Could not find adventure');
 	return {
 		...adventureContent,

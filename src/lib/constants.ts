@@ -1,10 +1,3 @@
-export enum AdventureStatus {
-	DONE = 'DONE',
-	PLANNED = 'PLANNED',
-	ABORTED = 'ABORTED',
-	TODO = 'TODO'
-}
-
 export enum CardinalPoints {
 	N = 'N',
 	NE = 'NE',

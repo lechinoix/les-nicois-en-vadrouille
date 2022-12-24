@@ -22,9 +22,16 @@
 	import Input from '$lib/components/form/input.svelte';
 	import { getAdventureById } from '$lib/services/adventureService';
 	import { page } from '$app/stores';
+	import Select from '$lib/components/form/select.svelte';
+	import { CardinalPoints } from '$lib/constants';
 
 	export let adventure: Adventure;
 	export let ready: boolean = false;
+
+	let orientationOptions = Object.values(CardinalPoints).map((cardinalPoint) => ({
+		label: cardinalPoint,
+		value: cardinalPoint
+	}));
 
 	export let submitContent = async () => {
 		const ongoingDraft = getDraft(adventure.id);
@@ -77,6 +84,15 @@
 <Container paddingHeader={true}>
 	{#if ready}
 		<Input name="title" label="Titre" bind:value={adventure.title} />
+		<div class="flex flex-row gap-5">
+			<Input name="cotation" label="Cotation" bind:value={adventure.cotation} />
+			<Select
+				name="orientation"
+				label="Orientation"
+				options={orientationOptions}
+				bind:value={adventure.orientation}
+			/>
+		</div>
 		<div use:editor />
 		<button on:click={submitContent}>Publish</button>
 	{/if}

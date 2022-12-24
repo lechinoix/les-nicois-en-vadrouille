@@ -2,8 +2,8 @@
 	import { getAllSports } from '$lib/services/sportService';
 
 	export const prerender = true;
-	export async function load() {
-		let sports = await getAllSports();
+	export function load() {
+		let sports = getAllSports();
 
 		return {
 			props: { sports }

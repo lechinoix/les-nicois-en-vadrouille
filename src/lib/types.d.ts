@@ -1,10 +1,4 @@
-import {
-	AdventureStatus,
-	CardinalPoints,
-	TopoSource,
-	PicturePosition,
-	Sports
-} from '$lib/constants';
+import { CardinalPoints, TopoSource, PicturePosition, Sports } from '$lib/constants';
 
 /**
  * Can be made globally available by placing this
