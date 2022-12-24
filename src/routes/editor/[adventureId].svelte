@@ -1,15 +1,3 @@
-<script context="module" lang="ts">
-	import { getAdventureById } from '$lib/services/adventureService';
-	import type { LoadInput } from '@sveltejs/kit';
-
-	export async function load({ page }: LoadInput) {
-		const adventure = await getAdventureById(page.params.adventureId);
-		return {
-			props: { adventure }
-		};
-	}
-</script>
-
 <script lang="ts">
 	import { Editor, rootCtx, defaultValueCtx } from '@milkdown/core';
 	import { commonmark } from '@milkdown/preset-commonmark';
@@ -31,8 +19,12 @@
 	} from '$lib/services/contentCreationService';
 	import { onMount } from 'svelte';
 	import isEqual from 'lodash/isEqual';
+	import Input from '$lib/components/form/input.svelte';
+	import { getAdventureById } from '$lib/services/adventureService';
+	import { page } from '$app/stores';
 
 	export let adventure: Adventure;
+	export let ready: boolean = false;
 
 	export let submitContent = async () => {
 		const ongoingDraft = getDraft(adventure.id);
@@ -46,13 +38,16 @@
 		clearDraft(adventure.id);
 	};
 
-	onMount(() => {
-		const ongoingDraft = getDraft(adventure.id);
+	onMount(async () => {
+		const adventureId = Number($page.params.adventureId);
+		const ongoingDraft = getDraft(adventureId);
 		if (ongoingDraft) {
 			adventure = ongoingDraft;
 		} else {
+			const adventure = await getAdventureById(adventureId);
 			saveDraft(adventure);
 		}
+		ready = true;
 	});
 
 	function editor(dom: HTMLElement) {
@@ -61,7 +56,7 @@
 				ctx.set(rootCtx, dom);
 				ctx.set(defaultValueCtx, adventure.content);
 				ctx.get(listenerCtx).markdownUpdated((_: any, markdown: string) => {
-					saveDraft({ ...adventure, content: markdown });
+					adventure.content = markdown;
 				});
 			})
 			.use(nord)
@@ -75,11 +70,16 @@
 			.use(upload)
 			.create();
 	}
+
+	$: if (ready) saveDraft(adventure);
 </script>
 
-<Container>
-	<div class="pt-24" use:editor />
-	<button on:click={submitContent}>Publish</button>
+<Container paddingHeader={true}>
+	{#if ready}
+		<Input name="title" label="Titre" bind:value={adventure.title} />
+		<div use:editor />
+		<button on:click={submitContent}>Publish</button>
+	{/if}
 </Container>
 
 <style></style>
