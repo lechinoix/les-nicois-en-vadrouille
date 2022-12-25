@@ -24,6 +24,7 @@
 	import { page } from '$app/stores';
 	import Select from '$lib/components/form/select.svelte';
 	import { CardinalPoints } from '$lib/constants';
+	import Gallery from '$lib/components/gallery/gallery.svelte';
 
 	export let adventure: Adventure;
 	export let ready: boolean = false;
@@ -98,6 +99,7 @@
 				bind:value={adventure.orientation}
 			/>
 		</div>
+		<Gallery />
 		<div use:editor />
 		<button on:click={submitContent}>Publish</button>
 	{/if}

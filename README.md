@@ -36,3 +36,11 @@ npm run build
 ```
 
 > You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+
+## Add pictures to website
+
+To make pictures publicly available, you need to add them to a public album.
+This public album should not have more than 300 photos inside
+Then add the URL in the public album field.
+Photos will appear in the frontend.
+You can select them to be in the page, or to be the cover.

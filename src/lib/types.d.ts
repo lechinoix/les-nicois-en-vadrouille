@@ -77,3 +77,7 @@ export type Sport = {
 export type Secrets = {
 	githubToken: string;
 };
+
+export type Photo = {
+	baseLink: string;
+};
