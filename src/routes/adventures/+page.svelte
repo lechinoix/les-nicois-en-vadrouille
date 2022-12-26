@@ -1,26 +1,15 @@
-<script context="module">
-	export const prerender = true;
-	export async function load() {
-		const adventures = await getAdventuresDone();
-		return {
-			props: { adventures }
-		};
-	}
-</script>
-
 <script lang="ts">
 	import { HOMEPAGE_US_IMAGE_URL } from '$lib/constants';
-	import type { Adventure } from '$lib/types';
-	import { getAdventuresDone } from '$lib/services/adventureService';
 	import { truncateText } from '$lib/utils/string';
 	import AdventureCard from '$lib/components/adventures/adventureHeader.svelte';
+	import type { PageData } from './$types';
 
-	export let adventures: Adventure[];
+	export let data: PageData;
 
 	let latestAdventurePictureUrl = HOMEPAGE_US_IMAGE_URL;
 
-	$: if (adventures?.length > 0 && adventures[0].cover)
-		latestAdventurePictureUrl = adventures[0].cover.formats.medium.url;
+	$: if (data.adventures?.length > 0 && data.adventures[0].cover)
+		latestAdventurePictureUrl = data.adventures[0].cover.formats.medium.url;
 </script>
 
 <svelte:head>
@@ -29,7 +18,7 @@
 	<meta property="og:description" content="La liste de toutes les aventures" />
 </svelte:head>
 
-{#each adventures as adventure}
+{#each data.adventures as adventure}
 	<AdventureCard {adventure}>
 		<p class="text-justify text-gray-800 text-xl font-serif font-light leading-relaxed pt-7">
 			{truncateText(adventure.content)}

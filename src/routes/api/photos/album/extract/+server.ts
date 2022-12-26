@@ -1,9 +1,9 @@
 import type { Photo } from '$lib/types';
-import type { EndpointOutput, RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '../$types';
+import { json } from '@sveltejs/kit';
 
-export const get: RequestHandler<unknown, { shareLink: string }> = async ({
-	body
-}): Promise<EndpointOutput> => {
+export const POST: RequestHandler = async (request) => {
+	const body = await request.json();
 	const response = await fetch(body.shareLink, {
 		method: 'POST',
 		redirect: 'follow',
@@ -12,10 +12,7 @@ export const get: RequestHandler<unknown, { shareLink: string }> = async ({
 	});
 	const rawHtml = await response.text();
 
-	return {
-		status: 200,
-		body: extractPhotoListFromHtml(rawHtml)
-	};
+	return json(extractPhotoListFromHtml(rawHtml));
 };
 
 const extractPhotoListFromHtml = (rawHtml: string): Photo[] => {

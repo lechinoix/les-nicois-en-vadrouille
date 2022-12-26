@@ -1,17 +1,26 @@
-import config from '$lib/config';
-import type { Adventure, AdventureData, Picture } from '$lib/types';
-import adventuresData from '$lib/data/adventure_data.json';
-import adventuresContent from '$lib/data/adventure_content.json';
+import merge from 'lodash/merge';
+import keyBy from 'lodash/keyBy';
+import values from 'lodash/values';
+import type { Adventure, AdventureData, AdventureContent, Picture } from '$lib/types';
+import rawAdventuresData from '$lib/data/adventure_data.json';
+import rawAdventuresContent from '$lib/data/adventure_content.json';
 
-export const getAllAdventures = async (): Promise<AdventureData[]> => adventuresData;
+const adventuresData: AdventureData[] = rawAdventuresData;
+const adventuresContent: AdventureContent[] = rawAdventuresContent;
 
-export const getAdventuresDone = async (): Promise<AdventureData[]> => {
-	return adventuresData.sort(function (a, b) {
+const adventures: Adventure[] = values(
+	merge(keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
+);
+
+export const getAllAdventures = async (): Promise<Adventure[]> => adventures;
+
+export const getAdventuresDone = (): Adventure[] => {
+	return adventures.sort(function (a, b) {
 		return new Date(b.date).getTime() - new Date(a.date).getTime();
 	});
 };
 
-export const getLatestAdventures = async (): Promise<AdventureData[]> => {
+export const getLatestAdventures = async (): Promise<Adventure[]> => {
 	const adventures = await getAdventuresDone();
 	return adventures.slice(0, 3);
 };
@@ -32,12 +41,5 @@ export const getAdventureDataBySportSlug = (sportSlug: string): AdventureData[] 
 	return adventuresData.filter((adventureData) => adventureData.sports?.includes(sportSlug));
 };
 
-export const formatAssetUrl = (assetUrl: string): string =>
-	assetUrl.startsWith('/') ? `${config.BASE_API_URL}${assetUrl}` : assetUrl;
-
-export const getCoverPicture = (adventure: Adventure): Picture | null =>
-	adventure.cover
-		? adventure.cover
-		: adventure.pictures && adventure.pictures.length > 0
-		? adventure.pictures[0]
-		: null;
+export const getCoverPicture = (adventure: AdventureData): Picture | null =>
+	adventure.cover ? adventure.cover : null;

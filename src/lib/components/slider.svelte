@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
-	import { formatAssetUrl } from '$lib/services/adventureService';
 	import type { Picture } from '$lib/types';
 	import { sliderRef } from '$lib/stores/slider';
 	import isMobile from '$lib/utils/isMobile';
@@ -43,9 +42,9 @@
 			<a
 				class="inline-block mr-2 h-full"
 				data-lg-size={`${picture.width}-${picture.height}`}
-				data-src={formatAssetUrl(picture.url)}
+				data-src={picture.url}
 			>
-				<img src={formatAssetUrl(picture.formats.small.url)} class="h-full object-contain" />
+				<img src={picture.formats.small.url} class="h-full object-contain" />
 			</a>
 		{/if}
 	{/each}

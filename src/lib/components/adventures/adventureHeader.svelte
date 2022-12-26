@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Adventure } from '$lib/types';
+	import type { Adventure, AdventureData } from '$lib/types';
 	import { CoverTypes, iconFillColor, Sports } from '$lib/constants';
 
 	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
@@ -10,7 +10,7 @@
 	import Mountain from '../icons/various/new/mountain.svelte';
 	import Compass from '../icons/various/new/compass.svelte';
 
-	export let adventure: Adventure;
+	export let adventure: AdventureData;
 	export let onClick: (() => void) | null = null;
 </script>
 

@@ -3,7 +3,7 @@
 	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
 	import SmallCover from '../coverPicture/smallCover.svelte';
-	import type { Adventure } from '$lib/types';
+	import type { Adventure, AdventureData } from '$lib/types';
 	import { ROUTES } from '$lib/config/routes';
 	import { slugify } from '$lib/utils/string';
 	import { getCoverPicture } from '$lib/services/adventureService';
@@ -14,7 +14,7 @@
 		[CoverTypes.SMALL]: SmallCover
 	};
 
-	export let adventure: Adventure;
+	export let adventure: AdventureData;
 	export let coverType: CoverTypes = CoverTypes.LARGE;
 	export let onClick: (() => void) | null = null;
 

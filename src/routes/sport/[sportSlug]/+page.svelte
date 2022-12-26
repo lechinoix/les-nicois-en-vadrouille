@@ -1,27 +1,15 @@
-<script context="module" lang="ts">
-	import type { LoadInput } from '@sveltejs/kit';
-
-	export const prerender = true;
-	export async function load({ page }: LoadInput) {
-		const sport = await getSportBySlug(page.params.sportSlug);
-		return {
-			props: { sport }
-		};
-	}
-</script>
-
 <script lang="ts">
 	import type { AdventureData, Sport } from '$lib/types';
-	import { getSportBySlug } from '$lib/services/sportService';
 	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
 	import { CoverTypes, PicturePosition } from '$lib/constants';
 	import LargeCover from '$lib/components/coverPicture/largeCover.svelte';
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import { getAdventureDataBySportSlug } from '$lib/services/adventureService';
+	import type { PageData } from './$types';
 
-	export let sport: Sport;
+	export let data: PageData;
 
-	$: sportTiles = getAdventureDataBySportSlug(sport.slug)
+	$: sportTiles = getAdventureDataBySportSlug(data.sport.slug)
 		.sort(
 			(a: AdventureData, b: AdventureData) =>
 				new Date(b.date).getTime() - new Date(a.date).getTime()
@@ -34,21 +22,21 @@
 </script>
 
 <svelte:head>
-	{#if sport.cover}
-		<meta property="og:image" content={sport.cover.formats.medium.url} />
+	{#if data.sport.cover}
+		<meta property="og:image" content={data.sport.cover.formats.medium.url} />
 	{/if}
-	<meta property="og:title" content={sport.name} />
-	<meta property="og:description" content={`Toutes les sorties de ${sport.name}`} />
+	<meta property="og:title" content={data.sport.name} />
+	<meta property="og:description" content={`Toutes les sorties de ${data.sport.name}`} />
 </svelte:head>
 
-{#if sport?.cover}
+{#if data.sport?.cover}
 	<LargeCover
-		picture={sport.cover}
-		position={sport.cover?.position
+		picture={data.sport.cover}
+		position={data.sport.cover?.position
 			? // @ts-ignore
-			  PicturePosition[sport.cover.position]
+			  PicturePosition[data.sport.cover.position]
 			: PicturePosition.CENTER}
-		title={sport.name}
+		title={data.sport.name}
 	/>
 {/if}
 <div class="my-7 mx-5 lg:mx-12 lg:my-10">

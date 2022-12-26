@@ -1,18 +1,3 @@
-<script context="module" lang="ts">
-	import { getLatestAdventures } from '$lib/services/adventureService';
-	import { getAllSports } from '$lib/services/sportService';
-
-	export const prerender = true;
-	export async function load() {
-		let latestAdventures = await getLatestAdventures();
-		let sports = getAllSports();
-
-		return {
-			props: { latestAdventures, coverPicture: getHomepageCover(), sports }
-		};
-	}
-</script>
-
 <script lang="ts">
 	import type { Adventure, Picture, Sport } from '$lib/types';
 	import {
@@ -28,20 +13,17 @@
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import SmallCover from '$lib/components/coverPicture/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
-	import env from '$lib/config/index';
-	import { getHomepageCover } from '$lib/services/coverPictureService';
+	import type { PageData } from './$types';
 
-	export let latestAdventures: Adventure[];
-	export let coverPicture: Picture;
-	export let sports: Sport[];
+	export let data: PageData;
 
-	$: adventureItems = latestAdventures.map((adventure) => ({
+	$: adventureItems = data.latestAdventures.map((adventure) => ({
 		component: AdventureCover,
 		props: { adventure, coverType: CoverTypes.SMALL },
 		key: `${adventure.id}`
 	}));
 
-	$: sportItems = sports.map((sport) => ({
+	$: sportItems = data.sports.map((sport) => ({
 		component: SmallCover,
 		props: {
 			picture: sport.cover,
@@ -54,12 +36,12 @@
 </script>
 
 <svelte:head>
-	<meta property="og:image" content={coverPicture.formats.medium.url} />
+	<meta property="og:image" content={data.coverPicture.formats.medium.url} />
 	<meta property="og:title" content={DEFAULT_TITLE} />
 	<meta property="og:description" content={DEFAULT_DESCRIPTION} />
 </svelte:head>
 
-<HomeCover picture={coverPicture} position={PicturePosition.TOP_LEFT} />
+<HomeCover picture={data.coverPicture} position={PicturePosition.TOP_LEFT} />
 <div class="p-10 flex flex-col w-full justify-center items-center">
 	<div class="flex justify-center flex-col md:flex-row mx-5">
 		<div class="flex flex-col mb-10 md:mb-0 md:mr-10">

@@ -9,7 +9,7 @@
 	import { formatFrenchDate } from '$lib/utils/date';
 	import { slugify, truncateText } from '$lib/utils/string';
 	import { getUrlWithNewSlug } from '$lib/utils/url';
-	import { browser } from '$app/env';
+	import { browser } from '$app/environment';
 	import uniqBy from 'lodash/uniqBy.js';
 	import findIndex from 'lodash/findIndex.js';
 	import { typography } from '$lib/styles';

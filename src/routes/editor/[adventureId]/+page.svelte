@@ -20,14 +20,15 @@
 	import { onMount } from 'svelte';
 	import isEqual from 'lodash/isEqual';
 	import Input from '$lib/components/form/input.svelte';
-	import { getAdventureById } from '$lib/services/adventureService';
-	import { page } from '$app/stores';
 	import Select from '$lib/components/form/select.svelte';
 	import { CardinalPoints } from '$lib/constants';
 	import Gallery from '$lib/components/gallery/gallery.svelte';
+	import type { PageData } from './$types';
 
-	export let adventure: Adventure;
+	export let data: PageData;
 	export let ready: boolean = false;
+
+	let currentVersion: Adventure;
 
 	let orientationOptions = Object.values(CardinalPoints).map((cardinalPoint) => ({
 		label: cardinalPoint,
@@ -35,25 +36,24 @@
 	}));
 
 	export let submitContent = async () => {
-		const ongoingDraft = getDraft(adventure.id);
+		const ongoingDraft = getDraft(currentVersion.id);
 		if (!ongoingDraft) throw new Error('Failed to read ongoing draft');
-		if (isEqual(ongoingDraft, adventure)) {
+		if (isEqual(ongoingDraft, data.adventure)) {
 			console.log('No changes to publish');
 			return;
 		}
 
 		await publishContent(ongoingDraft);
-		clearDraft(adventure.id);
+		clearDraft(currentVersion.id);
 	};
 
 	onMount(async () => {
-		const adventureId = Number($page.params.adventureId);
-		const ongoingDraft = getDraft(adventureId);
+		const ongoingDraft = getDraft(data.adventure.id);
 		if (ongoingDraft) {
-			adventure = ongoingDraft;
+			currentVersion = ongoingDraft;
 		} else {
-			const adventure = await getAdventureById(adventureId);
-			saveDraft(adventure);
+			saveDraft(data.adventure);
+			currentVersion = data.adventure;
 		}
 		ready = true;
 
@@ -66,9 +66,9 @@
 		Editor.make()
 			.config((ctx: any) => {
 				ctx.set(rootCtx, dom);
-				ctx.set(defaultValueCtx, adventure.content);
+				ctx.set(defaultValueCtx, currentVersion.content);
 				ctx.get(listenerCtx).markdownUpdated((_: any, markdown: string) => {
-					adventure.content = markdown;
+					currentVersion.content = markdown;
 				});
 			})
 			.use(nord)
@@ -83,20 +83,25 @@
 			.create();
 	}
 
-	$: if (ready) saveDraft(adventure);
+	$: if (ready) saveDraft(currentVersion);
 </script>
 
 <Container paddingHeader={true}>
 	{#if ready}
-		<Input name="title" label="Titre" bind:value={adventure.title} />
+		<Input name="title" label="Titre" bind:value={currentVersion.title} />
 		<div class="flex flex-row gap-5">
-			<Input name="cotation" label="Cotation" bind:value={adventure.cotation} />
-			<Input name="elevation" label="Elevation" bind:value={adventure.elevation} type="number" />
+			<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
+			<Input
+				name="elevation"
+				label="Elevation"
+				bind:value={currentVersion.elevation}
+				type="number"
+			/>
 			<Select
 				name="orientation"
 				label="Orientation"
 				options={orientationOptions}
-				bind:value={adventure.orientation}
+				bind:value={currentVersion.orientation}
 			/>
 		</div>
 		<Gallery />
