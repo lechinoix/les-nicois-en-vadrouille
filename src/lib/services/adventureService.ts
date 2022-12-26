@@ -5,7 +5,11 @@ import type { Adventure, AdventureData, AdventureContent, Picture } from '$lib/t
 import rawAdventuresData from '$lib/data/adventure_data.json';
 import rawAdventuresContent from '$lib/data/adventure_content.json';
 
+// eslint-disable-next-line
+// @ts-ignore
 const adventuresData: AdventureData[] = rawAdventuresData;
+// eslint-disable-next-line
+// @ts-ignore
 const adventuresContent: AdventureContent[] = rawAdventuresContent;
 
 const adventures: Adventure[] = values(

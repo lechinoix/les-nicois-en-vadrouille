@@ -1,5 +1,3 @@
-import { CardinalPoints, TopoSource, PicturePosition, Sports } from '$lib/constants';
-
 /**
  * Can be made globally available by placing this
  * inside `global.d.ts` and removing `export` keyword
@@ -44,8 +42,15 @@ export type Picture = {
 		medium: PictureFormat;
 		small: PictureFormat;
 	};
-	id: number;
+	id: number | string;
+	album: Album;
 } & PictureFormat;
+
+export type Album = {
+	id: string;
+	shareLink: string;
+	title: string;
+};
 
 export type PictureFormat = {
 	url: string;
@@ -78,7 +83,7 @@ export type Secrets = {
 	githubToken: string;
 };
 
-export type Photo = {
+export type GooglePhoto = {
 	id: string;
 	baseLink: string;
 	width: number;
