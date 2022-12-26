@@ -46,10 +46,6 @@
 	<slot name="header" />
 	<hr />
 	<slot />
-	<hr />
-
-	<!-- svelte-ignore a11y-autofocus -->
-	<button autofocus on:click={close}>close modal</button>
 </div>
 
 <style scoped>

@@ -122,8 +122,5 @@
 </Container>
 
 {#if showModal}
-	<PictureModal
-		onClose={closeModal}
-		albumPictures={currentVersion.pictures?.map((picture) => picture.id) ?? []}
-	/>
+	<PictureModal {closeModal} bind:adventurePictures={currentVersion.pictures} />
 {/if}

@@ -4,17 +4,17 @@
 	import Modal from '$lib/components/modal.svelte';
 	import { getPhotosFromShareLink } from '$lib/services/googlePhotoService';
 	import type { Picture } from '$lib/types';
-	import { onMount } from 'svelte';
+	import uniqBy from 'lodash/uniqBy';
 
-	export let onClose: () => void;
-	export let albumPictures: (string | number)[];
-	let selectedPictures = albumPictures;
-	let pictures: Picture[] = [];
+	export let closeModal: () => void;
+	export let adventurePictures: Picture[] | null;
+	let selectedPictures = adventurePictures?.map((picture) => picture.id) ?? [];
+	let albumPictures: Picture[] = [];
 	let albumLink: string;
 
 	const getAlbumPictures = async () => {
 		if (!albumLink) return;
-		pictures = await getPhotosFromShareLink(albumLink);
+		albumPictures = await getPhotosFromShareLink(albumLink);
 	};
 
 	const togglePictureHandler = ({ detail: { pictureId } }: any) => {
@@ -27,10 +27,19 @@
 		}
 	};
 
-	onMount(async () => {});
+	const validatePictures = () => {
+		adventurePictures = uniqBy(
+			[
+				...(adventurePictures?.filter((picture) => selectedPictures.includes(picture.id)) ?? []),
+				...albumPictures.filter((picture) => selectedPictures.includes(picture.id))
+			],
+			(picture) => picture.id
+		);
+		closeModal();
+	};
 </script>
 
-<Modal on:close={onClose}>
+<Modal on:close={closeModal}>
 	<Input
 		name="album"
 		label="Album"
@@ -38,5 +47,10 @@
 		bind:value={albumLink}
 	/>
 	<button on:click={getAlbumPictures}>Get Pictures</button>
-	<SelectableGallery {pictures} {selectedPictures} on:togglePicture={togglePictureHandler} />
+	<SelectableGallery
+		pictures={albumPictures}
+		{selectedPictures}
+		on:togglePicture={togglePictureHandler}
+	/>
+	<button on:click={validatePictures}>Submit</button>
 </Modal>
