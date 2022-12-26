@@ -29,6 +29,7 @@
 		"@sveltejs/adapter-vercel": "^1.0.0",
 		"@sveltejs/kit": "^1.0.0",
 		"@types/crypto-js": "^4.1.1",
+		"@types/jsdom": "^20.0.1",
 		"@types/lodash": "^4.14.191",
 		"@typescript-eslint/eslint-plugin": "^5.47.0",
 		"@typescript-eslint/parser": "^5.47.0",
@@ -54,6 +55,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"jsdom": "^20.0.3",
 		"lightgallery": "^2.2.1",
 		"lodash": "^4.17.21",
 		"marked": "^3.0.8",

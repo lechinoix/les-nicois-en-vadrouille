@@ -79,5 +79,9 @@ export type Secrets = {
 };
 
 export type Photo = {
+	id: string;
 	baseLink: string;
+	width: number;
+	height: number;
+	date: number;
 };
