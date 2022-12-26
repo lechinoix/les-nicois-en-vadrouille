@@ -22,13 +22,15 @@
 	import Input from '$lib/components/form/input.svelte';
 	import Select from '$lib/components/form/select.svelte';
 	import { CardinalPoints } from '$lib/constants';
-	import Gallery from '$lib/components/gallery/gallery.svelte';
 	import type { PageData } from './$types';
+	import PictureModal from './pictureModal.svelte';
+	import Slider from '$lib/components/slider.svelte';
 
 	export let data: PageData;
 	export let ready: boolean = false;
 
 	let currentVersion: Adventure;
+	let showModal = false;
 
 	let orientationOptions = Object.values(CardinalPoints).map((cardinalPoint) => ({
 		label: cardinalPoint,
@@ -45,6 +47,14 @@
 
 		await publishContent(ongoingDraft);
 		clearDraft(currentVersion.id);
+	};
+
+	const openModal = () => {
+		showModal = true;
+	};
+
+	const closeModal = () => {
+		showModal = false;
 	};
 
 	onMount(async () => {
@@ -104,10 +114,16 @@
 				bind:value={currentVersion.orientation}
 			/>
 		</div>
-		<Gallery />
+		<button on:click={openModal}>Modify pictures</button>
+		<Slider pictures={currentVersion.pictures ?? []} />
 		<div use:editor />
 		<button on:click={submitContent}>Publish</button>
 	{/if}
 </Container>
 
-<style></style>
+{#if showModal}
+	<PictureModal
+		onClose={closeModal}
+		albumPictures={currentVersion.pictures?.map((picture) => picture.id) ?? []}
+	/>
+{/if}
