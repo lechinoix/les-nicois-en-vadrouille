@@ -71,6 +71,7 @@ export type Sport = {
 
 export type Secrets = {
 	githubToken: string;
+	isLoggedIn: boolean;
 };
 
 export type GooglePhoto = {
