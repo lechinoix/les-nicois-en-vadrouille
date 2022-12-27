@@ -31,6 +31,7 @@
 
 	let currentVersion: Adventure;
 	let showModal = false;
+	let topAnchor: HTMLElement;
 
 	let orientationOptions = Object.values(CardinalPoints).map((cardinalPoint) => ({
 		label: cardinalPoint,
@@ -49,6 +50,13 @@
 		clearDraft(currentVersion.id);
 	};
 
+	const resetDraft = () => {
+		clearDraft(currentVersion.id);
+		saveDraft(data.adventure);
+		currentVersion = data.adventure;
+		topAnchor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+	};
+
 	const openModal = () => {
 		showModal = true;
 	};
@@ -62,8 +70,7 @@
 		if (ongoingDraft) {
 			currentVersion = ongoingDraft;
 		} else {
-			saveDraft(data.adventure);
-			currentVersion = data.adventure;
+			resetDraft();
 		}
 		ready = true;
 
@@ -96,6 +103,7 @@
 	$: if (ready) saveDraft(currentVersion);
 </script>
 
+<div bind:this={topAnchor} />
 <Container paddingHeader={true}>
 	{#if ready}
 		<Input name="title" label="Titre" bind:value={currentVersion.title} />
@@ -119,6 +127,7 @@
 		<Slider pictures={currentVersion.pictures ?? []} />
 		<div use:editor />
 		<button on:click={submitContent}>Publish</button>
+		<button on:click={resetDraft}>Reset</button>
 	{/if}
 </Container>
 
