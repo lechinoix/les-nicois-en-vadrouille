@@ -40,6 +40,11 @@
 </script>
 
 <Modal on:close={closeModal}>
+	<SelectableGallery
+		pictures={adventurePictures ?? []}
+		{selectedPictures}
+		on:togglePicture={togglePictureHandler}
+	/>
 	<Input
 		name="album"
 		label="Album"
