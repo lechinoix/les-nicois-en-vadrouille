@@ -1,4 +1,7 @@
-import type { Picture } from '$lib/types';
+import type { Album, Picture } from '$lib/types';
+import rawAlbums from '$lib/data/albums.json';
+
+const albums = rawAlbums as Album[];
 
 export const getPhotosFromShareLink = async (shareLink: string): Promise<Picture[]> => {
 	const response = await fetch(`/api/photos/album/extract`, {
@@ -9,4 +12,8 @@ export const getPhotosFromShareLink = async (shareLink: string): Promise<Picture
 	});
 
 	return await response.json();
+};
+
+export const getAllAlbums = (): Album[] => {
+	return albums;
 };

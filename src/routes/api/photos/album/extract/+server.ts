@@ -44,7 +44,7 @@ const extractPhotoListFromHtml = (rawHtml: string, shareLink: string): Picture[]
 const formatPicturesFromGPhotos = (photoList: GooglePhoto[], album: Album): Picture[] => {
 	return photoList.map((photo) => ({
 		id: photo.id,
-		album: album,
+		albumId: album.id,
 		formats: getFormatsFromGPhoto(photo),
 		...getFormatByRatio(photo, 1)
 	}));

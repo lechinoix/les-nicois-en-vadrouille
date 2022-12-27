@@ -43,7 +43,7 @@ export type Picture = {
 		small: PictureFormat;
 	};
 	id: number | string;
-	album: Album;
+	albumId: string;
 } & PictureFormat;
 
 export type Album = {
