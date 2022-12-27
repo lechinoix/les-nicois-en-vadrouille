@@ -19,7 +19,7 @@ export type AdventureData = {
 	id: string;
 	title: string;
 	cotation: string | null;
-	cover: CoverPicture;
+	cover: CoverPicture | null;
 	date: string;
 	elevation: number | null;
 	orientation: string | null;

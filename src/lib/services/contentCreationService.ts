@@ -1,10 +1,26 @@
 import type { Adventure, AdventureContent, AdventureData } from '$lib/types';
 import { adventuresData, adventuresContent } from '$lib/services/adventureService';
 import { modifyFileOnGithub } from './githubService';
+import { generateId } from '$lib/utils/idGenerator';
+import {
+	adventureContentFromAdventure,
+	adventureDataFromAdventure,
+	newAdventure
+} from '$lib/data/generators/adventure';
 
 const dataFolderPath = 'src/lib/data';
 const adventureDataPath = `${dataFolderPath}/adventure_data.json`;
 const adventureContentPath = `${dataFolderPath}/adventure_content.json`;
+
+export const createNewDraft = (): string => {
+	const newAdventureId = generateId();
+	localStorage.setItem(
+		draftKeyFromId(newAdventureId),
+		JSON.stringify(newAdventure(newAdventureId))
+	);
+
+	return newAdventureId;
+};
 
 export const saveDraft = (adventure: Adventure) => {
 	localStorage.setItem(draftKeyFromId(adventure.id), JSON.stringify(adventure));
@@ -27,31 +43,14 @@ const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
 	adventuresData.map((adventureData: AdventureData) => {
 		if (adventureData.id !== newAdventure.id) return adventureData;
 
-		return {
-			id: newAdventure.id,
-			title: newAdventure.title,
-			cotation: newAdventure.cotation,
-			cover: newAdventure.cover,
-			date: newAdventure.date,
-			elevation: newAdventure.elevation,
-			orientation: newAdventure.orientation,
-			participants: newAdventure.participants,
-			places: newAdventure.places,
-			sports: newAdventure.sports,
-			periods: newAdventure.periods
-		};
+		return adventureDataFromAdventure(newAdventure);
 	});
 
 const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] =>
 	adventuresContent.map((adventureContent: AdventureContent) => {
 		if (adventureContent.id !== newAdventure.id) return adventureContent;
 
-		return {
-			id: newAdventure.id,
-			content: newAdventure.content,
-			pictures: newAdventure.pictures,
-			topos: newAdventure.topos
-		};
+		return adventureContentFromAdventure(newAdventure);
 	});
 
 export const publishContent = (adventure: Adventure) => {

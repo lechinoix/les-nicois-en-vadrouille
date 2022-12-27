@@ -59,7 +59,7 @@
 	}));
 
 	export let submitContent = async () => {
-		const ongoingDraft = getDraft(currentVersion.id);
+		const ongoingDraft = getDraft(data.adventureId);
 		if (!ongoingDraft) throw new Error('Failed to read ongoing draft');
 		if (isEqual(ongoingDraft, data.adventure)) {
 			console.log('No changes to publish');
@@ -67,11 +67,11 @@
 		}
 
 		await publishContent(ongoingDraft);
-		clearDraft(currentVersion.id);
+		clearDraft(data.adventureId);
 	};
 
 	const resetDraft = () => {
-		clearDraft(currentVersion.id);
+		clearDraft(data.adventureId);
 		saveDraft(data.adventure);
 		currentVersion = data.adventure;
 		topAnchor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -89,7 +89,7 @@
 		// @ts-ignore
 		const cover: CoverPicture = {
 			...currentVersion.pictures?.find((picture) => picture.id === pictureId),
-			position: currentVersion.cover.position
+			position: currentVersion.cover?.position ?? null
 		};
 		currentVersion = {
 			...currentVersion,
@@ -98,7 +98,7 @@
 	};
 
 	onMount(async () => {
-		const ongoingDraft = getDraft(data.adventure.id);
+		const ongoingDraft = getDraft(data.adventureId);
 		if (ongoingDraft) {
 			currentVersion = ongoingDraft;
 		} else {
@@ -178,12 +178,14 @@
 					bind:values={currentVersion.places}
 				/>
 			</div>
-			<Select
-				name="cover-position"
-				label="Cover Position"
-				options={picturePositionOptions}
-				bind:value={currentVersion.cover.position}
-			/>
+			{#if currentVersion.cover}
+				<Select
+					name="cover-position"
+					label="Cover Position"
+					options={picturePositionOptions}
+					bind:value={currentVersion.cover.position}
+				/>
+			{/if}
 			<LinkButton class="my-2" onClick={openModal}>Modify pictures</LinkButton>
 			<SelectableGallery
 				pictures={currentVersion.pictures ?? []}
