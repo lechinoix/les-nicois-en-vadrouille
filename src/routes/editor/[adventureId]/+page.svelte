@@ -29,6 +29,7 @@
 	import MultiValuesSelect from '$lib/components/form/multiValuesSelect.svelte';
 	import { getAllPlaces } from '$lib/services/placeService';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
+	import { getPassword } from '$lib/services/secretsService';
 
 	export let data: PageData;
 	export let ready: boolean = false;
@@ -135,66 +136,70 @@
 </script>
 
 <div bind:this={topAnchor} />
-<Container paddingHeader={true}>
-	{#if ready}
-		<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
-		<div class="flex flex-row gap-5 mb-6">
-			<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
-			<Input
-				name="elevation"
-				label="Elevation"
-				bind:value={currentVersion.elevation}
-				type="number"
-			/>
+{#if !getPassword()}
+	Cannot access editor page without a password
+{:else}
+	<Container paddingHeader={true}>
+		{#if ready}
+			<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
+			<div class="flex flex-row gap-5 mb-6">
+				<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
+				<Input
+					name="elevation"
+					label="Elevation"
+					bind:value={currentVersion.elevation}
+					type="number"
+				/>
+				<Select
+					name="orientation"
+					label="Orientation"
+					options={orientationOptions}
+					bind:value={currentVersion.orientation}
+				/>
+				<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
+			</div>
+			<div class="flex flex-row gap-5 mb-6">
+				<MultiValuesInput
+					type="text"
+					name="participants"
+					label="Participants"
+					bind:values={currentVersion.participants}
+				/>
+				<MultiValuesSelect
+					options={sportOptions}
+					name="sports"
+					label="Sports"
+					bind:values={currentVersion.sports}
+				/>
+				<MultiValuesSelect
+					options={placeOptions}
+					name="places"
+					label="Places"
+					bind:values={currentVersion.places}
+				/>
+			</div>
 			<Select
-				name="orientation"
-				label="Orientation"
-				options={orientationOptions}
-				bind:value={currentVersion.orientation}
+				name="cover-position"
+				label="Cover Position"
+				options={picturePositionOptions}
+				bind:value={currentVersion.cover.position}
 			/>
-			<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
-		</div>
-		<div class="flex flex-row gap-5 mb-6">
-			<MultiValuesInput
-				type="text"
-				name="participants"
-				label="Participants"
-				bind:values={currentVersion.participants}
+			<LinkButton class="my-2" onClick={openModal}>Modify pictures</LinkButton>
+			<SelectableGallery
+				pictures={currentVersion.pictures ?? []}
+				selectedPictures={[currentVersion.cover?.id ?? '']}
+				on:clickPicture={changeCover}
 			/>
-			<MultiValuesSelect
-				options={sportOptions}
-				name="sports"
-				label="Sports"
-				bind:values={currentVersion.sports}
-			/>
-			<MultiValuesSelect
-				options={placeOptions}
-				name="places"
-				label="Places"
-				bind:values={currentVersion.places}
-			/>
-		</div>
-		<Select
-			name="cover-position"
-			label="Cover Position"
-			options={picturePositionOptions}
-			bind:value={currentVersion.cover.position}
-		/>
-		<LinkButton class="my-2" onClick={openModal}>Modify pictures</LinkButton>
-		<SelectableGallery
-			pictures={currentVersion.pictures ?? []}
-			selectedPictures={[currentVersion.cover?.id ?? '']}
-			on:clickPicture={changeCover}
-		/>
-		<div use:editor />
+			<div use:editor />
+		{/if}
+	</Container>
+
+	<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
+		<LinkButton onClick={submitContent}>Publish</LinkButton>
+		<LinkButton onClick={resetDraft}>Reset</LinkButton>
+	</div>
+
+	{#if showModal}
+		<PictureModal {closeModal} bind:adventurePictures={currentVersion.pictures} />
 	{/if}
-</Container>
-
-<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
-	<LinkButton onClick={submitContent}>Publish</LinkButton>
-	<LinkButton onClick={resetDraft}>Reset</LinkButton>
-</div>
-
-{#if showModal}
-	<PictureModal {closeModal} bind:adventurePictures={currentVersion.pictures} />
 {/if}
