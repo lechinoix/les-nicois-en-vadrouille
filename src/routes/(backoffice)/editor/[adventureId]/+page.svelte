@@ -139,7 +139,7 @@
 {#if !getPassword()}
 	Cannot access editor page without a password
 {:else}
-	<Container paddingHeader={true}>
+	<Container>
 		{#if ready}
 			<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
 			<div class="flex flex-row gap-5 mb-6">

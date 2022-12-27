@@ -13,7 +13,7 @@
 	import ResponsiveGrid from '$lib/components/ui/responsiveGrid.svelte';
 	import SmallCover from '$lib/components/coverPicture/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
-	import type { PageData } from './$types';
+	import type { PageData } from '../$types';
 
 	export let data: PageData;
 

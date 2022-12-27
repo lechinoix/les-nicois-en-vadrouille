@@ -2,6 +2,7 @@ import CryptoJS from 'crypto-js';
 import secrets from '$lib/data/secrets?raw';
 import type { Secrets } from '$lib/types';
 
+export const setPassword = (password: string) => localStorage.setItem('password', password);
 export const getPassword = () => localStorage.getItem('password');
 
 export const getSecrets = (): Secrets => {
