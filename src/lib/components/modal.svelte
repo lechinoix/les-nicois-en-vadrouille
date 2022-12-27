@@ -40,7 +40,7 @@
 
 <svelte:window on:keydown={handle_keydown} />
 
-<div class="modal-background" on:click={close} on:scroll|stopPropagation>
+<div class="modal-background" on:click={close}>
 	<div on:click|stopPropagation class="modal" role="dialog" aria-modal="true" bind:this={modal}>
 		<slot name="header" />
 		<hr />
@@ -71,9 +71,5 @@
 		padding: 1em;
 		border-radius: 0.2em;
 		background: white;
-	}
-
-	button {
-		display: block;
 	}
 </style>

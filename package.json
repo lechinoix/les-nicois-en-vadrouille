@@ -60,7 +60,8 @@
 		"lodash": "^4.17.21",
 		"marked": "^3.0.8",
 		"nanoid": "^3.1.30",
-		"svelte-forms": "^2.0.7"
+		"svelte-forms": "^2.0.7",
+		"svelty-picker": "^3.2.3"
 	},
 	"lint-staged": {
 		"*.js": "eslint --cache --fix",

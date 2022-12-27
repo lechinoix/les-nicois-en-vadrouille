@@ -1,10 +1,12 @@
 <script lang="ts">
+	import SveltyPicker from 'svelty-picker';
+
 	export let label: string;
 	export let placeholder: string = '';
 	export let name: string;
 	export let required: boolean = false;
 	export let value: string | number | null;
-	export let type: 'number' | 'text' = 'text';
+	export let type: 'number' | 'text' | 'date' = 'text';
 </script>
 
 <div class="mb-6">
@@ -29,6 +31,13 @@
 			{required}
 			bind:value
 			class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+		/>
+	{/if}
+	{#if type == 'date'}
+		<SveltyPicker
+			inputClasses="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+			format="yyyy-mm-dd"
+			bind:value
 		/>
 	{/if}
 </div>

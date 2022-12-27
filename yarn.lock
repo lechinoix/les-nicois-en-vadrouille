@@ -4153,6 +4153,11 @@ svelte@^3.54.0:
   resolved "https://registry.yarnpkg.com/svelte/-/svelte-3.55.0.tgz#29cb958750a23e751309a6535ccd811fcabc9038"
   integrity sha512-uGu2FVMlOuey4JoKHKrpZFkoYyj0VLjJdz47zX5+gVK5odxHM40RVhar9/iK2YFRVxvfg9FkhfVlR0sjeIrOiA==
 
+svelty-picker@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/svelty-picker/-/svelty-picker-3.2.3.tgz#ab29ca6728726c13e432b8ea779f592ed604cd17"
+  integrity sha512-il+Kmhjw1CiO4ltu84RbI5Tzj+rMf0UY+V7KOmXjn4dzbp2rqGc+Hd4aR9ld8mLbWxKdmOU7GkxfYTTts4sUyw==
+
 svgo@^2.7.0:
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/svgo/-/svgo-2.8.0.tgz#4ff80cce6710dc2795f0c7c74101e6764cfccd24"

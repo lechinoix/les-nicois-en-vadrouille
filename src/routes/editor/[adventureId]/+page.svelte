@@ -113,6 +113,7 @@
 				options={orientationOptions}
 				bind:value={currentVersion.orientation}
 			/>
+			<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
 		</div>
 		<button on:click={openModal}>Modify pictures</button>
 		<Slider pictures={currentVersion.pictures ?? []} />
