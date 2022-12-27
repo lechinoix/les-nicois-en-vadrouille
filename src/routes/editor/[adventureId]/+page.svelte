@@ -21,11 +21,13 @@
 	import isEqual from 'lodash/isEqual';
 	import Input from '$lib/components/form/input.svelte';
 	import Select from '$lib/components/form/select.svelte';
-	import { CardinalPoints, PicturePosition } from '$lib/constants';
+	import { CardinalPoints, PicturePosition, Sports } from '$lib/constants';
 	import type { PageData } from './$types';
 	import PictureModal from './pictureModal.svelte';
 	import SelectableGallery from '$lib/components/gallery/selectableGallery.svelte';
 	import MultiValuesInput from '$lib/components/form/multiValuesInput.svelte';
+	import MultiValuesSelect from '$lib/components/form/multiValuesSelect.svelte';
+	import { getAllPlaces } from '$lib/services/placeService';
 
 	export let data: PageData;
 	export let ready: boolean = false;
@@ -42,6 +44,16 @@
 	const picturePositionOptions = Object.values(PicturePosition).map((picturePosition) => ({
 		label: picturePosition,
 		value: picturePosition
+	}));
+
+	const sportOptions = Object.values(Sports).map((sport) => ({
+		label: sport,
+		value: sport
+	}));
+
+	const placeOptions = getAllPlaces().map((place) => ({
+		label: place.name,
+		value: place.name
 	}));
 
 	export let submitContent = async () => {
@@ -124,8 +136,8 @@
 <div bind:this={topAnchor} />
 <Container paddingHeader={true}>
 	{#if ready}
-		<Input name="title" label="Titre" bind:value={currentVersion.title} />
-		<div class="flex flex-row gap-5">
+		<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
+		<div class="flex flex-row gap-5 mb-6">
 			<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
 			<Input
 				name="elevation"
@@ -141,12 +153,24 @@
 			/>
 			<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
 		</div>
-		<div class="flex flex-row gap-5">
+		<div class="flex flex-row gap-5 mb-6">
 			<MultiValuesInput
 				type="text"
 				name="participants"
 				label="Participants"
 				bind:values={currentVersion.participants}
+			/>
+			<MultiValuesSelect
+				options={sportOptions}
+				name="sports"
+				label="Sports"
+				bind:values={currentVersion.sports}
+			/>
+			<MultiValuesSelect
+				options={placeOptions}
+				name="places"
+				label="Places"
+				bind:values={currentVersion.places}
 			/>
 		</div>
 		<Select

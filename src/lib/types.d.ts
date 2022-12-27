@@ -63,7 +63,7 @@ export type CoverPicture = Picture & {
 };
 
 export type Place = {
-	name: string | null;
+	name: string;
 	description: string | null;
 	location: string | null;
 };
