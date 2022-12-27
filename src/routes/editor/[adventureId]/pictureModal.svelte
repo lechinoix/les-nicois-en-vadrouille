@@ -55,7 +55,7 @@
 	<SelectableGallery
 		pictures={albumPictures}
 		{selectedPictures}
-		on:togglePicture={togglePictureHandler}
+		on:clickPicture={togglePictureHandler}
 	/>
 	<button on:click={validatePictures}>Submit</button>
 </Modal>

@@ -9,7 +9,7 @@
 	import { menu } from '@milkdown/plugin-menu';
 	import { slash } from '@milkdown/plugin-slash';
 	import { nord } from '@milkdown/theme-nord';
-	import type { Adventure } from '$lib/types';
+	import type { Adventure, CoverPicture } from '$lib/types';
 	import Container from '$lib/components/container.svelte';
 	import {
 		clearDraft,
@@ -21,10 +21,10 @@
 	import isEqual from 'lodash/isEqual';
 	import Input from '$lib/components/form/input.svelte';
 	import Select from '$lib/components/form/select.svelte';
-	import { CardinalPoints } from '$lib/constants';
+	import { CardinalPoints, PicturePosition } from '$lib/constants';
 	import type { PageData } from './$types';
 	import PictureModal from './pictureModal.svelte';
-	import Slider from '$lib/components/slider.svelte';
+	import SelectableGallery from '$lib/components/gallery/selectableGallery.svelte';
 
 	export let data: PageData;
 	export let ready: boolean = false;
@@ -36,6 +36,11 @@
 	let orientationOptions = Object.values(CardinalPoints).map((cardinalPoint) => ({
 		label: cardinalPoint,
 		value: cardinalPoint
+	}));
+
+	const picturePositionOptions = Object.values(PicturePosition).map((picturePosition) => ({
+		label: picturePosition,
+		value: picturePosition
 	}));
 
 	export let submitContent = async () => {
@@ -63,6 +68,18 @@
 
 	const closeModal = () => {
 		showModal = false;
+	};
+
+	const changeCover = ({ detail: { pictureId } }: any) => {
+		// @ts-ignore
+		const cover: CoverPicture = {
+			...currentVersion.pictures?.find((picture) => picture.id === pictureId),
+			position: currentVersion.cover.position
+		};
+		currentVersion = {
+			...currentVersion,
+			cover
+		};
 	};
 
 	onMount(async () => {
@@ -123,8 +140,18 @@
 			/>
 			<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
 		</div>
+		<Select
+			name="cover-position"
+			label="Cover Position"
+			options={picturePositionOptions}
+			bind:value={currentVersion.cover.position}
+		/>
 		<button on:click={openModal}>Modify pictures</button>
-		<Slider pictures={currentVersion.pictures ?? []} />
+		<SelectableGallery
+			pictures={currentVersion.pictures ?? []}
+			selectedPictures={[currentVersion.cover?.id ?? '']}
+			on:clickPicture={changeCover}
+		/>
 		<div use:editor />
 		<button on:click={submitContent}>Publish</button>
 		<button on:click={resetDraft}>Reset</button>

@@ -4,8 +4,8 @@
 
 	const dispatch = createEventDispatcher();
 
-	const togglePicture = (pictureId: string | number) => {
-		dispatch('togglePicture', { pictureId });
+	const clickPicture = (pictureId: string | number) => {
+		dispatch('clickPicture', { pictureId });
 	};
 
 	export let selectedPictures: (string | number)[];
@@ -19,7 +19,7 @@
 				class="inline-block mr-2 h-full relative cursor-pointer"
 				data-lg-size={`${picture.width}-${picture.height}`}
 				data-src={picture.url}
-				on:click={() => togglePicture(picture.id)}
+				on:click={() => clickPicture(picture.id)}
 			>
 				{#if selectedPictures.includes(picture.id)}
 					<div class="absolute h-full w-full opacity-30 bg-blue-500" />
