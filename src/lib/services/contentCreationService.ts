@@ -7,10 +7,20 @@ import {
 	adventureDataFromAdventure,
 	newAdventure
 } from '$lib/data/generators/adventure';
+import startsWith from 'lodash/startsWith';
 
 const dataFolderPath = 'src/lib/data';
 const adventureDataPath = `${dataFolderPath}/adventure_data.json`;
 const adventureContentPath = `${dataFolderPath}/adventure_content.json`;
+const DRAFT_PREFIX = 'draft-';
+
+export const getAllDrafts = (): Adventure[] => {
+	const items = { ...localStorage };
+
+	return Object.keys(items)
+		.filter((key) => startsWith(key, DRAFT_PREFIX))
+		.map((key) => JSON.parse(items[key]));
+};
 
 export const createNewDraft = (): string => {
 	const newAdventureId = generateId();
@@ -37,7 +47,7 @@ export const clearDraft = (contentId: string): void => {
 	localStorage.removeItem(draftKeyFromId(contentId));
 };
 
-const draftKeyFromId = (contentId: string) => `draft-${contentId}`;
+const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
 
 const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
 	adventuresData.map((adventureData: AdventureData) => {
