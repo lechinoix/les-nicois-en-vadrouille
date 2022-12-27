@@ -1,6 +1,5 @@
 import type { Adventure, AdventureContent, AdventureData } from '$lib/types';
-import adventureData from '$lib/data/adventure_data.json';
-import adventureContent from '$lib/data/adventure_content.json';
+import { adventuresData, adventuresContent } from '$lib/services/adventureService';
 import { modifyFileOnGithub } from './githubService';
 
 const dataFolderPath = 'src/lib/data';
@@ -25,8 +24,7 @@ export const clearDraft = (contentId: number): void => {
 const draftKeyFromId = (contentId: number) => `draft-${contentId}`;
 
 const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
-	// @ts-ignore
-	adventureData.map((adventureData: AdventureData) => {
+	adventuresData.map((adventureData: AdventureData) => {
 		if (adventureData.id !== newAdventure.id) return adventureData;
 
 		return {
@@ -45,8 +43,7 @@ const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
 	});
 
 const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] =>
-	// @ts-ignore
-	adventureContent.map((adventureContent: AdventureContent) => {
+	adventuresContent.map((adventureContent: AdventureContent) => {
 		if (adventureContent.id !== newAdventure.id) return adventureContent;
 
 		return {

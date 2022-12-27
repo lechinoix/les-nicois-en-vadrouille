@@ -7,10 +7,10 @@ import rawAdventuresContent from '$lib/data/adventure_content.json';
 
 // eslint-disable-next-line
 // @ts-ignore
-const adventuresData: AdventureData[] = rawAdventuresData;
+export const adventuresData: AdventureData[] = rawAdventuresData;
 // eslint-disable-next-line
 // @ts-ignore
-const adventuresContent: AdventureContent[] = rawAdventuresContent;
+export const adventuresContent: AdventureContent[] = rawAdventuresContent;
 
 const adventures: Adventure[] = values(
 	merge(keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
