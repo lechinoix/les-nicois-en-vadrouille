@@ -7,11 +7,7 @@
 		"elevation": 200,
 		"orientation": "SW",
 		"external_topos": ["https://www.camptocamp.org/routes/56224/fr/presles-fond-du-cirque-absolue"],
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Sébastien", "name": "Lagesse" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Sébastien Lagesse"],
 		"places": ["Presles"],
 		"periods": null,
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -58,12 +54,7 @@
 		"elevation": 150,
 		"orientation": "SW",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Sébastien", "name": "Lagesse" },
-			{ "surname": "Léa", "name": "Dixon" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Sébastien Lagesse", "Léa Dixon"],
 		"places": ["Calanques", "Marseille"],
 		"periods": ["Printemps", "Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -106,11 +97,7 @@
 		"elevation": 1000,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Stanislas", "name": "Bernard" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Stanislas Bernard"],
 		"places": ["Les 2 Alpes"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -152,10 +139,7 @@
 		"elevation": 950,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Les Ecrins"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -201,13 +185,7 @@
 		"elevation": 840,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Emily", "name": "Vo" },
-			{ "surname": "Ivann", "name": "Maurice" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Kevin Jean", "Emily Vo", "Ivann Maurice"],
 		"places": ["Chamrousse"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO", "ALPINISM"],
@@ -255,12 +233,12 @@
 		"orientation": "NE",
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Emily", "name": "Vo" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Kevin Jean",
+			"Emily Vo",
+			"Ivann Maurice",
+			"Richard Casetta"
 		],
 		"places": ["Belledonne"],
 		"periods": null,
@@ -308,11 +286,11 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Richard", "name": "Casetta" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Kevin", "name": "Jean" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Richard Casetta",
+			"Ivann Maurice",
+			"Kevin Jean"
 		],
 		"places": ["Mont Rose"],
 		"periods": ["Été"],
@@ -356,11 +334,11 @@
 		"orientation": "S",
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Stanislas", "name": "Bernard" },
-			{ "surname": "Thibaud", "name": "Cheymol" },
-			{ "surname": "Sammy", "name": "Teillet" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Stanislas Bernard",
+			"Thibaud Cheymol",
+			"Sammy Teillet"
 		],
 		"places": ["Les Ecrins"],
 		"periods": ["Hiver"],
@@ -407,10 +385,7 @@
 		"elevation": 1046,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" }
-		],
+		"participants": ["Nicolas Ngomai", "Ambre Fischer"],
 		"places": ["Belledonne"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO", "ALPINISM"],
@@ -456,10 +431,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Belledonne"],
 		"periods": ["Automne"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -506,10 +478,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Chartreuse"],
 		"periods": ["Automne"],
 		"sports": ["HIKING"],
@@ -556,12 +525,12 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Thibault", "name": "Lengagne" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Emily", "name": "Vo" },
-			{ "surname": "Richard", "name": "Casetta" }
+			"Nicolas Ngomai",
+			"Ambre Fischer",
+			"Thibault Lengagne",
+			"Kevin Jean",
+			"Emily Vo",
+			"Richard Casetta"
 		],
 		"places": ["Chartreuse"],
 		"periods": ["Automne"],
@@ -608,10 +577,7 @@
 		"elevation": 1648,
 		"orientation": "W",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" }
-		],
+		"participants": ["Nicolas Ngomai", "Ambre Fischer"],
 		"places": ["Belledonne"],
 		"periods": ["Printemps"],
 		"sports": ["SKI_DE_RANDO", "ALPINISM"],
@@ -657,10 +623,7 @@
 		"elevation": 1000,
 		"orientation": "NW",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -707,10 +670,7 @@
 		"elevation": 1000,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Été"],
 		"sports": ["ALPINISM"],
@@ -756,12 +716,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Ivann Maurice", "Richard Casetta"],
 		"places": ["Dentelles de Montmirail", "Buis-les-Baronnies"],
 		"periods": ["Automne"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -808,10 +763,7 @@
 		"elevation": 1000,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Grenoble"],
 		"periods": ["Automne"],
 		"sports": ["HIKING"],
@@ -858,10 +810,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Saint Dalmas Le Selvage"],
 		"periods": ["Hiver"],
 		"sports": ["HIKING"],
@@ -908,11 +857,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Emily", "name": "Vo" },
-			{ "surname": "Richard", "name": "Casetta" }
-		],
+		"participants": ["Kevin Jean", "Emily Vo", "Richard Casetta"],
 		"places": ["Les Ecrins"],
 		"periods": ["Printemps"],
 		"sports": ["ALPINISM"],
@@ -960,12 +905,12 @@
 		"orientation": "S",
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Alex", "name": "Behagel" },
-			{ "surname": "Capucine", "name": "Bonnet" }
+			"Nicolas Ngomai",
+			"Ambre Fischer",
+			"Kevin Jean",
+			"Ivann Maurice",
+			"Alex Behagel",
+			"Capucine Bonnet"
 		],
 		"places": ["Belledonne"],
 		"periods": ["Hiver"],
@@ -1013,10 +958,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" }
-		],
+		"participants": ["Nicolas Ngomai", "Ambre Fischer"],
 		"places": ["Chamrousse"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_ALPIN"],
@@ -1063,12 +1005,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Alex", "name": "Behagel" },
-			{ "surname": "Capucine", "name": "Bonnet" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Alex Behagel", "Capucine Bonnet"],
 		"places": ["Briançon (environs de)"],
 		"periods": ["Automne"],
 		"sports": ["HIKING"],
@@ -1115,10 +1052,7 @@
 		"elevation": 680,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" }
-		],
+		"participants": ["Nicolas Ngomai", "Ambre Fischer"],
 		"places": ["Sisteron"],
 		"periods": ["Hiver"],
 		"sports": ["HIKING"],
@@ -1165,10 +1099,7 @@
 		"elevation": 750,
 		"orientation": "W",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1215,10 +1146,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vanoise", "Cerces"],
 		"periods": ["Été"],
 		"sports": ["TREK", "HIKING"],
@@ -1265,10 +1193,7 @@
 		"elevation": 800,
 		"orientation": "NW",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Mercantour"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1315,10 +1240,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Cap Canaille"],
 		"periods": ["Hiver"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -1365,11 +1287,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Léa", "name": "Dixon" },
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Léa Dixon", "Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Les Ecrins"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_ALPIN"],
@@ -1417,14 +1335,14 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Stanislas", "name": "Bernard" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Richard", "name": "Casetta" },
-			{ "surname": "Sammy", "name": "Teillet" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Thibault", "name": "Lengagne" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Stanislas Bernard",
+			"Kevin Jean",
+			"Richard Casetta",
+			"Sammy Teillet",
+			"Ivann Maurice",
+			"Thibault Lengagne"
 		],
 		"places": ["Ornon"],
 		"periods": ["Hiver"],
@@ -1472,10 +1390,7 @@
 		"elevation": 600,
 		"orientation": "NE",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1522,11 +1437,7 @@
 		"elevation": 835,
 		"orientation": "W",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Emna", "name": "Ghariani" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai", "Emna Ghariani"],
 		"places": ["Chartreuse"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1573,10 +1484,7 @@
 		"elevation": 1050,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
 		"cover": {
@@ -1622,7 +1530,7 @@
 		"elevation": 250,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"periods": ["Hiver"],
 		"sports": ["ALPINISM"],
 		"cover": {
@@ -1668,7 +1576,7 @@
 		"elevation": 20,
 		"orientation": "SE",
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"periods": ["Hiver"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
 		"cover": {
@@ -1714,7 +1622,6 @@
 		"elevation": 1600,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": null,
 		"places": ["Galibier"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1757,10 +1664,7 @@
 		"elevation": null,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Les Bauges"],
 		"periods": ["Hiver"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1807,7 +1711,7 @@
 		"elevation": 900,
 		"orientation": "SW",
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"places": ["Chartreuse"],
 		"periods": ["Printemps"],
 		"sports": ["SKI_DE_RANDO"],
@@ -1854,13 +1758,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Emily", "name": "Vo" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
-		],
+		"participants": ["Ambre Fischer", "Kevin Jean", "Emily Vo", "Ivann Maurice", "Richard Casetta"],
 		"places": ["Vercors"],
 		"periods": ["Hiver"],
 		"sports": ["ALPINISM", "SPELEO"],
@@ -1907,11 +1805,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
-		],
+		"participants": ["Ambre Fischer", "Ivann Maurice", "Richard Casetta"],
 		"places": ["Calanques", "Marseille"],
 		"periods": ["Printemps"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -1958,11 +1852,7 @@
 		"elevation": 100,
 		"orientation": "W",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
-		],
+		"participants": ["Ambre Fischer", "Ivann Maurice", "Richard Casetta"],
 		"places": ["Cap Canaille"],
 		"periods": ["Printemps"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -2010,12 +1900,12 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Stanislas", "name": "Bernard" },
-			{ "surname": "Thibaud", "name": "Cheymol" },
-			{ "surname": "Thomas", "name": "Loussouarn" },
-			{ "surname": "Thierry", "name": "Colsenet" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Stanislas Bernard",
+			"Thibaud Cheymol",
+			"Thomas Loussouarn",
+			"Thierry Colsenet"
 		],
 		"places": ["Beaufortain"],
 		"periods": ["Printemps"],
@@ -2063,11 +1953,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Axel", "name": "Martin" },
-			{ "surname": "Matteo", "name": "Cominetti" }
-		],
+		"participants": ["Ambre Fischer", "Axel Martin", "Matteo Cominetti"],
 		"places": ["Chamonix"],
 		"periods": ["Printemps"],
 		"sports": ["SKI_DE_RANDO", "ALPINISM"],
@@ -2114,10 +2000,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Printemps"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -2164,10 +2047,7 @@
 		"elevation": 860,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Printemps"],
 		"sports": ["HIKING", "VANLIFE"],
@@ -2214,10 +2094,7 @@
 		"elevation": 90,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Printemps"],
 		"sports": ["ESCALADE_GRANDE_VOIE", "VANLIFE"],
@@ -2264,10 +2141,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Vercors"],
 		"periods": ["Printemps"],
 		"sports": ["HIKING", "ESCALADE_GRANDE_VOIE", "VANLIFE"],
@@ -2314,7 +2188,7 @@
 		"elevation": 220,
 		"orientation": "SW",
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"places": ["Le Dévoluy"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE", "VANLIFE"],
@@ -2361,7 +2235,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"places": ["Gap"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE", "VANLIFE"],
@@ -2408,7 +2282,7 @@
 		"elevation": 2500,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"places": ["Mercantour"],
 		"periods": ["Été"],
 		"sports": ["HIKING"],
@@ -2455,10 +2329,7 @@
 		"elevation": 330,
 		"orientation": "E",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
-		],
+		"participants": ["Ambre Fischer", "Nicolas Ngomai"],
 		"places": ["Les Ecrins"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -2505,11 +2376,7 @@
 		"elevation": null,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Sébastien", "name": "Lagesse" },
-			{ "surname": "Léa", "name": "Dixon" }
-		],
+		"participants": ["Ambre Fischer", "Sébastien Lagesse", "Léa Dixon"],
 		"places": ["Les Ecrins"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE", "VANLIFE"],
@@ -2552,11 +2419,7 @@
 		"elevation": null,
 		"orientation": "S",
 		"external_topos": null,
-		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Sébastien", "name": "Lagesse" },
-			{ "surname": "Léa", "name": "Dixon" }
-		],
+		"participants": ["Ambre Fischer", "Sébastien Lagesse", "Léa Dixon"],
 		"places": ["Les Ecrins"],
 		"periods": ["Été"],
 		"sports": ["ALPINISM"],
@@ -2603,7 +2466,7 @@
 		"elevation": null,
 		"orientation": "N",
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"places": ["Grenoble"],
 		"periods": ["Été"],
 		"sports": ["ESCALADE_GRANDE_VOIE"],
@@ -2650,7 +2513,7 @@
 		"elevation": 10000,
 		"orientation": null,
 		"external_topos": null,
-		"participants": [{ "surname": "Ambre", "name": "Fischer" }],
+		"participants": ["Ambre Fischer"],
 		"periods": ["Été"],
 		"sports": ["HIKING", "TREK"],
 		"cover": {
@@ -2697,11 +2560,11 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Richard", "name": "Casetta" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Nicolas", "name": "Ngomai" }
+			"Ambre Fischer",
+			"Kevin Jean",
+			"Richard Casetta",
+			"Ivann Maurice",
+			"Nicolas Ngomai"
 		],
 		"places": ["Chamonix"],
 		"periods": ["Été"],
@@ -2750,11 +2613,11 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Richard", "name": "Casetta" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Ivann Maurice",
+			"Kevin Jean",
+			"Richard Casetta"
 		],
 		"places": ["Chamonix"],
 		"periods": ["Été"],
@@ -2803,11 +2666,11 @@
 		"orientation": null,
 		"external_topos": null,
 		"participants": [
-			{ "surname": "Ambre", "name": "Fischer" },
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Kevin", "name": "Jean" },
-			{ "surname": "Ivann", "name": "Maurice" },
-			{ "surname": "Richard", "name": "Casetta" }
+			"Ambre Fischer",
+			"Nicolas Ngomai",
+			"Kevin Jean",
+			"Ivann Maurice",
+			"Richard Casetta"
 		],
 		"places": ["Chamonix"],
 		"periods": ["Été"],
@@ -2888,10 +2751,7 @@
 		"date": "2022-08-21",
 		"elevation": null,
 		"orientation": null,
-		"participants": [
-			{ "surname": "Nicolas", "name": "Ngomai" },
-			{ "surname": "Ambre", "name": "Fischer" }
-		],
+		"participants": ["Nicolas Ngomai", "Ambre Fischer"],
 		"places": ["Interlaken"],
 		"sports": ["ALPINISM"],
 		"periods": ["Été"]

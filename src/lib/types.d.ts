@@ -23,8 +23,8 @@ export type AdventureData = {
 	date: string;
 	elevation: number | null;
 	orientation: string | null;
-	participants: Participant[] | null;
-	places: Place[] | null;
+	participants: string[] | null;
+	places: string[] | null;
 	sports: string[] | null;
 	periods: string[] | null;
 };
@@ -60,11 +60,6 @@ export type PictureFormat = {
 
 export type CoverPicture = Picture & {
 	position: string | null;
-};
-
-export type Participant = {
-	name: string;
-	surname: string;
 };
 
 export type Place = {
