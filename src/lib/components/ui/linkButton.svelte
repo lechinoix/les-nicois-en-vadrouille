@@ -1,9 +1,29 @@
 <script lang="ts">
-	export let color: string;
-	export let url: string;
-	export let label: string;
+	export let url: string | null = null;
+	export let onClick: (() => void) | null = null;
+	export let parentClass: string;
+	export let isPrimary: boolean = true;
+	export { parentClass as class };
 </script>
 
-<a href={url} class="bg-{color} px-5 py-2 text-white inline-block rounded" aria-current="page">
-	{label}
-</a>
+{#if onClick}
+	<button
+		on:click={onClick}
+		class="{parentClass ?? ''} {isPrimary
+			? `bg-blue-500 text-white`
+			: `text-blue-500 bg-white border-2 border-blue-500`} px-5 py-2 inline-block rounded"
+	>
+		<slot />
+	</button>
+{/if}
+
+{#if url}
+	<a
+		href={url}
+		class="{parentClass ?? ''} {isPrimary
+			? `bg-blue-500 text-white`
+			: `text-blue-500 bg-white`} px-5 py-2 inline-block rounded"
+	>
+		<slot />
+	</a>
+{/if}

@@ -2,6 +2,7 @@
 	import Input from '$lib/components/form/input.svelte';
 	import SelectableGallery from '$lib/components/gallery/selectableGallery.svelte';
 	import Modal from '$lib/components/modal.svelte';
+	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { getAllAlbums, getPhotosFromShareLink } from '$lib/services/googlePhotoService';
 	import type { Picture } from '$lib/types';
 	import uniqBy from 'lodash/uniqBy';
@@ -46,23 +47,25 @@
 		{selectedPictures}
 		on:togglePicture={togglePictureHandler}
 	/>
-	{#each allAlbums as album}
-		<button
-			on:click={() => getAlbumPictures(album.shareLink)}
-			class="border-t border-gray-500 first:border-t-0">{album.title}</button
-		>
-	{/each}
+	<p class="text-md mt-2">Albums</p>
+	<div class="my-2 flex flex-row flex-wrap">
+		{#each allAlbums as album}
+			<LinkButton isPrimary={false} onClick={() => getAlbumPictures(album.shareLink)}
+				>{album.title}</LinkButton
+			>
+		{/each}
+	</div>
 	<Input
 		name="album"
 		label="Add an album"
 		placeholder="https://photos.app.goo.gl/Hzg2RSMnfdtV2S5R8"
 		bind:value={newAlbumLink}
 	/>
-	<button on:click={() => getAlbumPictures(newAlbumLink)}>Get Pictures</button>
+	<LinkButton class="my-2" onClick={() => getAlbumPictures(newAlbumLink)}>Get Pictures</LinkButton>
 	<SelectableGallery
 		pictures={albumPictures}
 		{selectedPictures}
 		on:clickPicture={togglePictureHandler}
 	/>
-	<button on:click={validatePictures}>Submit</button>
+	<LinkButton class="my-2" onClick={validatePictures}>Submit</LinkButton>
 </Modal>

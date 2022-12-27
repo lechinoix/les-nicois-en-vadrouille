@@ -28,6 +28,7 @@
 	import MultiValuesInput from '$lib/components/form/multiValuesInput.svelte';
 	import MultiValuesSelect from '$lib/components/form/multiValuesSelect.svelte';
 	import { getAllPlaces } from '$lib/services/placeService';
+	import LinkButton from '$lib/components/ui/linkButton.svelte';
 
 	export let data: PageData;
 	export let ready: boolean = false;
@@ -179,17 +180,20 @@
 			options={picturePositionOptions}
 			bind:value={currentVersion.cover.position}
 		/>
-		<button on:click={openModal}>Modify pictures</button>
+		<LinkButton class="my-2" onClick={openModal}>Modify pictures</LinkButton>
 		<SelectableGallery
 			pictures={currentVersion.pictures ?? []}
 			selectedPictures={[currentVersion.cover?.id ?? '']}
 			on:clickPicture={changeCover}
 		/>
 		<div use:editor />
-		<button on:click={submitContent}>Publish</button>
-		<button on:click={resetDraft}>Reset</button>
 	{/if}
 </Container>
+
+<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
+	<LinkButton onClick={submitContent}>Publish</LinkButton>
+	<LinkButton onClick={resetDraft}>Reset</LinkButton>
+</div>
 
 {#if showModal}
 	<PictureModal {closeModal} bind:adventurePictures={currentVersion.pictures} />
