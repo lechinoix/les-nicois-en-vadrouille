@@ -11,8 +11,8 @@ export type Adventure = AdventureContent & AdventureData;
 export type AdventureContent = {
 	id: number;
 	content: string;
-	pictures: Picture[] | null;
-	topos: Topo[] | null;
+	pictures: Picture[];
+	topos: string[];
 };
 
 export type AdventureData = {
@@ -23,21 +23,16 @@ export type AdventureData = {
 	date: string;
 	elevation: number | null;
 	orientation: string | null;
-	participants: string[] | null;
-	places: string[] | null;
-	sports: string[] | null;
-	periods: string[] | null;
-};
-
-export type Topo = {
-	url: string;
-	source: string;
+	participants: string[];
+	places: string[];
+	sports: string[];
+	periods: string[];
 };
 
 export type Picture = {
 	formats: {
 		thumbnail: PictureFormat;
-		xlarge: PictureFormat | null;
+		xlarge: PictureFormat;
 		large: PictureFormat;
 		medium: PictureFormat;
 		small: PictureFormat;

@@ -9,10 +9,10 @@ export enum CardinalPoints {
 	NW = 'NW'
 }
 
-export enum TopoSource {
-	C2C = 'C2C',
-	Skitour = 'Skitour'
-}
+export const TopoSource = {
+	C2C: 'camptocamp.org',
+	SKITOUR: 'skitour.fr'
+};
 
 export enum Sports {
 	SKI_ALPIN = 'SKI_ALPIN',

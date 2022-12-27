@@ -1,14 +1,13 @@
 <script lang="ts">
 	import { TopoSource } from '$lib/constants';
-	import type { Topo } from '$lib/types';
 
-	export let topo: Topo;
+	export let topo: string;
 </script>
 
-<a href={topo.url} target="_blank">
-	{#if topo.source === TopoSource.C2C}
+<a href={topo} target="_blank">
+	{#if topo.includes(TopoSource.C2C)}
 		CamptoCamp
-	{:else if topo.source === TopoSource.Skitour}
+	{:else if topo.includes(TopoSource.SKITOUR)}
 		Skitour
 	{:else}
 		Topo

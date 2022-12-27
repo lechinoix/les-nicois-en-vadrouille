@@ -190,7 +190,16 @@
 				selectedPictures={[currentVersion.cover?.id ?? '']}
 				on:clickPicture={changeCover}
 			/>
-			<div use:editor />
+			<div class="mt-5">
+				<p class="text-md mb-2">Content</p>
+				<div use:editor />
+			</div>
+			<MultiValuesInput
+				type="text"
+				name="topos"
+				label="External Links"
+				bind:values={currentVersion.topos}
+			/>
 		{/if}
 	</Container>
 
