@@ -25,11 +25,11 @@ export const getAdventuresDone = (): Adventure[] => {
 };
 
 export const getLatestAdventures = async (): Promise<Adventure[]> => {
-	const adventures = await getAdventuresDone();
+	const adventures = getAdventuresDone();
 	return adventures.slice(0, 3);
 };
 
-export const getAdventureById = async (adventureId: number): Promise<Adventure> => {
+export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
 	const adventureContent = adventuresContent.find(
 		(adventureContent) => adventureContent.id === adventureId
 	);

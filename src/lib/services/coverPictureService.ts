@@ -52,5 +52,6 @@ export const getHomepageCover = (): CoverPicture => ({
 	width: 2048,
 	height: 1150,
 	id: 121,
+	albumId: '',
 	position: PicturePosition.CENTER.toString()
 });

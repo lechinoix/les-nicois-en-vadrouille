@@ -3,6 +3,6 @@ import type { PageLoad } from './$types';
 
 export const prerender = true;
 export const load: PageLoad = async ({ params }) => {
-	const adventure = await getAdventureById(Number(params.id));
+	const adventure = await getAdventureById(params.id);
 	return { adventure };
 };

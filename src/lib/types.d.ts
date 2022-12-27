@@ -9,14 +9,14 @@ export interface Locals {
 export type Adventure = AdventureContent & AdventureData;
 
 export type AdventureContent = {
-	id: number;
+	id: string;
 	content: string;
 	pictures: Picture[];
 	topos: string[];
 };
 
 export type AdventureData = {
-	id: number;
+	id: string;
 	title: string;
 	cotation: string | null;
 	cover: CoverPicture;

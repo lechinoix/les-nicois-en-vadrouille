@@ -10,18 +10,18 @@ export const saveDraft = (adventure: Adventure) => {
 	localStorage.setItem(draftKeyFromId(adventure.id), JSON.stringify(adventure));
 };
 
-export const getDraft = (contentId: number): Adventure | null => {
+export const getDraft = (contentId: string): Adventure | null => {
 	const draftData = localStorage.getItem(draftKeyFromId(contentId));
 	if (!draftData) return null;
 
 	return JSON.parse(draftData);
 };
 
-export const clearDraft = (contentId: number): void => {
+export const clearDraft = (contentId: string): void => {
 	localStorage.removeItem(draftKeyFromId(contentId));
 };
 
-const draftKeyFromId = (contentId: number) => `draft-${contentId}`;
+const draftKeyFromId = (contentId: string) => `draft-${contentId}`;
 
 const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
 	adventuresData.map((adventureData: AdventureData) => {

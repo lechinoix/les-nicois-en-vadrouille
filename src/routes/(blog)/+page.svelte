@@ -1,5 +1,4 @@
 <script lang="ts">
-	import type { Adventure, Picture, Sport } from '$lib/types';
 	import {
 		CoverTypes,
 		DEFAULT_DESCRIPTION,
