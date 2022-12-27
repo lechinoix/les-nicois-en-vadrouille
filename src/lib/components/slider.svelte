@@ -9,8 +9,8 @@
 	export let pictures: Picture[] = [];
 	export let galleryName: string = 'lightgallery';
 
-	onMount(async () => {
-		if (!browser) return;
+	const initGallery = async (pictures: Picture[]) => {
+		console.log(`Update gallery with pictures: ${pictures.map((picture) => picture.id)}`);
 		const { default: lightGallery } = await import('lightgallery');
 		const { default: lgZoom } = await import('lightgallery/plugins/zoom/lg-zoom.umd');
 
@@ -30,7 +30,14 @@
 		});
 
 		sliderRef.set(gallery);
+	};
+
+	onMount(async () => {
+		if (!browser) return;
+		await initGallery(pictures);
 	});
+
+	$: initGallery(pictures);
 </script>
 
 <div

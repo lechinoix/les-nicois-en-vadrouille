@@ -40,12 +40,12 @@
 
 <svelte:window on:keydown={handle_keydown} />
 
-<div class="modal-background" on:click={close} />
-
-<div class="modal" role="dialog" aria-modal="true" bind:this={modal}>
-	<slot name="header" />
-	<hr />
-	<slot />
+<div class="modal-background" on:click={close} on:scroll|stopPropagation>
+	<div on:click|stopPropagation class="modal" role="dialog" aria-modal="true" bind:this={modal}>
+		<slot name="header" />
+		<hr />
+		<slot />
+	</div>
 </div>
 
 <style scoped>
@@ -53,9 +53,10 @@
 		position: fixed;
 		top: 0;
 		left: 0;
-		width: 100%;
-		height: 100%;
+		right: 0;
+		bottom: 0;
 		background: rgba(0, 0, 0, 0.3);
+		z-index: 100;
 	}
 
 	.modal {
