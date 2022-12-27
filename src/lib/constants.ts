@@ -37,8 +37,6 @@ export enum PicturePosition {
 }
 
 export const iconFillColor = 'rgba(75, 85, 99)';
-export const HOMEPAGE_US_IMAGE_URL =
-	'/dowsxscl0/image/upload/v1638305939/medium_IMG_0063_2_0c22cc2fb2.jpg';
 
 export const ImageProviders = {
 	CLOUDINARY: {
@@ -57,3 +55,5 @@ export enum CoverTypes {
 	SMALL = 'SMALL',
 	HOME = 'HOME'
 }
+
+export const HOMEPAGE_US_IMAGE_URL = `${ImageProviders.CLOUDINARY.baseUrl}/dowsxscl0/image/upload/v1638305939/medium_IMG_0063_2_0c22cc2fb2.jpg`;

@@ -3,7 +3,7 @@
 	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
 	import SmallCover from '../coverPicture/smallCover.svelte';
-	import type { Adventure, AdventureData } from '$lib/types';
+	import type { AdventureData } from '$lib/types';
 	import { ROUTES } from '$lib/config/routes';
 	import { slugify } from '$lib/utils/string';
 	import { getCoverPicture } from '$lib/services/adventureService';
