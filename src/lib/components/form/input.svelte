@@ -1,20 +1,31 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import SveltyPicker from 'svelty-picker';
+
+	const dispatch = createEventDispatcher();
+
+	const dispatchEnter = (e: KeyboardEvent) => {
+		if (e.key === 'Enter') {
+			dispatch('dispatchEnter');
+			return;
+		}
+	};
 
 	export let label: string;
 	export let placeholder: string = '';
 	export let name: string;
 	export let required: boolean = false;
-	export let value: string | number | null;
+	export let value: string | number | null = null;
 	export let type: 'number' | 'text' | 'date' = 'text';
 </script>
 
-<div class="mb-6">
+<div>
 	<label for={name} class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
 		>{label}</label
 	>
 	{#if type == 'text'}
 		<input
+			on:keydown={dispatchEnter}
 			type="text"
 			id={name}
 			{placeholder}
@@ -25,6 +36,7 @@
 	{/if}
 	{#if type == 'number'}
 		<input
+			on:keydown={dispatchEnter}
 			type="number"
 			id={name}
 			{placeholder}

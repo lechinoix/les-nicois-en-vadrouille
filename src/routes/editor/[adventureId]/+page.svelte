@@ -25,6 +25,7 @@
 	import type { PageData } from './$types';
 	import PictureModal from './pictureModal.svelte';
 	import SelectableGallery from '$lib/components/gallery/selectableGallery.svelte';
+	import MultiValuesInput from '$lib/components/form/multiValuesInput.svelte';
 
 	export let data: PageData;
 	export let ready: boolean = false;
@@ -139,6 +140,14 @@
 				bind:value={currentVersion.orientation}
 			/>
 			<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
+		</div>
+		<div class="flex flex-row gap-5">
+			<MultiValuesInput
+				type="text"
+				name="participants"
+				label="Participants"
+				bind:values={currentVersion.participants}
+			/>
 		</div>
 		<Select
 			name="cover-position"
