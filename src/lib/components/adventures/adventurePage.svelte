@@ -1,15 +1,11 @@
 <script lang="ts">
 	import type { Adventure, Picture } from '$lib/types';
-	import { page } from '$app/stores';
 	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
 	import TopoLink from '$lib/components/topoLink.svelte';
 	import AdventureCard from '$lib/components/adventures/adventureHeader.svelte';
 	import Container from '$lib/components/container.svelte';
 	import { formatFrenchDate } from '$lib/utils/date';
-	import { slugify, truncateText } from '$lib/utils/string';
-	import { getUrlWithNewSlug } from '$lib/utils/url';
-	import { browser } from '$app/environment';
 	import uniqBy from 'lodash/uniqBy.js';
 	import findIndex from 'lodash/findIndex.js';
 	import { typography } from '$lib/styles';
@@ -20,8 +16,6 @@
 	export let adventure: Adventure;
 
 	let coverPicture: Picture | null;
-	let adventureSlug: string;
-	let pageUrl: string;
 	let pictures: Picture[];
 	let gallery: LightGallery;
 
@@ -30,12 +24,6 @@
 		gallery = galleryInstance;
 	});
 
-	$: {
-		adventureSlug = slugify(adventure.title);
-		if (browser) pageUrl = getUrlWithNewSlug(location, adventureSlug);
-		if (browser && $page.params.slug !== adventureSlug)
-			window.history.replaceState(null, '', pageUrl);
-	}
 	$: coverPicture = getCoverPicture(adventure);
 	$: pictures =
 		coverPicture !== null && adventure.pictures !== null
@@ -47,15 +35,6 @@
 		gallery.openGallery(findIndex(pictures, ['id', coverPicture.id]));
 	};
 </script>
-
-<svelte:head>
-	{#if coverPicture}
-		<meta property="og:image" content={coverPicture.formats.medium.url} />
-	{/if}
-	<meta property="og:url" content={pageUrl} />
-	<meta property="og:title" content={adventure.title} />
-	<meta property="og:description" content={truncateText(adventure.content)} />
-</svelte:head>
 
 <AdventureCard {adventure} onClick={openSlider} />
 <Container>

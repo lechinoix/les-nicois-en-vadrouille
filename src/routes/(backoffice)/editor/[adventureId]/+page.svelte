@@ -222,6 +222,7 @@
 			<p class="text-red-600">Something bad happened...</p>
 		{/if}
 		<LinkButton onClick={resetDraft}>Reset</LinkButton>
+		<LinkButton url="/editor/{data.adventureId}/preview" target="_blank">Preview</LinkButton>
 	</div>
 
 	{#if showModal}

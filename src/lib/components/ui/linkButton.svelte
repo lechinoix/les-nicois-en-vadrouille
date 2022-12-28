@@ -4,6 +4,7 @@
 	export let parentClass: string;
 	export let isPrimary: boolean = true;
 	export { parentClass as class };
+	export let target: string = '';
 </script>
 
 {#if onClick}
@@ -20,6 +21,7 @@
 {#if url}
 	<a
 		href={url}
+		{target}
 		class="{parentClass ?? ''} {isPrimary
 			? `bg-blue-500 text-white`
 			: `text-blue-500 bg-white`} px-5 py-2 inline-block rounded"
