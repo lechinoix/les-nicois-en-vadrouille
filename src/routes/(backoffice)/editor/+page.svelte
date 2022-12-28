@@ -28,8 +28,10 @@
 
 <Container>
 	<h2 class="my-3">Edit existing adventure</h2>
-	<Search />
-	<LinkButton onClick={startNew}>Start new adventure</LinkButton>
-	<h2 class="my-3">Open drafts</h2>
+	<Search clickResult={({ id }) => goto(`/editor/${id}`)} />
+	<div class="flex flex-row justify-between mt-20 mb-5 h-10">
+		<h2 class="my-3">Open drafts</h2>
+		<LinkButton onClick={startNew}>Start new adventure</LinkButton>
+	</div>
 	<DraftList {drafts} />
 </Container>

@@ -12,7 +12,7 @@
 			<tr>
 				<th scope="col" class="py-3 px-6"> Id </th>
 				<th scope="col" class="py-3 px-6"> Title </th>
-				<th scope="col" class="py-3 px-6" />
+				<th scope="col" class="py-3 px-6">Actions</th>
 				<th scope="col" class="py-3 px-6" />
 			</tr>
 		</thead>
