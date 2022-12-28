@@ -16,4 +16,8 @@
 	.cms-content > ul {
 		@apply my-6 ml-6 list-inside list-disc;
 	}
+
+	.cms-content > p {
+		padding: 3px 0px;
+	}
 }
