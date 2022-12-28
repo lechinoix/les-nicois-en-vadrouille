@@ -6,7 +6,7 @@
 	export let values: string[] | null;
 	export let options: { label: string; value: string }[];
 
-	let currentValue: string;
+	let currentValue: string = '';
 
 	const addNewValue = () => {
 		if (!values) values = [currentValue];
