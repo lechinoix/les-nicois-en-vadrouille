@@ -72,7 +72,7 @@
 		try {
 			error = false;
 			loading = true;
-			publishContent(ongoingDraft);
+			await publishContent(ongoingDraft);
 			goto('/editor').then(() => clearDraft(data.adventureId));
 		} catch {
 			error = true;

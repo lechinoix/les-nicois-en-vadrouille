@@ -45,6 +45,7 @@ export const getDraft = (contentId: string): Adventure | null => {
 
 export const clearDraft = (contentId: string): void => {
 	localStorage.removeItem(draftKeyFromId(contentId));
+	window.dispatchEvent(new Event('storage'));
 };
 
 const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
@@ -63,13 +64,13 @@ const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[]
 		return adventureContentFromAdventure(newAdventure);
 	});
 
-export const publishContent = (adventure: Adventure) => {
-	modifyFileOnGithub(
+export const publishContent = async (adventure: Adventure) => {
+	await modifyFileOnGithub(
 		`Update adventure ${adventure.id} Data`,
 		adventureDataPath,
 		JSON.stringify(getUpdatedAdventureData(adventure), null, 2)
 	);
-	modifyFileOnGithub(
+	await modifyFileOnGithub(
 		`Update adventure ${adventure.id} Content`,
 		adventureContentPath,
 		JSON.stringify(getUpdatedAdventureContent(adventure), null, 2)
