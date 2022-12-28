@@ -3283,8 +3283,12 @@
       "Charlotte",
       "Nicolas"
     ],
-    "places": [],
-    "sports": [],
+    "places": [
+      "Belledonne"
+    ],
+    "sports": [
+      "SKI_DE_RANDO"
+    ],
     "periods": []
   }
 ]
