@@ -3,13 +3,6 @@
 
 	const dispatch = createEventDispatcher();
 
-	const dispatchEnter = (e: KeyboardEvent) => {
-		if (e.key === 'Enter') {
-			dispatch('dispatchEnter');
-			return;
-		}
-	};
-
 	export let options: { label: string; value: string }[];
 	export let name: string;
 	export let label: string;
@@ -24,7 +17,7 @@
 		id={name}
 		class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
 		bind:value
-		on:keydown={dispatchEnter}
+		on:change={() => dispatch('onChange')}
 	>
 		{#each options as option}
 			<option value={option.value}>{option.label}</option>

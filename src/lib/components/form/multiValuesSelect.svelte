@@ -21,7 +21,7 @@
 </script>
 
 <div>
-	<Select {label} {options} {name} bind:value={currentValue} on:dispatchEnter={addNewValue} />
+	<Select {label} {options} {name} bind:value={currentValue} on:onChange={addNewValue} />
 	{#if values}
 		{#each values as value}
 			<div>
