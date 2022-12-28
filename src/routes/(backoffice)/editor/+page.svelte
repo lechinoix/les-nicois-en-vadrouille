@@ -6,6 +6,7 @@
 	import Container from '$lib/components/container.svelte';
 	import type { Adventure } from '$lib/types';
 	import { onMount } from 'svelte';
+	import Search from '$lib/components/search.svelte';
 
 	let drafts: Adventure[] = [];
 
@@ -26,6 +27,8 @@
 <svelte:window on:storage={setDrafts} />
 
 <Container>
+	<h2 class="my-3">Edit existing adventure</h2>
+	<Search />
 	<LinkButton onClick={startNew}>Start new adventure</LinkButton>
 	<h2 class="my-3">Open drafts</h2>
 	<DraftList {drafts} />

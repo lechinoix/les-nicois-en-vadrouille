@@ -16,7 +16,7 @@ export const adventures: Adventure[] = values(
 	merge({}, keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
 );
 
-export const getAllAdventures = async (): Promise<Adventure[]> => adventures;
+export const getAllAdventures = (): Adventure[] => adventures;
 
 export const getAdventuresDone = (): Adventure[] => {
 	return adventures.sort(function (a, b) {
@@ -24,12 +24,12 @@ export const getAdventuresDone = (): Adventure[] => {
 	});
 };
 
-export const getLatestAdventures = async (): Promise<Adventure[]> => {
+export const getLatestAdventures = (): Adventure[] => {
 	const adventures = getAdventuresDone();
 	return adventures.slice(0, 3);
 };
 
-export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
+export const getAdventureById = (adventureId: string): Adventure => {
 	const adventureContent = adventuresContent.find(
 		(adventureContent) => adventureContent.id === adventureId
 	);

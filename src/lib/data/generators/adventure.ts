@@ -37,3 +37,9 @@ export const newAdventure = (id: string): Adventure => ({
 	pictures: [],
 	topos: []
 });
+
+export const searchDocumentFromAdventure = (adventure: Adventure) => ({
+	id: adventure.id,
+	content: adventure.content,
+	title: adventure.title
+})
