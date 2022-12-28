@@ -12,8 +12,8 @@ export const adventuresData: AdventureData[] = rawAdventuresData;
 // @ts-ignore
 export const adventuresContent: AdventureContent[] = rawAdventuresContent;
 
-const adventures: Adventure[] = values(
-	merge(keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
+export const adventures: Adventure[] = values(
+	merge({}, keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
 );
 
 export const getAllAdventures = async (): Promise<Adventure[]> => adventures;
