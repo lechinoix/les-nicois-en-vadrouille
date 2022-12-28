@@ -18,6 +18,10 @@
 	}
 
 	.cms-content > p {
-		padding: 3px 0px;
+		@apply py-2;
+	}
+
+	.cms-content > hr {
+		@apply my-5;
 	}
 }
