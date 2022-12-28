@@ -50,19 +50,15 @@ export const clearDraft = (contentId: string): void => {
 
 const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
 
-const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] =>
-	adventuresData.map((adventureData: AdventureData) => {
-		if (adventureData.id !== newAdventure.id) return adventureData;
+const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] => [
+	...adventuresData.filter(({ id }) => id !== newAdventure.id),
+	adventureDataFromAdventure(newAdventure)
+];
 
-		return adventureDataFromAdventure(newAdventure);
-	});
-
-const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] =>
-	adventuresContent.map((adventureContent: AdventureContent) => {
-		if (adventureContent.id !== newAdventure.id) return adventureContent;
-
-		return adventureContentFromAdventure(newAdventure);
-	});
+const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] => [
+	...adventuresContent.filter(({ id }) => id !== newAdventure.id),
+	adventureContentFromAdventure(newAdventure)
+];
 
 export const publishContent = async (adventure: Adventure) => {
 	await modifyFileOnGithub(
