@@ -51,16 +51,26 @@ const formatPicturesFromGPhotos = (photoList: GooglePhoto[], album: Album): Pict
 };
 
 const getFormatsFromGPhoto = (photo: GooglePhoto): Picture['formats'] => ({
-	xlarge: getFormatByRatio(photo, 1),
-	large: getFormatByRatio(photo, 0.8),
-	medium: getFormatByRatio(photo, 0.5),
-	small: getFormatByRatio(photo, 0.3),
-	thumbnail: getFormatByRatio(photo, 0.1)
+	xlarge: getFormatByMaxSize(photo, 1600),
+	large: getFormatByMaxSize(photo, 1200),
+	medium: getFormatByMaxSize(photo, 900),
+	small: getFormatByMaxSize(photo, 500),
+	thumbnail: getFormatByMaxSize(photo, 300)
 });
+
+const getFormatByMaxSize = (photo: GooglePhoto, maxSize: number): PictureFormat => {
+	const actualSize = Math.max(photo.width, photo.height);
+	const ratio = maxSize / actualSize;
+	return getFormatByRatio(photo, ratio);
+};
 
 const getFormatByRatio = (photo: GooglePhoto, ratio: number): PictureFormat => {
 	const width = Math.floor(photo.width * ratio);
 	const height = Math.floor(photo.height * ratio);
+	return getFormat(photo, width, height);
+};
+
+const getFormat = (photo: GooglePhoto, width: number, height: number): PictureFormat => {
 	return {
 		height,
 		width,
