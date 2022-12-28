@@ -153,7 +153,7 @@
 	<Container>
 		{#if ready}
 			<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
-			<div class="flex flex-row gap-5 mb-6">
+			<div class="flex flex-row flex-wrap gap-5 mb-6">
 				<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
 				<Input
 					name="elevation"
@@ -169,7 +169,7 @@
 				/>
 				<Input type="date" name="date" label="Date" bind:value={currentVersion.date} />
 			</div>
-			<div class="flex flex-row gap-5 mb-6">
+			<div class="flex flex-row flex-wrap gap-5 mb-6">
 				<MultiValuesInput
 					type="text"
 					name="participants"
