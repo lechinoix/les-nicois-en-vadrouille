@@ -1,7 +1,7 @@
 <script lang="ts">
 	export let url: string | null = null;
 	export let onClick: (() => void) | null = null;
-	export let parentClass: string;
+	export let parentClass: string = '';
 	export let isPrimary: boolean = true;
 	export { parentClass as class };
 	export let target: string = '';

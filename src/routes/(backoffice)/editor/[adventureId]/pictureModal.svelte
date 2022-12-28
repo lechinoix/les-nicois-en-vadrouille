@@ -45,7 +45,7 @@
 	<SelectableGallery
 		pictures={adventurePictures ?? []}
 		{selectedPictures}
-		on:togglePicture={togglePictureHandler}
+		on:clickPicture={togglePictureHandler}
 	/>
 	<p class="text-md mt-2">Albums</p>
 	<div class="my-2 flex flex-row flex-wrap">
