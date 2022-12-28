@@ -70,7 +70,7 @@
 				"id": 28
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "yIWlLlm_",
@@ -243,10 +243,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/185930/fr/canceou-le-ponant-aven-du-canceou-prends-moi-sec-au-dessus-du-lagon-bleu"
-			}
+			"https://www.camptocamp.org/routes/185930/fr/canceou-le-ponant-aven-du-canceou-prends-moi-sec-au-dessus-du-lagon-bleu"
 		]
 	},
 	{
@@ -386,12 +383,7 @@
 				"id": 91
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/148920/fr/croix-de-chamrousse-couloir-du-chien"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/148920/fr/croix-de-chamrousse-couloir-du-chien"]
 	},
 	{
 		"id": "DduvBlVO",
@@ -629,12 +621,7 @@
 				"id": 56
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/53940/fr/mont-aiguille-la-tour-des-gemeaux"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/53940/fr/mont-aiguille-la-tour-des-gemeaux"]
 	},
 	{
 		"id": "SpA8kqYg",
@@ -939,10 +926,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/54371/fr/pic-coolidge-voie-originale-par-le-versant-sw-puis-l-arete-s"
-			}
+			"https://www.camptocamp.org/routes/54371/fr/pic-coolidge-voie-originale-par-le-versant-sw-puis-l-arete-s"
 		]
 	},
 	{
@@ -1247,12 +1231,7 @@
 				"id": 102
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/topos/200"
-			}
-		]
+		"topos": ["https://skitour.fr/topos/200"]
 	},
 	{
 		"id": "bszWGCwx",
@@ -1424,7 +1403,7 @@
 				"id": 110
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "Yr5dbbxg",
@@ -1629,12 +1608,7 @@
 				"id": 115
 			}
 		],
-		"topos": [
-			{
-				"source": "Visorando",
-				"url": "https://www.visorando.com/randonnee-le-tour-des-conchiers-par-puy-jaumar/"
-			}
-		]
+		"topos": ["https://www.visorando.com/randonnee-le-tour-des-conchiers-par-puy-jaumar/"]
 	},
 	{
 		"id": "WBQg7Dwv",
@@ -1806,12 +1780,7 @@
 				"id": 120
 			}
 		],
-		"topos": [
-			{
-				"source": "Visorando",
-				"url": "https://www.visorando.com/randonnee-grotte-du-trou-de-l-argent-montagne-de-l/"
-			}
-		]
+		"topos": ["https://www.visorando.com/randonnee-grotte-du-trou-de-l-argent-montagne-de-l/"]
 	},
 	{
 		"id": "ArZA4Hi5",
@@ -2148,7 +2117,7 @@
 				"id": 134
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "G0MLJR42",
@@ -2254,12 +2223,7 @@
 				"id": 124
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/topos/57"
-			}
-		]
+		"topos": ["https://skitour.fr/topos/57"]
 	},
 	{
 		"id": "0nUt6Pwi",
@@ -2431,12 +2395,7 @@
 				"id": 139
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/sommets/3570"
-			}
-		]
+		"topos": ["https://skitour.fr/sommets/3570"]
 	},
 	{
 		"id": "YVTzEosC",
@@ -2675,10 +2634,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/191048/fr/cap-canaille-14-juillet-2-vauriens-3-canailles"
-			}
+			"https://www.camptocamp.org/routes/191048/fr/cap-canaille-14-juillet-2-vauriens-3-canailles"
 		]
 	},
 	{
@@ -2884,7 +2840,7 @@
 				"id": 181
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "MtAwSFdn",
@@ -3320,7 +3276,7 @@
 				"id": 199
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "z-ys8R1Q",
@@ -3525,12 +3481,7 @@
 				"id": 206
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/topos/694"
-			}
-		]
+		"topos": ["https://skitour.fr/topos/694"]
 	},
 	{
 		"id": "bO11gSOc",
@@ -3801,12 +3752,7 @@
 				"id": 214
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/45607/fr/chamechaude-versant-w"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/45607/fr/chamechaude-versant-w"]
 	},
 	{
 		"id": "fQOhBRTX",
@@ -4044,12 +3990,7 @@
 				"id": 221
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/sorties/154900"
-			}
-		]
+		"topos": ["https://skitour.fr/sorties/154900"]
 	},
 	{
 		"id": "ijPntkj3",
@@ -4287,12 +4228,7 @@
 				"id": 228
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/55533/fr/ceillac-y-de-droite"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/55533/fr/ceillac-y-de-droite"]
 	},
 	{
 		"id": "KcF4qvpH",
@@ -4464,12 +4400,7 @@
 				"id": 236
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/213213/fr/annot-chambre-du-roi-fanny"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/213213/fr/annot-chambre-du-roi-fanny"]
 	},
 	{
 		"id": "aLdktzxb",
@@ -4971,7 +4902,7 @@
 				"id": 254
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "LpiREkga",
@@ -5407,12 +5338,7 @@
 				"id": 269
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/topos/614"
-			}
-		]
+		"topos": ["https://skitour.fr/topos/614"]
 	},
 	{
 		"id": "2zF7jj9A",
@@ -5650,12 +5576,7 @@
 				"id": 277
 			}
 		],
-		"topos": [
-			{
-				"source": "Skitour",
-				"url": "https://skitour.fr/topos/174"
-			}
-		]
+		"topos": ["https://skitour.fr/topos/174"]
 	},
 	{
 		"id": "uqc53N-l",
@@ -6092,10 +6013,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/1286639/fr/scialets-des-cloches-depuis-font-d-urle"
-			}
+			"https://www.camptocamp.org/routes/1286639/fr/scialets-des-cloches-depuis-font-d-urle"
 		]
 	},
 	{
@@ -6434,10 +6352,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/56860/fr/calanque-de-l-oule-belvedere-le-toboggan-de-la-corniche"
-			}
+			"https://www.camptocamp.org/routes/56860/fr/calanque-de-l-oule-belvedere-le-toboggan-de-la-corniche"
 		]
 	},
 	{
@@ -6677,10 +6592,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/187088/fr/cap-canaille-ouvreur-de-bouse-bourreur-de-rousse-baise-jump-"
-			}
+			"https://www.camptocamp.org/routes/187088/fr/cap-canaille-ouvreur-de-bouse-bourreur-de-rousse-baise-jump-"
 		]
 	},
 	{
@@ -7480,7 +7392,7 @@
 				"id": 332
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "3YYQSgzS",
@@ -8082,14 +7994,8 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/53774/fr/aiguille-du-tour-sommet-s-par-le-col-superieur-du-tour-voie-normale-"
-			},
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/53624/fr/col-du-chardonnet-mont-blanc-traversee-aiguille-des-grands-montets-cabane-trient"
-			}
+			"https://www.camptocamp.org/routes/53774/fr/aiguille-du-tour-sommet-s-par-le-col-superieur-du-tour-voie-normale-",
+			"https://www.camptocamp.org/routes/53624/fr/col-du-chardonnet-mont-blanc-traversee-aiguille-des-grands-montets-cabane-trient"
 		]
 	},
 	{
@@ -8296,10 +8202,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/54944/fr/trois-pucelles-grande-pucelle-parcours-honneger"
-			}
+			"https://www.camptocamp.org/routes/54944/fr/trois-pucelles-grande-pucelle-parcours-honneger"
 		]
 	},
 	{
@@ -8736,12 +8639,7 @@
 				"id": 398
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/1113745/fr/pic-crillon-le-pieroux-gicon-d-agneau-"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/1113745/fr/pic-crillon-le-pieroux-gicon-d-agneau-"]
 	},
 	{
 		"id": "fX3xNu2j",
@@ -9078,12 +8976,7 @@
 				"id": 369
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/527483/fr/rocher-d-archiane-la-vire-d-archiane"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/527483/fr/rocher-d-archiane-la-vire-d-archiane"]
 	},
 	{
 		"id": "psaB96RD",
@@ -9255,7 +9148,7 @@
 				"id": 374
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "973SKjml",
@@ -9592,7 +9485,7 @@
 				"id": 380
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "pLmYRX0-",
@@ -9764,7 +9657,7 @@
 				"id": 403
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "cyfVcXv1",
@@ -10761,7 +10654,7 @@
 				"id": 433
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "LM0yeR6A",
@@ -11164,12 +11057,7 @@
 				"id": 445
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/355192/fr/aiguille-dibona-ethique-de-la-joie"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/355192/fr/aiguille-dibona-ethique-de-la-joie"]
 	},
 	{
 		"id": "SMj1akvr",
@@ -11573,10 +11461,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/56916/fr/vallee-d-ailefroide-orage-d-etoiles-pilier-du-levant"
-			}
+			"https://www.camptocamp.org/routes/56916/fr/vallee-d-ailefroide-orage-d-etoiles-pilier-du-levant"
 		]
 	},
 	{
@@ -12212,10 +12097,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/54999/fr/pointe-des-cineastes-traversee-des-aretes"
-			}
+			"https://www.camptocamp.org/routes/54999/fr/pointe-des-cineastes-traversee-des-aretes"
 		]
 	},
 	{
@@ -12355,12 +12237,7 @@
 				"id": 480
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/143264/fr/trois-pucelles-dent-gerard-pilier-n"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/143264/fr/trois-pucelles-dent-gerard-pilier-n"]
 	},
 	{
 		"id": "UGnIxHWS",
@@ -15205,12 +15082,7 @@
 				"id": 566
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/459261/fr/tour-du-cervin-boucle-integrale-"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/459261/fr/tour-du-cervin-boucle-integrale-"]
 	},
 	{
 		"id": "jKer1j3u",
@@ -15778,12 +15650,7 @@
 				"id": 585
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/57682/fr/index-de-la-gliere-fissure-de-gauche"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/57682/fr/index-de-la-gliere-fissure-de-gauche"]
 	},
 	{
 		"id": "LOklXftR",
@@ -16483,12 +16350,7 @@
 				"id": 619
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/55233/fr/aiguille-de-l-m-arete-nne"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/55233/fr/aiguille-de-l-m-arete-nne"]
 	},
 	{
 		"id": "iwnWg8wk",
@@ -16925,10 +16787,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/54501/fr/aiguille-du-peigne-dalle-nw-du-gendarme-3009-m-les-lepidopteres"
-			}
+			"https://www.camptocamp.org/routes/54501/fr/aiguille-du-peigne-dalle-nw-du-gendarme-3009-m-les-lepidopteres"
 		]
 	},
 	{
@@ -17629,7 +17488,7 @@
 				"id": 621
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "uf5CKWnM",
@@ -17736,10 +17595,7 @@
 			}
 		],
 		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/305363/fr/dentelles-de-montmirail-chaine-du-clapis-melomane-gaga"
-			}
+			"https://www.camptocamp.org/routes/305363/fr/dentelles-de-montmirail-chaine-du-clapis-melomane-gaga"
 		]
 	},
 	{
@@ -17945,12 +17801,7 @@
 				"id": 67
 			}
 		],
-		"topos": [
-			{
-				"source": null,
-				"url": "https://www.visorando.com/randonnee-la-cascade-les-dioux-et-le-moulin-de-por/"
-			}
-		]
+		"topos": ["https://www.visorando.com/randonnee-la-cascade-les-dioux-et-le-moulin-de-por/"]
 	},
 	{
 		"id": "1TA0MUwJ",
@@ -18056,7 +17907,7 @@
 				"id": 23
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "7t3flkMI",
@@ -18228,7 +18079,7 @@
 				"id": 69
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "4fSRaB-Q",
@@ -18466,7 +18317,7 @@
 				"id": 44
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "QHmKB3tj",
@@ -18506,7 +18357,7 @@
 				"id": 9
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "mmzL7-UQ",
@@ -18678,7 +18529,7 @@
 				"id": 74
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "UKUJLtgC",
@@ -18949,7 +18800,7 @@
 				"id": 21
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "dTK2yjb3",
@@ -19088,12 +18939,7 @@
 				"id": 61
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/54152/fr/gerbier-traversee-des-aretes"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/54152/fr/gerbier-traversee-des-aretes"]
 	},
 	{
 		"id": "1GR4Baip",
@@ -19133,7 +18979,7 @@
 				"id": 8
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "Cb3fqJq5",
@@ -19173,7 +19019,7 @@
 				"id": 2
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "plS89lRY",
@@ -19312,12 +19158,7 @@
 				"id": 48
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/55673/fr/pic-du-loup-la-diagonale"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/55673/fr/pic-du-loup-la-diagonale"]
 	},
 	{
 		"id": "RKaTMX2l",
@@ -19357,7 +19198,7 @@
 				"id": 38
 			}
 		],
-		"topos": null
+		"topos": []
 	},
 	{
 		"id": "2KwjrztI",
@@ -19529,11 +19370,6 @@
 				"id": 13
 			}
 		],
-		"topos": [
-			{
-				"source": "C2C",
-				"url": "https://www.camptocamp.org/routes/877219/fr/le-galeteau-couloir-ne"
-			}
-		]
+		"topos": ["https://www.camptocamp.org/routes/877219/fr/le-galeteau-couloir-ne"]
 	}
 ]
