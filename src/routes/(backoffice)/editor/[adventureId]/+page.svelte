@@ -30,10 +30,13 @@
 	import { getAllPlaces } from '$lib/services/placeService';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { getPassword } from '$lib/services/secretsService';
+	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 	export let ready: boolean = false;
 
+	let loading: boolean = false;
+	let error: boolean = false;
 	let currentVersion: Adventure;
 	let showModal = false;
 	let topAnchor: HTMLElement;
@@ -66,8 +69,16 @@
 			return;
 		}
 
-		await publishContent(ongoingDraft);
-		clearDraft(data.adventureId);
+		try {
+			error = false;
+			loading = true;
+			publishContent(ongoingDraft);
+			goto('/editor').then(() => clearDraft(data.adventureId));
+		} catch {
+			error = true;
+		} finally {
+			loading = false;
+		}
 	};
 
 	const resetDraft = () => {
@@ -206,7 +217,10 @@
 	</Container>
 
 	<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
-		<LinkButton onClick={submitContent}>Publish</LinkButton>
+		<LinkButton onClick={submitContent}>{loading ? 'Publishing...' : 'Publish'}</LinkButton>
+		{#if error}
+			<p class="text-red-600">Something bad happened...</p>
+		{/if}
 		<LinkButton onClick={resetDraft}>Reset</LinkButton>
 	</div>
 
