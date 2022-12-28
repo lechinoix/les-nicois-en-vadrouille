@@ -3,7 +3,7 @@
 	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
 	import SmallCover from '../coverPicture/smallCover.svelte';
-	import type { AdventureData } from '$lib/types';
+	import type { AdventureData, Picture } from '$lib/types';
 	import { ROUTES } from '$lib/config/routes';
 	import { slugify } from '$lib/utils/string';
 	import { getCoverPicture } from '$lib/services/adventureService';
@@ -19,10 +19,14 @@
 	export let onClick: (() => void) | null = null;
 
 	let href: string | undefined;
+	let position: PicturePosition;
+	let picture: Picture | null;
+	let title: string;
+
 	// @ts-ignore
-	let position = PicturePosition[adventure.cover?.position] ?? PicturePosition.CENTER;
-	let picture = getCoverPicture(adventure);
-	let title = adventure.title;
+	$: position = PicturePosition[adventure.cover?.position ?? PicturePosition.CENTER.toString()];
+	$: picture = getCoverPicture(adventure);
+	$: title = adventure.title;
 
 	$: href =
 		onClick !== null
