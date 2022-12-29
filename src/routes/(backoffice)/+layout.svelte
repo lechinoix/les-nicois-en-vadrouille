@@ -2,28 +2,20 @@
 	import Container from '$lib/components/container.svelte';
 	import Input from '$lib/components/form/input.svelte';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
-	import { getSecrets, setPassword } from '$lib/services/secretsService';
+	import { checkIsLoggedIn, getSecrets, setPassword } from '$lib/services/secretsService';
 
 	let isLoggedIn: boolean;
 	let password: string = '';
 	let error: boolean = false;
 
-	try {
-		isLoggedIn = getSecrets().isLoggedIn;
-	} catch {
-		isLoggedIn = false;
-	}
+	isLoggedIn = checkIsLoggedIn();
 
 	const submitPassword = () => {
 		error = false;
 		setPassword(password);
-		try {
-			if (getSecrets().isLoggedIn) {
-				isLoggedIn = true;
-			} else {
-				error = true;
-			}
-		} catch {
+		if (checkIsLoggedIn()) {
+			isLoggedIn = true;
+		} else {
 			error = true;
 		}
 	};

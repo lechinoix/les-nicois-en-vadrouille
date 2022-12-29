@@ -5,6 +5,14 @@ import type { Secrets } from '$lib/types';
 export const setPassword = (password: string) => localStorage.setItem('password', password);
 export const getPassword = () => localStorage.getItem('password');
 
+export const checkIsLoggedIn = () => {
+	try {
+		return getSecrets().isLoggedIn;
+	} catch {
+		return false;
+	}
+};
+
 export const getSecrets = (): Secrets => {
 	const password = getPassword();
 	if (!password) throw new Error('Need password to read secrets');
