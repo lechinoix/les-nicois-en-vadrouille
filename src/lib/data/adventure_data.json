@@ -3290,5 +3290,54 @@
       "SKI_DE_RANDO"
     ],
     "periods": []
+  },
+  {
+    "id": "qq9juno4",
+    "title": "450m de trad au Cime Grande del Catinaccio",
+    "cotation": "TD III",
+    "cover": {
+      "id": "AF1QipP_03Er-RzyUmX5ixewDXl6HuaF1jF5i0lUBWdV",
+      "albumId": "AF1QipPu9VTDTN_-QXlPoVydyPqYkn6ibo-EPWrMYba7rkU-HVwnqN3P8b3bhVIkgEt7Lg",
+      "formats": {
+        "xlarge": {
+          "height": 900,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w1600-h900"
+        },
+        "large": {
+          "height": 675,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w1200-h675"
+        },
+        "medium": {
+          "height": 506,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w900-h506"
+        },
+        "small": {
+          "height": 281,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w500-h281"
+        },
+        "thumbnail": {
+          "height": 168,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w300-h168"
+        }
+      },
+      "height": 2268,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/7KNchutEDWkoFd1XFAR1_sosqbXRFL4R6E6YgTyHnSQDPwFo_vhxqZCboPXImYeYO0SmYgcfS157_poXfASRnuqY0p_Jvd31zkGcJ-IHks8MZjm2lYfotJJ_sChtf4ZmJGX8hwPWIug=w4032-h2268",
+      "position": "CENTER"
+    },
+    "date": "2022-09-09",
+    "elevation": 550,
+    "orientation": "S",
+    "participants": [],
+    "places": [],
+    "sports": [
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
