@@ -27,5 +27,13 @@ export const search = (term: string): SearchResult[] => {
 		initSearch();
 	}
 
-	return index.search(`title:${term}*^2 ${term}`).map(({ score, ref }) => ({ score, ref }));
+	const searchQuery = term
+		.split(' ')
+		.filter((word) => word.length > 2)
+		.map((word) => `title:${word}*^10 content:${word}*`)
+		.join(' ');
+
+	if (!searchQuery) return [];
+
+	return index.search(searchQuery).map(({ score, ref }) => ({ score, ref }));
 };
