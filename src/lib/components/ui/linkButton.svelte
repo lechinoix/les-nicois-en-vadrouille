@@ -12,7 +12,7 @@
 		on:click={onClick}
 		class="{parentClass ?? ''} {isPrimary
 			? `bg-blue-500 text-white`
-			: `text-blue-500 bg-white border-2 border-blue-500`} px-5 py-2 inline-block rounded"
+			: `text-blue-500 bg-white border-2 border-blue-500`} w-max px-5 py-2 inline-block rounded"
 	>
 		<slot />
 	</button>
@@ -24,7 +24,7 @@
 		{target}
 		class="{parentClass ?? ''} {isPrimary
 			? `bg-blue-500 text-white`
-			: `text-blue-500 bg-white`} px-5 py-2 inline-block rounded"
+			: `text-blue-500 bg-white`} w-max px-5 py-2 inline-block rounded"
 	>
 		<slot />
 	</a>

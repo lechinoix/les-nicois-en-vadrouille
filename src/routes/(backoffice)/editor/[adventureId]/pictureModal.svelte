@@ -47,21 +47,29 @@
 		{selectedPictures}
 		on:clickPicture={togglePictureHandler}
 	/>
-	<p class="text-md mt-2">Albums</p>
-	<div class="my-2 flex flex-row flex-wrap">
-		{#each allAlbums as album}
-			<LinkButton isPrimary={false} onClick={() => getAlbumPictures(album.shareLink)}
-				>{album.title}</LinkButton
+	<div class="flex flex-row ">
+		<div class="w-full flex flex-col">
+			<p class="text-md mt-2">Saved albums</p>
+			<div class="my-2 flex flex-row flex-wrap">
+				{#each allAlbums as album}
+					<LinkButton isPrimary={false} onClick={() => getAlbumPictures(album.shareLink)}
+						>{album.title}</LinkButton
+					>
+				{/each}
+			</div>
+		</div>
+		<div class="w-full flex flex-col">
+			<Input
+				name="album"
+				label="Add an album"
+				placeholder="https://photos.app.goo.gl/Hzg2RSMnfdtV2S5R8"
+				bind:value={newAlbumLink}
+			/>
+			<LinkButton class="my-2" onClick={() => getAlbumPictures(newAlbumLink)}
+				>Get Pictures</LinkButton
 			>
-		{/each}
+		</div>
 	</div>
-	<Input
-		name="album"
-		label="Add an album"
-		placeholder="https://photos.app.goo.gl/Hzg2RSMnfdtV2S5R8"
-		bind:value={newAlbumLink}
-	/>
-	<LinkButton class="my-2" onClick={() => getAlbumPictures(newAlbumLink)}>Get Pictures</LinkButton>
 	<SelectableGallery
 		pictures={albumPictures}
 		{selectedPictures}
