@@ -3339,5 +3339,56 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "hQsG7L01",
+    "title": "Premières neiges au grand Som",
+    "cotation": "T4",
+    "cover": {
+      "id": "AF1QipN6a4j6QN1p2fpYeC_5n2CI1tlf0min0zIkTQKa",
+      "albumId": "AF1QipPu9VTDTN_-QXlPoVydyPqYkn6ibo-EPWrMYba7rkU-HVwnqN3P8b3bhVIkgEt7Lg",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w1600-h1200"
+        },
+        "large": {
+          "height": 899,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w1200-h899"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w500-h375"
+        },
+        "thumbnail": {
+          "height": 224,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w300-h224"
+        }
+      },
+      "height": 3144,
+      "width": 4192,
+      "url": "https://lh3.googleusercontent.com/gXOeU6uAqZKB0d24VajaguzU2dkKcsV6VNcBYTWrUsIz6PWVDfw3e8HT1Mkbmq-mCgRkisRZmjrme30OGslq2qDY5otbb6cngZI9lKcX8X5NpyVbMGV-kWM9kbMNCJHotGK2DFXwTLE=w4192-h3144",
+      "position": "LEFT"
+    },
+    "date": "2022-11-19",
+    "elevation": 1200,
+    "orientation": "SE",
+    "participants": [],
+    "places": [
+      "Chartreuse"
+    ],
+    "sports": [
+      "HIKING"
+    ],
+    "periods": []
   }
 ]
