@@ -32,7 +32,7 @@
 	{:else}
 		<Container>
 			<Input type="text" label="Password" name="password" bind:value={password} />
-			<LinkButton onClick={submitPassword}>Sumbit</LinkButton>
+			<LinkButton class="mt-3" onClick={submitPassword}>Sumbit</LinkButton>
 			{#if error}<p class="text-red-700">Wrong password</p>{/if}
 		</Container>
 	{/if}
