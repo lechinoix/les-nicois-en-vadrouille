@@ -37,6 +37,7 @@
 
 	let loading: boolean = false;
 	let error: boolean = false;
+	let success: boolean = false;
 	let currentVersion: Adventure;
 	let showModal = false;
 	let topAnchor: HTMLElement;
@@ -72,8 +73,9 @@
 		try {
 			error = false;
 			loading = true;
+			success = false;
 			await publishContent(ongoingDraft);
-			goto('/editor').then(() => clearDraft(data.adventureId));
+			success = true;
 		} catch {
 			error = true;
 		} finally {
@@ -220,6 +222,9 @@
 		<LinkButton onClick={submitContent}>{loading ? 'Publishing...' : 'Publish'}</LinkButton>
 		{#if error}
 			<p class="text-red-600">Something bad happened...</p>
+		{/if}
+		{#if success}
+			<p class="text-green-600">Successfully saved 🤩</p>
 		{/if}
 		<LinkButton onClick={resetDraft}>Reset</LinkButton>
 		<LinkButton url="/editor/{data.adventureId}/preview" target="_blank">Preview</LinkButton>
