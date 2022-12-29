@@ -13,6 +13,9 @@
 	import SmallCover from '$lib/components/coverPicture/smallCover.svelte';
 	import HomeCover from '$lib/components/coverPicture/homeCover.svelte';
 	import type { PageData } from '../$types';
+	import Search from '$lib/components/search.svelte';
+	import { goto } from '$app/navigation';
+	import { getAdventurePageUrl } from '$lib/services/adventureService';
 
 	export let data: PageData;
 
@@ -67,6 +70,9 @@
 			class="w-full md:w-96"
 			alt="Nous deux en haut du mont Coolidge, la Barre des Écrins est juste derrière !"
 		/>
+	</div>
+	<div class="mt-14 mb-5 w-full">
+		<Search clickResult={(adventure) => goto(getAdventurePageUrl(adventure))} />
 	</div>
 	<SeparatorTitle title="Nos dernières sorties" />
 	<div class="w-full">

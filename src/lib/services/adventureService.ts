@@ -4,6 +4,8 @@ import values from 'lodash/values';
 import type { Adventure, AdventureData, AdventureContent, Picture } from '$lib/types';
 import rawAdventuresData from '$lib/data/adventure_data.json';
 import rawAdventuresContent from '$lib/data/adventure_content.json';
+import { slugify } from '$lib/utils/string';
+import { ROUTES } from '$lib/config/routes';
 
 // eslint-disable-next-line
 // @ts-ignore
@@ -47,3 +49,5 @@ export const getAdventureDataBySportSlug = (sportSlug: string): AdventureData[] 
 
 export const getCoverPicture = (adventure: AdventureData): Picture | null =>
 	adventure.cover ? adventure.cover : null;
+
+export const getAdventurePageUrl = (adventure: Adventure) => `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`
