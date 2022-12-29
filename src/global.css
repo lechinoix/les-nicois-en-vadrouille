@@ -17,6 +17,10 @@
 		@apply my-6 ml-6 list-inside list-disc;
 	}
 
+	.cms-content > img {
+		@apply w-full;
+	}
+
 	.cms-content > p {
 		@apply py-2;
 	}
