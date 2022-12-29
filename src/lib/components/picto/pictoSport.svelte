@@ -16,7 +16,7 @@
 		[Sports.SKI_DE_RANDO]: SkiBoot
 	};
 
-	export let sportSlug: Sports;
+	export let sportSlug: string;
 	export let fill: string = '';
 
 	let picto = sportToPicto.hasOwnProperty(sportSlug) ? sportToPicto[sportSlug] : DEFAULT_ICON;

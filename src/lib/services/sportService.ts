@@ -1,7 +1,11 @@
 import type { Sport } from '$lib/types';
-import sports from '$lib/data/sports.json';
+import rawSports from '$lib/data/sports.json';
 
-export const getSportBySlug = async (sportSlug: string): Promise<Sport> => {
+// eslint-disable-next-line
+// @ts-ignore
+export const sports: Sport[] = rawSports;
+
+export const getSportBySlug = (sportSlug: string): Sport => {
 	const sport = sports.find((sport) => sport.slug === sportSlug);
 	if (!sport) throw new Error('Could not find sport by slug');
 

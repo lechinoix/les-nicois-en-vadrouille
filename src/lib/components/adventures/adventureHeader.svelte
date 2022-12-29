@@ -9,9 +9,14 @@
 	import Container from '$lib/components/container.svelte';
 	import Mountain from '../icons/various/new/mountain.svelte';
 	import Compass from '../icons/various/new/compass.svelte';
+	import { getSportBySlug } from '$lib/services/sportService';
+	import { getPlaceByName } from '$lib/services/placeService';
 
 	export let adventure: AdventureData;
 	export let onClick: (() => void) | null = null;
+
+	let sport = getSportBySlug(adventure.sports[0]);
+	let place = getPlaceByName(adventure.places[0]);
 </script>
 
 <div>
@@ -20,16 +25,13 @@
 		<div class="flex flex-col justify-center py-7">
 			<div class="flex flex-wrap gap-y-7 justify-center">
 				{#if adventure?.places && adventure?.places?.length > 0}
-					<Picto label={adventure.places[0].name ?? undefined}>
+					<Picto label={place.name ?? undefined}>
 						<Mountain fill={iconFillColor} />
 					</Picto>
 				{/if}
 				{#if adventure?.sports && adventure?.sports?.length > 0}
-					<Picto label={adventure.sports[0]}>
-						<PictoSport
-							sportSlug={/* @ts-ignore */ Sports[adventure.sports[0]]}
-							fill={iconFillColor}
-						/>
+					<Picto label={sport.name}>
+						<PictoSport sportSlug={sport.slug} fill={iconFillColor} />
 					</Picto>
 				{/if}
 				{#if adventure?.cotation}
