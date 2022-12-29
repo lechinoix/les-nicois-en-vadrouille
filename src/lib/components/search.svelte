@@ -7,12 +7,12 @@
 
 	export let clickResult: (result: Adventure) => void;
 
-	let term: string;
+	let term: string = '';
 	let results: Adventure[];
 
-	const searchForTerm = debounce(async (queryTerm) => {
+	const searchForTerm = async (queryTerm: string) => {
 		results = search(queryTerm).map(({ ref }) => getAdventureById(ref));
-	}, 200);
+	};
 
 	$: {
 		searchForTerm(term);
@@ -39,18 +39,26 @@
 			/>
 		</div>
 	</form>
-	{#if results && results.length > 0}
+	{#if term.length > 2}
 		<ul
 			class="z-10 absolute border border-gray-300 text-gray-900 text-sm rounded-b-lg w-full flex flex-col"
 		>
-			{#each results as result}
+			{#if results && results.length > 0}
+				{#each results as result}
+					<li
+						on:click={() => clickResult(result)}
+						class="bg-white px-2 py-3 border-b border-gray-300 last:border-b-0 last:rounded-b-lg cursor-pointer hover:bg-gray-50"
+					>
+						{result.title}
+					</li>
+				{/each}
+			{:else}
 				<li
-					on:click={() => clickResult(result)}
 					class="bg-white px-2 py-3 border-b border-gray-300 last:border-b-0 last:rounded-b-lg cursor-pointer hover:bg-gray-50"
 				>
-					{result.title}
+					Pas de résultats 🥲
 				</li>
-			{/each}
+			{/if}
 		</ul>
 	{/if}
 </div>

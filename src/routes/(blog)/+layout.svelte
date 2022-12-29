@@ -15,4 +15,6 @@
 	<div class="pb-14"><slot /></div>
 </main>
 
-<footer />
+<footer>
+	
+</footer>
