@@ -3544,5 +3544,56 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "wFYyXsLC",
+    "title": "Couleurs d'automne au Charmant som",
+    "cotation": "PD 3c>3c I P2+",
+    "cover": {
+      "id": "AF1QipNXciBaVfZ6--0FskdSBk0K2odFeYs71jMRfRQ2",
+      "albumId": "AF1QipPu9VTDTN_-QXlPoVydyPqYkn6ibo-EPWrMYba7rkU-HVwnqN3P8b3bhVIkgEt7Lg",
+      "formats": {
+        "xlarge": {
+          "height": 1600,
+          "width": 1250,
+          "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w1250-h1600"
+        },
+        "large": {
+          "height": 1200,
+          "width": 938,
+          "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w938-h1200"
+        },
+        "medium": {
+          "height": 900,
+          "width": 703,
+          "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w703-h900"
+        },
+        "small": {
+          "height": 500,
+          "width": 390,
+          "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w390-h500"
+        },
+        "thumbnail": {
+          "height": 300,
+          "width": 234,
+          "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w234-h300"
+        }
+      },
+      "height": 3024,
+      "width": 2364,
+      "url": "https://lh3.googleusercontent.com/f5KROUcqTDGvMwsSy6vIvWNmQHr7VS2qX2yghUxV2HjXCFLFOdYRYHEJDq4umT4JOOdWBhfJAbShN09KYEQfr310I64MewR08L_mQoWKa8uMPRf4fZoVC52b7jnH6v_76HyznHdshx0=w2364-h3024",
+      "position": "BOTTOM"
+    },
+    "date": "2022-10-16",
+    "elevation": 100,
+    "orientation": "E",
+    "participants": [],
+    "places": [
+      "Chartreuse"
+    ],
+    "sports": [
+      "HIKING"
+    ],
+    "periods": []
   }
 ]
