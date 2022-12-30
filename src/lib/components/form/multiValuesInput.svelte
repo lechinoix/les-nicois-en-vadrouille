@@ -32,10 +32,14 @@
 		bind:value={currentValue}
 		on:dispatchEnter={addNewValue}
 	/>
+	<button
+		class="sm:hidden material-icons text-sm text-white bg-blue-600 rounded-sm p-1 my-1"
+		on:click={addNewValue}>add</button
+	>
 	{#if values}
 		{#each values as value}
 			<div>
-				<span class="material-icons text-sm" on:click={() => removeValue(value)}>close</span>
+				<button class="material-icons text-sm" on:click={() => removeValue(value)}>close</button>
 				{value}
 			</div>
 		{/each}
