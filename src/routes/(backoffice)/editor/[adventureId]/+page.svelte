@@ -30,7 +30,6 @@
 	import { getAllPlaces } from '$lib/services/placeService';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { getPassword } from '$lib/services/secretsService';
-	import { goto } from '$app/navigation';
 
 	export let data: PageData;
 	export let ready: boolean = false;

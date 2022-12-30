@@ -11,7 +11,8 @@
 	};
 
 	const copyImageUrl = async (picture: Picture) => {
-		await navigator.clipboard.writeText(picture.formats.xlarge.url);
+		const isLandscape = picture.width > picture.height;
+		await navigator.clipboard.writeText(isLandscape ? picture.formats.xlarge.url : picture.url);
 		copiedPictureId = picture.id;
 	};
 
