@@ -21,7 +21,7 @@
 <svelte:body on:click={closeMenu} />
 
 <nav class="absolute bg-linear-b-w py-5 z-10 mx-auto w-full px-5">
-	<div class="flex items-start justify-between items-center">
+	<div class="flex justify-between items-center">
 		<a href={ROUTES.HOME} class="flex items-center">
 			<img src="/img/les-nicois.png" alt="Un dessin d'Ambre et Nicolas grimpant" class="w-14" />
 			<span class="text-2xl text-white font-extralight ml-4"> Les Niçois en Vadrouille </span>
@@ -34,7 +34,7 @@
 				{#each sports as sport}
 					<a
 						href={`/sport/${sport.slug}`}
-						class="flex text-white block px-4 py-2 text-sm justify-start items-center uppercase"
+						class="flex text-white px-4 py-2 text-sm justify-start items-center uppercase"
 						role="menuitem"
 						tabindex="-1"
 					>

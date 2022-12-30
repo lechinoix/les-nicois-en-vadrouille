@@ -57,3 +57,37 @@ export enum CoverTypes {
 }
 
 export const HOMEPAGE_US_IMAGE_URL = `${ImageProviders.CLOUDINARY.baseUrl}/dowsxscl0/image/upload/v1638305939/medium_IMG_0063_2_0c22cc2fb2.jpg`;
+export const ALL_ADVENTURES_COVER = {
+	formats: {
+		thumbnail: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379215/thumbnail_4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+			width: 208,
+			height: 156
+		},
+		xlarge: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379223/xlarge_4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+			width: 1920,
+			height: 1440
+		},
+		medium: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379225/medium_4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+			width: 750,
+			height: 563
+		},
+		small: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379225/small_4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+			width: 500,
+			height: 375
+		},
+		large: {
+			url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379223/large_4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+			width: 1000,
+			height: 750
+		}
+	},
+	url: 'https://res.cloudinary.com/dowsxscl0/image/upload/v1650379213/4_FC_06_A84_56_D4_4695_8461_B3_E5_D845_F874_f5c919bf48.jpg',
+	width: 4032,
+	height: 3024,
+	albumId: '',
+	id: 336
+};
