@@ -22,8 +22,9 @@
 </script>
 
 <Container>
-	<head class="h-16 flex flex-start items-center justify-center font-semibold">
-		<a href="/editor">Les Nicois en Vadrouille - Backoffice</a>
+	<head class="relative h-16 flex flex-start items-center justify-center">
+		<a class="font-semibold" href="/editor">Les Nicois en Vadrouille - Backoffice</a>
+		<a class="absolute right-0" href="/">Blog</a>
 	</head>
 </Container>
 <div class="mt-8 mb-20">
