@@ -17,7 +17,7 @@
 		@apply my-6 ml-6 list-inside list-disc;
 	}
 
-	.cms-content > img {
+	.cms-content img {
 		@apply w-full;
 	}
 
