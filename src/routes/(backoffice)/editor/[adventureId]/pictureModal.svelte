@@ -52,9 +52,9 @@
 			<p class="text-md mt-2">Saved albums</p>
 			<div class="my-2 flex flex-row flex-wrap">
 				{#each allAlbums as album}
-					<LinkButton isPrimary={false} onClick={() => getAlbumPictures(album.shareLink)}
-						>{album.title}</LinkButton
-					>
+					<LinkButton onClick={() => getAlbumPictures(album.shareLink)}>
+						{album.title}
+					</LinkButton>
 				{/each}
 			</div>
 		</div>
@@ -65,9 +65,9 @@
 				placeholder="https://photos.app.goo.gl/Hzg2RSMnfdtV2S5R8"
 				bind:value={newAlbumLink}
 			/>
-			<LinkButton class="my-2" onClick={() => getAlbumPictures(newAlbumLink)}
-				>Get Pictures</LinkButton
-			>
+			<LinkButton class="my-2" onClick={() => getAlbumPictures(newAlbumLink)}>
+				Get Pictures
+			</LinkButton>
 		</div>
 	</div>
 	<SelectableGallery
