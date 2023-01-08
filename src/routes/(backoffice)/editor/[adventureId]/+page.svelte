@@ -225,7 +225,6 @@
 		{#if success}
 			<p class="text-green-600">Successfully saved 🤩</p>
 		{/if}
-		<LinkButton onClick={resetDraft}>Reset</LinkButton>
 		<LinkButton url="/editor/{data.adventureId}/preview" target="_blank">Preview</LinkButton>
 	</div>
 
