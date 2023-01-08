@@ -50,4 +50,5 @@ export const getAdventureDataBySportSlug = (sportSlug: string): AdventureData[] 
 export const getCoverPicture = (adventure: AdventureData): Picture | null =>
 	adventure.cover ? adventure.cover : null;
 
-export const getAdventurePageUrl = (adventure: Adventure) => `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`
+export const getAdventurePageUrl = (adventure: Adventure) =>
+	`${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;

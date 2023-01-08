@@ -95,3 +95,35 @@ export type TopoDetails = {
 	cotation: string;
 	orientation: string;
 };
+
+export type Comment = {
+	id: string;
+	created_at: string;
+	article_id: string;
+	content: string;
+	user_id: string;
+};
+
+export type User = {
+	id: string;
+	name: string;
+};
+
+export type Reaction = {
+	id: string;
+	user_id: string;
+	created_at: string;
+	type: string;
+};
+
+export type Config = {
+	env: string;
+	COVER_PICTURE_ID: string;
+	SUPABASE: {
+		API_KEY: string;
+		URL: string;
+	};
+	GITHUB_REPO_OWNER: string;
+	GITHUB_REPO: string;
+	GITHUB_MAIN_BRANCH: string;
+};

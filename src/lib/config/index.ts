@@ -1,7 +1,8 @@
+import type { Config } from '$lib/types';
 import development from './development';
 import production from './production';
 
-const config = {
+const envConfig = {
 	development,
 	production
 };
@@ -14,7 +15,9 @@ const sharedConfig = {
 
 const getEnv = () => (process.env.NODE_ENV === 'production' ? 'production' : 'development');
 
-export default {
-	...config[getEnv()],
+const config: Config = {
+	...envConfig[getEnv()],
 	...sharedConfig
 };
+
+export default config;
