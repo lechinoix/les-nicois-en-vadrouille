@@ -1,9 +1,12 @@
 import type { Album, GooglePhoto, Picture, PictureFormat } from '$lib/types';
 import type { RequestHandler } from '../$types';
-import { json } from '@sveltejs/kit';
+import { error, json } from '@sveltejs/kit';
 import jsdom, { JSDOM } from 'jsdom';
+import { isAuthorized } from 'src/routes/api/auth';
 
 export const POST: RequestHandler = async ({ request }) => {
+	if (!isAuthorized(request)) throw error(401, 'Not Authorized');
+
 	const body = await request.json();
 	const response = await fetch(body.shareLink, {
 		redirect: 'follow'
