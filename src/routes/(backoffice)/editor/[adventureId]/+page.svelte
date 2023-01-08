@@ -31,11 +31,13 @@
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { getPassword } from '$lib/services/secretsService';
 
+	const DEFAULT_ERROR_MESSAGE = 'Something bad happened...';
+
 	export let data: PageData;
 	export let ready: boolean = false;
 
 	let loading: boolean = false;
-	let error: boolean = false;
+	let error: string = '';
 	let success: boolean = false;
 	let currentVersion: Adventure;
 	let showModal = false;
@@ -62,21 +64,20 @@
 	}));
 
 	export let submitContent = async () => {
-		const ongoingDraft = getDraft(data.adventureId);
-		if (!ongoingDraft) throw new Error('Failed to read ongoing draft');
-		if (isEqual(ongoingDraft, data.adventure)) {
-			console.log('No changes to publish');
-			return;
-		}
-
 		try {
-			error = false;
+			error = '';
 			loading = true;
 			success = false;
+
+			const ongoingDraft = getDraft(data.adventureId);
+
+			if (!ongoingDraft) throw new Error(DEFAULT_ERROR_MESSAGE);
+			if (isEqual(ongoingDraft, data.adventure)) throw new Error('No changes to publish');
+
 			await publishContent(ongoingDraft);
 			success = true;
-		} catch {
-			error = true;
+		} catch (e: any) {
+			error = e?.message ?? DEFAULT_ERROR_MESSAGE;
 		} finally {
 			loading = false;
 		}
@@ -220,7 +221,7 @@
 	<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
 		<LinkButton onClick={submitContent}>{loading ? 'Publishing...' : 'Publish'}</LinkButton>
 		{#if error}
-			<p class="text-red-600">Something bad happened...</p>
+			<p class="text-red-600">{error}</p>
 		{/if}
 		{#if success}
 			<p class="text-green-600">Successfully saved 🤩</p>
