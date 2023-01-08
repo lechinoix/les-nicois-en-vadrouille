@@ -3656,5 +3656,60 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "qeLxteli",
+    "title": "La memoire des absents a Presles",
+    "cotation": "TD 6c>6a+ I P1",
+    "cover": {
+      "id": "AF1QipMOMM8wmCTpd8Yqs2IekAjs9jBaaqiX36uuxxt6",
+      "albumId": "AF1QipOzIs3hC7-25K29MNocAps5rqii5_cP5pTn_LeVKEPjaCbqMKVjJLVRLxsTFcSzTQ",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/subKYAVjUjcYpsxYHqcSCBp204Ux-UYP3kr1QdONZdGg1S4aZK26PbcMflRM77UyRviaBEqsA7z2YjY6t_mGizS-6m-ohf3FEZWTTXh_Aso11Fxfu-AfYh3_byEykHZ6QhnvcZup83A=w4032-h3024",
+      "position": "CENTER"
+    },
+    "date": "2023-01-07",
+    "elevation": 220,
+    "orientation": "SE",
+    "participants": [
+      "Ambre",
+      "Nicolas"
+    ],
+    "places": [
+      "Presles",
+      "Vercors"
+    ],
+    "sports": [
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
