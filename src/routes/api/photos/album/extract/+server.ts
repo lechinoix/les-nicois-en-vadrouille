@@ -2,7 +2,7 @@ import type { Album, GooglePhoto, Picture, PictureFormat } from '$lib/types';
 import type { RequestHandler } from '../$types';
 import { error, json } from '@sveltejs/kit';
 import jsdom, { JSDOM } from 'jsdom';
-import { isAuthorized } from 'src/routes/api/auth';
+import { isAuthorized } from '$lib/api/auth';
 
 export const POST: RequestHandler = async ({ request }) => {
 	if (!isAuthorized(request)) throw error(401, 'Not Authorized');
