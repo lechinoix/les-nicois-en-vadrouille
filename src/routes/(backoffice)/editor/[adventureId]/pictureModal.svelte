@@ -13,10 +13,16 @@
 	let selectedPictures = adventurePictures?.map((picture) => picture.id) ?? [];
 	let albumPictures: Picture[] = [];
 	let newAlbumLink: string;
+	let isLoading: boolean = false;
 
 	const getAlbumPictures = async (albumLink: string) => {
-		if (!albumLink) return;
-		albumPictures = await getPhotosFromShareLink(albumLink);
+		try {
+			isLoading = true;
+			if (!albumLink) return;
+			albumPictures = await getPhotosFromShareLink(albumLink);
+		} finally {
+			isLoading = false;
+		}
 	};
 
 	const togglePictureHandler = ({ detail: { pictureId } }: any) => {
@@ -70,10 +76,16 @@
 			</LinkButton>
 		</div>
 	</div>
-	<SelectableGallery
-		pictures={albumPictures}
-		{selectedPictures}
-		on:clickPicture={togglePictureHandler}
-	/>
+	<div class="w-full h-40">
+		{#if !isLoading}
+			<SelectableGallery
+				pictures={albumPictures}
+				{selectedPictures}
+				on:clickPicture={togglePictureHandler}
+			/>
+		{:else}
+			<div class="h-full w-full flex justify-start items-center">Loading</div>
+		{/if}
+	</div>
 	<LinkButton class="my-2" onClick={validatePictures}>Submit</LinkButton>
 </Modal>
