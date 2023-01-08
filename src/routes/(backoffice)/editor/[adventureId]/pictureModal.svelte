@@ -52,7 +52,7 @@
 			<p class="text-md mt-2">Saved albums</p>
 			<div class="my-2 flex flex-row flex-wrap">
 				{#each allAlbums as album}
-					<LinkButton onClick={() => getAlbumPictures(album.shareLink)}>
+					<LinkButton onClick={() => getAlbumPictures(album.shareLink)} class="mr-2">
 						{album.title}
 					</LinkButton>
 				{/each}

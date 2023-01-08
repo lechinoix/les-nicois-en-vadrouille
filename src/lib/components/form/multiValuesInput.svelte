@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
 	import Input from './input.svelte';
 
 	type ValueType = string | number | null;
@@ -9,11 +10,14 @@
 	export let values: ValueType[] | null;
 	export let type: 'number' | 'text' | 'date' = 'text';
 
+	const dispatch = createEventDispatcher();
+
 	let currentValue: ValueType;
 
 	const addNewValue = () => {
 		if (!values) values = [currentValue];
 		values = [...values, currentValue];
+		dispatch('valueAdded', currentValue);
 		currentValue = '';
 	};
 

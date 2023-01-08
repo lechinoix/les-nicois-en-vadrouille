@@ -72,6 +72,7 @@ export type Sport = {
 export type Secrets = {
 	githubToken: string;
 	isLoggedIn: boolean;
+	apiKey: string;
 };
 
 export type GooglePhoto = {
@@ -80,4 +81,17 @@ export type GooglePhoto = {
 	width: number;
 	height: number;
 	date: number;
+};
+
+export type TopoSource = {
+	webDomain: string;
+	name: string;
+	id: string;
+	apiBaseUrl?: string;
+};
+
+export type TopoDetails = {
+	elevation: number;
+	cotation: string;
+	orientation: string;
 };

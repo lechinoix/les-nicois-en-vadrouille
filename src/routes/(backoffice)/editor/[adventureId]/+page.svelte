@@ -30,6 +30,7 @@
 	import { getAllPlaces } from '$lib/services/placeService';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { getPassword } from '$lib/services/secretsService';
+	import { getTopoDetails } from '$lib/services/topoService';
 
 	const DEFAULT_ERROR_MESSAGE = 'Something bad happened...';
 
@@ -122,6 +123,16 @@
 		};
 	});
 
+	const prefillEmptyInfoWithC2C = async (topoUrl: string) => {
+		const topoDetails = await getTopoDetails(topoUrl);
+
+		if (!topoDetails) return;
+
+		if (!currentVersion.elevation) currentVersion.elevation = topoDetails?.elevation;
+		if (!currentVersion.cotation) currentVersion.cotation = topoDetails?.cotation;
+		if (!currentVersion.orientation) currentVersion.orientation = topoDetails?.orientation;
+	};
+
 	function editor(dom: HTMLElement) {
 		Editor.make()
 			.config((ctx: any) => {
@@ -153,6 +164,13 @@
 	<Container>
 		{#if ready}
 			<div class="mb-6"><Input name="title" label="Titre" bind:value={currentVersion.title} /></div>
+			<MultiValuesInput
+				type="text"
+				name="topos"
+				label="External topo"
+				bind:values={currentVersion.topos}
+				on:valueAdded={(event) => prefillEmptyInfoWithC2C(event.detail)}
+			/>
 			<div class="flex flex-row flex-wrap gap-5 mb-6">
 				<Input name="cotation" label="Cotation" bind:value={currentVersion.cotation} />
 				<Input
@@ -207,12 +225,6 @@
 				<p class="text-md mb-2">Content</p>
 				<div use:editor />
 			</div>
-			<MultiValuesInput
-				type="text"
-				name="topos"
-				label="External Links"
-				bind:values={currentVersion.topos}
-			/>
 		{/if}
 	</Container>
 
