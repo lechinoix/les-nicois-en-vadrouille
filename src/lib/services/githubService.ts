@@ -27,6 +27,8 @@ export const modifyFileOnGithub = async (
 
 	const { sha } = await getFileContentOnGithub(filePath);
 
+	if (config.env !== 'production') return;
+
 	await fetch(`${GITHUB_API_URL}/repos/${OWNER}/${REPO}/contents/${filePath}`, {
 		method: 'PUT',
 		headers: {
