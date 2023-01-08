@@ -1,14 +1,14 @@
 <script lang="ts">
-	import { TopoSource } from '$lib/constants';
+	import { topoSources } from '$lib/constants';
 
 	export let topo: string;
+
+	const topoSource = topoSources.find((topoSource) => topo.includes(topoSource.webDomain));
 </script>
 
-<a href={topo} target="_blank">
-	{#if topo.includes(TopoSource.C2C)}
-		CamptoCamp
-	{:else if topo.includes(TopoSource.SKITOUR)}
-		Skitour
+<a href={topo} target="_blank" rel="noreferrer">
+	{#if topoSource}
+		{topoSource.name}
 	{:else}
 		Topo
 	{/if}

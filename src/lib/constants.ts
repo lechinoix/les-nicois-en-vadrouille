@@ -1,3 +1,5 @@
+import type { TopoSource } from './types';
+
 export enum CardinalPoints {
 	N = 'N',
 	NE = 'NE',
@@ -9,10 +11,13 @@ export enum CardinalPoints {
 	NW = 'NW'
 }
 
-export const TopoSource = {
-	C2C: 'camptocamp.org',
-	SKITOUR: 'skitour.fr'
-};
+export const topoSources: TopoSource[] = [
+	{
+		webDomain: 'camptocamp.org',
+		name: 'Camptocamp'
+	},
+	{ webDomain: 'skitour.fr', name: 'Skitour' }
+];
 
 export enum Sports {
 	SKI_ALPIN = 'SKI_ALPIN',

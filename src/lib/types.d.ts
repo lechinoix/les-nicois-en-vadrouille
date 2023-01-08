@@ -81,3 +81,8 @@ export type GooglePhoto = {
 	height: number;
 	date: number;
 };
+
+export type TopoSource = {
+	webDomain: string;
+	name: string;
+};
