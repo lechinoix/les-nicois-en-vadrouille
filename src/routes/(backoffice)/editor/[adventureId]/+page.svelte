@@ -69,12 +69,10 @@
 			loading = true;
 			success = false;
 
-			const ongoingDraft = getDraft(data.adventureId);
+			if (!currentVersion) throw new Error(DEFAULT_ERROR_MESSAGE);
+			if (isEqual(currentVersion, data.adventure)) throw new Error('No changes to publish');
 
-			if (!ongoingDraft) throw new Error(DEFAULT_ERROR_MESSAGE);
-			if (isEqual(ongoingDraft, data.adventure)) throw new Error('No changes to publish');
-
-			await publishContent(ongoingDraft);
+			await publishContent(currentVersion);
 			success = true;
 		} catch (e: any) {
 			error = e?.message ?? DEFAULT_ERROR_MESSAGE;
