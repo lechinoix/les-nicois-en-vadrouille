@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { topoSources } from '$lib/constants';
+	import { findTopoSourceFromLink } from '$lib/services/topoService';
 
 	export let topo: string;
 
-	const topoSource = topoSources.find((topoSource) => topo.includes(topoSource.webDomain));
+	const topoSource = findTopoSourceFromLink(topo);
 </script>
 
 <a href={topo} target="_blank" rel="noreferrer">

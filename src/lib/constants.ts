@@ -11,13 +11,15 @@ export enum CardinalPoints {
 	NW = 'NW'
 }
 
-export const topoSources: TopoSource[] = [
-	{
+export const topoSources: { [id: string]: TopoSource } = {
+	C2C: {
+		id: 'C2C',
 		webDomain: 'camptocamp.org',
-		name: 'Camptocamp'
+		name: 'Camptocamp',
+		apiBaseUrl: 'https://api.camptocamp.org'
 	},
-	{ webDomain: 'skitour.fr', name: 'Skitour' }
-];
+	SKITOUR: { id: 'SKITOUR', webDomain: 'skitour.fr', name: 'Skitour' }
+};
 
 export enum Sports {
 	SKI_ALPIN = 'SKI_ALPIN',

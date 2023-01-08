@@ -85,4 +85,12 @@ export type GooglePhoto = {
 export type TopoSource = {
 	webDomain: string;
 	name: string;
+	id: string;
+	apiBaseUrl?: string;
+};
+
+export type TopoDetails = {
+	elevation: number;
+	cotation: string;
+	orientation: string;
 };
