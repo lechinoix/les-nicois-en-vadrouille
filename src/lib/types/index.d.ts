@@ -118,10 +118,6 @@ export type Reaction = {
 export type Config = {
 	env: string;
 	COVER_PICTURE_ID: string;
-	SUPABASE: {
-		API_KEY: string;
-		URL: string;
-	};
 	GITHUB_REPO_OWNER: string;
 	GITHUB_REPO: string;
 	GITHUB_MAIN_BRANCH: string;

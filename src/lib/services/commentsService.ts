@@ -1,10 +1,9 @@
 import type { Comment } from '$lib/types';
 import isArray from 'lodash/isArray';
-import { createSupabaseClient } from './supabaseService';
+import { supabase } from '$lib/supabaseClient';
 
 export const getAdventureComments = async (adventureId: string): Promise<Comment[]> => {
-	const supabaseClient = createSupabaseClient();
-	const { data: comments } = await supabaseClient
+	const { data: comments } = await supabase
 		.from('Comment')
 		.select(`id, content, created_at, user (name)`)
 		.eq('article_id', adventureId);

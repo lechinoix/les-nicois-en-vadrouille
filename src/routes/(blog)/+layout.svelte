@@ -3,9 +3,24 @@
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
 	import { DEFAULT_TITLE } from '$lib/constants';
 	import { checkIsLoggedIn } from '$lib/services/secretsService';
-	import type { PageData } from '../$types';
+	import type { PageData } from './$types';
+	import { supabase } from '$lib/supabaseClient';
+	import { invalidate } from '$app/navigation';
+	import { onMount } from 'svelte';
 
 	export let data: PageData;
+
+	onMount(() => {
+		const {
+			data: { subscription }
+		} = supabase.auth.onAuthStateChange(() => {
+			invalidate('supabase:auth');
+		});
+
+		return () => {
+			subscription.unsubscribe();
+		};
+	});
 </script>
 
 <svelte:head>

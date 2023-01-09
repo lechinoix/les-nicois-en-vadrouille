@@ -4,11 +4,13 @@
 	export let parentClass: string = '';
 	export let isPrimary: boolean = true;
 	export { parentClass as class };
+	export let disabled: boolean = false;
 	export let target: string = '';
 </script>
 
 {#if onClick}
 	<button
+		{disabled}
 		on:click={onClick}
 		class="{parentClass ?? ''} {isPrimary
 			? `bg-blue-500 text-white`

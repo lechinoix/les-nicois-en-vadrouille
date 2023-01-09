@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 export const GET: RequestHandler = async ({ params }) => {
 	const adventure = await getAdventureById(params.id);
 	return {
-		status: 302,
+		status: 301,
 		headers: { Location: getAdventurePageUrl(adventure) }
 	};
 };
