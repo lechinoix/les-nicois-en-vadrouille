@@ -20,7 +20,6 @@
 	export let pictures: Picture[] = [];
 
 	$: {
-		console.log(`Copied picture: ${copiedPictureId}`);
 		window.setTimeout(() => {
 			copiedPictureId = '';
 		}, 2000);

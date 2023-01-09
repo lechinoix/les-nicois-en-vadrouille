@@ -11,7 +11,6 @@
 
 	const initGallery = async (pictures: Picture[]) => {
 		if (!browser) return;
-		console.log(`Update gallery with pictures: ${pictures.map((picture) => picture.id)}`);
 		const { default: lightGallery } = await import('lightgallery');
 		const { default: lgZoom } = await import('lightgallery/plugins/zoom/lg-zoom.umd');
 
