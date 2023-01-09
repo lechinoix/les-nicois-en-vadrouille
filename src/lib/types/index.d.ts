@@ -98,10 +98,9 @@ export type TopoDetails = {
 
 export type Comment = {
 	id: string;
-	created_at: string;
-	article_id: string;
+	createdAt: string;
 	content: string;
-	user_id: string;
+	username: string;
 };
 
 export type User = {

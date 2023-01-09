@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { Adventure, Picture } from '$lib/types';
+	import type { Adventure, Comment, Picture } from '$lib/types';
 	import marked from 'marked';
 	import Slider from '$lib/components/slider.svelte';
 	import TopoLink from '$lib/components/topoLink.svelte';
@@ -12,16 +12,23 @@
 	import { sliderRef } from '$lib/stores/slider';
 	import type { LightGallery } from 'lightgallery/lightgallery';
 	import { getCoverPicture } from '$lib/services/adventureService';
+	import { getAdventureComments } from '$lib/services/commentsService';
+	import { onMount } from 'svelte';
 
 	export let adventure: Adventure;
 
 	let coverPicture: Picture | null;
 	let pictures: Picture[];
 	let gallery: LightGallery;
+	let comments: Comment[] = [];
 
 	sliderRef.subscribe((galleryInstance: LightGallery | null) => {
 		if (!galleryInstance) return;
 		gallery = galleryInstance;
+	});
+
+	onMount(async () => {
+		comments = await getAdventureComments(adventure.id);
 	});
 
 	$: coverPicture = getCoverPicture(adventure);
@@ -60,4 +67,11 @@
 			<Slider {pictures} />
 		</div>
 	{/if}
+	{#each comments as comment}
+		<div class="py-5">
+			<strong>{comment.username}</strong> - {comment.createdAt}
+			<br />
+			<p>{comment.content}</p>
+		</div>
+	{/each}
 </Container>
