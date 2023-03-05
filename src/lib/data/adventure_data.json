@@ -3830,5 +3830,59 @@
       "SKI_ALPIN"
     ],
     "periods": []
+  },
+	{
+    "id": "fLwTfujQ",
+    "title": "Demi tour a Monetier ",
+    "cotation": "4.1 E2",
+    "cover": {
+      "id": "AF1QipMQIsY-7tOkU6tzWZee-AyI-Et1gdWLcn-Oeenn",
+      "albumId": "AF1QipPu9VTDTN_-QXlPoVydyPqYkn6ibo-EPWrMYba7rkU-HVwnqN3P8b3bhVIkgEt7Lg",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/kHn9Ze9LY9VT01V7rMMEZb34vz1wgz4BrjmepKXOllkNiegtELjBSHEPCKaTPyj9EvxJwQr9hmP-8hRWck6o8mfUun7kIl_YGcyaxhHh1gaJ5S0N1y1Y4WerD41L54U7-BndP6vnX6k=w4032-h3024",
+      "position": "LEFT"
+    },
+    "date": "2023-01-21",
+    "elevation": 1200,
+    "orientation": "N",
+    "participants": [
+      "Ambre",
+      "Charles"
+    ],
+    "places": [
+      "Les Ecrins"
+    ],
+    "sports": [
+      "SKI_DE_RANDO"
+    ],
+    "periods": []
   }
 ]
