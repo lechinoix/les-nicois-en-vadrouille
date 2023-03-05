@@ -3884,5 +3884,59 @@
       "SKI_DE_RANDO"
     ],
     "periods": []
+  },
+	{
+    "id": "qKFeCSn6",
+    "title": "EVG de Gaëtan dans le Vercors",
+    "cotation": null,
+    "cover": {
+      "id": "AF1QipOvpgPEXpGwkvTJ6OE1K4bMTar8L6GndoFJZAeG",
+      "albumId": "AF1QipPu9VTDTN_-QXlPoVydyPqYkn6ibo-EPWrMYba7rkU-HVwnqN3P8b3bhVIkgEt7Lg",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/HixPcItdg0FAS1cXTg3evRWmhHgkP5RYcubBPVI-h4Mu65OaDPXRRDQBjJAUdStPoVb1qQ0qX1rcCeBF4fVU54qBIaUpZat-aqS6qYXnmzWuGDHn6uKnbSZ-QIKQZMlxEhncn0_MhHQ=w4032-h3024",
+      "position": "BOTTOM"
+    },
+    "date": "2023-02-25",
+    "elevation": null,
+    "orientation": null,
+    "participants": [
+      "Gaetan",
+      "Olivier F"
+    ],
+    "places": [
+      "Vercors"
+    ],
+    "sports": [
+      "SPELEO"
+    ],
+    "periods": []
   }
 ]
