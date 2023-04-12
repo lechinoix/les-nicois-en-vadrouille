@@ -24,7 +24,7 @@
 			plugins.push(lgThumbnail);
 		}
 
-		const gallery = lightGallery(document.getElementById('lightgallery'), {
+		const gallery = lightGallery(document.getElementById(galleryName), {
 			plugins,
 			speed: 500,
 			mobileSettings: { showCloseIcon: true }
@@ -36,8 +36,6 @@
 	onMount(async () => {
 		await initGallery(pictures);
 	});
-
-	$: initGallery(pictures);
 </script>
 
 <div
