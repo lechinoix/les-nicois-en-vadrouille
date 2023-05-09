@@ -4271,5 +4271,63 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "eCAcpU4l",
+    "title": "Au bout du bec de Sormiou",
+    "cotation": "AD+ 5b>4c I  P1",
+    "cover": {
+      "id": "AF1QipOxuK5ucw_MHyCAKYuCJeYnqRp8yXhZrzw_Icv6",
+      "albumId": "AF1QipOOuAkB1ZwR1HwzDy3N5FI7-ca7KKdIH0o7wNqAYjhbZRrnNy_PFJNYtTSINyVfZA",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/o06tDtCL8sIg4z7Oe_VbN1lMZVaKjcfYjqwBpzDRt6fXj4r8KfGLY_3Qh1Xdwf2X25hP6DsIaYE6sGABdLUku5HXMdjsoATEVSqu47_UxbcW9ikN6Q56X8lXHLvvnBeoPoiqsdnyyec=w4032-h3024",
+      "position": "BOTTOM"
+    },
+    "date": "2023-05-07",
+    "elevation": 100,
+    "orientation": "SE",
+    "participants": [
+      "Ambre",
+      "Nicolas ",
+      "Anne Ju",
+      "Val",
+      "Constance"
+    ],
+    "places": [
+      "Calanques"
+    ],
+    "sports": [
+      "ALPINISM",
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
