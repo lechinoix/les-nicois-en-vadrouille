@@ -4108,5 +4108,57 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "Qi8ao5zK",
+    "title": "Les trous de Buoux",
+    "cotation": null,
+    "cover": {
+      "id": "AF1QipMqFwOtff8EiLNH8O0O9AKjVV8eapg7g7QpRGoR",
+      "albumId": "AF1QipPYy07W_WgJ-wi0Fgao6RCaQ6eIeu5Bs48pDvttVf81X0g_yRW074oBGy1jrgV-uw",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/v1tlr6IZOks8NM9TVAkAx_qMZAmo3tuTYKmV4WKF7rxKR-ALtdDOsxghXyVt-Dqd152NKaXFAVs0vu3v_zFoviITy9XqyLyHr2-6GvxnpR3Al--sUrphECvWSMbbLDjNh_J3upbtknw=w4032-h3024",
+      "position": "TOP"
+    },
+    "date": "2023-04-25",
+    "elevation": null,
+    "orientation": "S",
+    "participants": [
+      "Ambre",
+      "Nicolas"
+    ],
+    "places": [],
+    "sports": [
+      "ESCALADE_COUENNE"
+    ],
+    "periods": []
   }
 ]
