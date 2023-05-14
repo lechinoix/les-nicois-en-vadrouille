@@ -4329,5 +4329,59 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "xFNviaJf",
+    "title": "Aux calanques il fait toujours beau",
+    "cotation": "TD+ 6c>6b III  P1",
+    "cover": {
+      "id": "AF1QipPBxLMApNYKQo42XCrOWL7gLLGnldYC4MCcCjHA",
+      "albumId": "AF1QipMHtx5ZDxbyXbh90MWAd1NdhtdlcgQOD1TRYVoTgL_KnG26ooGJYys5CFwPme6x0g",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/pw/AJFCJaX2QUu7YLx2kWKhjW-bRu1hJhS2Oh3rh97yWtT9Dd5kNj79Rmk7houIqolTxQ4HivQVY2i-po7zG4ZkEVxH06uVnCwtnG2x5N5IDWBbz2dS094Hxpni=w4032-h3024",
+      "position": null
+    },
+    "date": "2023-05-13",
+    "elevation": 140,
+    "orientation": "SW",
+    "participants": [
+      "Gaetan",
+      "Nicolas"
+    ],
+    "places": [
+      "Calanques"
+    ],
+    "sports": [
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
