@@ -1,8 +1,8 @@
 import type { Album, GooglePhoto, Picture, PictureFormat } from '$lib/types';
 import type { RequestHandler } from '../$types';
 import { error, json } from '@sveltejs/kit';
-import jsdom, { JSDOM } from 'jsdom';
 import { isAuthorized } from '$lib/api/auth';
+import * as cheerio from 'cheerio';
 
 export const POST: RequestHandler = async ({ request }) => {
 	if (!isAuthorized(request)) throw error(401, 'Not Authorized');
@@ -13,19 +13,27 @@ export const POST: RequestHandler = async ({ request }) => {
 	});
 	const rawHtml = await response.text();
 
-	return json(extractPhotoListFromHtml(rawHtml, body.shareLink));
+	const pictures = extractPhotoListFromHtml(rawHtml, body.shareLink);
+	return json(pictures);
 };
 
 const extractPhotoListFromHtml = (rawHtml: string, shareLink: string): Picture[] => {
-	const virtualConsole = new jsdom.VirtualConsole();
-	const { window } = new JSDOM(rawHtml, {
-		runScripts: 'dangerously',
-		virtualConsole
-	});
+	const $ = cheerio.load(rawHtml);
 
-	const { data: rawData } = window.AF_initDataChunkQueue.find(
-		({ data }: { data: any[] }) => data && data?.length > 1 && data[1]?.length > 1
-	);
+	let rawData: any;
+	const AF_initDataCallback = ({ data }: any) => {
+		rawData = data;
+	};
+
+	const scriptElement = $(`script:contains("${shareLink}")`);
+	const scriptContent = scriptElement.text();
+	eval(scriptContent);
+
+	if (!rawData) {
+		throw new Error(`Could not extract data from script: ${scriptContent.slice(0, 1000)}`);
+	}
+
+	console.log(rawData);
 
 	const rawAlbumData = rawData[3];
 	const album: Album = {

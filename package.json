@@ -56,7 +56,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"jsdom": "^20.0.3",
+		"cheerio": "^1.0.0-rc.12",
 		"lightgallery": "^2.2.1",
 		"lodash": "^4.17.21",
 		"lunr": "^2.3.9",
