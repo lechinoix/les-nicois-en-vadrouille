@@ -4730,5 +4730,65 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "BUIW981O",
+    "title": "Colonie de vacances à Sialouze",
+    "cotation": "D- 5b+>4c III  P2+",
+    "cover": {
+      "id": "AF1QipOW7TjNYpkAR_dOmARLSKbkUE7aCFRAsVVCfmRf",
+      "albumId": "AF1QipM1MGvf2I-P-3JJuPyXn_Bx2ZD4NyxFrbZmRMLfft2xIBq12DYuM8_N05gbgpR-8Q",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/pw/AIL4fc8PbqmcMa_1rXjciDW53Zpcl3Z8wngnmmFF0MoD4jWj5UijCWAuzkrQUyQQdcK7d3TylSP5yObAA4MGgvKqxbFm_xqQuU12X0xB2t6Msv8coXfMprnM=w4032-h3024",
+      "position": "RIGHT"
+    },
+    "date": "2023-07-18",
+    "elevation": 250,
+    "orientation": "E",
+    "participants": [
+      "Ambre",
+      "Nico",
+      "Arnaud",
+      "Méli",
+      "Richard",
+      "Ivann",
+      "Ben",
+      "Seb"
+    ],
+    "places": [
+      "Les Ecrins"
+    ],
+    "sports": [
+      "ALPINISM"
+    ],
+    "periods": []
   }
 ]
