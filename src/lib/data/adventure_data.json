@@ -4902,5 +4902,59 @@
       "HIKING"
     ],
     "periods": []
+  },
+  {
+    "id": "z9q4Av9X",
+    "title": "My awesome adventure",
+    "cotation": "T4",
+    "cover": {
+      "id": "AF1QipP7lrNaPSPJktS0NGJ2iWsNo4bqTmHEUapyM-7C",
+      "albumId": "AF1QipM1MGvf2I-P-3JJuPyXn_Bx2ZD4NyxFrbZmRMLfft2xIBq12DYuM8_N05gbgpR-8Q",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/pw/AIL4fc_9uHTPkNiAARRfVIIRJ4pdFGXM62GYnR_6E4zsQ9lOb_LTIr2AbRODVj1D3B19wL4H2fuz8HR5Dk5WwkAHkxO8LnDRJPX7LW-8jL9uwaOGt5TjdPUI=w4032-h3024",
+      "position": "BOTTOM"
+    },
+    "date": "2023-09-03",
+    "elevation": 1200,
+    "orientation": "NE",
+    "participants": [
+      "Ambre",
+      "Nico"
+    ],
+    "places": [
+      "Vercors"
+    ],
+    "sports": [
+      "HIKING"
+    ],
+    "periods": []
   }
 ]
