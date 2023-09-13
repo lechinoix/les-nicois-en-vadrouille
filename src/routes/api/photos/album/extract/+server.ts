@@ -3,6 +3,7 @@ import type { RequestHandler } from '../$types';
 import { error, json } from '@sveltejs/kit';
 import { isAuthorized } from '$lib/api/auth';
 import * as cheerio from 'cheerio';
+import { evaluate } from '$lib/utils/evaluate';
 
 export const POST: RequestHandler = async ({ request }) => {
 	if (!isAuthorized(request)) throw error(401, 'Not Authorized');
@@ -27,7 +28,7 @@ const extractPhotoListFromHtml = (rawHtml: string, shareLink: string): Picture[]
 
 	const scriptElement = $(`script:contains("${shareLink}")`);
 	const scriptContent = scriptElement.text();
-	eval(scriptContent);
+	evaluate(scriptContent, { AF_initDataCallback });
 
 	if (!rawData) {
 		throw new Error(`Could not extract data from script: ${scriptContent.slice(0, 1000)}`);
