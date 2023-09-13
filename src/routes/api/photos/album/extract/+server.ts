@@ -23,7 +23,9 @@ const extractPhotoListFromHtml = (rawHtml: string, shareLink: string): Picture[]
 		virtualConsole
 	});
 
-	const rawData = window.AF_initDataChunkQueue[0].data;
+	const { data: rawData } = window.AF_initDataChunkQueue.find(
+		({ data }: { data: any[] }) => data && data?.length > 1 && data[1]?.length > 1
+	);
 
 	const rawAlbumData = rawData[3];
 	const album: Album = {
