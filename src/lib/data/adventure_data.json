@@ -4663,5 +4663,72 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "HIUIruvT",
+    "title": "La belle vie au camping d'Ailefroide",
+    "cotation": "5c>5b",
+    "cover": {
+      "id": "AF1QipPRdnTM2K2kyjWzWF9x0pvd4Nvc2t8kmrehBa7B",
+      "albumId": "AF1QipM1MGvf2I-P-3JJuPyXn_Bx2ZD4NyxFrbZmRMLfft2xIBq12DYuM8_N05gbgpR-8Q",
+      "formats": {
+        "xlarge": {
+          "height": 1600,
+          "width": 1280,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w1280-h1600"
+        },
+        "large": {
+          "height": 1200,
+          "width": 960,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w960-h1200"
+        },
+        "medium": {
+          "height": 900,
+          "width": 720,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w720-h900"
+        },
+        "small": {
+          "height": 500,
+          "width": 400,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w400-h500"
+        },
+        "thumbnail": {
+          "height": 300,
+          "width": 240,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w240-h300"
+        }
+      },
+      "height": 1800,
+      "width": 1440,
+      "url": "https://lh3.googleusercontent.com/pw/AIL4fc_lNQQy_u7LFk6KB_-HvyqqZYvb6XHkb7JJA9Vja5OQuG0biiWnle3owIK3BEI7WkaNTjI6_aqnreZC6MEuziSCx9qyVVfSsshYppcjFTGwgoa_mTxi=w1440-h1800",
+      "position": null
+    },
+    "date": "2023-07-15",
+    "elevation": 250,
+    "orientation": "N",
+    "participants": [
+      "Ivann",
+      "Arnaud",
+      "Seb",
+      "Ben",
+      "Ambre",
+      "Nico",
+      "Vital",
+      "ThibaultL",
+      "Jules",
+      "Misko",
+      "Malcolm",
+      "Méli",
+      "Charles Boes",
+      "Emile",
+      "Richard"
+    ],
+    "places": [
+      "Les Ecrins"
+    ],
+    "sports": [
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
