@@ -5073,5 +5073,58 @@
       "ESCALADE_GRANDE_VOIE"
     ],
     "periods": []
+  },
+  {
+    "id": "gXfIv9nn",
+    "title": "Weekend au lac d'Annecy",
+    "cotation": "TD- 6a>5c I  P1",
+    "cover": {
+      "id": "AF1QipMJUBMVOOrNvhVoWW4fu3xiimVQuVFPqmk3lpqK",
+      "albumId": "AF1QipOzIs3hC7-25K29MNocAps5rqii5_cP5pTn_LeVKEPjaCbqMKVjJLVRLxsTFcSzTQ",
+      "formats": {
+        "xlarge": {
+          "height": 1200,
+          "width": 1600,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w1600-h1200"
+        },
+        "large": {
+          "height": 900,
+          "width": 1200,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w1200-h900"
+        },
+        "medium": {
+          "height": 675,
+          "width": 900,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w900-h675"
+        },
+        "small": {
+          "height": 375,
+          "width": 500,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w500-h375"
+        },
+        "thumbnail": {
+          "height": 225,
+          "width": 300,
+          "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w300-h225"
+        }
+      },
+      "height": 3024,
+      "width": 4032,
+      "url": "https://lh3.googleusercontent.com/pw/AIL4fc822xa2ZBY0doi70D9DbsReWWrJLAUZZfACoIZdZXWataUPX8PqPamw_1RR1YEZC403htoepf9Y-WW9fTu85JR2wkDD3tPr9m6S2gz36OgieXNImwxd=w4032-h3024",
+      "position": "LEFT"
+    },
+    "date": "2023-09-16",
+    "elevation": 350,
+    "orientation": "SE",
+    "participants": [
+      "Ambre",
+      "Nico",
+      "Anaelle "
+    ],
+    "places": [],
+    "sports": [
+      "ESCALADE_GRANDE_VOIE"
+    ],
+    "periods": []
   }
 ]
