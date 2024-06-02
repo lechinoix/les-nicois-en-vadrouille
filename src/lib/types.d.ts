@@ -8,6 +8,12 @@ export interface Locals {
 
 export type Adventure = AdventureContent & AdventureData;
 
+export enum AdventureStatus {
+	ACTIVE = 'ACTIVE',
+	ARCHIVED = 'ARCHIVED',
+	DRAFT = 'DRAFT'
+}
+
 export type AdventureContent = {
 	id: string;
 	content: string;
@@ -27,6 +33,7 @@ export type AdventureData = {
 	places: string[];
 	sports: string[];
 	periods: string[];
+	status: AdventureStatus;
 };
 
 export type Picture = {

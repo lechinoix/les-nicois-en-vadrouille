@@ -63,7 +63,7 @@ export type Database = {
             foreignKeyName: "image_format_image_id_fkey"
             columns: ["image_id"]
             isOneToOne: false
-            referencedRelation: "image_format"
+            referencedRelation: "image"
             referencedColumns: ["id"]
           },
         ]
@@ -78,6 +78,7 @@ export type Database = {
           elevation: number | null
           id: string
           orientation: string | null
+          status: string | null
           title: string | null
           topos: string[] | null
         }
@@ -90,6 +91,7 @@ export type Database = {
           elevation?: number | null
           id?: string
           orientation?: string | null
+          status?: string | null
           title?: string | null
           topos?: string[] | null
         }
@@ -102,6 +104,7 @@ export type Database = {
           elevation?: number | null
           id?: string
           orientation?: string | null
+          status?: string | null
           title?: string | null
           topos?: string[] | null
         }
