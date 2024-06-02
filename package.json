@@ -39,6 +39,7 @@
 		"autoprefixer": "^10.4.0",
 		"crypto-js": "^4.1.1",
 		"cssnano": "^5.0.12",
+		"drizzle-kit": "^0.22.1",
 		"eslint": "^8.30.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-prettier": "^4.2.1",
@@ -61,11 +62,13 @@
 	"dependencies": {
 		"@supabase/supabase-js": "^2.43.4",
 		"cheerio": "^1.0.0-rc.12",
+		"drizzle-orm": "^0.31.0",
 		"lightgallery": "^2.2.1",
 		"lodash": "^4.17.21",
 		"lunr": "^2.3.9",
 		"marked": "^3.0.8",
 		"nanoid": "^3.1.30",
+		"postgres": "^3.4.4",
 		"svelte-forms": "^2.0.7",
 		"svelty-picker": "^3.2.3"
 	},
