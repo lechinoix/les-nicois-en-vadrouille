@@ -80,6 +80,7 @@ export type Secrets = {
 	githubToken: string;
 	isLoggedIn: boolean;
 	apiKey: string;
+	supabaseServiceKey: string
 };
 
 export type GooglePhoto = {
