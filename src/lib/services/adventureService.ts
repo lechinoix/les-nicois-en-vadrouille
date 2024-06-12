@@ -1,4 +1,4 @@
-import type { Adventure, AdventureData, Picture } from '$lib/types';
+import type { Adventure, Picture } from '$lib/types';
 import { slugify } from '$lib/utils/string';
 import { ROUTES } from '$lib/config/routes';
 import { gql } from '@apollo/client';
@@ -186,7 +186,7 @@ export const getAdventureById = async (adventureId: string): Promise<Adventure> 
 	return fromGraphQL(outing);
 };
 
-export const getAdventureDataBySportSlug = async (sportSlug: string): Promise<AdventureData[]> => {
+export const getAdventureBySportSlug = async (sportSlug: string): Promise<Adventure[]> => {
 	const response = await graphqlClient<GetSportOutingsQuery>(GET_OUTINGS_BY_SPORT, {
 		variables: { sportSlug }
 	});
@@ -198,7 +198,7 @@ export const getAdventureDataBySportSlug = async (sportSlug: string): Promise<Ad
 	) ?? [];
 };
 
-export const getCoverPicture = (adventure: AdventureData): Picture | null =>
+export const getCoverPicture = (adventure: Adventure): Picture | null =>
 	adventure.cover ? adventure.cover : null;
 
 export const getAdventurePageUrl = (adventure: Adventure) =>

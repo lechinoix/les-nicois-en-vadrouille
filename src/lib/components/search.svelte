@@ -11,7 +11,7 @@
 	let results: Adventure[];
 
 	const searchForTerm = async (queryTerm: string) => {
-		results = search(queryTerm).map(({ ref }) => getAdventureById(ref));
+		results = await Promise.all(search(queryTerm).map(async ({ ref }) => getAdventureById(ref)));
 	};
 
 	$: {

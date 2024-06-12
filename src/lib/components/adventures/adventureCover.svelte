@@ -3,7 +3,7 @@
 	import LargeCover from '../coverPicture/largeCover.svelte';
 	import HomeCover from '../coverPicture/homeCover.svelte';
 	import SmallCover from '../coverPicture/smallCover.svelte';
-	import type { AdventureData, Picture } from '$lib/types';
+	import type { Adventure, Picture } from '$lib/types';
 	import { getAdventurePageUrl, getCoverPicture } from '$lib/services/adventureService';
 
 	const mapTypeToComponent = {
@@ -12,7 +12,7 @@
 		[CoverTypes.SMALL]: SmallCover
 	};
 
-	export let adventure: AdventureData;
+	export let adventure: Adventure;
 	export let coverType: CoverTypes = CoverTypes.LARGE;
 	export let onClick: (() => void) | null = null;
 
