@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { AdventureData, Sport } from '$lib/types';
+	import type { Adventure, Sport } from '$lib/types';
 	import AdventureCover from '$lib/components/adventures/adventureCover.svelte';
 	import { CoverTypes, PicturePosition } from '$lib/constants';
 	import LargeCover from '$lib/components/coverPicture/largeCover.svelte';
@@ -10,10 +10,7 @@
 	export let data: PageData;
 
 	$: sportTiles = getAdventureDataBySportSlug(data.sport.slug)
-		.sort(
-			(a: AdventureData, b: AdventureData) =>
-				new Date(b.date).getTime() - new Date(a.date).getTime()
-		)
+		.sort((a: Adventure, b: Adventure) => new Date(b.date).getTime() - new Date(a.date).getTime())
 		.map((adventure) => ({
 			component: AdventureCover,
 			props: { adventure, coverType: CoverTypes.SMALL },

@@ -4,10 +4,10 @@ import type { Adventure } from '$lib/types';
 import type { PageLoad } from './$types';
 
 export const ssr = false;
-export const load: PageLoad = ({ params: { adventureId } }) => {
+export const load: PageLoad = async ({ params: { adventureId } }) => {
 	let adventure: Adventure;
 	try {
-		adventure = getAdventureById(adventureId);
+		adventure = await getAdventureById(adventureId);
 	} catch {
 		adventure = newAdventure(adventureId);
 	}

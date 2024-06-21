@@ -24,7 +24,7 @@
 					tabindex="-1"
 				>
 					<div class="w-7 h-7 rounded-full border border-gray-300 p-1 flex justify-center mr-2">
-						<PictoSport sport={sport.slug} fill={iconFillColor} />
+						<PictoSport sportSlug={sport.slug} fill={iconFillColor} />
 					</div>
 					<p>{sport.name}</p>
 				</a>

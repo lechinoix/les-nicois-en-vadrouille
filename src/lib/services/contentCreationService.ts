@@ -1,17 +1,9 @@
-import type { Adventure, AdventureContent, AdventureData } from '$lib/types';
-import { adventuresData, adventuresContent } from '$lib/services/adventureService';
-import { modifyFileOnGithub } from './githubService';
+import type { Adventure } from '$lib/types';
 import { generateId } from '$lib/utils/idGenerator';
-import {
-	adventureContentFromAdventure,
-	adventureDataFromAdventure,
-	newAdventure
-} from '$lib/data/generators/adventure';
+import { newAdventure } from '$lib/data/generators/adventure';
 import startsWith from 'lodash/startsWith';
+import { saveNewAdventure } from './adventureCreationService';
 
-const dataFolderPath = 'src/lib/data';
-const adventureDataPath = `${dataFolderPath}/adventure_data.json`;
-const adventureContentPath = `${dataFolderPath}/adventure_content.json`;
 const DRAFT_PREFIX = 'draft-';
 
 export const getAllDrafts = (): Adventure[] => {
@@ -50,25 +42,6 @@ export const clearDraft = (contentId: string): void => {
 
 const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
 
-const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] => [
-	...adventuresData.filter(({ id }) => id !== newAdventure.id),
-	adventureDataFromAdventure(newAdventure)
-];
-
-const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] => [
-	...adventuresContent.filter(({ id }) => id !== newAdventure.id),
-	adventureContentFromAdventure(newAdventure)
-];
-
 export const publishContent = async (adventure: Adventure) => {
-	await modifyFileOnGithub(
-		`Update adventure ${adventure.id} Data`,
-		adventureDataPath,
-		JSON.stringify(getUpdatedAdventureData(adventure), null, 2)
-	);
-	await modifyFileOnGithub(
-		`Update adventure ${adventure.id} Content`,
-		adventureContentPath,
-		JSON.stringify(getUpdatedAdventureContent(adventure), null, 2)
-	);
+	return saveNewAdventure(adventure);
 };
