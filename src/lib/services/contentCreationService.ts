@@ -6,7 +6,6 @@ import type {
 	PictureFormat
 } from '$lib/types';
 import { adventuresData, adventuresContent } from '$lib/services/adventureService';
-import { modifyFileOnGithub } from './githubService';
 import { generateId } from '$lib/utils/idGenerator';
 import {
 	adventureContentFromAdventure,
@@ -16,10 +15,8 @@ import {
 import startsWith from 'lodash/startsWith';
 import { getResizedImageUrl, uploadImage } from './cloudinary.service';
 import mapValues from 'lodash/mapValues';
+import { uploadVersionedFile } from './s3Service';
 
-const dataFolderPath = 'src/lib/data';
-const adventureDataPath = `${dataFolderPath}/adventure_data.json`;
-const adventureContentPath = `${dataFolderPath}/adventure_content.json`;
 const DRAFT_PREFIX = 'draft-';
 
 export const getAllDrafts = (): Adventure[] => {
@@ -70,16 +67,9 @@ const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[]
 
 export const publishContent = async (adventure: Adventure) => {
 	const updatedAdventure = await replaceImageWithCloudinary(adventure);
-	await modifyFileOnGithub(
-		`Update adventure ${adventure.id} Data`,
-		adventureDataPath,
-		JSON.stringify(getUpdatedAdventureData(updatedAdventure), null, 2)
-	);
-	await modifyFileOnGithub(
-		`Update adventure ${adventure.id} Content`,
-		adventureContentPath,
-		JSON.stringify(getUpdatedAdventureContent(updatedAdventure), null, 2)
-	);
+	uploadVersionedFile('adventure-data.json', JSON.stringify(getUpdatedAdventureData(updatedAdventure), null, 2))
+	uploadVersionedFile('adventure-content.json', JSON.stringify(getUpdatedAdventureContent(updatedAdventure), null, 2))
+	
 };
 
 export const replaceImageWithCloudinary = async (adventure: Adventure): Promise<Adventure> => {
