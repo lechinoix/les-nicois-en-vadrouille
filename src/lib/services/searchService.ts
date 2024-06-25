@@ -1,6 +1,6 @@
 import { searchDocumentFromAdventure } from '$lib/data/generators/adventure';
 import lunr from 'lunr';
-import { adventures } from './adventureService';
+import { getAllAdventures } from './adventureService';
 
 let index: lunr.Index;
 
@@ -9,7 +9,8 @@ export type SearchResult = {
 	ref: string;
 };
 
-export const initSearch = () => {
+export const initSearch = async () => {
+	const adventures = await getAllAdventures();
 	index = lunr(function () {
 		this.ref('id');
 		this.field('content');

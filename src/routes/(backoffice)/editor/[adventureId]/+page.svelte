@@ -109,6 +109,14 @@
 		};
 	};
 
+	const unselectPicture = ({ detail: { pictureId } }: any) => {
+		// @ts-ignore
+		currentVersion = {
+			...currentVersion,
+			pictures: currentVersion.pictures.filter((picture) => picture.id !== pictureId)
+		};
+	};
+
 	onMount(async () => {
 		const ongoingDraft = getDraft(data.adventureId);
 		if (ongoingDraft) {
@@ -220,6 +228,7 @@
 				pictures={currentVersion.pictures ?? []}
 				selectedPictures={[currentVersion.cover?.id ?? '']}
 				on:clickPicture={changeCover}
+				on:unselectPicture={unselectPicture}
 			/>
 			<div class="mt-5">
 				<p class="text-md mb-2">Content</p>

@@ -11,7 +11,8 @@ import type {
 } from '$lib/types';
 import mapValues from 'lodash/mapValues';
 import { getResizedImageUrl, uploadImage } from './cloudinary.service';
-import { uploadVersionedFile } from './s3Service';
+import { uploadVersionedFile } from '../s3/backend';
+import { ADVENTURE_TYPE } from '../s3/shared';
 import { getAdventuresContent, getAdventuresData } from '../adventureService';
 
 const getUpdatedAdventureData = async (newAdventure: Adventure): Promise<AdventureData[]> => [
@@ -27,25 +28,30 @@ const getUpdatedAdventureContent = async (newAdventure: Adventure): Promise<Adve
 export const publishContent = async (adventure: Adventure) => {
 	const updatedAdventure = await replaceImageWithCloudinary(adventure);
 	uploadVersionedFile(
-		'adventure-data',
+		ADVENTURE_TYPE.DATA,
 		JSON.stringify(await getUpdatedAdventureData(updatedAdventure), null, 2)
 	);
 	uploadVersionedFile(
-		'adventure-content',
+		ADVENTURE_TYPE.CONTENT,
 		JSON.stringify(await getUpdatedAdventureContent(updatedAdventure), null, 2)
 	);
 };
 
 export const replaceImageWithCloudinary = async (adventure: Adventure): Promise<Adventure> => {
+	const coverPosition = adventure.pictures.findIndex(
+		(picture) => picture.id === adventure.cover?.id
+	);
+	const newImages = await Promise.all(adventure.pictures.map(createCloudinaryImageWithFormats));
 	return {
 		...adventure,
-		pictures: await Promise.all(adventure.pictures.map(createCloudinaryImageWithFormats)),
-		cover: adventure.cover
-			? {
-					...(await createCloudinaryImageWithFormats(adventure.cover)),
-					position: adventure.cover?.position
-			  }
-			: null
+		pictures: newImages,
+		cover:
+			coverPosition !== -1
+				? {
+						...newImages[coverPosition],
+						position: adventure.cover?.position ?? 'CENTER'
+				  }
+				: null
 	};
 };
 

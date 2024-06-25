@@ -2,43 +2,42 @@ import merge from 'lodash/merge';
 import keyBy from 'lodash/keyBy';
 import values from 'lodash/values';
 import type { Adventure, AdventureData, AdventureContent, Picture } from '$lib/types';
-import rawAdventuresData from '$lib/data/adventure_data.json';
-import rawAdventuresContent from '$lib/data/adventure_content.json';
 import { slugify } from '$lib/utils/string';
 import { ROUTES } from '$lib/config/routes';
+import { getHead } from './s3/frontend';
+import { ADVENTURE_TYPE } from './s3/shared';
 
-// eslint-disable-next-line
-// @ts-ignore
-export const adventuresData: AdventureData[] = rawAdventuresData;
-// eslint-disable-next-line
-// @ts-ignore
-export const adventuresContent: AdventureContent[] = rawAdventuresContent;
+export const getAdventuresContent = async () =>
+	(await getHead(ADVENTURE_TYPE.CONTENT)) as AdventureContent[];
+export const getAdventuresData = async () =>
+	(await getHead(ADVENTURE_TYPE.DATA)) as AdventureData[];
 
-export const getAdventuresContent = async () => adventuresContent;
-export const getAdventuresData = async () => adventuresData;
+export const getAllAdventures = async (): Promise<Adventure[]> => {
+	const adventuresData = await getAdventuresData();
+	const adventuresContent = await getAdventuresContent();
 
-export const adventures: Adventure[] = values(
-	merge({}, keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
-);
+	return values(merge({}, keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id')));
+};
 
-export const getAllAdventures = (): Adventure[] => adventures;
-
-export const getAdventuresDone = (): Adventure[] => {
+export const getAdventuresDone = async (): Promise<Adventure[]> => {
+	const adventures = await getAllAdventures();
 	return adventures.sort(function (a, b) {
 		return new Date(b.date).getTime() - new Date(a.date).getTime();
 	});
 };
 
-export const getLatestAdventures = (): Adventure[] => {
-	const adventures = getAdventuresDone();
+export const getLatestAdventures = async (): Promise<Adventure[]> => {
+	const adventures = await getAdventuresDone();
 	return adventures.slice(0, 3);
 };
 
-export const getAdventureById = (adventureId: string): Adventure => {
-	const adventureContent = adventuresContent.find(
+export const getAdventureById = async (adventureId: string): Promise<Adventure> => {
+	const adventureContent = (await getAdventuresContent()).find(
 		(adventureContent) => adventureContent.id === adventureId
 	);
-	const adventureData = adventuresData.find((adventureData) => adventureData.id === adventureId);
+	const adventureData = (await getAdventuresData()).find(
+		(adventureData) => adventureData.id === adventureId
+	);
 	if (!adventureData || !adventureContent) throw new Error('Could not find adventure');
 	return {
 		...adventureContent,
@@ -46,8 +45,10 @@ export const getAdventureById = (adventureId: string): Adventure => {
 	};
 };
 
-export const getAdventureDataBySportSlug = (sportSlug: string): AdventureData[] => {
-	return adventuresData.filter((adventureData) => adventureData.sports?.includes(sportSlug));
+export const getAdventureDataBySportSlug = async (sportSlug: string): Promise<AdventureData[]> => {
+	return (await getAdventuresData()).filter((adventureData) =>
+		adventureData.sports?.includes(sportSlug)
+	);
 };
 
 export const getCoverPicture = (adventure: AdventureData): Picture | null =>

@@ -7,6 +7,7 @@ import {
 import { PASSWORD } from '$env/static/private';
 import { getSecretsWithPassword } from '../secretsService';
 import dayjs from 'dayjs';
+import { bucketName, dataFolder, headFileName, type ADVENTURE_TYPE } from './shared';
 
 const client = new S3Client({
 	credentials: {
@@ -15,15 +16,12 @@ const client = new S3Client({
 	}
 });
 
-const dataFolder = 'data';
-const bucketName = 'lesnicoisenvadrouille';
-const mainFileName = 'head.json';
 // const maxVersionAgeInDays = 10;
 // const minVersionCount = 10;
 
-export const uploadVersionedFile = async (folderName: string, rawContent: string) => {
+export const uploadVersionedFile = async (folderName: ADVENTURE_TYPE, rawContent: string) => {
 	// await cleanOldVersions(folderName);
-	await uploadFile(`${dataFolder}/${folderName}/${mainFileName}`, rawContent);
+	await uploadFile(`${dataFolder}/${folderName}/${headFileName}`, rawContent);
 	await uploadFile(
 		`${dataFolder}/${folderName}/${dayjs().format('YYYYDDMM_HHmmss')}.json`,
 		rawContent
@@ -59,7 +57,8 @@ const uploadFile = async (fileName: string, content: string) =>
 		new PutObjectCommand({
 			Bucket: bucketName,
 			Key: fileName,
-			Body: content
+			Body: content,
+			ContentType: 'application/json'
 		})
 	);
 

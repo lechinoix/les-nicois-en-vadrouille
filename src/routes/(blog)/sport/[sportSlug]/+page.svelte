@@ -8,17 +8,24 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	let sportTiles: { component: any; props: {}; key: string }[] = [];
 
-	$: sportTiles = getAdventureDataBySportSlug(data.sport.slug)
-		.sort(
-			(a: AdventureData, b: AdventureData) =>
-				new Date(b.date).getTime() - new Date(a.date).getTime()
-		)
-		.map((adventure) => ({
-			component: AdventureCover,
-			props: { adventure, coverType: CoverTypes.SMALL },
-			key: `${adventure.id}`
-		}));
+	const getSportTiles = async () => {
+		sportTiles = (await getAdventureDataBySportSlug(data.sport.slug))
+			.sort(
+				(a: AdventureData, b: AdventureData) =>
+					new Date(b.date).getTime() - new Date(a.date).getTime()
+			)
+			.map((adventure) => ({
+				component: AdventureCover,
+				props: { adventure, coverType: CoverTypes.SMALL },
+				key: `${adventure.id}`
+			}));
+	};
+
+	$: {
+		getSportTiles();
+	}
 </script>
 
 <svelte:head>

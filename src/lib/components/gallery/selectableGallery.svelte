@@ -10,6 +10,10 @@
 		dispatch('clickPicture', { pictureId });
 	};
 
+	const unselectPicture = (pictureId: string | number) => {
+		dispatch('unselectPicture', { pictureId });
+	};
+
 	const copyImageUrl = async (picture: Picture) => {
 		const isLandscape = picture.width > picture.height;
 		await navigator.clipboard.writeText(isLandscape ? picture.formats.xlarge.url : picture.url);
@@ -39,18 +43,26 @@
 				{#if selectedPictures.includes(picture.id)}
 					<div class="absolute h-full w-full opacity-30 bg-blue-500" />
 				{/if}
-				<div class="absolute bottom-1 w-full">
+				<div class="absolute flex bottom-1 w-full justify-between">
 					{#if selectedPictures.includes(picture.id)}
-						<span class="absolute left-0 bottom-0 ml-2 material-icons text-lg text-white">
-							check_circle
-						</span>
+						<span class="ml-2 material-icons text-lg text-white"> check_circle </span>
 					{/if}
-					<button
-						class="absolute right-0 bottom-0 mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
-						on:click|stopPropagation={() => copyImageUrl(picture)}
-					>
-						{copiedPictureId === picture.id ? 'check' : 'content_copy'}
-					</button>
+					<div class="flex">
+						<button
+							class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
+							on:click|stopPropagation={() => copyImageUrl(picture)}
+						>
+							{copiedPictureId === picture.id ? 'check' : 'content_copy'}
+						</button>
+						{#if selectedPictures.includes(picture.id)}
+							<button
+								class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
+								on:click|stopPropagation={() => unselectPicture(picture.id)}
+							>
+								close
+							</button>
+						{/if}
+					</div>
 				</div>
 				<img src={picture.formats.small.url} class="h-full object-contain" />
 			</button>

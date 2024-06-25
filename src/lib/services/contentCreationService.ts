@@ -3,6 +3,7 @@ import { generateId } from '$lib/utils/idGenerator';
 import { newAdventure } from '$lib/data/generators/adventure';
 import startsWith from 'lodash/startsWith';
 import { createApiClient } from './apiService';
+import { goto } from '$app/navigation';
 
 const DRAFT_PREFIX = 'draft-';
 
@@ -52,4 +53,7 @@ export const publishContent = async (adventure: Adventure) => {
 			adventure
 		}
 	});
+
+	clearDraft(adventure.id);
+	goto(`/editor/${adventure.id}`);
 };
