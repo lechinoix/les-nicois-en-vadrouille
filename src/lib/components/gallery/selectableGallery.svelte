@@ -46,8 +46,10 @@
 				<div class="absolute flex bottom-1 w-full justify-between">
 					{#if selectedPictures.includes(picture.id)}
 						<span class="ml-2 material-icons text-lg text-white"> check_circle </span>
+					{:else}
+						<span />
 					{/if}
-					<div class="flex">
+					<div class="flex ">
 						<button
 							class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
 							on:click|stopPropagation={() => copyImageUrl(picture)}
