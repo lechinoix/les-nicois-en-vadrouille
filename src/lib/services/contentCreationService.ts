@@ -1,21 +1,8 @@
-import type {
-	Adventure,
-	AdventureContent,
-	AdventureData,
-	Picture,
-	PictureFormat
-} from '$lib/types';
-import { adventuresData, adventuresContent } from '$lib/services/adventureService';
+import type { Adventure } from '$lib/types';
 import { generateId } from '$lib/utils/idGenerator';
-import {
-	adventureContentFromAdventure,
-	adventureDataFromAdventure,
-	newAdventure
-} from '$lib/data/generators/adventure';
+import { newAdventure } from '$lib/data/generators/adventure';
 import startsWith from 'lodash/startsWith';
-import { getResizedImageUrl, uploadImage } from './cloudinary.service';
-import mapValues from 'lodash/mapValues';
-import { uploadVersionedFile } from './s3Service';
+import { createApiClient } from './apiService';
 
 const DRAFT_PREFIX = 'draft-';
 
@@ -55,51 +42,14 @@ export const clearDraft = (contentId: string): void => {
 
 const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
 
-const getUpdatedAdventureData = (newAdventure: Adventure): AdventureData[] => [
-	...adventuresData.filter(({ id }) => id !== newAdventure.id),
-	adventureDataFromAdventure(newAdventure)
-];
-
-const getUpdatedAdventureContent = (newAdventure: Adventure): AdventureContent[] => [
-	...adventuresContent.filter(({ id }) => id !== newAdventure.id),
-	adventureContentFromAdventure(newAdventure)
-];
-
 export const publishContent = async (adventure: Adventure) => {
-	const updatedAdventure = await replaceImageWithCloudinary(adventure);
-	uploadVersionedFile('adventure-data.json', JSON.stringify(getUpdatedAdventureData(updatedAdventure), null, 2))
-	uploadVersionedFile('adventure-content.json', JSON.stringify(getUpdatedAdventureContent(updatedAdventure), null, 2))
-	
-};
+	const apiClient = createApiClient();
 
-export const replaceImageWithCloudinary = async (adventure: Adventure): Promise<Adventure> => {
-	return {
-		...adventure,
-		pictures: await Promise.all(adventure.pictures.map(createCloudinaryImageWithFormats)),
-		cover: adventure.cover
-			? {
-					...(await createCloudinaryImageWithFormats(adventure.cover)),
-					position: adventure.cover?.position
-			  }
-			: null
-	};
-};
-
-const createCloudinaryImageWithFormats = async (picture: Picture): Promise<Picture> => {
-	if (picture.url.includes('cloudinary')) return picture;
-
-	const response = await uploadImage(picture.url);
-
-	return {
-		albumId: picture.albumId,
-		id: response.public_id,
-		url: response.url,
-		width: response.width,
-		height: response.height,
-		formats: mapValues(picture.formats, (format: PictureFormat) => ({
-			url: getResizedImageUrl(response.public_id, format.width, format.height),
-			height: format.height,
-			width: format.width
-		}))
-	};
+	await apiClient<{ adventure: Adventure }>({
+		url: `/api/adventure`,
+		method: 'PUT',
+		data: {
+			adventure
+		}
+	});
 };

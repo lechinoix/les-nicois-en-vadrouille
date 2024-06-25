@@ -1,21 +1,20 @@
 import type { Album, Picture } from '$lib/types';
 import rawAlbums from '$lib/data/albums.json';
-import { getSecrets } from './secretsService';
+import { createApiClient } from './apiService';
 
 const albums = rawAlbums as Album[];
 
 export const getPhotosFromShareLink = async (shareLink: string): Promise<Picture[]> => {
-	const response = await fetch(`/api/photos/album/extract`, {
+	const apiClient = createApiClient();
+	const response = await apiClient<{ shareLink: string }>({
+		url: `/api/photos/album/extract`,
 		method: 'POST',
-		headers: {
-			Authorization: `Bearer ${getSecrets().apiKey}`
-		},
-		body: JSON.stringify({
+		data: {
 			shareLink
-		})
+		}
 	});
 
-	return await response.json();
+	return response.data as Picture[];
 };
 
 export const getAllAlbums = (): Album[] => {

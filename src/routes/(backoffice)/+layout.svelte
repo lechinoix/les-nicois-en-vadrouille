@@ -2,7 +2,7 @@
 	import Container from '$lib/components/container.svelte';
 	import Input from '$lib/components/form/input.svelte';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
-	import { checkIsLoggedIn, getSecrets, setPassword } from '$lib/services/secretsService';
+	import { checkIsLoggedIn, setPassword } from '$lib/services/secretsService';
 
 	let isLoggedIn: boolean;
 	let password: string = '';

@@ -14,6 +14,9 @@ export const adventuresData: AdventureData[] = rawAdventuresData;
 // @ts-ignore
 export const adventuresContent: AdventureContent[] = rawAdventuresContent;
 
+export const getAdventuresContent = async () => adventuresContent;
+export const getAdventuresData = async () => adventuresData;
+
 export const adventures: Adventure[] = values(
 	merge({}, keyBy(adventuresData, 'id'), keyBy(adventuresContent, 'id'))
 );
@@ -50,4 +53,5 @@ export const getAdventureDataBySportSlug = (sportSlug: string): AdventureData[] 
 export const getCoverPicture = (adventure: AdventureData): Picture | null =>
 	adventure.cover ? adventure.cover : null;
 
-export const getAdventurePageUrl = (adventure: Adventure) => `${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`
+export const getAdventurePageUrl = (adventure: Adventure) =>
+	`${ROUTES.ADVENTURES.BY_ID}${adventure.id}_${slugify(adventure.title)}`;
