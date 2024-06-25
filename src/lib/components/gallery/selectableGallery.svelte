@@ -22,6 +22,7 @@
 
 	export let selectedPictures: (string | number)[];
 	export let pictures: Picture[] = [];
+	export let shouldShowDelete = false;
 
 	$: {
 		console.log(`Copied picture: ${copiedPictureId}`);
@@ -56,12 +57,14 @@
 						>
 							{copiedPictureId === picture.id ? 'check' : 'content_copy'}
 						</button>
-						<button
-							class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
-							on:click|stopPropagation={() => unselectPicture(picture.id)}
-						>
-							close
-						</button>
+						{#if shouldShowDelete}
+							<button
+								class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
+								on:click|stopPropagation={() => unselectPicture(picture.id)}
+							>
+								close
+							</button>
+						{/if}
 					</div>
 				</div>
 				<img src={picture.formats.small.url} class="h-full object-contain" />

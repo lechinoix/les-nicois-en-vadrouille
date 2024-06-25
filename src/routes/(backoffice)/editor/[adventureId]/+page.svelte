@@ -227,6 +227,7 @@
 			<SelectableGallery
 				pictures={currentVersion.pictures ?? []}
 				selectedPictures={[currentVersion.cover?.id ?? '']}
+				shouldShowDelete
 				on:clickPicture={changeCover}
 				on:unselectPicture={unselectPicture}
 			/>

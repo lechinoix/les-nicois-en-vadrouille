@@ -52,7 +52,6 @@
 		pictures={adventurePictures ?? []}
 		{selectedPictures}
 		on:clickPicture={togglePictureHandler}
-		on:unselectPicture={togglePictureHandler}
 	/>
 	<div class="flex flex-row ">
 		<div class="w-full flex flex-col">
@@ -83,7 +82,6 @@
 				pictures={albumPictures}
 				{selectedPictures}
 				on:clickPicture={togglePictureHandler}
-				on:unselectPicture={togglePictureHandler}
 			/>
 		{:else}
 			<div class="h-full w-full flex justify-start items-center">Loading</div>
