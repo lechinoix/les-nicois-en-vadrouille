@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { bucketName, dataFolder, headFileName, type ADVENTURE_TYPE } from './shared';
 
 const client = new S3Client({
+	region: 'eu-west-3',
 	credentials: {
 		accessKeyId: 'AKIASQWYB6E6EEXO4MEO',
 		secretAccessKey: getSecretsWithPassword(PASSWORD).s3SecretKey
