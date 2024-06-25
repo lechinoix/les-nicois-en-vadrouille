@@ -27,14 +27,16 @@ const getUpdatedAdventureContent = async (newAdventure: Adventure): Promise<Adve
 
 export const publishContent = async (adventure: Adventure) => {
 	const updatedAdventure = await replaceImageWithCloudinary(adventure);
-	uploadVersionedFile(
-		ADVENTURE_TYPE.DATA,
-		JSON.stringify(await getUpdatedAdventureData(updatedAdventure), null, 2)
-	);
-	uploadVersionedFile(
-		ADVENTURE_TYPE.CONTENT,
-		JSON.stringify(await getUpdatedAdventureContent(updatedAdventure), null, 2)
-	);
+	await Promise.all([
+		uploadVersionedFile(
+			ADVENTURE_TYPE.DATA,
+			JSON.stringify(await getUpdatedAdventureData(updatedAdventure), null, 2)
+		),
+		uploadVersionedFile(
+			ADVENTURE_TYPE.CONTENT,
+			JSON.stringify(await getUpdatedAdventureContent(updatedAdventure), null, 2)
+		)
+	]);
 };
 
 export const replaceImageWithCloudinary = async (adventure: Adventure): Promise<Adventure> => {
