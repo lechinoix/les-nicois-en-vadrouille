@@ -54,14 +54,12 @@
 						>
 							{copiedPictureId === picture.id ? 'check' : 'content_copy'}
 						</button>
-						{#if selectedPictures.includes(picture.id)}
-							<button
-								class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
-								on:click|stopPropagation={() => unselectPicture(picture.id)}
-							>
-								close
-							</button>
-						{/if}
+						<button
+							class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
+							on:click|stopPropagation={() => unselectPicture(picture.id)}
+						>
+							close
+						</button>
 					</div>
 				</div>
 				<img src={picture.formats.small.url} class="h-full object-contain" />
