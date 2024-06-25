@@ -5,7 +5,8 @@ import { PASSWORD } from '$env/static/private';
 cloudinary.config({
 	cloud_name: 'dowsxscl0',
 	api_key: '813868563263764',
-	api_secret: getSecretsWithPassword(PASSWORD).cloudinarySecretKey
+	api_secret: getSecretsWithPassword(PASSWORD).cloudinarySecretKey,
+	secure: true
 });
 
 export const uploadImage = async (url: string) => {
