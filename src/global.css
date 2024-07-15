@@ -13,8 +13,12 @@
 		@apply text-2xl mt-4 mb-2 font-normal;
 	}
 
-	.cms-content > ul {
-		@apply my-6 ml-6 list-inside list-disc;
+	.cms-content ul {
+		@apply my-2 ml-6 list-disc;
+	}
+
+	.cms-content li {
+		@apply pl-2
 	}
 
 	.cms-content img {
