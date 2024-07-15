@@ -109,7 +109,7 @@
 		};
 	};
 
-	const unselectPicture = ({ detail: { pictureId } }: any) => {
+	const deletePicture = ({ detail: { pictureId } }: any) => {
 		// @ts-ignore
 		currentVersion = {
 			...currentVersion,
@@ -223,13 +223,14 @@
 					bind:value={currentVersion.cover.position}
 				/>
 			{/if}
-			<LinkButton class="my-2" onClick={openModal}>Modify pictures</LinkButton>
+			<LinkButton class="my-2" onClick={openModal}>Add pictures</LinkButton>
 			<SelectableGallery
 				pictures={currentVersion.pictures ?? []}
 				selectedPictures={[currentVersion.cover?.id ?? '']}
 				shouldShowDelete
+				shouldShowCopyButton
 				on:clickPicture={changeCover}
-				on:unselectPicture={unselectPicture}
+				on:deletePicture={deletePicture}
 			/>
 			<div class="mt-5">
 				<p class="text-md mb-2">Content</p>

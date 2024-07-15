@@ -1,4 +1,4 @@
-import type { Adventure } from '$lib/types';
+import type { Adventure, Picture } from '$lib/types';
 import { generateId } from '$lib/utils/idGenerator';
 import { newAdventure } from '$lib/data/generators/adventure';
 import startsWith from 'lodash/startsWith';
@@ -42,6 +42,19 @@ export const clearDraft = (contentId: string): void => {
 };
 
 const draftKeyFromId = (contentId: string) => `${DRAFT_PREFIX}${contentId}`;
+
+export const importPicture = async (picture: Picture) => {
+	const apiClient = createApiClient();
+	const response = await apiClient<{ picture: Picture }>({
+		url: `/api/picture`,
+		method: 'POST',
+		data: {
+			picture
+		}
+	});
+
+	return response.data as Picture;
+};
 
 export const publishContent = async (adventure: Adventure) => {
 	const apiClient = createApiClient();

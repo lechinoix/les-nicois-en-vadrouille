@@ -28,7 +28,7 @@ export const getAdventuresDone = async (): Promise<Adventure[]> => {
 
 export const getLatestAdventures = async (): Promise<Adventure[]> => {
 	const adventures = await getAdventuresDone();
-	return adventures.slice(0, 3);
+	return adventures.slice(0, 4);
 };
 
 export const getAdventureById = async (adventureId: string): Promise<Adventure> => {

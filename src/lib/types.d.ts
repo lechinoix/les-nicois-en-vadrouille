@@ -39,6 +39,7 @@ export type Picture = {
 	};
 	id: number | string;
 	albumId: string;
+	gPhotoId?: string;
 } & PictureFormat;
 
 export type Album = {

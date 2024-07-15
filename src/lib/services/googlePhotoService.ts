@@ -7,7 +7,7 @@ const albums = rawAlbums as Album[];
 export const getPhotosFromShareLink = async (shareLink: string): Promise<Picture[]> => {
 	const apiClient = createApiClient();
 	const response = await apiClient<{ shareLink: string }>({
-		url: `/api/photos/album/extract`,
+		url: `/api/picture/album/extract`,
 		method: 'POST',
 		data: {
 			shareLink

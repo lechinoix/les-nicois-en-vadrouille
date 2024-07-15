@@ -3,9 +3,9 @@
 	import SelectableGallery from '$lib/components/gallery/selectableGallery.svelte';
 	import Modal from '$lib/components/modal.svelte';
 	import LinkButton from '$lib/components/ui/linkButton.svelte';
+	import { importPicture } from '$lib/services/contentCreationService';
 	import { getAllAlbums, getPhotosFromShareLink } from '$lib/services/googlePhotoService';
 	import type { Picture } from '$lib/types';
-	import uniqBy from 'lodash/uniqBy';
 
 	export let closeModal: () => void;
 	export let adventurePictures: Picture[] | null;
@@ -14,6 +14,7 @@
 	let albumPictures: Picture[] = [];
 	let newAlbumLink: string;
 	let isLoading: boolean = false;
+	let isSubmitting: boolean = false;
 
 	const getAlbumPictures = async (albumLink: string) => {
 		try {
@@ -35,25 +36,31 @@
 		}
 	};
 
-	const validatePictures = () => {
-		adventurePictures = uniqBy(
-			[
-				...(adventurePictures?.filter((picture) => selectedPictures.includes(picture.id)) ?? []),
-				...albumPictures.filter((picture) => selectedPictures.includes(picture.id))
-			],
-			(picture) => picture.id
-		);
-		closeModal();
+	const validatePictures = async () => {
+		try {
+			isSubmitting = true;
+			const newPictures = selectedPictures
+				.map(
+					(pictureId) =>
+						albumPictures.find((albumPicture) => albumPicture.id === pictureId) as Picture
+				)
+				.filter(
+					(picture) =>
+						!adventurePictures?.some(
+							(existingPicture) => existingPicture.gPhotoId === picture?.gPhotoId
+						)
+				);
+			const importedPictures = await Promise.all(newPictures.map(importPicture));
+			adventurePictures = [...(adventurePictures ?? []), ...importedPictures];
+			closeModal();
+		} finally {
+			isSubmitting = false;
+		}
 	};
 </script>
 
 <Modal on:close={closeModal}>
-	<SelectableGallery
-		pictures={adventurePictures ?? []}
-		{selectedPictures}
-		on:clickPicture={togglePictureHandler}
-	/>
-	<div class="flex flex-row ">
+	<div class="flex flex-row">
 		<div class="w-full flex flex-col">
 			<p class="text-md mt-2">Saved albums</p>
 			<div class="my-2 flex flex-row flex-wrap">
@@ -87,5 +94,11 @@
 			<div class="h-full w-full flex justify-start items-center">Loading</div>
 		{/if}
 	</div>
-	<LinkButton class="my-2" onClick={validatePictures}>Submit</LinkButton>
+	<LinkButton class="my-2" onClick={validatePictures}>
+		{#if isSubmitting}
+			Loading...
+		{:else}
+			Submit
+		{/if}
+	</LinkButton>
 </Modal>

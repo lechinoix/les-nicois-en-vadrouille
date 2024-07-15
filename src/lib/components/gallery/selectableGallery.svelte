@@ -10,8 +10,8 @@
 		dispatch('clickPicture', { pictureId });
 	};
 
-	const unselectPicture = (pictureId: string | number) => {
-		dispatch('unselectPicture', { pictureId });
+	const deletePicture = (pictureId: string | number) => {
+		dispatch('deletePicture', { pictureId });
 	};
 
 	const copyImageUrl = async (picture: Picture) => {
@@ -23,6 +23,7 @@
 	export let selectedPictures: (string | number)[];
 	export let pictures: Picture[] = [];
 	export let shouldShowDelete = false;
+	export let shouldShowCopyButton = false;
 
 	$: {
 		console.log(`Copied picture: ${copiedPictureId}`);
@@ -50,17 +51,19 @@
 					{:else}
 						<span />
 					{/if}
-					<div class="flex ">
-						<button
-							class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
-							on:click|stopPropagation={() => copyImageUrl(picture)}
-						>
-							{copiedPictureId === picture.id ? 'check' : 'content_copy'}
-						</button>
+					<div class="flex">
+						{#if shouldShowCopyButton}
+							<button
+								class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
+								on:click|stopPropagation={() => copyImageUrl(picture)}
+							>
+								{copiedPictureId === picture.id ? 'check' : 'content_copy'}
+							</button>
+						{/if}
 						{#if shouldShowDelete}
 							<button
 								class="mr-2 mb-1 material-icons text-sm text-gray-600 px-1 py-1 bg-white rounded-sm"
-								on:click|stopPropagation={() => unselectPicture(picture.id)}
+								on:click|stopPropagation={() => deletePicture(picture.id)}
 							>
 								close
 							</button>

@@ -57,7 +57,7 @@ export const replaceImageWithCloudinary = async (adventure: Adventure): Promise<
 	};
 };
 
-const createCloudinaryImageWithFormats = async (picture: Picture): Promise<Picture> => {
+export const createCloudinaryImageWithFormats = async (picture: Picture): Promise<Picture> => {
 	if (picture.url.includes('cloudinary')) return picture;
 
 	const response = await uploadImage(picture.url);
