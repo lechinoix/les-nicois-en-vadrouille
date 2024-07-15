@@ -5,12 +5,8 @@ import rawSports from '$lib/data/sports.json';
 // @ts-ignore
 export const sports: Sport[] = rawSports;
 
-export const getSportBySlug = (sportSlug: string): Sport => {
-	const sport = sports.find((sport) => sport.slug === sportSlug);
-	if (!sport) throw new Error('Could not find sport by slug');
-
-	return sport;
-};
+export const getSportBySlug = (sportSlug: string): Sport | undefined =>
+	sports.find((sport) => sport.slug === sportSlug);
 
 export const getAllSports = (): Sport[] => {
 	return sports;

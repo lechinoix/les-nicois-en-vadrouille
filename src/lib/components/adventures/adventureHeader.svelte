@@ -27,7 +27,7 @@
 						<Mountain fill={iconFillColor} />
 					</Picto>
 				{/if}
-				{#if adventure?.sports && adventure?.sports?.length > 0}
+				{#if sport && adventure?.sports && adventure?.sports?.length > 0}
 					<Picto label={sport.name}>
 						<PictoSport sportSlug={sport.slug} fill={iconFillColor} />
 					</Picto>
