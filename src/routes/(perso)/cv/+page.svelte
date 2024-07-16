@@ -10,24 +10,21 @@
 *Main challenges*
 
 - Migrate from a costly no code architecture to a scalable application
-- Anticipate and implement necessary pivots of the company
-- Hire and manage a small tech team of senior developers to stay very agile
-- Closely work with sales, operations and management teams
+- Realize 2 pivots of the company while migration was ongoing
+- Hire and manage a tech team of senior developers
 				`
 		},
 		{
 			company: 'Theodo',
 			role: 'Engineering Manager @bpifrance',
 			duration: 'Mar 2020 - Jun 2022',
-			description: `Scale of the platform offer to help automate small lawns to small companies, particularly hit by the Covid crisis
+			description: `Build a platform to automate lawns for small companies during Covid
 
 *Main challenges*
 
 - Concept and plan in the Rebond platform in 1 week during the Covid crisis cell with the CTO of Online Banking and the CDO of BPI
 - Led the team of 8 senior developers to build the platform in 3 weeks and deliver 7000 loans in the next 6 months
 - Scale the solution to a modular credit distribution tunnel to support Bpifrance's platform offer
-- Integrate it into the microservice environment of Bpifrance Online Banking
-- Coordinate nine technical teams to work on this tool
 			`
 		},
 		{
@@ -39,8 +36,7 @@
 *Main challenges*
 
 - Leading product governance with the client
-- Manage roadmap and delivery of four teams
-- Manage progression of four tech leads
+- Manage roadmap, delivery and coaching of four teams
 - Concept and implement a migration from Twig + Vue to Nuxt`
 		},
 		{
@@ -56,16 +52,10 @@
 		},
 		{
 			company: 'Theodo',
-			role: 'Web Developer',
-			duration: 'Jul 2017 - Feb 2018',
+			role: 'Web and Mobile Developer',
+			duration: 'Apr 2016 - Feb 2018',
 			description:
-				'Fullstack developer on Flask, Angular, Ionic and React applications (BNPParibas)'
-		},
-		{
-			company: 'Bam.tech',
-			role: 'Mobile Apps Developer',
-			duration: 'Feb 2017 - Jul 2017',
-			description: `Developed 2 React Native applications with offline Redux store (UGC Direct) and white label frontend deployment (Storyssimo).`
+				'Fullstack developer on Flask, Angular, React Native, Ionic and React applications'
 		}
 	];
 
@@ -92,18 +82,28 @@
 	let formations = [
 		{
 			place: 'Supélec',
-			degree: 'Master of Information Security',
-			duration: '2012 - 2016',
-			description: 'M2 of Secured Information Systems (SIS) in Paris and Rennes'
+			degree: 'Secured Information Systems (SIS)',
+			duration: '2012 - 2016'
+		},
+		{
+			place: 'Lycée Massena',
+			degree: 'Classe préparatoire PC*',
+			duration: '2010 - 2012'
 		}
 	];
 </script>
 
-<div class="min-h-screen bg-gray-100 flex flex-col items-center py-10">
-	<div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-4xl">
+<div class="min-h-screen flex flex-col items-center py-10">
+	<div class="bg-white rounded-lg shadow-lg w-full max-w-4xl">
 		<div class="flex flex-col md:flex-row">
 			<!-- Personal Info Column -->
-			<div class="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 p-4">
+			<div class="w-full md:w-1/3 border-b md:border-b-0 md:border-r border-gray-200 p-6">
+				<div class="w-full flex justify-start">
+					<img
+						class="w-36 h-36 rounded-full overflow-hidden mb-3"
+						src="https://media.licdn.com/dms/image/D4E03AQFge-Zs6yHd9Q/profile-displayphoto-shrink_800_800/0/1683011178267?e=1726704000&v=beta&t=akGilq_8akjnD4FlgxqjKctbn6spQ4VwFBr5hcbpS1M"
+					/>
+				</div>
 				<div class="mb-4">
 					<h2 class="text-2xl font-bold mb-1">{personalInfo.name}</h2>
 					<p class="text-gray-600">{personalInfo.email}</p>
@@ -122,7 +122,7 @@
 						{/each}
 					</ul>
 				</div>
-				<div>
+				<div class="mb-5">
 					<h3 class="text-xl font-semibold mb-2">Languages</h3>
 					<ul class="list-disc list-inside">
 						{#each personalInfo.languages as language}
@@ -130,15 +130,26 @@
 						{/each}
 					</ul>
 				</div>
+				<div>
+					<h3 class="text-xl font-semibold mb-2">Formations</h3>
+					<ul class="ml-3 flex flex-col gap-3">
+						{#each formations as formation}
+							<li class="flex gap-1 flex-col">
+								{formation.place} ({formation.duration})
+								<span class="text-gray-500 text-sm">{formation.degree}</span>
+							</li>
+						{/each}
+					</ul>
+				</div>
 			</div>
 
 			<!-- Experience Column -->
 			<div class="w-full md:w-2/3 p-4">
-				<h2 class="text-2xl font-bold mb-4">Experience</h2>
+				<h2 class="text-2xl font-bold mb-4">Experiences</h2>
 				<div class="timeline">
 					{#each experiences as experience}
 						<div class="mb-6">
-							<div class="bg-gray-100 p-4 rounded-lg shadow-md">
+							<div class="p-4">
 								<h3 class="text-xl font-semibold">{experience.role}</h3>
 								<div class="text-gray-500">{experience.company} - {experience.duration}</div>
 								<div class="mt-2 cms-content text-sm">
@@ -148,39 +159,7 @@
 						</div>
 					{/each}
 				</div>
-				<h2 class="text-2xl font-bold mb-4">Formation</h2>
-				<div class="timeline">
-					{#each formations as formation}
-						<div class="mb-6">
-							<div class="bg-gray-100 p-4 rounded-lg shadow-md">
-								<h3 class="text-xl font-semibold">{formation.degree}</h3>
-								<div class="text-gray-500">{formation.place} - {formation.duration}</div>
-								<div class="mt-2 cms-content text-sm">
-									{@html marked(formation.description || '')}
-								</div>
-							</div>
-						</div>
-					{/each}
-				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<style>
-	.timeline {
-		border-left: 2px solid #e5e7eb; /* Tailwind Gray-200 */
-		padding-left: 1rem;
-		position: relative;
-	}
-	.timeline::before {
-		content: '';
-		position: absolute;
-		left: -6px;
-		top: 0;
-		bottom: 0;
-		width: 10px;
-		background: white;
-		border-radius: 50%;
-	}
-</style>
