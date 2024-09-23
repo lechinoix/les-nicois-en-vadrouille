@@ -1,4 +1,4 @@
-import type { Adventure } from '$lib/types';
+import type { Adventure, Picture } from '$lib/types';
 import { generateId } from '$lib/utils/idGenerator';
 import { newAdventure } from '$lib/data/generators/adventure';
 import startsWith from 'lodash/startsWith';
@@ -56,4 +56,18 @@ export const publishContent = async (adventure: Adventure) => {
 
 	clearDraft(adventure.id);
 	goto(`/editor/${adventure.id}`);
+};
+
+export const uploadImage = async (picture: Picture) => {
+	const apiClient = createApiClient();
+
+	const { data: newPicture } = await apiClient<{ picture: Picture }, Picture>({
+		url: `/api/photos`,
+		method: 'POST',
+		data: {
+			picture
+		}
+	});
+
+	return newPicture;
 };

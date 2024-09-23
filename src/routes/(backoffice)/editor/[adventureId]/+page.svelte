@@ -15,7 +15,8 @@
 		clearDraft,
 		getDraft,
 		publishContent,
-		saveDraft
+		saveDraft,
+		uploadImage
 	} from '$lib/services/contentCreationService';
 	import { onMount } from 'svelte';
 	import isEqual from 'lodash/isEqual';
@@ -37,7 +38,7 @@
 	export let data: PageData;
 	export let ready: boolean = false;
 
-	let loading: boolean = false;
+	let loading: string | null = null;
 	let error: string = '';
 	let success: boolean = false;
 	let currentVersion: Adventure;
@@ -67,18 +68,27 @@
 	export let submitContent = async () => {
 		try {
 			error = '';
-			loading = true;
 			success = false;
 
 			if (!currentVersion) throw new Error(DEFAULT_ERROR_MESSAGE);
 			if (isEqual(currentVersion, data.adventure)) throw new Error('No changes to publish');
 
+			loading = 'Loading images...';
+
+			for (const [index, picture] of currentVersion.pictures.entries()) {
+				const newPicture = await uploadImage(picture);
+				currentVersion.pictures[index] = newPicture;
+			}
+
+			loading = 'Publishing content...';
+
 			await publishContent(currentVersion);
+
 			success = true;
 		} catch (e: any) {
 			error = e?.message ?? DEFAULT_ERROR_MESSAGE;
 		} finally {
-			loading = false;
+			loading = null;
 		}
 	};
 
@@ -117,7 +127,7 @@
 		};
 	};
 
-	onMount(async () => {
+	onMount(() => {
 		const ongoingDraft = getDraft(data.adventureId);
 		if (ongoingDraft) {
 			currentVersion = ongoingDraft;
@@ -239,7 +249,7 @@
 	</Container>
 
 	<div class="fixed bottom-0 p-5 bg-white flex items-center justify-center gap-2">
-		<LinkButton onClick={submitContent}>{loading ? 'Publishing...' : 'Publish'}</LinkButton>
+		<LinkButton onClick={submitContent}>{loading ?? 'Publish'}</LinkButton>
 		{#if error}
 			<p class="text-red-600">{error}</p>
 		{/if}
