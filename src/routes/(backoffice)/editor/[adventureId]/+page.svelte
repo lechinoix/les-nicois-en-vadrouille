@@ -73,11 +73,16 @@
 			if (!currentVersion) throw new Error(DEFAULT_ERROR_MESSAGE);
 			if (isEqual(currentVersion, data.adventure)) throw new Error('No changes to publish');
 
-			loading = 'Loading images...';
-
 			for (const [index, picture] of currentVersion.pictures.entries()) {
+				const isCover = picture.id === currentVersion.cover?.id;
+				loading = `Loading images (${index + 1}/${currentVersion.pictures.length})...`;
 				const newPicture = await uploadImage(picture);
 				currentVersion.pictures[index] = newPicture;
+				if (isCover)
+					currentVersion.cover = {
+						...newPicture,
+						position: currentVersion.cover?.position ?? null
+					};
 			}
 
 			loading = 'Publishing content...';
