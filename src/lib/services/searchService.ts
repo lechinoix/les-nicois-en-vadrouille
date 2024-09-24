@@ -31,7 +31,10 @@ export const search = (term: string): SearchResult[] => {
 	const searchQuery = term
 		.split(' ')
 		.filter((word) => word.length > 2)
-		.map((word) => `title:${word}*^10 content:${word}*`)
+		.map(
+			(word) =>
+				`title:${word}^100 title:${word}*^10 title:${word}~2 content:${word}^10 content:${word}~2 `
+		)
 		.join(' ');
 
 	if (!searchQuery) return [];
