@@ -11,7 +11,5 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	const updatedPicture = await createCloudinaryImageWithFormats(body.picture);
 
-	console.log(updatedPicture);
-
 	return json(updatedPicture);
 };

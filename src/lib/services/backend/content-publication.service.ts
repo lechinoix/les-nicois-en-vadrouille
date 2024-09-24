@@ -10,7 +10,7 @@ import type {
 	PictureFormat
 } from '$lib/types';
 import mapValues from 'lodash/mapValues';
-import { getResizedImageUrl, uploadImage } from './cloudinary.service';
+import { getImageUrl, uploadImage } from './cloudinary.service';
 import { uploadVersionedFile } from '../s3/backend';
 import { ADVENTURE_TYPE } from '../s3/shared';
 import { getAdventuresContent, getAdventuresData } from '../adventureService';
@@ -65,11 +65,11 @@ export const createCloudinaryImageWithFormats = async (picture: Picture): Promis
 	return {
 		albumId: picture.albumId,
 		id: response.public_id,
-		url: response.url,
+		url: getImageUrl(response.url),
 		width: response.width,
 		height: response.height,
 		formats: mapValues(picture.formats, (format: PictureFormat) => ({
-			url: getResizedImageUrl(response.public_id, format.width, format.height),
+			url: getImageUrl(response.public_id, format.width, format.height),
 			height: format.height,
 			width: format.width
 		}))

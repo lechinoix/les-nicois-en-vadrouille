@@ -15,10 +15,12 @@ export const uploadImage = async (url: string) => {
 	return uploadResponse;
 };
 
-export const getResizedImageUrl = (imageId: string, width: number, height: number) => {
-	return cloudinary.url(imageId, {
-		crop: 'scale',
-		width,
-		height
-	});
+export const getImageUrl = (imageId: string, width?: number, height?: number) => {
+	return width || height
+		? cloudinary.url(imageId, {
+				crop: 'scale',
+				width,
+				height
+		  })
+		: cloudinary.url(imageId);
 };
