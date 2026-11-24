@@ -1,5 +1,5 @@
 import { articleCover, type Article } from '@/lib/model';
-import sports from '@/lib/sports';
+import type { SportChoice } from '@/lib/sports';
 import Photo from './Photo';
 import Markdown from './Markdown';
 import Gallery from './Gallery';
@@ -37,7 +37,13 @@ function Fact({
   );
 }
 
-export default function ArticleView({ article: a }: { article: Article }) {
+export default function ArticleView({
+  article: a,
+  sports,
+}: {
+  article: Article;
+  sports: SportChoice[];
+}) {
   const cover = articleCover(a);
   return (
     <article>

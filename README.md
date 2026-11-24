@@ -20,15 +20,15 @@ Draft edits autosave directly to Neon every two seconds while online. There are 
 
 ### Editor choices and deployment
 
-Participants, places, and periods use multi-selectors backed by the private `editor_options` table. Editors manage the three catalogs at `/editor/options` (also linked from the draft list). Choices can be added, renamed, archived, and reactivated. Renames and archives do not rewrite existing articles: old selected labels remain visible and can be removed explicitly. Returning from the management tab refreshes the choices without replacing unsaved article edits.
+Participants, places, periods, and sports use multi-selectors backed by the private `editor_options` table. Editors manage the four catalogs at `/editor/options` (also linked from the draft list). Choices can be added, renamed, archived, and reactivated. Renames and archives do not rewrite existing articles: old selected labels remain visible and can be removed explicitly. Sports use immutable codes, preserving article selections and `/sport/<code>` URLs when a display name is renamed. Sport names, public filters, navigation, and category pages read the cached database catalog; sport edits invalidate that cache. Known sport covers remain presentation defaults, and new sports use a published article cover when available. Returning from the management tab refreshes the choices without replacing unsaved article edits.
 
-Before deploying this version, apply `0001_legal_mikhail_rasputin.sql` and `0002_soft_blob.sql` through the normal Drizzle migrator against the intended database. With a private environment file containing its direct `DATABASE_URL`:
+Before deploying this version, apply `0001_legal_mikhail_rasputin.sql`, `0002_soft_blob.sql`, and `0003_curly_radioactive_man.sql` through the normal Drizzle migrator against the intended database. With a private environment file containing its direct `DATABASE_URL`:
 
 ```sh
 node --env-file=.env.local --import tsx scripts/db-migrate.ts
 ```
 
-These additive migrations create the catalog, seed distinct nonempty labels from both drafts and publications, and create the private `photo_imports` progress table. They do not change article content or revisions; subsequent migration runs are no-ops. Apply it before merging/deploying the editor changes, because the new editor reads this table. Existing public pages and the previous application remain compatible with the added tables.
+These additive migrations create the catalog, seed distinct nonempty labels from both drafts and publications, create the private `photo_imports` progress table, and seed the sport catalog with existing codes and French labels. Migration `0003` also includes any additional sport codes found in drafts/publications. It recreates the enum inside the migration transaction so PostgreSQL can use the new sports value immediately. They do not change article content or revisions; subsequent migration runs are no-ops. Apply it before merging/deploying the editor changes, because the new editor reads this table. Existing public pages and the previous application remain compatible with the added tables.
 
 The editor date field uses the device's native calendar picker and saves `YYYY-MM-DD` dates. A visible photo legend explains insertion, cover selection, reordering, and removal. When no cover is stored, article pages, listing cards, and the editor use the first gallery photo at the center position. Explicit covers retain their position. The editor uses shrinking grid columns and a wrapping photo grid to fit narrow screens without horizontal page scrolling.
 

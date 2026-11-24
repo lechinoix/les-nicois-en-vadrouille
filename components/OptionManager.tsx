@@ -153,11 +153,12 @@ export default function OptionManager({
     <main className="below-header editor">
       <a href="/editor">Tous les brouillons</a>
       <h1>Gérer les choix</h1>
-      <p>Participants, lieux et périodes proposés dans les articles.</p>
+      <p>Participants, lieux, périodes et sports proposés dans les articles.</p>
       <p>
         Renommer ou archiver un choix ne modifie pas les articles existants.
-        Leurs anciennes sélections restent conservées. Réactivez un choix
-        archivé pour le proposer à nouveau.
+        Leurs anciennes sélections restent conservées. Le nom d’un sport est
+        actualisé partout, sans modifier son adresse ni ses articles. Réactivez
+        un choix archivé pour le proposer à nouveau.
       </p>
       <Button
         variant="outline"

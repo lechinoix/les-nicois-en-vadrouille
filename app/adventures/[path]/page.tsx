@@ -1,5 +1,5 @@
 import { notFound, redirect } from 'next/navigation';
-import { publishedArticles } from '@/lib/public';
+import { publishedArticles, publicSports } from '@/lib/public';
 import { articlePath } from '@/lib/model';
 import ArticleView from '@/components/ArticleView';
 export const dynamic = 'force-dynamic';
@@ -17,5 +17,5 @@ export default async function Adventure({
       .sort((a, b) => b.id.length - a.id.length)[0];
   if (!article) notFound();
   if (path === article.id) redirect(articlePath(article));
-  return <ArticleView article={article} />;
+  return <ArticleView article={article} sports={await publicSports()} />;
 }

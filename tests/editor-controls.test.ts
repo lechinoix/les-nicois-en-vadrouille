@@ -51,6 +51,7 @@ test('reference selectors support multiple choices and preserve archived/unknown
     (label, i) => ({
       id: String(i),
       label,
+      value: null,
       kind: 'participants',
       archived: i === 2,
       revision: 1,
@@ -85,6 +86,57 @@ test('reference selectors support multiple choices and preserve archived/unknown
       screen.queryByRole('option', { name: 'Archivé (archivé)' }),
       null,
     );
+    cleanup();
+    const sportOptions: EditorOption[] = [
+      {
+        id: 'climbing',
+        kind: 'sports',
+        value: 'ESCALADE_COUENNE',
+        label: 'Escalade en couenne',
+        archived: false,
+        revision: 1,
+      },
+      {
+        id: 'ski',
+        kind: 'sports',
+        value: 'SKI_ALPIN',
+        label: 'Ski renommé',
+        archived: true,
+        revision: 2,
+      },
+    ];
+    let sportSelection = ['SKI_ALPIN', 'UNKNOWN_SPORT'];
+    function SportsHarness() {
+      const [value, setValue] = React.useState(sportSelection);
+      return React.createElement(ReferenceSelect, {
+        kind: 'sports',
+        options: sportOptions,
+        value,
+        onChange: (values) => {
+          sportSelection = values;
+          setValue(values);
+        },
+      });
+    }
+    render(React.createElement(SportsHarness));
+    await user.click(screen.getByRole('combobox', { name: 'Sports' }));
+    await screen.findByRole('option', { name: 'Ski renommé (archivé)' });
+    await screen.findByRole('option', {
+      name: 'UNKNOWN_SPORT (ancienne valeur)',
+    });
+    await user.click(
+      screen.getByRole('option', { name: 'Escalade en couenne' }),
+    );
+    await user.keyboard('{Escape}');
+    assert.deepEqual(sportSelection, [
+      'SKI_ALPIN',
+      'UNKNOWN_SPORT',
+      'ESCALADE_COUENNE',
+    ]);
+    await user.click(
+      screen.getByRole('button', { name: 'Retirer Ski renommé' }),
+    );
+    assert.deepEqual(sportSelection, ['UNKNOWN_SPORT', 'ESCALADE_COUENNE']);
   } finally {
     cleanup();
     win.close();

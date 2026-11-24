@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/select';
 import {
   optionLabels,
+  optionValue,
   type EditorOption,
   type OptionKind,
 } from '@/lib/editor-option-model';
@@ -29,15 +30,17 @@ export default function ReferenceSelect({
   const available = options.filter(
     (option) =>
       option.kind === kind &&
-      (!option.archived || value.includes(option.label)),
+      (!option.archived || value.includes(optionValue(option))),
   );
   const choices = [
     ...available.map((option) => ({
-      value: option.label,
+      value: optionValue(option),
       label: option.label + (option.archived ? ' (archivé)' : ''),
     })),
     ...value
-      .filter((label) => !available.some((option) => option.label === label))
+      .filter(
+        (label) => !available.some((option) => optionValue(option) === label),
+      )
       .map((label) => ({ value: label, label: `${label} (ancienne valeur)` })),
   ];
   return (
@@ -67,24 +70,31 @@ export default function ReferenceSelect({
         </SelectContent>
       </Select>
       <div className="flex flex-wrap gap-2">
-        {value.map((label, index) => (
-          <span
-            key={`${index}-${label}`}
-            className="inline-flex min-w-0 max-w-full items-center gap-1 rounded-md border border-border px-2 text-sm"
-          >
-            <span className="min-w-0 [overflow-wrap:anywhere]">
-              {label || '(valeur vide)'}
-            </span>
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label={`Retirer ${label || 'la valeur vide'}`}
-              onClick={() => onChange(value.filter((_, i) => i !== index))}
+        {value.map((selected, index) => {
+          const label =
+            options.find(
+              (option) =>
+                option.kind === kind && optionValue(option) === selected,
+            )?.label ?? selected;
+          return (
+            <span
+              key={`${index}-${selected}`}
+              className="inline-flex min-w-0 max-w-full items-center gap-1 rounded-md border border-border px-2 text-sm"
             >
-              <X aria-hidden="true" />
-            </Button>
-          </span>
-        ))}
+              <span className="min-w-0 [overflow-wrap:anywhere]">
+                {label || '(valeur vide)'}
+              </span>
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label={`Retirer ${label || 'la valeur vide'}`}
+                onClick={() => onChange(value.filter((_, i) => i !== index))}
+              >
+                <X aria-hidden="true" />
+              </Button>
+            </span>
+          );
+        })}
       </div>
       <p id={`${kind}-help`} className="m-0 text-sm text-muted-foreground">
         Plusieurs choix possibles. Les anciennes sélections sont conservées.

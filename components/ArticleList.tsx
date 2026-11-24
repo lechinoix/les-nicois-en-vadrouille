@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { articleCover, articlePath, type Article } from '@/lib/model';
-import sports from '@/lib/sports';
+import type { SportChoice } from '@/lib/sports';
 import Photo from './Photo';
 const normalize = (s: string) =>
   s
@@ -11,10 +11,12 @@ const normalize = (s: string) =>
     .toLowerCase();
 export default function ArticleList({
   articles,
+  sports,
   initialSport = '',
   limit,
 }: {
   articles: Article[];
+  sports: SportChoice[];
   initialSport?: string;
   limit?: number;
 }) {
@@ -45,11 +47,16 @@ export default function ArticleList({
           onChange={(e) => setSport(e.target.value)}
         >
           <option value="">Tous les sports</option>
-          {sports.map((s) => (
-            <option key={s.slug} value={s.slug}>
-              {s.name}
-            </option>
-          ))}
+          {sports
+            .filter(
+              (s) =>
+                !s.archived || articles.some((a) => a.sports.includes(s.slug)),
+            )
+            .map((s) => (
+              <option key={s.slug} value={s.slug}>
+                {s.name}
+              </option>
+            ))}
         </select>
       </div>
       <div className="grid">

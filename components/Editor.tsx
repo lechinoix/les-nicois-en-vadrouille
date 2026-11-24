@@ -4,7 +4,6 @@ import { ImagePlus, Image, ArrowLeft, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -39,8 +38,11 @@ import PhotoImport from './PhotoImport';
 import Photo from './Photo';
 import PhotoLegend from './PhotoLegend';
 import ReferenceSelect from './ReferenceSelect';
-import { optionKinds, type EditorOption } from '@/lib/editor-option-model';
-import sports from '@/lib/sports';
+import {
+  optionKinds,
+  optionValue,
+  type EditorOption,
+} from '@/lib/editor-option-model';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
   TOP: 'Haut',
@@ -268,7 +270,16 @@ export default function Editor({
           </Button>
         </div>
         {preview ? (
-          <ArticleView article={a} />
+          <ArticleView
+            article={a}
+            sports={options
+              .filter((option) => option.kind === 'sports')
+              .map((option) => ({
+                slug: optionValue(option),
+                name: option.label,
+                archived: option.archived,
+              }))}
+          />
         ) : (
           <>
             <p>
@@ -277,8 +288,8 @@ export default function Editor({
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Gérer les choix : participants, lieux et périodes (nouvel
-                onglet)
+                Gérer les choix : participants, lieux, périodes et sports
+                (nouvel onglet)
               </a>
             </p>
             {optionsError && (
@@ -339,31 +350,6 @@ export default function Editor({
                   onChange={(values) => edit({ [kind]: values })}
                 />
               ))}
-              <fieldset>
-                <legend>Sports</legend>
-                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                  {sports.map((sport) => (
-                    <Label
-                      key={sport.slug}
-                      htmlFor={`sport-${sport.slug}`}
-                      className="min-h-8"
-                    >
-                      <Checkbox
-                        id={`sport-${sport.slug}`}
-                        checked={a.sports.includes(sport.slug)}
-                        onCheckedChange={(checked) =>
-                          edit({
-                            sports: checked
-                              ? [...a.sports, sport.slug]
-                              : a.sports.filter((s) => s !== sport.slug),
-                          })
-                        }
-                      />
-                      {sport.name}
-                    </Label>
-                  ))}
-                </div>
-              </fieldset>
               <div>
                 <Label htmlFor="article-topos">Topos (un lien par ligne)</Label>
                 <Textarea

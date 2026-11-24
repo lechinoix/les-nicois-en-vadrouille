@@ -1,11 +1,13 @@
 import Link from 'next/link';
-import { publishedArticles } from '@/lib/public';
-import sports from '@/lib/sports';
+import { publishedArticles, publicSports } from '@/lib/public';
 import Photo from '@/components/Photo';
 import ArticleList from '@/components/ArticleList';
 export const dynamic = 'force-dynamic';
 export default async function Home() {
-  const articles = await publishedArticles();
+  const [articles, sports] = await Promise.all([
+    publishedArticles(),
+    publicSports(),
+  ]);
   return (
     <>
       <div className="hero home">
@@ -46,23 +48,31 @@ export default async function Home() {
           />
         </section>
         <h2 className="section-title">Nos dernières sorties</h2>
-        <ArticleList articles={articles} limit={3} />
+        <ArticleList sports={sports} articles={articles} limit={3} />
         <Link className="more" href="/adventures">
           En voir plus
         </Link>
         <h2 className="section-title">Nos sports</h2>
         <div className="grid">
-          {sports.map((s) => (
-            <Link className="card" href={`/sport/${s.slug}`} key={s.slug}>
-              <Photo
-                url={s.cover.url}
-                position={s.cover.position}
-                alt=""
-                thumbnail
-              />
-              <h2>{s.name}</h2>
-            </Link>
-          ))}
+          {sports
+            .filter((s) => !s.archived)
+            .map((s) => (
+              <Link
+                className="card"
+                href={`/sport/${encodeURIComponent(s.slug)}`}
+                key={s.slug}
+              >
+                {s.cover && (
+                  <Photo
+                    url={s.cover.url}
+                    position={s.cover.position}
+                    alt=""
+                    thumbnail
+                  />
+                )}
+                <h2>{s.name}</h2>
+              </Link>
+            ))}
         </div>
       </main>
     </>

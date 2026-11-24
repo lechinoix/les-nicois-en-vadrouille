@@ -1,4 +1,5 @@
 import { and, asc, eq } from 'drizzle-orm';
+import { randomUUID } from 'node:crypto';
 import { database } from '../db';
 import { editorOptions } from '../db/schema';
 import { HttpError } from './auth';
@@ -15,7 +16,10 @@ export async function createEditorOption(input: unknown) {
   const data = createOptionSchema.parse(input);
   const [created] = await database()
     .db.insert(editorOptions)
-    .values(data)
+    .values({
+      ...data,
+      value: data.kind === 'sports' ? `sport-${randomUUID()}` : null,
+    })
     .onConflictDoNothing()
     .returning();
   if (!created)

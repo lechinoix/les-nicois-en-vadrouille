@@ -151,11 +151,25 @@ test(
         'same label may be used in another category',
       );
       const id = `http-${crypto.randomUUID()}`;
+      const sportLabel = `Sport ${crypto.randomUUID()}`;
+      const sportCreated = await optionsRequest('POST', {
+        kind: 'sports',
+        label: sportLabel,
+      });
+      assert.equal(sportCreated.status, 201);
+      const sportOption = await sportCreated.json();
+      assert.match(sportOption.value, /^sport-/);
+      assert.equal(
+        (await optionsRequest('POST', { kind: 'sports', label: sportLabel }))
+          .status,
+        409,
+      );
       const a = {
         ...emptyArticle(id),
         title: `Private ${id}`,
         content: `UNPUBLISHED-${id}`,
         participants: [optionLabel],
+        sports: [sportOption.value, 'ESCALADE_COUENNE'],
       };
       const send = (
         data: typeof a,
@@ -251,6 +265,72 @@ test(
       };
       const published = await send(publicArticle, 1, true);
       assert.equal(published.status, 200, await published.clone().text());
+      const sportUrl = `${origin}/sport/${sportOption.value}`;
+      assert.ok((await (await fetch(sportUrl)).text()).includes(sportLabel));
+      assert.equal(
+        (await fetch(`${origin}/sport/ESCALADE_COUENNE`)).status,
+        200,
+      );
+      const renamedSportLabel = `${sportLabel} renommé`;
+      const sportRenamed = await optionsRequest('PATCH', {
+        id: sportOption.id,
+        expectedRevision: 1,
+        label: renamedSportLabel,
+        archived: false,
+        value: 'must-not-change-the-code',
+      });
+      assert.equal(sportRenamed.status, 200);
+      assert.equal((await sportRenamed.json()).value, sportOption.value);
+      assert.ok(
+        (await (await fetch(sportUrl)).text()).includes(
+          `<h1>${renamedSportLabel}</h1>`,
+        ),
+        'sport pages use the refreshed database label at the same URL',
+      );
+      const articleHtml = await (
+        await fetch(`${origin}${articlePath(publicArticle)}`)
+      ).text();
+      assert.ok(
+        articleHtml.includes(`${renamedSportLabel}, Escalade en couenne`),
+      );
+      assert.ok(
+        (await (await fetch(`${origin}/adventures`)).text()).includes(
+          `value="${sportOption.value}"`,
+        ),
+        'new sports appear in the public filter',
+      );
+      assert.equal(
+        (
+          await optionsRequest('PATCH', {
+            id: sportOption.id,
+            expectedRevision: 1,
+            label: 'stale sport',
+            archived: true,
+          })
+        ).status,
+        409,
+      );
+      assert.equal(
+        (
+          await optionsRequest('PATCH', {
+            id: sportOption.id,
+            expectedRevision: 2,
+            label: renamedSportLabel,
+            archived: true,
+          })
+        ).status,
+        200,
+      );
+      assert.equal(
+        (await fetch(sportUrl)).status,
+        200,
+        'archiving does not break existing sport URLs',
+      );
+      const preservedSport = await (
+        await fetch(`${origin}/api/articles/${id}`, { headers })
+      ).json();
+      assert.equal(preservedSport.revision, 2);
+      assert.deepEqual(preservedSport.data.sports, a.sports);
       assert.ok(
         (
           await (await fetch(`${origin}${articlePath(publicArticle)}`)).text()

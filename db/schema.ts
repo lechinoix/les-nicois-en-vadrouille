@@ -10,7 +10,9 @@ import {
   boolean,
   uniqueIndex,
   index,
+  check,
 } from 'drizzle-orm/pg-core';
+import { sql } from 'drizzle-orm';
 import type { Article, Picture } from '../lib/model';
 import { optionKinds } from '../lib/editor-option-model';
 export const editorOptionKind = pgEnum('editor_option_kind', optionKinds);
@@ -20,11 +22,17 @@ export const editorOptions = pgTable(
     id: uuid('id').defaultRandom().primaryKey(),
     kind: editorOptionKind('kind').notNull(),
     label: text('label').notNull(),
+    value: text('value'),
     archived: boolean('archived').default(false).notNull(),
     revision: integer('revision').default(1).notNull(),
   },
   (table) => [
     uniqueIndex('editor_options_kind_label_unique').on(table.kind, table.label),
+    uniqueIndex('editor_options_kind_value_unique').on(table.kind, table.value),
+    check(
+      'editor_options_sport_value_required',
+      sql`${table.kind} <> 'sports' OR ${table.value} IS NOT NULL`,
+    ),
   ],
 );
 export const articles = pgTable('articles', {
