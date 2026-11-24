@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    name: Migrations, tests, and build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    services:
+      postgres:
+        image: postgres:17
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: blog_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d blog_test"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    env:
+      # Disposable runner-local database, never Neon or GitHub repository secrets.
+      DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/blog_test
+      TEST_MIGRATIONS_DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5432/blog_test
+      TEST_DATABASE_DISPOSABLE: 'true'
+      TEST_PRODUCTION_HTTP: 'true'
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci
+      - name: Apply migrations to an empty database
+        run: npm run db:migrate
+      - name: Verify migrations can be rerun
+        run: npm run db:migrate
+      - run: npm run check
+      - run: npm run build
+      - run: npm test
