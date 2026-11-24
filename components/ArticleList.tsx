@@ -56,7 +56,12 @@ export default function ArticleList({
         {filtered.slice(0, query || sport ? undefined : limit).map((a) => (
           <Link className="card" key={a.id} href={articlePath(a)}>
             {a.cover && (
-              <Photo url={a.cover.url} position={a.cover.position} alt="" />
+              <Photo
+                url={a.cover.url}
+                position={a.cover.position}
+                alt=""
+                thumbnail
+              />
             )}
             <h2>{a.title}</h2>
           </Link>

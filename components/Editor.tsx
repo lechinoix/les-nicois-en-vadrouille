@@ -30,6 +30,7 @@ import type { Article, Draft, Picture } from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
+import Photo from './Photo';
 import sports from '@/lib/sports.json';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
@@ -374,7 +375,7 @@ export default function Editor({ initial }: { initial: Draft }) {
             <div className="photo-editor">
               {a.pictures.map((p, i) => (
                 <figure key={p.id}>
-                  <img src={p.formats.small.url} alt={`Photo ${i + 1}`} />
+                  <Photo url={p.url} alt={`Photo ${i + 1}`} thumbnail />
                   <figcaption>
                     <Button
                       variant="ghost"

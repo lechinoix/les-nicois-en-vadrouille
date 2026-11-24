@@ -54,7 +54,12 @@ export default async function Home() {
         <div className="grid">
           {sports.map((s) => (
             <Link className="card" href={`/sport/${s.slug}`} key={s.slug}>
-              <Photo url={s.cover.url} position={s.cover.position} alt="" />
+              <Photo
+                url={s.cover.url}
+                position={s.cover.position}
+                alt=""
+                thumbnail
+              />
               <h2>{s.name}</h2>
             </Link>
           ))}

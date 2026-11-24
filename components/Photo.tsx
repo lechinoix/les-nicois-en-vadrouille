@@ -4,19 +4,21 @@ export default function Photo({
   alt,
   position,
   eager = false,
+  thumbnail = false,
 }: {
   url: string;
   alt: string;
   position?: string | null;
   eager?: boolean;
+  thumbnail?: boolean;
 }) {
   return (
     <img
-      src={imageUrl(url, 1280)}
-      srcSet={[320, 640, 960, 1280, 1920, 2560]
+      src={imageUrl(url, thumbnail ? 400 : 1280)}
+      srcSet={(thumbnail ? [200, 400] : [320, 640, 960, 1280, 1920, 2560])
         .map((w) => `${imageUrl(url, w)} ${w}w`)
         .join(', ')}
-      sizes="(max-width: 700px) 100vw, 80vw"
+      sizes={thumbnail ? '(max-width: 400px) 100vw, 400px' : '100vw'}
       loading={eager ? 'eager' : 'lazy'}
       decoding="async"
       alt={alt}
