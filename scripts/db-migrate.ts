@@ -1,7 +1,15 @@
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
-import { database } from '../db';
+import {
+  applyMigrations,
+  migrationDatabaseUrl,
+  migrationErrorMessage,
+} from './migrations';
+
 try {
-  await migrate(database().db, { migrationsFolder: './db/migrations' });
-} finally {
-  await database().client.end();
+  const count = await applyMigrations(migrationDatabaseUrl(process.env));
+  console.log(
+    `Database migrations complete: ${count} applied${count === 0 ? ' (already up to date)' : ''}.`,
+  );
+} catch (error) {
+  console.error(migrationErrorMessage(error));
+  process.exitCode = 1;
 }
