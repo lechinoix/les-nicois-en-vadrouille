@@ -9,6 +9,7 @@ import {
   uuid,
   boolean,
   uniqueIndex,
+  index,
 } from 'drizzle-orm/pg-core';
 import type { Article, Picture } from '../lib/model';
 import { optionKinds } from '../lib/editor-option-model';
@@ -83,3 +84,25 @@ export const loginAttempts = pgTable('login_attempts', {
   count: integer('count').notNull(),
   expiresAt: timestamp('expires_at', { withTimezone: true }).notNull(),
 });
+
+// Tokens are encrypted server-side and never included in API responses.
+export const photoImports = pgTable(
+  'photo_imports',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    articleId: text('article_id')
+      .notNull()
+      .references(() => articles.id),
+    owner: text('owner').notNull(),
+    token: text('token'),
+    state: jsonb('state')
+      .$type<import('../lib/photo-import-model').PhotoImportState>()
+      .notNull(),
+    updatedAt: timestamp('updated_at', { withTimezone: true })
+      .defaultNow()
+      .notNull(),
+  },
+  (table) => [
+    index('photo_imports_article_owner_idx').on(table.articleId, table.owner),
+  ],
+);
