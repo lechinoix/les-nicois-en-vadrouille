@@ -1,4 +1,5 @@
 'use client';
+import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import type { Draft } from '@/lib/model';
 export default function DraftList({ drafts }: { drafts: Draft[] }) {
@@ -6,19 +7,19 @@ export default function DraftList({ drafts }: { drafts: Draft[] }) {
     <main className="below-header">
       <h1>Nos brouillons</h1>
       <div className="actions">
-        <button
+        <Button
           onClick={() => (location.href = `/editor/${crypto.randomUUID()}`)}
         >
           Nouvelle aventure
-        </button>
-        <button
+        </Button>
+        <Button
           onClick={async () => {
             await fetch('/api/auth', { method: 'DELETE' });
             location.href = '/login';
           }}
         >
           Déconnexion
-        </button>
+        </Button>
       </div>
       {drafts.map((d) => (
         <p key={d.id}>

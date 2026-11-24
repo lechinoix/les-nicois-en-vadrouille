@@ -1,4 +1,7 @@
 'use client';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { useRef, useState } from 'react';
 import type { Picture } from '@/lib/model';
 async function api(action: string, pageToken?: string) {
@@ -33,7 +36,7 @@ export default function PhotoImport({
   return (
     <div>
       <div className="actions">
-        <button
+        <Button
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -55,8 +58,8 @@ export default function PhotoImport({
           }
         >
           Connecter Google Photos
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -70,13 +73,13 @@ export default function PhotoImport({
           }
         >
           Nouvelle sélection
-        </button>
+        </Button>
         {pickerUrl && (
           <a href={pickerUrl} target="_blank" rel="noreferrer">
             Choisir dans Google Photos
           </a>
         )}
-        <button
+        <Button
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -105,8 +108,8 @@ export default function PhotoImport({
           }
         >
           Importer / reprendre
-        </button>
-        <button
+        </Button>
+        <Button
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -120,11 +123,14 @@ export default function PhotoImport({
           }
         >
           Terminer / annuler Google
-        </button>
+        </Button>
       </div>
-      <label>
-        Ou importer des photos locales (4 Mo maximum par photo)
-        <input
+      <div className="space-y-2">
+        <Label htmlFor="photo-files">
+          Ou importer des photos locales (4 Mo maximum par photo)
+        </Label>
+        <Input
+          id="photo-files"
           type="file"
           multiple
           accept="image/jpeg,image/png,image/webp,image/avif"
@@ -147,7 +153,7 @@ export default function PhotoImport({
             });
           }}
         />
-      </label>
+      </div>
       <p role="status">{message}</p>
     </div>
   );

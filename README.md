@@ -16,6 +16,12 @@ Draft edits autosave directly to Neon every two seconds while online. There are 
 
 `drafts` holds private working copies, `publications` holds public snapshots, and `published_snapshots` retains publication history. Each save checks the expected revision atomically. Two-tab conflicts return 409 and preserve the current in-memory work. Compare the server content, explicitly keep your edits on the newer revision and save, or confirm replacing them with the server version. The save queue serializes requests and retains edits made during a save. Publishing invalidates the public content cache; draft-only saves do not change the public blog.
 
+## UI components
+
+The editor uses the official [shadcn/ui Base UI components](https://ui.shadcn.com/docs/components) in `components/ui`, with Tailwind v4 and Lucide. `components.json` records the style and aliases. The blog styles live in `app/blog.css`; Tailwind preflight is omitted to preserve the public design. Roboto is self-hosted through Fontsource, alongside the original Abadi font and article pictograms.
+
+The header uses Base UI Menu for outside-click dismissal, Escape, keyboard navigation, and closing after selection. Its DOM regression test runs with `npm test`.
+
 ## Email accounts
 
 Public email/password accounts use Neon's Managed Better Auth through `@neon/auth`. `/auth/sign-up` and `/auth/sign-in` provide the forms; `/account` and `/api/account` verify sessions on the server. Email verification codes are supported when enabled on the branch. These accounts do not grant access to the shared-password editor or private drafts.
