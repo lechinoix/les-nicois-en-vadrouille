@@ -81,10 +81,10 @@ export default function PhotoImport({
     };
   }, [articleId]);
 
-  // A single request at a time, respecting Google's polling interval. Closing
-  // the drawer pauses it; reopening resumes from the database cursor.
+  // A single request at a time, respecting Google's polling interval. Drawer
+  // visibility is independent: imports continue while the editor stays mounted.
   useEffect(() => {
-    if (!open || !running || !job || busy) return;
+    if (!running || !job || busy) return;
     let cancelled = false;
     let timer: ReturnType<typeof setTimeout>;
     const advance = async () => {
@@ -169,7 +169,7 @@ export default function PhotoImport({
     };
     // Progress updates intentionally do not restart the active polling loop.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, running, busy, job?.id]);
+  }, [running, busy, job?.id]);
 
   async function startGoogle() {
     if (working.current) return;
@@ -239,7 +239,11 @@ export default function PhotoImport({
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger render={<Button variant="outline" />}>
           <ImagePlus aria-hidden="true" />{' '}
-          {job ? 'Reprendre l’ajout de photos' : 'Ajouter des photos'}
+          {running || busy
+            ? 'Voir l’import en cours'
+            : job
+              ? 'Reprendre l’ajout de photos'
+              : 'Ajouter des photos'}
         </SheetTrigger>
         <SheetContent
           side="bottom"
@@ -349,8 +353,9 @@ export default function PhotoImport({
               </Button>
             )}
             <p className="text-sm text-muted-foreground">
-              Vous pouvez fermer ce panneau et reprendre plus tard. Il se
-              fermera automatiquement une fois les photos enregistrées.
+              Vous pouvez fermer ce panneau : l’import continue tant que cette
+              page de l’éditeur reste ouverte. Le panneau se fermera
+              automatiquement une fois les photos enregistrées.
             </p>
             <Input
               ref={fileInput}
@@ -400,9 +405,28 @@ export default function PhotoImport({
           </div>
         </SheetContent>
       </Sheet>
-      <p role="status" aria-live="polite">
-        {message}
+      <p role="status" aria-live="polite" className="flex items-center gap-2">
+        {(running || busy) && (
+          <LoaderCircle
+            className="size-5 shrink-0 animate-spin"
+            aria-hidden="true"
+          />
+        )}
+        {error
+          ? 'Import interrompu.'
+          : message || (running || busy ? 'Préparation…' : '')}
       </p>
+      {!open && (running || busy) && (
+        <p className="text-sm text-muted-foreground">
+          L’import continue en arrière-plan. Gardez cette page de l’éditeur
+          ouverte.
+        </p>
+      )}
+      {!open && error && (
+        <p role="alert" className="text-destructive">
+          {error} Ouvrez le panneau pour réessayer.
+        </p>
+      )}
     </div>
   );
 }
