@@ -61,6 +61,18 @@ test(
       assert.equal((await fetch(`${origin}/api/articles`)).status, 401);
       assert.equal((await fetch(`${origin}/api/editor-options`)).status, 401);
       assert.equal(
+        (
+          await fetch(`${origin}/api/topos/extract`, {
+            method: 'POST',
+            headers: { Origin: origin, 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              url: 'https://www.camptocamp.org/routes/109122',
+            }),
+          })
+        ).status,
+        401,
+      );
+      assert.equal(
         (await fetch(`${origin}/editor/options`, { redirect: 'manual' }))
           .status,
         307,
@@ -98,6 +110,30 @@ test(
         Cookie: cookie.split(';')[0],
       };
       const optionLabel = `Participant ${crypto.randomUUID()}`;
+      assert.equal(
+        (
+          await fetch(`${origin}/api/topos/extract`, {
+            method: 'POST',
+            headers: { ...headers, Origin: 'https://evil.example' },
+            body: JSON.stringify({
+              url: 'https://www.camptocamp.org/routes/109122',
+            }),
+          })
+        ).status,
+        403,
+      );
+      const unsupportedTopo = await fetch(`${origin}/api/topos/extract`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          url: 'https://www.camptocamp.org.evil.example/routes/109122',
+        }),
+      });
+      assert.equal(unsupportedTopo.status, 400);
+      assert.equal(
+        unsupportedTopo.headers.get('cache-control'),
+        'private, no-store',
+      );
       const optionsRequest = (
         method: string,
         data: object,
