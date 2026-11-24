@@ -28,6 +28,7 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { Article, Draft, Picture } from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
+import { dateInputValue } from '@/lib/date';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import Photo from './Photo';
@@ -232,9 +233,9 @@ export default function Editor({ initial }: { initial: Draft }) {
                 <Label htmlFor="article-date">Date</Label>
                 <Input
                   id="article-date"
-                  value={a.date}
+                  type="date"
+                  value={dateInputValue(a.date)}
                   onChange={(e) => edit({ date: e.target.value })}
-                  placeholder="2026-11-23"
                 />
               </div>
               {(['cotation', 'orientation'] as const).map((k) => (
