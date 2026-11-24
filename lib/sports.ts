@@ -1,7 +1,7 @@
 import catalog from './sports.json';
 
-// Both climbing disciplines use the existing climbing cover. Keep one complete
-// catalog for navigation, filters, article labels, and editor choices.
+// Historical presentation defaults for seeded sport codes; editable labels and
+// available choices now come from the database.
 const sports = catalog.flatMap((sport) =>
   sport.slug === 'ESCALADE_GRANDE_VOIE'
     ? [
@@ -12,3 +12,5 @@ const sports = catalog.flatMap((sport) =>
 );
 
 export default sports;
+
+export type SportChoice = { slug: string; name: string; archived: boolean };

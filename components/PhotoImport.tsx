@@ -2,196 +2,407 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import {
-  Link2,
+  Sheet,
+  SheetTrigger,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetDescription,
+} from '@/components/ui/sheet';
+import {
   Images,
-  Download,
-  Unplug,
   Upload,
+  ImagePlus,
+  LoaderCircle,
   ExternalLink,
 } from 'lucide-react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { Picture } from '@/lib/model';
-async function api(action: string, pageToken?: string) {
-  const r = await fetch('/api/photos/picker', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ action, pageToken }),
-  });
-  const data = await r.json();
-  if (!r.ok) throw new Error(data.error);
-  return data;
+import type { PhotoImportProgress } from '@/lib/photo-import-model';
+import Photo from './Photo';
+
+async function request<T>(url: string, data?: object): Promise<T> {
+  const response = await fetch(
+    url,
+    data
+      ? {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        }
+      : { cache: 'no-store' },
+  );
+  const result = await response.json();
+  if (!response.ok)
+    throw new Error(result.error || 'Import impossible. Réessayez.');
+  return result;
 }
 export default function PhotoImport({
+  articleId,
+  beforeImport,
   onPhotos,
 }: {
-  onPhotos: (p: Picture[]) => void;
+  articleId: string;
+  beforeImport: () => Promise<void>;
+  onPhotos: (photos: Picture[]) => Promise<void>;
 }) {
+  const [open, setOpen] = useState(false);
+  const [job, setJob] = useState<PhotoImportProgress | null>(null);
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [launchUrl, setLaunchUrl] = useState('');
+  const [busy, setBusy] = useState(false);
+  const [running, setRunning] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-  const progress = useRef({ id: '', cursor: '' });
-  const [message, setMessage] = useState(''),
-    [busy, setBusy] = useState(false),
-    [pickerUrl, setPickerUrl] = useState('');
-  async function run(fn: () => Promise<void>) {
+  const popup = useRef<Window | null>(null);
+  const callbacks = useRef({ beforeImport, onPhotos });
+  callbacks.current = { beforeImport, onPhotos };
+  const working = useRef(false);
+  const alive = useRef(true);
+  useEffect(() => {
+    alive.current = true;
+    let cancelled = false;
+    request<PhotoImportProgress | null>(
+      `/api/photos/picker?articleId=${encodeURIComponent(articleId)}`,
+    )
+      .then((pending) => {
+        if (cancelled || working.current || !pending) return;
+        setJob(pending);
+        setOpen(true);
+        if (pending.error) setError(pending.error);
+        else setRunning(true);
+      })
+      .catch(() => {
+        /* Starting an import will surface any connection failure. */
+      });
+    return () => {
+      cancelled = true;
+      alive.current = false;
+    };
+  }, [articleId]);
+
+  // A single request at a time, respecting Google's polling interval. Closing
+  // the drawer pauses it; reopening resumes from the database cursor.
+  useEffect(() => {
+    if (!open || !running || !job || busy) return;
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout>;
+    const advance = async () => {
+      if (cancelled) return;
+      if (working.current) {
+        timer = setTimeout(advance, 250);
+        return;
+      }
+      working.current = true;
+      try {
+        let current = await request<PhotoImportProgress>('/api/photos/picker', {
+          action: 'advance',
+          id: job.id,
+        });
+        if (cancelled) return;
+        setJob(current);
+        if (current.error) throw new Error(current.error);
+        if (current.pictures.length) {
+          setMessage(
+            `${current.pictures.length} photo(s) importée(s). Enregistrement du brouillon…`,
+          );
+          await callbacks.current.onPhotos(current.pictures);
+        }
+        if (cancelled) return;
+        if (current.status === 'ready') {
+          current = await request<PhotoImportProgress>('/api/photos/picker', {
+            action: 'complete',
+            id: current.id,
+          });
+        }
+        if (cancelled) return;
+        if (current.status === 'complete') {
+          setMessage(
+            `${current.pictures.length} photo(s) ajoutée(s) au brouillon.${current.skipped ? ` ${current.skipped} vidéo(s) ignorée(s).` : ''}`,
+          );
+          setJob(null);
+          setRunning(false);
+          setOpen(false);
+          popup.current?.close();
+          return;
+        }
+        if (current.status === 'cancelled') {
+          setJob(null);
+          setRunning(false);
+          return;
+        }
+        if (current.status === 'authorizing') {
+          setMessage('Terminez l’autorisation dans l’onglet Google Photos.');
+          if (Date.now() > current.timeoutAt)
+            throw new Error(
+              'Autorisation en attente. Continuez avec Google Photos pour réessayer.',
+            );
+        } else if (current.status === 'selecting') {
+          setMessage(
+            'Choisissez vos photos puis validez dans Google. L’import démarrera automatiquement.',
+          );
+        }
+        timer = setTimeout(
+          advance,
+          current.status === 'importing'
+            ? 100
+            : Math.max(
+                current.status === 'authorizing' ? 2000 : 1000,
+                current.nextPollAt - Date.now(),
+              ),
+        );
+      } catch (e) {
+        if (!cancelled) {
+          setError(
+            e instanceof Error ? e.message : 'Import interrompu. Réessayez.',
+          );
+          setRunning(false);
+        }
+      } finally {
+        working.current = false;
+      }
+    };
+    timer = setTimeout(advance, Math.max(0, job.nextPollAt - Date.now()));
+    return () => {
+      cancelled = true;
+      clearTimeout(timer);
+    };
+    // Progress updates intentionally do not restart the active polling loop.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open, running, busy, job?.id]);
+
+  async function startGoogle() {
+    if (working.current) return;
+    // Open during the click so browsers do not block the later OAuth redirect.
+    const tab = window.open('about:blank', '_blank');
+    if (tab) tab.opener = null;
+    popup.current = tab;
     setBusy(true);
+    setRunning(false);
+    setError('');
+    setLaunchUrl('');
+    working.current = true;
     try {
-      await fn();
+      await callbacks.current.beforeImport();
+      const result = await request<{
+        job: PhotoImportProgress;
+        url: string | null;
+      }>('/api/photos/google/start', { articleId });
+      if (!alive.current) {
+        tab?.close();
+        return;
+      }
+      setJob(result.job);
+      if (result.url && tab) tab.location.href = result.url;
+      else if (result.url) {
+        // A normal link is the fallback when a browser blocks window.open.
+        setLaunchUrl(result.url);
+      } else tab?.close();
+      setRunning(true);
     } catch (e) {
-      setMessage(String(e));
+      tab?.close();
+      setError(e instanceof Error ? e.message : 'Import impossible.');
     } finally {
+      working.current = false;
+      setBusy(false);
+    }
+  }
+  async function finish() {
+    if (!job || busy) return;
+    setBusy(true);
+    setRunning(false);
+    setError('');
+    try {
+      while (working.current)
+        await new Promise((resolve) => setTimeout(resolve, 100));
+      working.current = true;
+      // Synchronize the newest committed batch before cancelling (another tab
+      // may have advanced it). The server also verifies the saved photo IDs.
+      const latest = await request<PhotoImportProgress | null>(
+        `/api/photos/picker?articleId=${encodeURIComponent(articleId)}`,
+      );
+      await callbacks.current.onPhotos(latest?.pictures || job.pictures);
+      await request('/api/photos/picker', { id: job.id, action: 'cancel' });
+      popup.current?.close();
+      setJob(null);
+      setLaunchUrl('');
+      setMessage('Import terminé. Les photos déjà ajoutées sont conservées.');
+    } catch (e) {
+      setError(e instanceof Error ? e.message : 'Impossible de terminer.');
+    } finally {
+      working.current = false;
       setBusy(false);
     }
   }
   return (
     <div>
-      <div className="actions">
-        <Button
-          variant="ghost"
-          className="photo-action"
-          disabled={busy}
-          onClick={() =>
-            run(async () => {
-              const popup = window.open('about:blank', 'google-authorization');
-              const r = await fetch('/api/photos/google/start', {
-                method: 'POST',
-              });
-              const data = await r.json();
-              if (!r.ok) {
-                popup?.close();
-                throw new Error(data.error);
-              }
-              if (popup) popup.location.href = data.url;
-              else
-                setMessage(
-                  'Autorisez les fenêtres contextuelles puis réessayez.',
-                );
-            })
-          }
+      <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger render={<Button variant="outline" />}>
+          <ImagePlus aria-hidden="true" />{' '}
+          {job ? 'Reprendre l’ajout de photos' : 'Ajouter des photos'}
+        </SheetTrigger>
+        <SheetContent
+          side="bottom"
+          className="photo-import-drawer mx-auto max-h-[85dvh] max-w-2xl overflow-y-auto rounded-t-xl pb-[max(1rem,env(safe-area-inset-bottom))]"
         >
-          <Link2 size={20} /> Connecter Google Photos
-        </Button>
-        <Button
-          variant="ghost"
-          className="photo-action"
-          disabled={busy}
-          onClick={() =>
-            run(async () => {
-              const data = await api('create');
-              progress.current = { id: '', cursor: '' };
-              setPickerUrl(data.pickerUri);
-              setMessage(
-                'Ouvrez Google Photos, terminez la sélection, puis importez.',
-              );
-            })
-          }
-        >
-          <Images size={20} /> Nouvelle sélection
-        </Button>
-        {pickerUrl && (
-          <a
-            className="photo-action picker-link"
-            href={pickerUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <ExternalLink size={18} aria-hidden="true" /> Choisir dans Google
-            Photos
-          </a>
-        )}
-        <Button
-          variant="ghost"
-          className="photo-action"
-          disabled={busy}
-          onClick={() =>
-            run(async () => {
-              const status = await api('status');
-              if (!status.mediaItemsSet) {
-                setMessage(
-                  'Terminez la sélection dans Google Photos puis réessayez.',
-                );
-                return;
-              }
-              let cursor =
-                progress.current.id === status.id
-                  ? progress.current.cursor
-                  : '';
-              let skipped = 0;
-              do {
-                const data = await api('import', cursor);
-                onPhotos(data.pictures);
-                skipped += data.skipped.length;
-                cursor = data.nextPageToken || '';
-                progress.current = { id: status.id, cursor };
-                setMessage('Photos importées ; progression enregistrée.');
-              } while (cursor);
-              setMessage(`Import terminé. ${skipped} vidéo(s) ignorée(s).`);
-            })
-          }
-        >
-          <Download size={20} /> Importer / reprendre
-        </Button>
-        <Button
-          variant="ghost"
-          className="photo-action"
-          disabled={busy}
-          onClick={() =>
-            run(async () => {
-              const response = await fetch('/api/photos/picker', {
-                method: 'DELETE',
-              });
-              if (!response.ok) throw new Error((await response.json()).error);
-              progress.current = { id: '', cursor: '' };
-              setPickerUrl('');
-              setMessage(
-                'Connexion Google fermée. Les photos importées sont conservées.',
-              );
-            })
-          }
-        >
-          <Unplug size={20} /> Terminer / annuler Google
-        </Button>
-      </div>
-      <div className="space-y-2">
-        <Button
-          variant="ghost"
-          className="photo-action"
-          disabled={busy}
-          onClick={() => fileInput.current?.click()}
-        >
-          <Upload size={20} /> Importer depuis cet appareil
-        </Button>
-        <p className="text-sm text-muted-foreground">
-          JPEG, PNG, WebP ou AVIF · 4 Mo maximum par photo
-        </p>
-        <Input
-          id="photo-files"
-          ref={fileInput}
-          aria-label="Importer des photos locales"
-          className="sr-only"
-          type="file"
-          multiple
-          accept="image/jpeg,image/png,image/webp,image/avif"
-          disabled={busy}
-          onChange={(e) => {
-            const files = Array.from(e.target.files || []);
-            e.target.value = '';
-            run(async () => {
-              for (const file of files) {
-                const form = new FormData();
-                form.set('file', file);
-                const r = await fetch('/api/photos/upload', {
-                  method: 'POST',
-                  body: form,
-                });
-                const data = await r.json();
-                if (!r.ok) throw new Error(data.error);
-                onPhotos([data]);
-              }
-              setMessage('Photos importées.');
-            });
-          }}
-        />
-      </div>
-      <p role="status">{message}</p>
+          <SheetHeader className="pr-14">
+            <SheetTitle>Ajouter des photos</SheetTitle>
+            <SheetDescription>
+              Depuis Google Photos ou cet appareil. Les photos sont enregistrées
+              dans votre brouillon privé.
+            </SheetDescription>
+          </SheetHeader>
+          <div className="space-y-4 px-4">
+            {!running && (
+              <Button
+                variant="ghost"
+                className="photo-action"
+                disabled={busy}
+                onClick={startGoogle}
+              >
+                <Images aria-hidden="true" />{' '}
+                {job ? 'Continuer avec Google Photos' : 'Google Photos'}
+              </Button>
+            )}
+            {!job && (
+              <div>
+                <Button
+                  variant="ghost"
+                  className="photo-action"
+                  disabled={busy}
+                  onClick={() => fileInput.current?.click()}
+                >
+                  <Upload aria-hidden="true" /> Depuis cet appareil
+                </Button>
+                <p className="text-sm text-muted-foreground">
+                  JPEG, PNG, WebP ou AVIF · 4 Mo maximum par photo
+                </p>
+              </div>
+            )}
+            {(running || busy) && (
+              <p className="flex items-center gap-2">
+                <LoaderCircle
+                  className="size-5 shrink-0 animate-spin"
+                  aria-hidden="true"
+                />{' '}
+                {message || 'Préparation…'}
+              </p>
+            )}
+            {launchUrl && (
+              <a
+                className="picker-link"
+                href={launchUrl}
+                target="_blank"
+                rel="noreferrer"
+              >
+                <ExternalLink aria-hidden="true" size={18} /> Ouvrir Google
+                Photos (nouvel onglet)
+              </a>
+            )}
+            {job?.status === 'selecting' && job.pickerUrl && (
+              <div>
+                <a
+                  className="picker-link"
+                  href={job.pickerUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <ExternalLink aria-hidden="true" size={18} /> Revenir à la
+                  sélection Google
+                </a>
+                <p className="text-sm text-muted-foreground">
+                  Si l’onglet Google ne se ferme pas après validation, revenez
+                  ici.
+                </p>
+              </div>
+            )}
+            {error && (
+              <p role="alert" className="text-destructive">
+                {error}
+              </p>
+            )}
+            {job && !running && (
+              <Button
+                variant="outline"
+                disabled={busy}
+                onClick={() => {
+                  setError('');
+                  setRunning(true);
+                }}
+              >
+                Réessayer l’import
+              </Button>
+            )}
+            {!!job?.pictures.length && (
+              <div
+                className="grid grid-cols-3 gap-2"
+                aria-label="Photos importées"
+              >
+                {job.pictures.map((p) => (
+                  <Photo key={p.id} url={p.url} alt="" thumbnail />
+                ))}
+              </div>
+            )}
+            {job && (
+              <Button variant="ghost" disabled={busy} onClick={finish}>
+                Terminer cet import
+              </Button>
+            )}
+            <p className="text-sm text-muted-foreground">
+              Vous pouvez fermer ce panneau et reprendre plus tard. Il se
+              fermera automatiquement une fois les photos enregistrées.
+            </p>
+            <Input
+              ref={fileInput}
+              aria-label="Importer des photos locales"
+              className="sr-only"
+              type="file"
+              multiple
+              accept="image/jpeg,image/png,image/webp,image/avif"
+              disabled={busy || !!job}
+              onChange={async (e) => {
+                const files = Array.from(e.target.files || []);
+                e.target.value = '';
+                if (!files.length || working.current) return;
+                working.current = true;
+                setBusy(true);
+                setError('');
+                let count = 0;
+                try {
+                  await callbacks.current.beforeImport();
+                  for (const file of files) {
+                    setMessage(
+                      `Import de la photo ${count + 1} / ${files.length}…`,
+                    );
+                    const form = new FormData();
+                    form.set('file', file);
+                    const response = await fetch('/api/photos/upload', {
+                      method: 'POST',
+                      body: form,
+                    });
+                    const picture = await response.json();
+                    if (!response.ok) throw new Error(picture.error);
+                    await callbacks.current.onPhotos([picture]);
+                    count++;
+                  }
+                  setMessage(`${count} photo(s) ajoutée(s) au brouillon.`);
+                  setOpen(false);
+                } catch (e) {
+                  setError(
+                    e instanceof Error ? e.message : 'Import interrompu.',
+                  );
+                } finally {
+                  working.current = false;
+                  setBusy(false);
+                }
+              }}
+            />
+          </div>
+        </SheetContent>
+      </Sheet>
+      <p role="status" aria-live="polite">
+        {message}
+      </p>
     </div>
   );
 }

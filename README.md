@@ -18,6 +18,20 @@ Draft edits autosave directly to Neon every two seconds while online. There are 
 
 ## UI components
 
+### Editor choices and deployment
+
+Participants, places, periods, and sports use multi-selectors backed by the private `editor_options` table. Editors manage the four catalogs at `/editor/options` (also linked from the draft list). Choices can be added, renamed, archived, and reactivated. Renames and archives do not rewrite existing articles: old selected labels remain visible and can be removed explicitly. Sports use immutable codes, preserving article selections and `/sport/<code>` URLs when a display name is renamed. Sport names, public filters, navigation, and category pages read the cached database catalog; sport edits invalidate that cache. Known sport covers remain presentation defaults, and new sports use a published article cover when available. Returning from the management tab refreshes the choices without replacing unsaved article edits.
+
+Before deploying this version, apply `0001_legal_mikhail_rasputin.sql`, `0002_soft_blob.sql`, and `0003_curly_radioactive_man.sql` through the normal Drizzle migrator against the intended database. With a private environment file containing its direct `DATABASE_URL`:
+
+```sh
+node --env-file=.env.local --import tsx scripts/db-migrate.ts
+```
+
+These additive migrations create the catalog, seed distinct nonempty labels from both drafts and publications, create the private `photo_imports` progress table, and seed the sport catalog with existing codes and French labels. Migration `0003` also includes any additional sport codes found in drafts/publications. It recreates the enum inside the migration transaction so PostgreSQL can use the new sports value immediately. They do not change article content or revisions; subsequent migration runs are no-ops. Apply it before merging/deploying the editor changes, because the new editor reads this table. Existing public pages and the previous application remain compatible with the added tables.
+
+The editor date field uses the device's native calendar picker and saves `YYYY-MM-DD` dates. A visible photo legend explains insertion, cover selection, reordering, and removal. When no cover is stored, article pages, listing cards, and the editor use the first gallery photo at the center position. Explicit covers retain their position. The editor uses shrinking grid columns and a wrapping photo grid to fit narrow screens without horizontal page scrolling.
+
 The editor uses the official [shadcn/ui Base UI components](https://ui.shadcn.com/docs/components) in `components/ui`, with Tailwind v4 and Lucide. `components.json` records the style and aliases. The blog styles live in `app/blog.css`; Tailwind preflight is omitted to preserve the public design. Roboto is self-hosted through Fontsource, alongside the original Abadi font and article pictograms.
 
 The header uses Base UI Menu for outside-click dismissal, Escape, keyboard navigation, and closing after selection. Its DOM regression test runs with `npm test`.
@@ -40,9 +54,11 @@ The application no longer uses `EDITOR_WRITES_ENABLED`, `MIGRATION_MAINTENANCE`,
 
 Enable Google Photos Picker API and create an OAuth Web application client with callback `${APP_ORIGIN}/api/photos/google/callback`. Add the editor's Google account as a test user while the consent app is in Testing. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. Only the `photospicker.mediaitems.readonly` scope is requested.
 
-Connect Google from the editor, create a selection, open the official Picker, select photos, then import. Authorization opens a separate tab so the draft remains open. Google tokens are encrypted in HttpOnly cookies bound to the editor session and used only for importing. Selected image bytes are retrieved server-side and uploaded immediately to Cloudinary. Viewing published photos requires no Google authorization.
+Choose **Ajouter des photos → Google Photos**. The editor saves the draft before opening a separate tab, automatically requests authorization if needed, and continues directly to the Picker. The [official Picker cannot be embedded in an iframe](https://developers.google.com/photos/picker/guides/sessions); the app uses a shadcn bottom sheet for progress and `/autoclose` on the Google URL. If a popup is blocked, a normal link opens it. If Google does not close its tab on mobile, return to the editor tab manually. Cancellation and authorization failures redirect to the exact article. The configured OAuth callback URL is unchanged.
 
-Photo imports are deduplicated in Postgres and by deterministic Cloudinary asset IDs. The active page keeps its pagination cursor in memory. After a page reload, resume replays the selection using the already imported assets rather than uploading duplicates. An expired Google session requires authorization again. Finish/cancel clears the Picker session and Google authorization. Use one active selection per browser profile.
+The drawer detects completed selections and imports one photo per request, observing Google's polling interval and timeout. Cursor, photo metadata, skipped-video counts, and status persist in `photo_imports`, scoped to the article and the current editor login. Reopening the drawer or reloading the editor resumes that import; signing out or expiring the editor login starts a new scope. Tokens are encrypted server-side in the job and an HttpOnly cookie, never sent to the client. Valid authorization is reused for later imports until it expires. No refresh token is requested.
+
+Imported bytes go immediately to Cloudinary. Deterministic asset IDs deduplicate retries. Each batch is added through the editor's existing save queue; newer typing and revision conflicts are preserved. The drawer closes only after the draft save succeeds and the server verifies that every imported photo is present. Finish/cancel first saves any completed batches, then removes the Google session when possible and clears the job token. If a Google selection expires, finish that import and choose again; already saved photos remain. An expired authorization can be renewed while retaining the cursor. Viewing published photos requires no Google authorization.
 
 Local JPEG/PNG/WebP/AVIF uploads are also supported (4 MB per request). Imported images are decoded, rotated, and resized to at most 2,560 pixels. Videos are skipped. Cloudinary serves responsive automatic-quality/format images directly; originals remain with their owner. `npm run usage` checks Cloudinary usage.
 
@@ -50,6 +66,6 @@ Local JPEG/PNG/WebP/AVIF uploads are also supported (4 MB per request). Imported
 
 `npm test` runs model/save-queue tests. `npm run check` runs TypeScript; `npm run build` creates the production build.
 
-Database tests require `TEST_DATABASE_DISPOSABLE=true` and a `DATABASE_URL` pointing to a disposable database with the schema applied. Never use production: these tests create synthetic articles. After a build, also set `TEST_PRODUCTION_HTTP=true` to exercise the production server's authentication, private drafts, revision conflicts, repeated publishing, and cache invalidation. The Google authorization-start/cancellation regression uses a local server and fake OAuth credentials without calling Google or writing to a database.
+Database tests require `TEST_DATABASE_DISPOSABLE=true` and a `DATABASE_URL` pointing to a disposable database with the schema applied. Never use production: these tests create synthetic articles. After a build, also set `TEST_PRODUCTION_HTTP=true` to exercise the production server's authentication, private drafts, revision conflicts, repeated publishing, and cache invalidation. The Google authorization-start/cancellation regression uses a local server, the disposable database, and fake OAuth credentials. Import tests mock Google responses and seed cached image metadata; they verify authorization replay protection, resumable cursors, concurrent requests, expired authorization, deduplication, and draft acknowledgement without a real Google account or Cloudinary upload. A DOM interaction test verifies the drawer stays open after a save conflict and closes after a successful retry.
 
 Real Google consent/selection and visual layout still need interactive checks; HTTP tests do not substitute for them.

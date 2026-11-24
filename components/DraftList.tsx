@@ -7,6 +7,9 @@ export default function DraftList({ drafts }: { drafts: Draft[] }) {
     <main className="below-header">
       <h1>Nos brouillons</h1>
       <div className="actions">
+        <Link href="/editor/options">
+          Gérer les participants, lieux et périodes
+        </Link>
         <Button
           onClick={() => (location.href = `/editor/${crypto.randomUUID()}`)}
         >

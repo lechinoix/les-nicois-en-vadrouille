@@ -1,8 +1,8 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { articlePath, type Article } from '@/lib/model';
-import sports from '@/lib/sports';
+import { articleCover, articlePath, type Article } from '@/lib/model';
+import type { SportChoice } from '@/lib/sports';
 import Photo from './Photo';
 const normalize = (s: string) =>
   s
@@ -11,10 +11,12 @@ const normalize = (s: string) =>
     .toLowerCase();
 export default function ArticleList({
   articles,
+  sports,
   initialSport = '',
   limit,
 }: {
   articles: Article[];
+  sports: SportChoice[];
   initialSport?: string;
   limit?: number;
 }) {
@@ -45,27 +47,35 @@ export default function ArticleList({
           onChange={(e) => setSport(e.target.value)}
         >
           <option value="">Tous les sports</option>
-          {sports.map((s) => (
-            <option key={s.slug} value={s.slug}>
-              {s.name}
-            </option>
-          ))}
+          {sports
+            .filter(
+              (s) =>
+                !s.archived || articles.some((a) => a.sports.includes(s.slug)),
+            )
+            .map((s) => (
+              <option key={s.slug} value={s.slug}>
+                {s.name}
+              </option>
+            ))}
         </select>
       </div>
       <div className="grid">
-        {filtered.slice(0, query || sport ? undefined : limit).map((a) => (
-          <Link className="card" key={a.id} href={articlePath(a)}>
-            {a.cover && (
-              <Photo
-                url={a.cover.url}
-                position={a.cover.position}
-                alt=""
-                thumbnail
-              />
-            )}
-            <h2>{a.title}</h2>
-          </Link>
-        ))}
+        {filtered.slice(0, query || sport ? undefined : limit).map((a) => {
+          const cover = articleCover(a);
+          return (
+            <Link className="card" key={a.id} href={articlePath(a)}>
+              {cover && (
+                <Photo
+                  url={cover.url}
+                  position={cover.position}
+                  alt=""
+                  thumbnail
+                />
+              )}
+              <h2>{a.title}</h2>
+            </Link>
+          );
+        })}
       </div>
       {!filtered.length && <p>Aucune sortie trouvée.</p>}
     </>

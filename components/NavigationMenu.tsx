@@ -1,9 +1,9 @@
 'use client';
 
 import { Menu } from '@base-ui/react/menu';
-import sports from '@/lib/sports';
+import type { SportChoice } from '@/lib/sports';
 
-export default function NavigationMenu() {
+export default function NavigationMenu({ sports }: { sports: SportChoice[] }) {
   return (
     <Menu.Root>
       <Menu.Trigger className="navigation-trigger" aria-label="Menu principal">
@@ -35,7 +35,7 @@ export default function NavigationMenu() {
             {sports.map((sport) => (
               <Menu.LinkItem
                 key={sport.slug}
-                href={`/sport/${sport.slug}`}
+                href={`/sport/${encodeURIComponent(sport.slug)}`}
                 closeOnClick
               >
                 {sport.name}

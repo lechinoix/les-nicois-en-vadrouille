@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { publicSports } from '@/lib/public';
 import NavigationMenu from '@/components/NavigationMenu';
 import '@fontsource/roboto/100.css';
 import '@fontsource/roboto/100-italic.css';
@@ -14,7 +15,13 @@ export const metadata: Metadata = {
   title: 'Les Niçois en Vadrouille',
   description: 'Le site de montagne (et de chill) d’Ambre et Nicolas.',
 };
-export default function Layout({ children }: { children: React.ReactNode }) {
+export const dynamic = 'force-dynamic';
+export default async function Layout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const sports = await publicSports();
   return (
     <html lang="fr">
       <body>
@@ -23,7 +30,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <img src="/img/les-nicois.png" alt="Ambre et Nicolas grimpant" />
             Les Niçois en Vadrouille
           </Link>
-          <NavigationMenu />
+          <NavigationMenu sports={sports.filter((sport) => !sport.archived)} />
         </header>
         {children}
         <footer>Ambre & Nico · Les Niçois en Vadrouille</footer>

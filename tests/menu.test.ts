@@ -46,7 +46,7 @@ test('navigation closes on outside click, Escape and link selection', async () =
       React.createElement(
         'div',
         null,
-        React.createElement(NavigationMenu),
+        React.createElement(NavigationMenu, { sports: [] }),
         React.createElement('button', null, 'Outside'),
       ),
     );

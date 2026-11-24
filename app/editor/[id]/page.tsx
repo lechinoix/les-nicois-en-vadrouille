@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation';
 import { getDraft } from '@/lib/articles';
 import { emptyArticle } from '@/lib/model';
 import Editor from '@/components/Editor';
+import { listEditorOptions } from '@/lib/editor-options';
 export default async function EditorPage({
   params,
 }: {
@@ -16,5 +17,5 @@ export default async function EditorPage({
     data: emptyArticle(id),
     updatedAt: new Date().toISOString(),
   };
-  return <Editor initial={draft} />;
+  return <Editor initial={draft} initialOptions={await listEditorOptions()} />;
 }

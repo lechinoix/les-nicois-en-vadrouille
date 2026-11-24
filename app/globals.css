@@ -56,6 +56,7 @@
     margin: 0;
   }
   .editor-fields > div {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -72,6 +73,14 @@
   }
   .editor-fields label {
     flex-direction: row;
+  }
+  .editor,
+  .editor fieldset,
+  .editor .milkdown,
+  .editor .ProseMirror {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
   }
   .editor [data-slot='button'],
   .editor [data-slot='input'],
@@ -93,6 +102,22 @@
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
+}
+
+/* Override primitive nowrap/height utilities so long labels fit narrow screens. */
+.editor [data-slot='button'],
+.editor [data-slot='select-trigger'] {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+}
+.editor [data-slot='input'],
+.editor [data-slot='textarea'] {
+  min-width: 0;
+  width: 100%;
+}
+.editor [data-slot='checkbox'] {
+  flex-shrink: 0;
 }
 
 /* Photo actions remain unboxed, including hover and the selected cover. */
@@ -133,6 +158,24 @@
   gap: 0.5rem;
   min-height: 44px;
   font-size: 0.875rem;
+}
+
+.photo-import-drawer [data-slot='button'] {
+  min-height: 44px;
+  height: auto;
+  max-width: 100%;
+  white-space: normal;
+}
+.photo-import-drawer [data-slot='sheet-title'] {
+  margin: 0;
+}
+.photo-import-drawer {
+  overflow-wrap: anywhere;
+}
+.photo-import-drawer img {
+  width: 100%;
+  height: 6rem;
+  object-fit: cover;
 }
 
 .gallery-toolbar {

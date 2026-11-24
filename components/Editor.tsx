@@ -4,7 +4,6 @@ import { ImagePlus, Image, ArrowLeft, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Select,
   SelectContent,
@@ -26,12 +25,24 @@ import {
 } from '@/components/ui/alert-dialog';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import type { Article, Draft, Picture } from '@/lib/model';
+import {
+  articleCover,
+  type Article,
+  type Draft,
+  type Picture,
+} from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
+import { dateInputValue } from '@/lib/date';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import Photo from './Photo';
-import sports from '@/lib/sports';
+import PhotoLegend from './PhotoLegend';
+import ReferenceSelect from './ReferenceSelect';
+import {
+  optionKinds,
+  optionValue,
+  type EditorOption,
+} from '@/lib/editor-option-model';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
   TOP: 'Haut',
@@ -46,7 +57,48 @@ const coverPositions: Record<string, string> = {
 const MilkdownEditor = dynamic(() => import('./MilkdownEditor'), {
   ssr: false,
 });
-export default function Editor({ initial }: { initial: Draft }) {
+export default function Editor({
+  initial,
+  initialOptions,
+}: {
+  initial: Draft;
+  initialOptions: EditorOption[];
+}) {
+  const [options, setOptions] = useState(initialOptions);
+  const [optionsError, setOptionsError] = useState('');
+  useEffect(() => {
+    let controller: AbortController | undefined;
+    const refresh = async () => {
+      controller?.abort();
+      controller = new AbortController();
+      const signal = controller.signal;
+      try {
+        const response = await fetch('/api/editor-options', {
+          cache: 'no-store',
+          signal,
+        });
+        if (!response.ok)
+          throw new Error(
+            'Impossible d’actualiser les choix. Revenez dans cet onglet pour réessayer.',
+          );
+        const data = await response.json();
+        if (!signal.aborted) {
+          setOptions(data);
+          setOptionsError('');
+        }
+      } catch (error) {
+        if (!signal.aborted)
+          setOptionsError(
+            error instanceof Error ? error.message : 'Choix indisponibles.',
+          );
+      }
+    };
+    window.addEventListener('focus', refresh);
+    return () => {
+      controller?.abort();
+      window.removeEventListener('focus', refresh);
+    };
+  }, []);
   const [draft, setDraft] = useState(initial),
     [message, setMessage] = useState(''),
     [conflict, setConflict] = useState<Draft | null>(null),
@@ -116,16 +168,19 @@ export default function Editor({ initial }: { initial: Draft }) {
     queue.current!.save(publish).catch((e) => setMessage(e.message));
   };
   const a = draft.data;
-  const addPhotos = (pictures: Picture[]) => {
+  const cover = articleCover(a);
+  const flushDraft = async () => {
+    const q = queue.current!;
+    if (q.current.revision === 0) q.edit(q.current.data);
+    await q.save();
+  };
+  const addPhotos = async (pictures: Picture[]) => {
     const existing = queue.current!.current.data.pictures;
-    edit({
-      pictures: [
-        ...existing,
-        ...pictures.filter(
-          (p) => !existing.some((x) => String(x.id) === String(p.id)),
-        ),
-      ],
-    });
+    const added = pictures.filter(
+      (p) => !existing.some((x) => String(x.id) === String(p.id)),
+    );
+    if (added.length) edit({ pictures: [...existing, ...added] });
+    await flushDraft();
   };
   return (
     <main className="below-header editor">
@@ -215,9 +270,33 @@ export default function Editor({ initial }: { initial: Draft }) {
           </Button>
         </div>
         {preview ? (
-          <ArticleView article={a} />
+          <ArticleView
+            article={a}
+            sports={options
+              .filter((option) => option.kind === 'sports')
+              .map((option) => ({
+                slug: optionValue(option),
+                name: option.label,
+                archived: option.archived,
+              }))}
+          />
         ) : (
           <>
+            <p>
+              <a
+                href="/editor/options"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gérer les choix : participants, lieux, périodes et sports
+                (nouvel onglet)
+              </a>
+            </p>
+            {optionsError && (
+              <Alert variant="destructive">
+                <AlertDescription>{optionsError}</AlertDescription>
+              </Alert>
+            )}
             <div className="editor-fields">
               <div>
                 <Label htmlFor="article-title">Titre</Label>
@@ -231,9 +310,9 @@ export default function Editor({ initial }: { initial: Draft }) {
                 <Label htmlFor="article-date">Date</Label>
                 <Input
                   id="article-date"
-                  value={a.date}
+                  type="date"
+                  value={dateInputValue(a.date)}
                   onChange={(e) => edit({ date: e.target.value })}
-                  placeholder="2026-11-23"
                 />
               </div>
               {(['cotation', 'orientation'] as const).map((k) => (
@@ -262,54 +341,15 @@ export default function Editor({ initial }: { initial: Draft }) {
                   }
                 />
               </div>
-              {(['participants', 'places', 'periods'] as const).map((k) => (
-                <div key={k}>
-                  <Label htmlFor={`article-${k}`}>
-                    {
-                      {
-                        participants: 'Participants',
-                        places: 'Lieux',
-                        periods: 'Périodes',
-                      }[k]
-                    }{' '}
-                    (séparés par des virgules)
-                  </Label>
-                  <Input
-                    id={`article-${k}`}
-                    value={a[k].join(',')}
-                    onChange={(e) =>
-                      edit({
-                        [k]: e.target.value ? e.target.value.split(',') : [],
-                      })
-                    }
-                  />
-                </div>
+              {optionKinds.map((kind) => (
+                <ReferenceSelect
+                  key={kind}
+                  kind={kind}
+                  options={options}
+                  value={a[kind]}
+                  onChange={(values) => edit({ [kind]: values })}
+                />
               ))}
-              <fieldset>
-                <legend>Sports</legend>
-                <div className="grid grid-cols-2 gap-3">
-                  {sports.map((sport) => (
-                    <Label
-                      key={sport.slug}
-                      htmlFor={`sport-${sport.slug}`}
-                      className="min-h-8"
-                    >
-                      <Checkbox
-                        id={`sport-${sport.slug}`}
-                        checked={a.sports.includes(sport.slug)}
-                        onCheckedChange={(checked) =>
-                          edit({
-                            sports: checked
-                              ? [...a.sports, sport.slug]
-                              : a.sports.filter((s) => s !== sport.slug),
-                          })
-                        }
-                      />
-                      {sport.name}
-                    </Label>
-                  ))}
-                </div>
-              </fieldset>
               <div>
                 <Label htmlFor="article-topos">Topos (un lien par ligne)</Label>
                 <Textarea
@@ -346,16 +386,18 @@ export default function Editor({ initial }: { initial: Draft }) {
               />
             )}
             <h2>Photos</h2>
-            <PhotoImport onPhotos={addPhotos} />
+            <PhotoImport
+              articleId={a.id}
+              beforeImport={flushDraft}
+              onPhotos={addPhotos}
+            />
             <div className="my-4 flex flex-col gap-2">
               <Label htmlFor="cover-position">Position de couverture</Label>
               <Select
-                value={a.cover?.position || 'CENTER'}
-                disabled={!a.cover}
+                value={cover?.position || 'CENTER'}
+                disabled={!cover}
                 onValueChange={(position) =>
-                  a.cover &&
-                  position &&
-                  edit({ cover: { ...a.cover, position } })
+                  cover && position && edit({ cover: { ...cover, position } })
                 }
               >
                 <SelectTrigger id="cover-position">
@@ -372,6 +414,7 @@ export default function Editor({ initial }: { initial: Draft }) {
                 </SelectContent>
               </Select>
             </div>
+            <PhotoLegend />
             <div className="photo-editor">
               {a.pictures.map((p, i) => (
                 <figure key={p.id}>
@@ -398,12 +441,12 @@ export default function Editor({ initial }: { initial: Draft }) {
                       className="photo-action"
                       title="Couverture"
                       aria-label="Couverture"
-                      aria-pressed={a.cover?.id === p.id}
+                      aria-pressed={cover?.id === p.id}
                       onClick={() =>
                         edit({
                           cover: {
                             ...p,
-                            position: a.cover?.position || 'CENTER',
+                            position: cover?.position || 'CENTER',
                           },
                         })
                       }
@@ -414,8 +457,8 @@ export default function Editor({ initial }: { initial: Draft }) {
                       variant="ghost"
                       size="icon"
                       className="photo-action"
-                      title="Avant"
-                      aria-label="Avant"
+                      title="Déplacer vers le début de la galerie"
+                      aria-label="Déplacer vers le début de la galerie"
                       disabled={!i}
                       onClick={() => {
                         const pictures = [...a.pictures];
@@ -432,8 +475,8 @@ export default function Editor({ initial }: { initial: Draft }) {
                       variant="ghost"
                       size="icon"
                       className="photo-action"
-                      title="Retirer"
-                      aria-label="Retirer"
+                      title="Retirer de la galerie"
+                      aria-label="Retirer de la galerie"
                       onClick={() =>
                         edit({
                           pictures: a.pictures.filter((x) => x.id !== p.id),
