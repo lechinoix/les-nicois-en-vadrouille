@@ -38,6 +38,8 @@ import PhotoImport from './PhotoImport';
 import Photo from './Photo';
 import PhotoLegend from './PhotoLegend';
 import ReferenceSelect from './ReferenceSelect';
+import TopoInput from './TopoInput';
+import { camptocampRouteId, emptyTopoFields } from '@/lib/topo';
 import {
   optionKinds,
   optionValue,
@@ -350,16 +352,30 @@ export default function Editor({
                   onChange={(values) => edit({ [kind]: values })}
                 />
               ))}
-              <div>
-                <Label htmlFor="article-topos">Topos (un lien par ligne)</Label>
-                <Textarea
-                  id="article-topos"
-                  value={a.topos.join('\n')}
-                  onChange={(e) =>
-                    edit({ topos: e.target.value.split('\n').filter(Boolean) })
-                  }
-                />
-              </div>
+              <TopoInput
+                value={a.topos}
+                onChange={(topos) => edit({ topos })}
+                onDetails={(url, details) => {
+                  const current = queue.current!.current.data;
+                  if (
+                    !current.topos.some(
+                      (link) =>
+                        camptocampRouteId(link) === camptocampRouteId(url),
+                    )
+                  )
+                    return [];
+                  const patch = emptyTopoFields(current, details);
+                  const labels = {
+                    cotation: 'cotation',
+                    elevation: 'dénivelé',
+                    orientation: 'orientation',
+                  };
+                  if (Object.keys(patch).length) edit(patch);
+                  return (Object.keys(patch) as (keyof typeof labels)[]).map(
+                    (key) => labels[key],
+                  );
+                }}
+              />
             </div>
             <h2>Récit</h2>
             <Button
