@@ -473,3 +473,30 @@ dialog > img {
     height: 40px;
   }
 }
+
+/* Markdown image titles and the existing italic paragraphs used as captions. */
+.article-image {
+  display: block;
+  max-width: 100%;
+  margin: 1.5rem auto;
+  text-align: center;
+}
+.article-image img,
+.milkdown .ProseMirror img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin-inline: auto;
+}
+.article-caption {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9em;
+  font-style: italic;
+}
+.prose p:has(> .article-image),
+.prose p:has(> .article-image) + p:has(> em:only-child),
+.milkdown .ProseMirror p:has(> img),
+.milkdown .ProseMirror p:has(> img) + p:has(> em:only-child) {
+  text-align: center;
+}
