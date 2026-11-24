@@ -1,6 +1,24 @@
 # S3 → Neon: migration with downtime
 
-The current run leaves Vercel unchanged and migrates only the data (`hostingMode: "unchanged"`). S3 writes are frozen directly in AWS; launching Next.js is deferred.
+The S3 → Neon data migration completed on **2026-11-24** using `hostingMode: "unchanged"`. Legacy S3 content writes remain frozen. The root Next.js application has been merged; production activation needs a new deployment with the imported environment variables.
+
+## Verified migration result
+
+- Both frozen S3 documents contain 127 articles. Production Neon now has 127 publications, 127 matching private working copies, and 127 initial snapshots, all at revision 1. Full field comparisons passed with no unexplained discrepancies.
+- Preparation recorded 675 legacy normalizations and 92 Google-to-Cloudinary URL mappings. Existing Cloudinary assets were retained. One four-frame GIF was uploaded without JPEG conversion and verified byte-for-byte to preserve its animation.
+- A complete isolated rehearsal passed. Production dry-run and completed-snapshot rerun checks left all content rows unchanged; the migration ledger contains one completed import.
+- The local production build passed 272 route/privacy checks against imported data. All 1,536 unique gallery and migrated-image URLs returned public image responses without Google authorization. These are not yet Vercel production or visual-layout checks.
+- Frozen exports, source photo bytes, checksums, repair audits, photo mappings, the original S3 policy, and a verified Neon export are retained in a durable backup directory outside the worktree. Private receipts and the environment handoff are also in ignored `migration-data/`. No browser-only drafts needed importing.
+
+## Production activation still required
+
+The public origin is `https://www.lesnicoisenvadrouille.fr`. The private `migration-data/vercel-production.env` handoff includes Neon, managed Auth, Cloudinary, the editor password hash/session secret, and Google OAuth credentials. Import it for Vercel **Production**. It deliberately sets `MIGRATION_MAINTENANCE=true` and `EDITOR_WRITES_ENABLED=false`.
+
+Environment changes require a new deployment. The existing GitHub integration deploys merges to `main`, so a merge can create that deployment when the dashboard's manual Redeploy action is unavailable. Keep credentials out of Git. A successful build alone does not establish that the runtime environment or imported content works.
+
+Verify the deployment behind its private maintenance gate, including article reads, legacy URLs, private draft protection, and managed Auth sessions. Then complete editor/Google consent and import checks and remove maintenance deliberately. Keep the S3 write freeze in place. New blog edits make Neon authoritative; do not resume the old S3 writer.
+
+The procedure below remains the recovery/reference workflow. Do not treat the populated production database as a fresh empty import target.
 
 The staged runner now automates these steps; see [AUTOMATION.md](AUTOMATION.md) for secure credential inputs, commands and checkpoints. This page also documents the underlying manual procedure.
 
