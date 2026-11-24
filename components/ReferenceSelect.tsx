@@ -70,9 +70,11 @@ export default function ReferenceSelect({
         {value.map((label, index) => (
           <span
             key={`${index}-${label}`}
-            className="inline-flex items-center gap-1 rounded-md border border-border px-2 text-sm"
+            className="inline-flex min-w-0 max-w-full items-center gap-1 rounded-md border border-border px-2 text-sm"
           >
-            {label || '(valeur vide)'}
+            <span className="min-w-0 [overflow-wrap:anywhere]">
+              {label || '(valeur vide)'}
+            </span>
             <Button
               variant="ghost"
               size="icon"

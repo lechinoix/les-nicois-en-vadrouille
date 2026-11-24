@@ -339,7 +339,7 @@ export default function Editor({
               ))}
               <fieldset>
                 <legend>Sports</legend>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
                   {sports.map((sport) => (
                     <Label
                       key={sport.slug}

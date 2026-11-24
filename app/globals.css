@@ -56,6 +56,7 @@
     margin: 0;
   }
   .editor-fields > div {
+    min-width: 0;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -72,6 +73,14 @@
   }
   .editor-fields label {
     flex-direction: row;
+  }
+  .editor,
+  .editor fieldset,
+  .editor .milkdown,
+  .editor .ProseMirror {
+    min-inline-size: 0;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
   }
   .editor [data-slot='button'],
   .editor [data-slot='input'],
@@ -93,6 +102,22 @@
     white-space: pre-wrap;
     overflow-wrap: anywhere;
   }
+}
+
+/* Override primitive nowrap/height utilities so long labels fit narrow screens. */
+.editor [data-slot='button'],
+.editor [data-slot='select-trigger'] {
+  max-width: 100%;
+  white-space: normal;
+  height: auto;
+}
+.editor [data-slot='input'],
+.editor [data-slot='textarea'] {
+  min-width: 0;
+  width: 100%;
+}
+.editor [data-slot='checkbox'] {
+  flex-shrink: 0;
 }
 
 /* Photo actions remain unboxed, including hover and the selected cover. */
