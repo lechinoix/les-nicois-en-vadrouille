@@ -33,6 +33,8 @@ import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import Photo from './Photo';
 import PhotoLegend from './PhotoLegend';
+import ReferenceSelect from './ReferenceSelect';
+import { optionKinds, type EditorOption } from '@/lib/editor-option-model';
 import sports from '@/lib/sports';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
@@ -48,7 +50,48 @@ const coverPositions: Record<string, string> = {
 const MilkdownEditor = dynamic(() => import('./MilkdownEditor'), {
   ssr: false,
 });
-export default function Editor({ initial }: { initial: Draft }) {
+export default function Editor({
+  initial,
+  initialOptions,
+}: {
+  initial: Draft;
+  initialOptions: EditorOption[];
+}) {
+  const [options, setOptions] = useState(initialOptions);
+  const [optionsError, setOptionsError] = useState('');
+  useEffect(() => {
+    let controller: AbortController | undefined;
+    const refresh = async () => {
+      controller?.abort();
+      controller = new AbortController();
+      const signal = controller.signal;
+      try {
+        const response = await fetch('/api/editor-options', {
+          cache: 'no-store',
+          signal,
+        });
+        if (!response.ok)
+          throw new Error(
+            'Impossible d’actualiser les choix. Revenez dans cet onglet pour réessayer.',
+          );
+        const data = await response.json();
+        if (!signal.aborted) {
+          setOptions(data);
+          setOptionsError('');
+        }
+      } catch (error) {
+        if (!signal.aborted)
+          setOptionsError(
+            error instanceof Error ? error.message : 'Choix indisponibles.',
+          );
+      }
+    };
+    window.addEventListener('focus', refresh);
+    return () => {
+      controller?.abort();
+      window.removeEventListener('focus', refresh);
+    };
+  }, []);
   const [draft, setDraft] = useState(initial),
     [message, setMessage] = useState(''),
     [conflict, setConflict] = useState<Draft | null>(null),
@@ -220,6 +263,21 @@ export default function Editor({ initial }: { initial: Draft }) {
           <ArticleView article={a} />
         ) : (
           <>
+            <p>
+              <a
+                href="/editor/options"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Gérer les choix : participants, lieux et périodes (nouvel
+                onglet)
+              </a>
+            </p>
+            {optionsError && (
+              <Alert variant="destructive">
+                <AlertDescription>{optionsError}</AlertDescription>
+              </Alert>
+            )}
             <div className="editor-fields">
               <div>
                 <Label htmlFor="article-title">Titre</Label>
@@ -264,28 +322,14 @@ export default function Editor({ initial }: { initial: Draft }) {
                   }
                 />
               </div>
-              {(['participants', 'places', 'periods'] as const).map((k) => (
-                <div key={k}>
-                  <Label htmlFor={`article-${k}`}>
-                    {
-                      {
-                        participants: 'Participants',
-                        places: 'Lieux',
-                        periods: 'Périodes',
-                      }[k]
-                    }{' '}
-                    (séparés par des virgules)
-                  </Label>
-                  <Input
-                    id={`article-${k}`}
-                    value={a[k].join(',')}
-                    onChange={(e) =>
-                      edit({
-                        [k]: e.target.value ? e.target.value.split(',') : [],
-                      })
-                    }
-                  />
-                </div>
+              {optionKinds.map((kind) => (
+                <ReferenceSelect
+                  key={kind}
+                  kind={kind}
+                  options={options}
+                  value={a[kind]}
+                  onChange={(values) => edit({ [kind]: values })}
+                />
               ))}
               <fieldset>
                 <legend>Sports</legend>

@@ -18,6 +18,20 @@ Draft edits autosave directly to Neon every two seconds while online. There are 
 
 ## UI components
 
+### Editor choices and deployment
+
+Participants, places, and periods use multi-selectors backed by the private `editor_options` table. Editors manage the three catalogs at `/editor/options` (also linked from the draft list). Choices can be added, renamed, archived, and reactivated. Renames and archives do not rewrite existing articles: old selected labels remain visible and can be removed explicitly. Returning from the management tab refreshes the choices without replacing unsaved article edits.
+
+Before deploying this version, apply `0001_legal_mikhail_rasputin.sql` through the normal Drizzle migrator against the intended database. With a private environment file containing its direct `DATABASE_URL`:
+
+```sh
+node --env-file=.env.local --import tsx scripts/db-migrate.ts
+```
+
+This additive migration creates the catalog and seeds distinct nonempty labels from both drafts and publications. It does not change article content or revisions; subsequent migration runs are no-ops. Apply it before merging/deploying the editor changes, because the new editor reads this table. Existing public pages and the previous application remain compatible with the added table.
+
+The editor date field uses the device's native calendar picker and saves `YYYY-MM-DD` dates. A visible photo legend explains insertion, cover selection, reordering, and removal.
+
 The editor uses the official [shadcn/ui Base UI components](https://ui.shadcn.com/docs/components) in `components/ui`, with Tailwind v4 and Lucide. `components.json` records the style and aliases. The blog styles live in `app/blog.css`; Tailwind preflight is omitted to preserve the public design. Roboto is self-hosted through Fontsource, alongside the original Abadi font and article pictograms.
 
 The header uses Base UI Menu for outside-click dismissal, Escape, keyboard navigation, and closing after selection. Its DOM regression test runs with `npm test`.

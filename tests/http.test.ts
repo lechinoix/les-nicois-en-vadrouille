@@ -59,6 +59,12 @@ test(
         });
       });
       assert.equal((await fetch(`${origin}/api/articles`)).status, 401);
+      assert.equal((await fetch(`${origin}/api/editor-options`)).status, 401);
+      assert.equal(
+        (await fetch(`${origin}/editor/options`, { redirect: 'manual' }))
+          .status,
+        307,
+      );
       assert.equal(
         (await fetch(`${origin}/editor`, { redirect: 'manual' })).status,
         307,
@@ -91,11 +97,65 @@ test(
         'Content-Type': 'application/json',
         Cookie: cookie.split(';')[0],
       };
+      const optionLabel = `Participant ${crypto.randomUUID()}`;
+      const optionsRequest = (
+        method: string,
+        data: object,
+        requestHeaders = headers,
+      ) =>
+        fetch(`${origin}/api/editor-options`, {
+          method,
+          headers: requestHeaders,
+          body: JSON.stringify(data),
+        });
+      assert.equal(
+        (
+          await optionsRequest(
+            'POST',
+            { kind: 'participants', label: optionLabel },
+            { ...headers, Origin: 'https://evil.example' },
+          )
+        ).status,
+        403,
+      );
+      assert.equal(
+        (await optionsRequest('POST', { kind: 'unknown', label: optionLabel }))
+          .status,
+        400,
+      );
+      assert.equal(
+        (await optionsRequest('POST', { kind: 'places', label: '   ' })).status,
+        400,
+      );
+      const createdResponse = await optionsRequest('POST', {
+        kind: 'participants',
+        label: ` ${optionLabel} `,
+      });
+      assert.equal(createdResponse.status, 201);
+      const option = await createdResponse.json();
+      assert.equal(option.label, optionLabel);
+      assert.equal(option.revision, 1);
+      assert.equal(
+        (
+          await optionsRequest('POST', {
+            kind: 'participants',
+            label: optionLabel,
+          })
+        ).status,
+        409,
+      );
+      assert.equal(
+        (await optionsRequest('POST', { kind: 'places', label: optionLabel }))
+          .status,
+        201,
+        'same label may be used in another category',
+      );
       const id = `http-${crypto.randomUUID()}`;
       const a = {
         ...emptyArticle(id),
         title: `Private ${id}`,
         content: `UNPUBLISHED-${id}`,
+        participants: [optionLabel],
       };
       const send = (
         data: typeof a,
@@ -110,6 +170,73 @@ test(
       const saved = await send(a, 0);
       assert.equal(saved.status, 200, await saved.clone().text());
       assert.equal((await saved.json()).revision, 1);
+      const renamed = await optionsRequest('PATCH', {
+        id: option.id,
+        expectedRevision: 1,
+        label: `${optionLabel} renommé`,
+        archived: false,
+      });
+      assert.equal(renamed.status, 200);
+      assert.equal((await renamed.json()).revision, 2);
+      assert.equal(
+        (
+          await optionsRequest('PATCH', {
+            id: option.id,
+            expectedRevision: 1,
+            label: 'stale',
+            archived: true,
+          })
+        ).status,
+        409,
+      );
+      assert.equal(
+        (
+          await optionsRequest('PATCH', {
+            id: option.id,
+            expectedRevision: 2,
+            label: `${optionLabel} renommé`,
+            archived: true,
+          })
+        ).status,
+        200,
+      );
+      const choicesResponse = await fetch(`${origin}/api/editor-options`, {
+        headers,
+      });
+      assert.match(
+        choicesResponse.headers.get('cache-control') || '',
+        /private, no-store/,
+      );
+      const choices = await choicesResponse.json();
+      assert.equal(
+        choices.find((choice: { id: string }) => choice.id === option.id)
+          .archived,
+        true,
+      );
+      const preserved = await (
+        await fetch(`${origin}/api/articles/${id}`, { headers })
+      ).json();
+      assert.deepEqual(
+        preserved.data.participants,
+        [optionLabel],
+        'renaming/archiving must not rewrite saved articles',
+      );
+      assert.equal(preserved.revision, 1);
+      assert.equal(
+        (
+          await optionsRequest('PATCH', {
+            id: option.id,
+            expectedRevision: 3,
+            label: `${optionLabel} renommé`,
+            archived: false,
+          })
+        ).status,
+        200,
+      );
+      assert.equal(
+        (await fetch(`${origin}/editor/options`, { headers })).status,
+        200,
+      );
       assert.equal((await fetch(`${origin}/adventures/${id}`)).status, 404);
       assert.ok(
         !(await (await fetch(`${origin}/`)).text()).includes(a.content),
