@@ -283,7 +283,11 @@ test(
         headers,
         body: JSON.stringify({ action: 'create' }),
       });
-      assert.equal(photos.status, 401);
+      assert.equal(
+        photos.status,
+        400,
+        'legacy unscoped picker requests are rejected',
+      );
     } catch (e) {
       throw new Error(`${String(e)}\nServer logs:\n${logs}`);
     } finally {

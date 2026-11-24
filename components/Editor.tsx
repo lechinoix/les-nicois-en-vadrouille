@@ -167,16 +167,18 @@ export default function Editor({
   };
   const a = draft.data;
   const cover = articleCover(a);
-  const addPhotos = (pictures: Picture[]) => {
+  const flushDraft = async () => {
+    const q = queue.current!;
+    if (q.current.revision === 0) q.edit(q.current.data);
+    await q.save();
+  };
+  const addPhotos = async (pictures: Picture[]) => {
     const existing = queue.current!.current.data.pictures;
-    edit({
-      pictures: [
-        ...existing,
-        ...pictures.filter(
-          (p) => !existing.some((x) => String(x.id) === String(p.id)),
-        ),
-      ],
-    });
+    const added = pictures.filter(
+      (p) => !existing.some((x) => String(x.id) === String(p.id)),
+    );
+    if (added.length) edit({ pictures: [...existing, ...added] });
+    await flushDraft();
   };
   return (
     <main className="below-header editor">
@@ -398,7 +400,11 @@ export default function Editor({
               />
             )}
             <h2>Photos</h2>
-            <PhotoImport onPhotos={addPhotos} />
+            <PhotoImport
+              articleId={a.id}
+              beforeImport={flushDraft}
+              onPhotos={addPhotos}
+            />
             <div className="my-4 flex flex-col gap-2">
               <Label htmlFor="cover-position">Position de couverture</Label>
               <Select

@@ -1,60 +1,34 @@
 import { cookies } from 'next/headers';
-import {
-  requireSession,
-  cookieOptions,
-  seal,
-  unseal,
-  HttpError,
-} from '@/lib/auth';
+import { requireSession, cookieOptions, seal } from '@/lib/auth';
 import { endpoint } from '@/lib/http';
+import { finishGoogleAuthorization } from '@/lib/photo-imports';
+export const maxDuration = 60;
 export const GET = endpoint(async (req) => {
   const owner = await requireSession();
-  const c = await cookies();
-  const raw = c.get('google-state')?.value;
-  c.delete('google-state');
-  if (!raw) throw new HttpError(400, 'Session Google absente');
-  const state = unseal<{ state: string; owner: string; expiresAt: number }>(
-    raw,
-  );
   const url = new URL(req.url);
-  if (
-    state.owner !== owner ||
-    state.expiresAt < Date.now() ||
-    url.searchParams.get('state') !== state.state
-  )
-    throw new HttpError(403, 'Session Google invalide');
-  if (url.searchParams.has('error'))
-    return Response.redirect(
-      `${process.env.APP_ORIGIN}/editor?google=cancelled`,
-    );
-  const r = await fetch('https://oauth2.googleapis.com/token', {
-    method: 'POST',
-    body: new URLSearchParams({
-      code: url.searchParams.get('code') || '',
-      client_id: process.env.GOOGLE_CLIENT_ID!,
-      client_secret: process.env.GOOGLE_CLIENT_SECRET!,
-      redirect_uri: `${process.env.APP_ORIGIN}/api/photos/google/callback`,
-      grant_type: 'authorization_code',
-    }),
-  });
-  if (!r.ok) throw new HttpError(401, 'Autorisation Google impossible');
-  const t = await r.json();
-  c.set(
-    'google-token',
-    seal({
-      owner,
-      accessToken: t.access_token,
-      expiresAt: Date.now() + t.expires_in * 1000,
-    }),
-    { ...cookieOptions, maxAge: t.expires_in },
+  const { job, token } = await finishGoogleAuthorization(
+    url.searchParams.get('state') || '',
+    owner,
+    url.searchParams.get('code'),
+    url.searchParams.has('error'),
   );
-  return new Response(
-    '<!doctype html><html lang="fr"><p>Google Photos est connecté. Vous pouvez fermer cet onglet et revenir à votre brouillon.</p></html>',
-    {
-      headers: {
-        'Content-Type': 'text/html; charset=utf-8',
-        'Cache-Control': 'no-store',
-      },
+  if (token)
+    (await cookies()).set('google-token', seal(token), {
+      ...cookieOptions,
+      maxAge: Math.max(0, Math.floor((token.expiresAt - Date.now()) / 1000)),
+    });
+  // The callback always continues the same import. On cancellation, return to
+  // that exact article; the original editor tab retains its in-memory changes.
+  const destination =
+    token && job.status === 'selecting' && job.pickerUrl
+      ? job.pickerUrl
+      : `${process.env.APP_ORIGIN}/editor/${encodeURIComponent(job.articleId)}?photos=resume`;
+  return new Response(null, {
+    status: 303,
+    headers: {
+      Location: destination,
+      'Cache-Control': 'private, no-store',
+      'Referrer-Policy': 'no-referrer',
     },
-  );
+  });
 });

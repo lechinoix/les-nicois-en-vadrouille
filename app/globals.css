@@ -159,3 +159,21 @@
   min-height: 44px;
   font-size: 0.875rem;
 }
+
+.photo-import-drawer [data-slot='button'] {
+  min-height: 44px;
+  height: auto;
+  max-width: 100%;
+  white-space: normal;
+}
+.photo-import-drawer [data-slot='sheet-title'] {
+  margin: 0;
+}
+.photo-import-drawer {
+  overflow-wrap: anywhere;
+}
+.photo-import-drawer img {
+  width: 100%;
+  height: 6rem;
+  object-fit: cover;
+}

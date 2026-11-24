@@ -83,8 +83,12 @@ export async function uploadBytes(
     },
   };
 }
-export async function importBytes(bytes: () => Promise<Buffer>, key: string) {
-  const db = database().db;
+export async function importBytes(
+  bytes: () => Promise<Buffer>,
+  key: string,
+  db: Pick<ReturnType<typeof database>['db'], 'select' | 'insert'> = database()
+    .db,
+) {
   const [known] = await db.select().from(assets).where(eq(assets.key, key));
   if (known) return known.data;
   const data = await uploadBytes(await bytes(), key);

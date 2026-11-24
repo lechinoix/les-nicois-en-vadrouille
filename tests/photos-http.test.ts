@@ -3,16 +3,26 @@ import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { once } from 'node:events';
 import { createHmac, randomBytes } from 'node:crypto';
+import { emptyArticle } from '../lib/model';
 
 test(
   'production HTTP: Google authorization works with stale deployment flags and retains access protections',
-  { skip: process.env.TEST_PRODUCTION_HTTP !== 'true', timeout: 30000 },
+  {
+    skip:
+      process.env.TEST_PRODUCTION_HTTP !== 'true' ||
+      process.env.TEST_DATABASE_DISPOSABLE !== 'true',
+    timeout: 60000,
+  },
   async () => {
     const origin = 'http://127.0.0.1:33180';
     const secret = randomBytes(32).toString('hex');
     const body = `${randomBytes(24).toString('hex')}.${Date.now() + 60000}`;
     const session = `${body}.${createHmac('sha256', secret).update(body).digest('base64url')}`;
-    const headers = { Origin: origin, Cookie: `editor-session=${session}` };
+    const headers = {
+      Origin: origin,
+      Cookie: `editor-session=${session}`,
+      'Content-Type': 'application/json',
+    };
     const server = spawn(
       process.execPath,
       [
@@ -26,7 +36,6 @@ test(
       {
         env: {
           ...process.env,
-          DATABASE_URL: 'postgresql://unused@127.0.0.1:1/unused',
           APP_ORIGIN: origin,
           SESSION_SECRET: secret,
           GOOGLE_CLIENT_ID: 'test-client.apps.googleusercontent.com',
@@ -78,9 +87,21 @@ test(
         ).status,
         403,
       );
+      const articleId = `photo-http-${crypto.randomUUID()}`;
+      const saved = await fetch(`${origin}/api/articles`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          data: emptyArticle(articleId),
+          expectedRevision: 0,
+          publish: false,
+        }),
+      });
+      assert.equal(saved.status, 200);
       const response = await fetch(`${origin}/api/photos/google/start`, {
         method: 'POST',
         headers,
+        body: JSON.stringify({ articleId }),
       });
       assert.equal(response.status, 200);
       assert.match(response.headers.get('cache-control')!, /no-store/);
@@ -100,15 +121,7 @@ test(
       );
       assert.equal(url.searchParams.get('response_type'), 'code');
       const state = url.searchParams.get('state')!;
-      assert.match(state, /^[a-f0-9]{64}$/);
-      const cookie = response.headers
-        .getSetCookie()
-        .find((c) => c.startsWith('google-state='))!;
-      assert.match(cookie, /HttpOnly/i);
-      assert.match(cookie, /Secure/i);
-      const callbackHeaders = {
-        Cookie: `${headers.Cookie}; ${cookie.split(';')[0]}`,
-      };
+      const callbackHeaders = { Cookie: headers.Cookie };
       const wrongState = await fetch(
         `${origin}/api/photos/google/callback?error=access_denied&state=wrong`,
         { headers: callbackHeaders, redirect: 'manual' },
@@ -118,12 +131,36 @@ test(
         `${origin}/api/photos/google/callback?error=access_denied&state=${state}`,
         { headers: callbackHeaders, redirect: 'manual' },
       );
-      assert.equal(cancelled.status, 302);
+      assert.equal(cancelled.status, 303);
       assert.equal(
         cancelled.headers.get('location'),
-        `${origin}/editor?google=cancelled`,
+        `${origin}/editor/${articleId}?photos=resume`,
       );
       assert.equal((await fetch(`${origin}/api/articles`)).status, 401);
+      assert.equal(
+        (await fetch(`${origin}/api/photos/picker?articleId=${articleId}`))
+          .status,
+        401,
+      );
+      const pendingResponse = await fetch(
+        `${origin}/api/photos/picker?articleId=${articleId}`,
+        { headers },
+      );
+      const pending = await pendingResponse.json();
+      assert.equal(pending.articleId, articleId);
+      assert.match(pending.error, /annulée/);
+      assert.equal(pending.token, undefined);
+      assert.equal(pending.oauthNonce, undefined);
+      assert.equal(
+        (
+          await fetch(
+            `${origin}/api/photos/google/callback?error=access_denied&state=${state}`,
+            { headers: callbackHeaders, redirect: 'manual' },
+          )
+        ).status,
+        403,
+      );
+
       assert.equal(
         (await fetch(`${origin}/api/export`, { headers })).status,
         404,

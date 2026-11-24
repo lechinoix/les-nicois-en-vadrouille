@@ -1,34 +1,32 @@
-import { cookies } from 'next/headers';
-import { HttpError, unseal, requireSession } from './auth';
+import { HttpError } from './auth';
 export type GoogleToken = {
   accessToken: string;
   expiresAt: number;
   owner: string;
 };
-export async function googleToken() {
-  const owner = await requireSession();
-  const raw = (await cookies()).get('google-token')?.value;
-  if (!raw) throw new HttpError(401, 'Autorisez Google Photos pour importer.');
-  const t = unseal<GoogleToken>(raw);
-  if (t.owner !== owner || t.expiresAt < Date.now())
-    throw new HttpError(
-      401,
-      'Autorisation Google expirée. Reconnectez Google ; les photos déjà importées sont conservées.',
-    );
-  return t.accessToken;
-}
-export async function google(path: string, method = 'GET') {
+export async function google(
+  path: string,
+  method: string,
+  accessToken: string,
+) {
   const response = await fetch(
     `https://photospicker.googleapis.com/v1/${path}`,
     {
       method,
-      headers: { Authorization: `Bearer ${await googleToken()}` },
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
       cache: 'no-store',
+      signal: AbortSignal.timeout(15000),
     },
   );
   if (!response.ok)
     throw new HttpError(
-      response.status === 401 ? 401 : 502,
+      response.status === 401
+        ? 428
+        : [404, 410].includes(response.status)
+          ? 410
+          : 502,
       `Google Photos : ${response.status}. Réessayez ou reconnectez Google.`,
     );
   return method === 'DELETE' ? {} : response.json();
