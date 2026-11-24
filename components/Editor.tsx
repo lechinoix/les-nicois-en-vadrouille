@@ -26,7 +26,12 @@ import {
 } from '@/components/ui/alert-dialog';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
-import type { Article, Draft, Picture } from '@/lib/model';
+import {
+  articleCover,
+  type Article,
+  type Draft,
+  type Picture,
+} from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
 import { dateInputValue } from '@/lib/date';
 import ArticleView from './ArticleView';
@@ -161,6 +166,7 @@ export default function Editor({
     queue.current!.save(publish).catch((e) => setMessage(e.message));
   };
   const a = draft.data;
+  const cover = articleCover(a);
   const addPhotos = (pictures: Picture[]) => {
     const existing = queue.current!.current.data.pictures;
     edit({
@@ -396,12 +402,10 @@ export default function Editor({
             <div className="my-4 flex flex-col gap-2">
               <Label htmlFor="cover-position">Position de couverture</Label>
               <Select
-                value={a.cover?.position || 'CENTER'}
-                disabled={!a.cover}
+                value={cover?.position || 'CENTER'}
+                disabled={!cover}
                 onValueChange={(position) =>
-                  a.cover &&
-                  position &&
-                  edit({ cover: { ...a.cover, position } })
+                  cover && position && edit({ cover: { ...cover, position } })
                 }
               >
                 <SelectTrigger id="cover-position">
@@ -445,12 +449,12 @@ export default function Editor({
                       className="photo-action"
                       title="Couverture"
                       aria-label="Couverture"
-                      aria-pressed={a.cover?.id === p.id}
+                      aria-pressed={cover?.id === p.id}
                       onClick={() =>
                         edit({
                           cover: {
                             ...p,
-                            position: a.cover?.position || 'CENTER',
+                            position: cover?.position || 'CENTER',
                           },
                         })
                       }

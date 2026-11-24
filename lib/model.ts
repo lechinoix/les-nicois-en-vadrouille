@@ -55,6 +55,10 @@ export const articleSchema = z
   });
 export type Article = z.infer<typeof articleSchema>;
 export type Picture = z.infer<typeof pictureSchema>;
+// Keep the stored choice intact; articles without one follow gallery order.
+export const articleCover = (article: Pick<Article, 'cover' | 'pictures'>) =>
+  article.cover ??
+  (article.pictures[0] ? { ...article.pictures[0], position: 'CENTER' } : null);
 export type Draft = {
   id: string;
   revision: number;

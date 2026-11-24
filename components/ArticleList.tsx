@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
-import { articlePath, type Article } from '@/lib/model';
+import { articleCover, articlePath, type Article } from '@/lib/model';
 import sports from '@/lib/sports';
 import Photo from './Photo';
 const normalize = (s: string) =>
@@ -53,19 +53,22 @@ export default function ArticleList({
         </select>
       </div>
       <div className="grid">
-        {filtered.slice(0, query || sport ? undefined : limit).map((a) => (
-          <Link className="card" key={a.id} href={articlePath(a)}>
-            {a.cover && (
-              <Photo
-                url={a.cover.url}
-                position={a.cover.position}
-                alt=""
-                thumbnail
-              />
-            )}
-            <h2>{a.title}</h2>
-          </Link>
-        ))}
+        {filtered.slice(0, query || sport ? undefined : limit).map((a) => {
+          const cover = articleCover(a);
+          return (
+            <Link className="card" key={a.id} href={articlePath(a)}>
+              {cover && (
+                <Photo
+                  url={cover.url}
+                  position={cover.position}
+                  alt=""
+                  thumbnail
+                />
+              )}
+              <h2>{a.title}</h2>
+            </Link>
+          );
+        })}
       </div>
       {!filtered.length && <p>Aucune sortie trouvée.</p>}
     </>

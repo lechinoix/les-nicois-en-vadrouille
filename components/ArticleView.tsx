@@ -1,4 +1,4 @@
-import type { Article } from '@/lib/model';
+import { articleCover, type Article } from '@/lib/model';
 import sports from '@/lib/sports';
 import Photo from './Photo';
 import Markdown from './Markdown';
@@ -38,13 +38,14 @@ function Fact({
 }
 
 export default function ArticleView({ article: a }: { article: Article }) {
+  const cover = articleCover(a);
   return (
     <article>
       <div className="hero">
-        {a.cover && (
+        {cover && (
           <Photo
-            url={a.cover.url}
-            position={a.cover.position}
+            url={cover.url}
+            position={cover.position}
             alt={a.title}
             eager
           />
