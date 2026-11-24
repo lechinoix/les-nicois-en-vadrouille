@@ -5,8 +5,27 @@ import {
   jsonb,
   timestamp,
   primaryKey,
+  pgEnum,
+  uuid,
+  boolean,
+  uniqueIndex,
 } from 'drizzle-orm/pg-core';
 import type { Article, Picture } from '../lib/model';
+import { optionKinds } from '../lib/editor-option-model';
+export const editorOptionKind = pgEnum('editor_option_kind', optionKinds);
+export const editorOptions = pgTable(
+  'editor_options',
+  {
+    id: uuid('id').defaultRandom().primaryKey(),
+    kind: editorOptionKind('kind').notNull(),
+    label: text('label').notNull(),
+    archived: boolean('archived').default(false).notNull(),
+    revision: integer('revision').default(1).notNull(),
+  },
+  (table) => [
+    uniqueIndex('editor_options_kind_label_unique').on(table.kind, table.label),
+  ],
+);
 export const articles = pgTable('articles', {
   id: text('id').primaryKey(),
   createdAt: timestamp('created_at', { withTimezone: true })
