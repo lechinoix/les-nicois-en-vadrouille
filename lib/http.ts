@@ -22,7 +22,7 @@ export function endpoint(fn: (req: Request) => Promise<Response>) {
       return json(
         {
           error:
-            'Opération impossible. Votre travail est conservé ; réessayez.',
+            'Opération impossible. Gardez cette page ouverte et réessayez.',
         },
         500,
       );

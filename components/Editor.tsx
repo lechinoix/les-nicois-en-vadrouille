@@ -1,12 +1,48 @@
 'use client';
+import { Button } from '@/components/ui/button';
+import { ImagePlus, Image, ArrowLeft, Trash2 } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import {
+  AlertDialog,
+  AlertDialogTrigger,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+  AlertDialogAction,
+} from '@/components/ui/alert-dialog';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { Article, Draft, Picture } from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
-import { download } from './DraftList';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
-import sports from '@/lib/sports.json';
+import Photo from './Photo';
+import sports from '@/lib/sports';
+const coverPositions: Record<string, string> = {
+  CENTER: 'Centre',
+  TOP: 'Haut',
+  BOTTOM: 'Bas',
+  LEFT: 'Gauche',
+  RIGHT: 'Droite',
+  TOP_LEFT: 'En haut à gauche',
+  TOP_RIGHT: 'En haut à droite',
+  BOTTOM_LEFT: 'En bas à gauche',
+  BOTTOM_RIGHT: 'En bas à droite',
+};
 const MilkdownEditor = dynamic(() => import('./MilkdownEditor'), {
   ssr: false,
 });
@@ -14,8 +50,7 @@ export default function Editor({ initial }: { initial: Draft }) {
   const [draft, setDraft] = useState(initial),
     [message, setMessage] = useState(''),
     [conflict, setConflict] = useState<Draft | null>(null),
-    [recovery, setRecovery] = useState<Draft | null>(null),
-    [ready, setReady] = useState(false),
+    [replaceOpen, setReplaceOpen] = useState(false),
     [preview, setPreview] = useState(false),
     [source, setSource] = useState(false),
     [epoch, setEpoch] = useState(0);
@@ -35,6 +70,8 @@ export default function Editor({ initial }: { initial: Draft }) {
           if (r.status === 409) {
             queue.current!.blocked = true;
             setConflict(result.current);
+          } else if (r.status < 500) {
+            queue.current!.blocked = true;
           }
           throw new Error(result.error);
         }
@@ -43,40 +80,25 @@ export default function Editor({ initial }: { initial: Draft }) {
       },
       (d) => {
         setDraft(d);
-        try {
-          localStorage.setItem(`recovery-${d.id}`, JSON.stringify(d));
-        } catch {
-          setMessage('Stockage local indisponible : exportez votre travail.');
-        }
+        if (queue.current?.dirty) setMessage('Modifications non enregistrées…');
       },
     );
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(`recovery-${initial.id}`);
-      if (raw) {
-        const local = JSON.parse(raw);
-        if (JSON.stringify(local.data) !== JSON.stringify(initial.data)) {
-          setRecovery(local);
-          return;
-        }
-      }
-    } catch {
-      setMessage('Copie locale illisible.');
-    }
-    setReady(true);
-  }, [initial]);
-  useEffect(() => {
-    if (!ready) return;
     const timer = setInterval(() => {
       const q = queue.current!;
-      if (q.dirty && !q.blocked && navigator.onLine)
-        q.save().catch((e) => {
-          setMessage(e.message);
-          q.blocked = true;
-        });
+      if (!q.dirty || q.blocked) return;
+      if (!navigator.onLine) {
+        setMessage(
+          'Hors ligne : gardez cette page ouverte jusqu’à l’enregistrement.',
+        );
+        return;
+      }
+      q.save().catch((e) => {
+        setMessage(e.message);
+      });
     }, 2000);
     return () => clearInterval(timer);
-  }, [ready]);
+  }, []);
   useEffect(() => {
     const listener = (e: BeforeUnloadEvent) => {
       if (queue.current?.dirty) {
@@ -109,128 +131,127 @@ export default function Editor({ initial }: { initial: Draft }) {
     <main className="below-header editor">
       <a href="/editor">Tous les brouillons</a>
       <h1>{a.title || 'Nouvelle aventure'}</h1>
-      <p role="status" className="notice">
-        {message || `Révision ${draft.revision} · Brouillon privé`}
-      </p>
-      {recovery && (
-        <div className="notice error">
-          <p>
-            Une copie locale diffère du serveur. Exportez-la ou restaurez-la ;
-            une révision ancienne déclenchera un conflit.
-          </p>
-          <button onClick={() => download(recovery, 'recuperation.json')}>
-            Exporter
-          </button>
-          <button
-            onClick={() => {
-              queue.current!.current = recovery;
-              queue.current!.edit(recovery.data);
-              setEpoch((x) => x + 1);
-              setRecovery(null);
-              setReady(true);
-            }}
-          >
-            Restaurer la copie locale
-          </button>
-          <button
-            onClick={() => {
-              setRecovery(null);
-              setReady(true);
-            }}
-          >
-            Utiliser la version serveur
-          </button>
-        </div>
-      )}
+      <Alert role="status" className="my-4">
+        <AlertDescription>
+          {message || `Révision ${draft.revision} · Brouillon privé`}
+        </AlertDescription>
+      </Alert>
       {conflict && (
-        <div className="notice error">
-          <h2>Conflit : aucune modification locale n’a été supprimée</h2>
-          <button onClick={() => download(draft, 'conflit-local.json')}>
-            Exporter mon travail
-          </button>
-          <details>
-            <summary>
-              Voir le texte du serveur (révision {conflict.revision})
-            </summary>
-            <pre>{JSON.stringify(conflict.data, null, 2)}</pre>
-          </details>
-          <button
-            onClick={() => {
-              download(draft, 'avant-fusion.json');
-              queue.current!.current = {
-                ...draft,
-                revision: conflict.revision,
-              };
-              queue.current!.blocked = false;
-              queue.current!.dirty = true;
-              setDraft(queue.current!.current);
-              setConflict(null);
-              setMessage('Vérifiez votre fusion, puis enregistrez.');
-              setReady(false);
-            }}
-          >
-            Garder mon travail sur cette révision (après comparaison)
-          </button>
-          <button
-            onClick={() => {
-              download(draft, 'avant-remplacement.json');
-              queue.current!.current = conflict;
-              queue.current!.dirty = false;
-              queue.current!.blocked = false;
-              setDraft(conflict);
-              setConflict(null);
-              setEpoch((x) => x + 1);
-            }}
-          >
-            Charger le serveur et exporter mon travail
-          </button>
-        </div>
+        <Alert variant="destructive" className="my-4">
+          <AlertTitle>Conflit : votre travail reste dans cette page</AlertTitle>
+          <AlertDescription>
+            <details>
+              <summary>
+                Voir le texte du serveur (révision {conflict.revision})
+              </summary>
+              <pre>{JSON.stringify(conflict.data, null, 2)}</pre>
+            </details>
+            <div className="conflict-actions">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  queue.current!.current = {
+                    ...queue.current!.current,
+                    revision: conflict.revision,
+                  };
+                  // Keep autosave paused until the explicit save after comparison.
+                  queue.current!.blocked = true;
+                  queue.current!.dirty = true;
+                  setDraft(queue.current!.current);
+                  setConflict(null);
+                  setMessage('Vérifiez votre fusion, puis enregistrez.');
+                }}
+              >
+                Garder mon travail sur cette révision (après comparaison)
+              </Button>
+              <AlertDialog open={replaceOpen} onOpenChange={setReplaceOpen}>
+                <AlertDialogTrigger render={<Button variant="outline" />}>
+                  Remplacer mon travail par la version serveur
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Remplacer votre travail ?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Les modifications non enregistrées de cette page seront
+                      remplacées par la révision {conflict.revision} du serveur.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Annuler</AlertDialogCancel>
+                    <AlertDialogAction
+                      variant="destructive"
+                      onClick={() => {
+                        queue.current!.current = conflict;
+                        queue.current!.dirty = false;
+                        queue.current!.blocked = false;
+                        setDraft(conflict);
+                        setReplaceOpen(false);
+                        setConflict(null);
+                        setMessage('Version serveur chargée.');
+                        setEpoch((x) => x + 1);
+                      }}
+                    >
+                      Remplacer
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            </div>
+          </AlertDescription>
+        </Alert>
       )}
-      <fieldset disabled={!!recovery} style={{ border: 0, padding: 0 }}>
+      <fieldset style={{ border: 0, padding: 0 }}>
         <div className="actions">
-          <button onClick={() => save()}>Enregistrer</button>
-          <button onClick={() => save(true)} disabled={!!conflict}>
+          <Button variant="outline" onClick={() => save()}>
+            Enregistrer
+          </Button>
+          <Button onClick={() => save(true)} disabled={!!conflict}>
             Publier
-          </button>
-          <button onClick={() => setPreview(!preview)}>
+          </Button>
+          <Button variant="outline" onClick={() => setPreview(!preview)}>
             {preview ? 'Modifier' : 'Aperçu'}
-          </button>
-          <button onClick={() => download(draft, 'brouillon.json')}>
-            Exporter
-          </button>
+          </Button>
         </div>
         {preview ? (
           <ArticleView article={a} />
         ) : (
           <>
             <div className="editor-fields">
-              <label>
-                Titre
-                <input
+              <div>
+                <Label htmlFor="article-title">Titre</Label>
+                <Input
+                  id="article-title"
                   value={a.title}
                   onChange={(e) => edit({ title: e.target.value })}
                 />
-              </label>
-              <label>
-                Date
-                <input
+              </div>
+              <div>
+                <Label htmlFor="article-date">Date</Label>
+                <Input
+                  id="article-date"
                   value={a.date}
                   onChange={(e) => edit({ date: e.target.value })}
                   placeholder="2026-11-23"
                 />
-              </label>
+              </div>
               {(['cotation', 'orientation'] as const).map((k) => (
-                <label key={k}>
-                  {k}
-                  <input
+                <div key={k}>
+                  <Label htmlFor={`article-${k}`}>
+                    {k === 'cotation' ? 'Cotation' : 'Orientation'}
+                  </Label>
+                  <Input
+                    id={`article-${k}`}
                     value={a[k] || ''}
                     onChange={(e) => edit({ [k]: e.target.value || null })}
                   />
-                </label>
+                </div>
               ))}
-              <label>
-                Dénivelé (m)
-                <input
+              <div>
+                <Label htmlFor="article-elevation">Dénivelé (m)</Label>
+                <Input
+                  id="article-elevation"
                   type="number"
                   value={a.elevation ?? ''}
                   onChange={(e) =>
@@ -240,11 +261,21 @@ export default function Editor({ initial }: { initial: Draft }) {
                     })
                   }
                 />
-              </label>
+              </div>
               {(['participants', 'places', 'periods'] as const).map((k) => (
-                <label key={k}>
-                  {k} (séparés par des virgules)
-                  <input
+                <div key={k}>
+                  <Label htmlFor={`article-${k}`}>
+                    {
+                      {
+                        participants: 'Participants',
+                        places: 'Lieux',
+                        periods: 'Périodes',
+                      }[k]
+                    }{' '}
+                    (séparés par des virgules)
+                  </Label>
+                  <Input
+                    id={`article-${k}`}
                     value={a[k].join(',')}
                     onChange={(e) =>
                       edit({
@@ -252,50 +283,57 @@ export default function Editor({ initial }: { initial: Draft }) {
                       })
                     }
                   />
-                </label>
+                </div>
               ))}
-              <label>
-                Sports
-                <select
-                  multiple
-                  value={a.sports}
-                  onChange={(e) =>
-                    edit({
-                      sports: Array.from(
-                        e.target.selectedOptions,
-                        (o) => o.value,
-                      ),
-                    })
-                  }
-                >
-                  {sports.map((s) => (
-                    <option key={s.slug} value={s.slug}>
-                      {s.name}
-                    </option>
+              <fieldset>
+                <legend>Sports</legend>
+                <div className="grid grid-cols-2 gap-3">
+                  {sports.map((sport) => (
+                    <Label
+                      key={sport.slug}
+                      htmlFor={`sport-${sport.slug}`}
+                      className="min-h-8"
+                    >
+                      <Checkbox
+                        id={`sport-${sport.slug}`}
+                        checked={a.sports.includes(sport.slug)}
+                        onCheckedChange={(checked) =>
+                          edit({
+                            sports: checked
+                              ? [...a.sports, sport.slug]
+                              : a.sports.filter((s) => s !== sport.slug),
+                          })
+                        }
+                      />
+                      {sport.name}
+                    </Label>
                   ))}
-                </select>
-              </label>
-              <label>
-                Topos (un lien par ligne)
-                <textarea
+                </div>
+              </fieldset>
+              <div>
+                <Label htmlFor="article-topos">Topos (un lien par ligne)</Label>
+                <Textarea
+                  id="article-topos"
                   value={a.topos.join('\n')}
                   onChange={(e) =>
                     edit({ topos: e.target.value.split('\n').filter(Boolean) })
                   }
                 />
-              </label>
+              </div>
             </div>
             <h2>Récit</h2>
-            <button
+            <Button
+              variant="outline"
+              className="mb-3"
               onClick={() => {
                 setSource(!source);
                 setEpoch((x) => x + 1);
               }}
             >
               {source ? 'Éditeur visuel' : 'Markdown source'}
-            </button>
+            </Button>
             {source ? (
-              <textarea
+              <Textarea
                 aria-label="Markdown"
                 value={a.content}
                 onChange={(e) => edit({ content: e.target.value })}
@@ -309,36 +347,42 @@ export default function Editor({ initial }: { initial: Draft }) {
             )}
             <h2>Photos</h2>
             <PhotoImport onPhotos={addPhotos} />
-            <label>
-              Position de couverture
-              <select
+            <div className="my-4 flex flex-col gap-2">
+              <Label htmlFor="cover-position">Position de couverture</Label>
+              <Select
                 value={a.cover?.position || 'CENTER'}
-                onChange={(e) =>
+                disabled={!a.cover}
+                onValueChange={(position) =>
                   a.cover &&
-                  edit({ cover: { ...a.cover, position: e.target.value } })
+                  position &&
+                  edit({ cover: { ...a.cover, position } })
                 }
               >
-                {[
-                  'CENTER',
-                  'TOP',
-                  'BOTTOM',
-                  'LEFT',
-                  'RIGHT',
-                  'TOP_LEFT',
-                  'TOP_RIGHT',
-                  'BOTTOM_LEFT',
-                  'BOTTOM_RIGHT',
-                ].map((p) => (
-                  <option key={p}>{p}</option>
-                ))}
-              </select>
-            </label>
+                <SelectTrigger id="cover-position">
+                  <SelectValue>
+                    {(position) => coverPositions[position] || position}
+                  </SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  {Object.entries(coverPositions).map(([position, label]) => (
+                    <SelectItem key={position} value={position}>
+                      {label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
             <div className="photo-editor">
               {a.pictures.map((p, i) => (
                 <figure key={p.id}>
-                  <img src={p.formats.small.url} alt={`Photo ${i + 1}`} />
+                  <Photo url={p.url} alt={`Photo ${i + 1}`} thumbnail />
                   <figcaption>
-                    <button
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Insérer dans le récit"
+                      aria-label="Insérer dans le récit"
                       onClick={() => {
                         edit({
                           content: `${queue.current!.current.data.content}\n\n![](${p.url})\n`,
@@ -346,9 +390,15 @@ export default function Editor({ initial }: { initial: Draft }) {
                         setEpoch((x) => x + 1);
                       }}
                     >
-                      Insérer dans le récit
-                    </button>
-                    <button
+                      <ImagePlus size={20} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Couverture"
+                      aria-label="Couverture"
+                      aria-pressed={a.cover?.id === p.id}
                       onClick={() =>
                         edit({
                           cover: {
@@ -358,9 +408,14 @@ export default function Editor({ initial }: { initial: Draft }) {
                         })
                       }
                     >
-                      Couverture
-                    </button>
-                    <button
+                      <Image size={20} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Avant"
+                      aria-label="Avant"
                       disabled={!i}
                       onClick={() => {
                         const pictures = [...a.pictures];
@@ -371,9 +426,14 @@ export default function Editor({ initial }: { initial: Draft }) {
                         edit({ pictures });
                       }}
                     >
-                      Avant
-                    </button>
-                    <button
+                      <ArrowLeft size={20} />
+                    </Button>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Retirer"
+                      aria-label="Retirer"
                       onClick={() =>
                         edit({
                           pictures: a.pictures.filter((x) => x.id !== p.id),
@@ -381,8 +441,8 @@ export default function Editor({ initial }: { initial: Draft }) {
                         })
                       }
                     >
-                      Retirer
-                    </button>
+                      <Trash2 size={20} />
+                    </Button>
                   </figcaption>
                 </figure>
               ))}

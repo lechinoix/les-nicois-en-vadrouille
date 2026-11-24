@@ -1,6 +1,6 @@
 import { database } from '@/db';
 import { drafts } from '@/db/schema';
-import { requireSession, requireWrites, sameOrigin } from '@/lib/auth';
+import { requireSession, sameOrigin } from '@/lib/auth';
 import { saveArticle } from '@/lib/articles';
 import { endpoint, json, body } from '@/lib/http';
 import { revalidatePath, revalidateTag } from 'next/cache';
@@ -12,7 +12,6 @@ export const GET = endpoint(async () => {
 export const POST = endpoint(async (req) => {
   await requireSession();
   sameOrigin(req);
-  requireWrites();
   const input = z
     .object({
       data: z.unknown(),

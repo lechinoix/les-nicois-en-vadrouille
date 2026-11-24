@@ -1,15 +1,9 @@
-import {
-  requireSession,
-  requireWrites,
-  sameOrigin,
-  HttpError,
-} from '@/lib/auth';
+import { requireSession, sameOrigin, HttpError } from '@/lib/auth';
 import { endpoint, json } from '@/lib/http';
 import { digest, importBytes } from '@/lib/photos';
 export const POST = endpoint(async (req) => {
   await requireSession();
   sameOrigin(req);
-  requireWrites();
   if (Number(req.headers.get('content-length')) > 4_000_000)
     throw new HttpError(413, 'Fichier trop volumineux');
   const form = await req.formData();

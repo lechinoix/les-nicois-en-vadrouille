@@ -9,3 +9,4 @@ migration.config.json
 .vercel/
 .secrets.json
 .DS_Store
+.auth-test/

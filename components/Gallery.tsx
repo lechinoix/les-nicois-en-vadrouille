@@ -23,7 +23,7 @@ export default function Gallery({ pictures }: { pictures: Picture[] }) {
             aria-label={`Ouvrir la photo ${i + 1}`}
             onClick={() => setIndex(i)}
           >
-            <Photo url={p.url} alt={`Photo ${i + 1}`} />
+            <Photo url={p.url} alt={`Photo ${i + 1}`} thumbnail />
           </button>
         ))}
       </div>

@@ -1,6 +1,6 @@
 import { notFound } from 'next/navigation';
 import { publishedArticles } from '@/lib/public';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import ArticleList from '@/components/ArticleList';
 import Photo from '@/components/Photo';
 export const dynamic = 'force-dynamic';

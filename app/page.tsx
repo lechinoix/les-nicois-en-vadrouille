@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { publishedArticles } from '@/lib/public';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import Photo from '@/components/Photo';
 import ArticleList from '@/components/ArticleList';
 export const dynamic = 'force-dynamic';
@@ -54,7 +54,12 @@ export default async function Home() {
         <div className="grid">
           {sports.map((s) => (
             <Link className="card" href={`/sport/${s.slug}`} key={s.slug}>
-              <Photo url={s.cover.url} position={s.cover.position} alt="" />
+              <Photo
+                url={s.cover.url}
+                position={s.cover.position}
+                alt=""
+                thumbnail
+              />
               <h2>{s.name}</h2>
             </Link>
           ))}

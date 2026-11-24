@@ -5,13 +5,17 @@ import {
   sameOrigin,
   cookieOptions,
   seal,
-  requireWrites,
+  HttpError,
 } from '@/lib/auth';
 import { endpoint, json } from '@/lib/http';
 export const POST = endpoint(async (req) => {
   const owner = await requireSession();
   sameOrigin(req);
-  requireWrites();
+  if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET)
+    throw new HttpError(
+      500,
+      'Google Photos n’est pas configuré sur le serveur.',
+    );
   const state = randomBytes(32).toString('hex');
   (await cookies()).set(
     'google-state',

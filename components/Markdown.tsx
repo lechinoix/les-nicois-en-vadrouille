@@ -7,9 +7,12 @@ export default function Markdown({ children }: { children: string }) {
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          img: ({ src, alt }) =>
+          img: ({ src, alt, title }) =>
             typeof src === 'string' ? (
-              <Photo url={src} alt={alt || ''} />
+              <span className="article-image">
+                <Photo url={src} alt={alt || ''} />
+                {title && <span className="article-caption">{title}</span>}
+              </span>
             ) : null,
         }}
       >

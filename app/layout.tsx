@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import sports from '@/lib/sports.json';
+import NavigationMenu from '@/components/NavigationMenu';
+import '@fontsource/roboto/100.css';
+import '@fontsource/roboto/100-italic.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/300-italic.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/400-italic.css';
+import '@fontsource/roboto/700.css';
+import '@fontsource/roboto/700-italic.css';
 import './globals.css';
 export const metadata: Metadata = {
   title: 'Les Niçois en Vadrouille',
@@ -15,20 +23,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <img src="/img/les-nicois.png" alt="Ambre et Nicolas grimpant" />
             Les Niçois en Vadrouille
           </Link>
-          <details>
-            <summary aria-label="Menu">☰</summary>
-            <nav>
-              <Link href="/adventures">Toutes nos sorties</Link>
-              {sports.map((s) => (
-                <Link href={`/sport/${s.slug}`} key={s.slug}>
-                  {s.name}
-                </Link>
-              ))}
-              <Link href="/editor">Éditeur</Link>
-              <Link href="/account">Mon compte</Link>
-              <Link href="/auth/sign-up">Créer un compte</Link>
-            </nav>
-          </details>
+          <NavigationMenu />
         </header>
         {children}
         <footer>Ambre & Nico · Les Niçois en Vadrouille</footer>

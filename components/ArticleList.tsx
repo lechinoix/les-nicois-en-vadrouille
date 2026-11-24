@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { articlePath, type Article } from '@/lib/model';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import Photo from './Photo';
 const normalize = (s: string) =>
   s
@@ -56,7 +56,12 @@ export default function ArticleList({
         {filtered.slice(0, query || sport ? undefined : limit).map((a) => (
           <Link className="card" key={a.id} href={articlePath(a)}>
             {a.cover && (
-              <Photo url={a.cover.url} position={a.cover.position} alt="" />
+              <Photo
+                url={a.cover.url}
+                position={a.cover.position}
+                alt=""
+                thumbnail
+              />
             )}
             <h2>{a.title}</h2>
           </Link>

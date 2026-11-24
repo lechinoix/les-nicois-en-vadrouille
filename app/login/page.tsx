@@ -1,5 +1,9 @@
 'use client';
 import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 export default function Login() {
   const [error, setError] = useState('');
   return (
@@ -22,19 +26,24 @@ export default function Login() {
           }
         }}
       >
-        <label>
+        <Label htmlFor="editor-password" className="mb-2">
           Mot de passe
-          <input
-            autoComplete="current-password"
-            name="password"
-            type="password"
-            required
-          />
-        </label>
+        </Label>
+        <Input
+          id="editor-password"
+          autoComplete="current-password"
+          name="password"
+          type="password"
+          required
+        />
         <p>
-          <button>Se connecter</button>
+          <Button type="submit">Se connecter</Button>
         </p>
-        <p role="alert">{error}</p>
+        {error && (
+          <Alert variant="destructive">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
       </form>
     </main>
   );
