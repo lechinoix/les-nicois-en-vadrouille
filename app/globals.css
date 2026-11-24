@@ -94,3 +94,43 @@
     overflow-wrap: anywhere;
   }
 }
+
+/* Photo actions remain unboxed, including hover and the selected cover. */
+.photo-action[data-slot='button'],
+.picker-link {
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  color: #345c74;
+}
+.photo-action[data-slot='button']:hover,
+.picker-link:hover {
+  background: transparent;
+  color: #142c3b;
+}
+.photo-action[aria-pressed='true'] {
+  color: #142c3b;
+  outline: 2px solid currentColor;
+  outline-offset: -4px;
+}
+.photo-editor figcaption {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+}
+.photo-editor .photo-action {
+  width: 44px;
+  height: 44px;
+  padding: 0;
+}
+.photo-action[data-slot='button'] svg {
+  width: 20px;
+  height: 20px;
+}
+.picker-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: 0.875rem;
+}

@@ -1,7 +1,14 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import {
+  Link2,
+  Images,
+  Download,
+  Unplug,
+  Upload,
+  ExternalLink,
+} from 'lucide-react';
 import { useRef, useState } from 'react';
 import type { Picture } from '@/lib/model';
 async function api(action: string, pageToken?: string) {
@@ -19,6 +26,7 @@ export default function PhotoImport({
 }: {
   onPhotos: (p: Picture[]) => void;
 }) {
+  const fileInput = useRef<HTMLInputElement>(null);
   const progress = useRef({ id: '', cursor: '' });
   const [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false),
@@ -37,6 +45,8 @@ export default function PhotoImport({
     <div>
       <div className="actions">
         <Button
+          variant="ghost"
+          className="photo-action"
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -57,9 +67,11 @@ export default function PhotoImport({
             })
           }
         >
-          Connecter Google Photos
+          <Link2 size={20} /> Connecter Google Photos
         </Button>
         <Button
+          variant="ghost"
+          className="photo-action"
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -72,14 +84,22 @@ export default function PhotoImport({
             })
           }
         >
-          Nouvelle sélection
+          <Images size={20} /> Nouvelle sélection
         </Button>
         {pickerUrl && (
-          <a href={pickerUrl} target="_blank" rel="noreferrer">
-            Choisir dans Google Photos
+          <a
+            className="photo-action picker-link"
+            href={pickerUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <ExternalLink size={18} aria-hidden="true" /> Choisir dans Google
+            Photos
           </a>
         )}
         <Button
+          variant="ghost"
+          className="photo-action"
           disabled={busy}
           onClick={() =>
             run(async () => {
@@ -107,13 +127,18 @@ export default function PhotoImport({
             })
           }
         >
-          Importer / reprendre
+          <Download size={20} /> Importer / reprendre
         </Button>
         <Button
+          variant="ghost"
+          className="photo-action"
           disabled={busy}
           onClick={() =>
             run(async () => {
-              await fetch('/api/photos/picker', { method: 'DELETE' });
+              const response = await fetch('/api/photos/picker', {
+                method: 'DELETE',
+              });
+              if (!response.ok) throw new Error((await response.json()).error);
               progress.current = { id: '', cursor: '' };
               setPickerUrl('');
               setMessage(
@@ -122,21 +147,33 @@ export default function PhotoImport({
             })
           }
         >
-          Terminer / annuler Google
+          <Unplug size={20} /> Terminer / annuler Google
         </Button>
       </div>
       <div className="space-y-2">
-        <Label htmlFor="photo-files">
-          Ou importer des photos locales (4 Mo maximum par photo)
-        </Label>
+        <Button
+          variant="ghost"
+          className="photo-action"
+          disabled={busy}
+          onClick={() => fileInput.current?.click()}
+        >
+          <Upload size={20} /> Importer depuis cet appareil
+        </Button>
+        <p className="text-sm text-muted-foreground">
+          JPEG, PNG, WebP ou AVIF · 4 Mo maximum par photo
+        </p>
         <Input
           id="photo-files"
+          ref={fileInput}
+          aria-label="Importer des photos locales"
+          className="sr-only"
           type="file"
           multiple
           accept="image/jpeg,image/png,image/webp,image/avif"
           disabled={busy}
           onChange={(e) => {
             const files = Array.from(e.target.files || []);
+            e.target.value = '';
             run(async () => {
               for (const file of files) {
                 const form = new FormData();

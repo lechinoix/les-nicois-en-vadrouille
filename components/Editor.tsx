@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/components/ui/button';
+import { ImagePlus, Image, ArrowLeft, Trash2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
@@ -376,6 +377,11 @@ export default function Editor({ initial }: { initial: Draft }) {
                   <img src={p.formats.small.url} alt={`Photo ${i + 1}`} />
                   <figcaption>
                     <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Insérer dans le récit"
+                      aria-label="Insérer dans le récit"
                       onClick={() => {
                         edit({
                           content: `${queue.current!.current.data.content}\n\n![](${p.url})\n`,
@@ -383,9 +389,15 @@ export default function Editor({ initial }: { initial: Draft }) {
                         setEpoch((x) => x + 1);
                       }}
                     >
-                      Insérer dans le récit
+                      <ImagePlus size={20} />
                     </Button>
                     <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Couverture"
+                      aria-label="Couverture"
+                      aria-pressed={a.cover?.id === p.id}
                       onClick={() =>
                         edit({
                           cover: {
@@ -395,9 +407,14 @@ export default function Editor({ initial }: { initial: Draft }) {
                         })
                       }
                     >
-                      Couverture
+                      <Image size={20} />
                     </Button>
                     <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Avant"
+                      aria-label="Avant"
                       disabled={!i}
                       onClick={() => {
                         const pictures = [...a.pictures];
@@ -408,9 +425,14 @@ export default function Editor({ initial }: { initial: Draft }) {
                         edit({ pictures });
                       }}
                     >
-                      Avant
+                      <ArrowLeft size={20} />
                     </Button>
                     <Button
+                      variant="ghost"
+                      size="icon"
+                      className="photo-action"
+                      title="Retirer"
+                      aria-label="Retirer"
                       onClick={() =>
                         edit({
                           pictures: a.pictures.filter((x) => x.id !== p.id),
@@ -418,7 +440,7 @@ export default function Editor({ initial }: { initial: Draft }) {
                         })
                       }
                     >
-                      Retirer
+                      <Trash2 size={20} />
                     </Button>
                   </figcaption>
                 </figure>
