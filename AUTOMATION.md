@@ -4,15 +4,15 @@ Run `npm run migration:run -- <stage> migration.config.json` from the repository
 
 Copy `migration.config.example.json` to the ignored `migration.config.json`. Fill in the existing Vercel project/team IDs, the exact HTTPS blog origin, and backup location. `browserDrafts` starts as `"unconfirmed"`: change it to `"none"` only after the owner confirms, or provide an array of local exported JSON file paths. Exports must be collected from every editing browser/profile before shutdown. Select a durable backup directory outside the worktree; `/tmp` in the example is for local testing, not long-term recovery. Copy or mount it onto durable storage before operating in production.
 
-## Current run: leave Vercel unchanged
+## Completed data run; production activation pending
 
-The owner has confirmed there are no browser-only drafts and identified Neon project `nameless-moon-46656370`. Vercel access is unavailable, so the current ignored `migration.config.json` uses `hostingMode: "unchanged"` and `browserDrafts: "none"`.
+The owner confirmed there are no browser-only drafts and identified Neon project `nameless-moon-46656370`. The data run completed on 2026-11-24 with `hostingMode: "unchanged"` and `browserDrafts: "none"`. Its verified import contains 127 articles, with matching working copies and initial published snapshots. See [MIGRATION.md](MIGRATION.md) for the completed checks and remaining production activation steps.
 
 In this mode, `preflight`, `freeze`, `capture`, `prepare`, `import`, `status` and `export` require **no Vercel token, project ID or team ID**. The `freeze` stage installs/verifies only the S3 content-write deny. The old website remains on its existing hosting and can continue reading S3, but its content publishing will fail once the deny is active. Existing S3 content is not deleted or rewritten. The new Neon copy will not automatically appear on the old website.
 
-All hosting stages (`deploy`, `check`, `release`, `open`) are rejected before provider calls or local run mutations. Vercel API access is also disabled at the provider boundary. Google OAuth/editor credentials are not needed for this data-only run. AWS, Neon and Cloudinary access are still required. The backup path currently uses `/tmp` as a placeholder and must be moved to durable storage before production execution.
+All hosting stages (`deploy`, `check`, `release`, `open`) are rejected before provider calls or local run mutations. Vercel API access is also disabled at the provider boundary. Google OAuth/editor credentials are not needed for this data-only run. AWS, Neon and Cloudinary access are still required. The completed run uses a verified, durable backup location outside both the worktree and `/tmp`; the example configuration's `/tmp` path remains a placeholder only.
 
-Deployment remains a separate later operation once hosting access is available. Do not change the configuration of an in-progress run to deploy: finish and retain the data migration's records, then use a separately reviewed deployment path that keeps Neon authoritative.
+Deployment is a separate operation through the existing GitHub → Vercel integration. Production environment variables have been imported through the dashboard, but a new deployment must pick them up. Do not change the recorded data run's configuration to deploy: retain its checksums and receipts, and keep Neon authoritative.
 
 ## Credentials
 
@@ -36,7 +36,7 @@ npm run migration:run -- preflight migration.config.json \
   --secret-file DATABASE_URL=/secure/neon-url
 ```
 
-Supply the other required credentials through the same mechanism or environment. Existing process credentials are reused. Runtime values are sent directly to Vercel as encrypted environment variables, without printing them. Credentials are excluded from the deployment file allowlist and backup files. Error logs redact known secret values and database URLs. Generated session/maintenance secrets live in `.runtime-secrets.json` inside the ignored run directory with mode 0600; keep that file private.
+Supply the other required credentials through the same mechanism or environment. Existing process credentials are reused. Runtime values are sent directly to Vercel as encrypted environment variables, without printing them. Credentials are excluded from the deployment file allowlist and content exports. Any separate environment-file recovery copy must remain private with mode 0600. Error logs redact known secret values and database URLs. Generated session/maintenance secrets live in `.runtime-secrets.json` inside the ignored run directory with mode 0600; keep that file private.
 
 ## Stages
 
