@@ -60,10 +60,6 @@ export function sameOrigin(req: Request) {
   )
     throw new HttpError(403, 'Origine refusée');
 }
-export function requireWrites() {
-  if (process.env.EDITOR_WRITES_ENABLED !== 'true')
-    throw new HttpError(503, 'Écriture désactivée pendant la migration');
-}
 export function verifyPassword(password: string) {
   const [salt, hash] = (process.env.EDITOR_PASSWORD_HASH || '').split(':');
   if (!salt || !hash || !/^[a-f0-9]{128}$/.test(hash))

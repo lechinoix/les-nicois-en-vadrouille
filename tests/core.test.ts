@@ -1,6 +1,5 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { assemble, compare, stable } from '../lib/migration';
 import {
   articlePath,
   emptyArticle,
@@ -15,79 +14,13 @@ const article = (): Article => ({
   date: '2024-06-01',
   content: '# Exact Markdown\n\n**hello**',
 });
-function split(a: Article) {
-  const { content, pictures, topos, ...data } = a;
-  return [[data], [{ id: a.id, content, pictures, topos }]];
-}
-test('valid import preserves fields, IDs, markdown and legacy URL', () => {
-  const a = article();
-  const [m, c] = split(a);
-  const r = assemble(m, c);
-  assert.deepEqual(r.issues, []);
-  assert.equal(stable(r.articles[0]), stable(a));
-  assert.equal(articlePath(a), '/adventures/old_id_ecrins-ete');
+test('article URLs remain stable', () => {
+  assert.equal(articlePath(article()), '/adventures/old_id_ecrins-ete');
 });
-test('duplicate IDs, missing records and malformed fields block import', () => {
-  const [m, c] = split(article());
-  assert.match(assemble([...m, ...m], c).issues.join(), /duplicate/);
-  assert.match(assemble(m, []).issues.join(), /missing content/);
-  assert.match(
-    assemble([{ ...m[0], date: 'not-a-date' }], c).issues.join(),
-    /Invalid date/,
-  );
-});
-test('photo migration preserves identity, order and cover positioning', () => {
-  const format = {
-    url: 'https://lh3.googleusercontent.com/photo',
-    width: 100,
-    height: 80,
-  };
-  const p = {
-    ...format,
-    id: 42,
-    albumId: 'album',
-    formats: {
-      thumbnail: format,
-      small: format,
-      medium: format,
-      large: format,
-      xlarge: format,
-    },
-  };
-  const a = {
-    ...article(),
-    pictures: [p],
-    cover: { ...p, position: 'BOTTOM_LEFT' },
-  };
-  const [m, c] = split(a);
-  assert.ok(assemble(m, c).issues.length);
-  const f = {
-    ...format,
-    url: 'https://res.cloudinary.com/cloud/image/upload/photo.jpg',
-  };
-  const replacement = {
-    ...p,
-    ...f,
-    id: 'different',
-    formats: { thumbnail: f, small: f, medium: f, large: f, xlarge: f },
-  };
-  const result = assemble(m, c, { [format.url]: replacement });
-  assert.deepEqual(result.issues, []);
-  assert.equal(result.articles[0].pictures[0].id, 42);
-  assert.equal(result.articles[0].cover?.position, 'BOTTOM_LEFT');
-  assert.equal(result.articles[0].cover?.url, f.url);
+test('Cloudinary host matching rejects lookalike hosts', () => {
   assert.ok(
     !isCloudinary('https://res.cloudinary.com.evil.test/image/upload/x'),
   );
-});
-test('broken cover and unexplained differences are reported', () => {
-  const [m, c] = split(article());
-  assert.ok(assemble([{ ...m[0], cover: { id: 'missing' } }], c).issues.length);
-  assert.deepEqual(
-    compare([article()], [{ ...article(), content: 'different' }]),
-    ['Field mismatch old_id'],
-  );
-  assert.ok(compare([article()], []).length);
 });
 test('save queue serializes requests and preserves typing during an in-flight save', async () => {
   let release!: () => void;
@@ -144,24 +77,4 @@ test('failed save retains work and revision for recovery', async () => {
   assert.equal(q.current.data.content, 'unsaved');
   assert.equal(q.current.revision, 3);
   assert.equal(q.dirty, true);
-});
-
-test('explicit mapping replaces embedded photo URLs without changing Markdown', () => {
-  const url = 'https://lh3.googleusercontent.com/inline=w100';
-  const a = { ...article(), content: `# Preserved\n![alt](${url})\n` };
-  const [m, c] = split(a);
-  const f = {
-    url: 'https://res.cloudinary.com/cloud/image/upload/inline.jpg',
-    width: 100,
-    height: 100,
-  };
-  const p = {
-    ...f,
-    id: 'inline',
-    albumId: '',
-    formats: { thumbnail: f, small: f, medium: f, large: f, xlarge: f },
-  };
-  const result = assemble(m, c, { [url]: p });
-  assert.deepEqual(result.issues, []);
-  assert.equal(result.articles[0].content, `# Preserved\n![alt](${f.url})\n`);
 });

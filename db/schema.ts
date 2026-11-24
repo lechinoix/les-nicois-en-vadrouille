@@ -47,6 +47,7 @@ export const snapshots = pgTable(
   },
   (t) => [primaryKey({ columns: [t.id, t.revision] })],
 );
+// Historical ledger retained to avoid dropping the completed import's audit data.
 export const migrations = pgTable('s3_migrations', {
   checksum: text('checksum').primaryKey(),
   manifest: jsonb('manifest').notNull(),

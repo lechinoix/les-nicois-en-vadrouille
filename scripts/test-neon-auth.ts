@@ -35,7 +35,7 @@ try {
   )
     throw new Error('A real Neon Auth service is required');
   const binding = createHash('sha256').update(upstream.href).digest('hex');
-  const dir = 'migration-data/auth-test';
+  const dir = '.auth-test';
   const file = `${dir}/user-${binding.slice(0, 16)}.json`;
   await mkdir(dir, { recursive: true, mode: 0o700 });
   type TestUser = {
@@ -200,10 +200,6 @@ try {
     'signup does not grant editor API access',
   );
   check(
-    (await localFetch(`${origin.origin}/api/export`)).status === 401,
-    'signup does not grant private exports',
-  );
-  check(
     (await localFetch(`${origin.origin}/editor`)).status === 307,
     'signup does not grant editor page access',
   );
@@ -259,7 +255,7 @@ try {
     { mode: 0o600 },
   );
   console.log(
-    'Real Neon Auth acceptance passed. The account is retained for retesting; credentials and receipt are in ignored migration-data/auth-test/.',
+    'Real Neon Auth acceptance passed. The account is retained for retesting; credentials and receipt are in ignored .auth-test/.',
   );
 } catch {
   console.error(

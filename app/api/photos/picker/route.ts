@@ -1,7 +1,6 @@
 import { cookies } from 'next/headers';
 import {
   requireSession,
-  requireWrites,
   sameOrigin,
   cookieOptions,
   seal,
@@ -23,7 +22,6 @@ async function picker() {
 export const POST = endpoint(async (req) => {
   const owner = await requireSession();
   sameOrigin(req);
-  requireWrites();
   const input = await body(req);
   if (input.action === 'create') {
     const session = await google('sessions', 'POST');

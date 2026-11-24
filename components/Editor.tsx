@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import type { Article, Draft, Picture } from '@/lib/model';
 import { SaveQueue } from '@/lib/save-queue';
-import { download } from './DraftList';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import sports from '@/lib/sports.json';
@@ -46,7 +45,9 @@ export default function Editor({ initial }: { initial: Draft }) {
         try {
           localStorage.setItem(`recovery-${d.id}`, JSON.stringify(d));
         } catch {
-          setMessage('Stockage local indisponible : exportez votre travail.');
+          setMessage(
+            'Stockage local indisponible : gardez cette page ouverte.',
+          );
         }
       },
     );
@@ -115,12 +116,9 @@ export default function Editor({ initial }: { initial: Draft }) {
       {recovery && (
         <div className="notice error">
           <p>
-            Une copie locale diffère du serveur. Exportez-la ou restaurez-la ;
-            une révision ancienne déclenchera un conflit.
+            Une copie locale diffère du serveur. Vous pouvez la restaurer ; une
+            révision ancienne déclenchera un conflit.
           </p>
-          <button onClick={() => download(recovery, 'recuperation.json')}>
-            Exporter
-          </button>
           <button
             onClick={() => {
               queue.current!.current = recovery;
@@ -145,9 +143,6 @@ export default function Editor({ initial }: { initial: Draft }) {
       {conflict && (
         <div className="notice error">
           <h2>Conflit : aucune modification locale n’a été supprimée</h2>
-          <button onClick={() => download(draft, 'conflit-local.json')}>
-            Exporter mon travail
-          </button>
           <details>
             <summary>
               Voir le texte du serveur (révision {conflict.revision})
@@ -156,7 +151,6 @@ export default function Editor({ initial }: { initial: Draft }) {
           </details>
           <button
             onClick={() => {
-              download(draft, 'avant-fusion.json');
               queue.current!.current = {
                 ...draft,
                 revision: conflict.revision,
@@ -173,7 +167,12 @@ export default function Editor({ initial }: { initial: Draft }) {
           </button>
           <button
             onClick={() => {
-              download(draft, 'avant-remplacement.json');
+              if (
+                !window.confirm(
+                  'Remplacer votre travail non enregistré par la version serveur ?',
+                )
+              )
+                return;
               queue.current!.current = conflict;
               queue.current!.dirty = false;
               queue.current!.blocked = false;
@@ -182,7 +181,7 @@ export default function Editor({ initial }: { initial: Draft }) {
               setEpoch((x) => x + 1);
             }}
           >
-            Charger le serveur et exporter mon travail
+            Remplacer mon travail par la version serveur
           </button>
         </div>
       )}
@@ -194,9 +193,6 @@ export default function Editor({ initial }: { initial: Draft }) {
           </button>
           <button onClick={() => setPreview(!preview)}>
             {preview ? 'Modifier' : 'Aperçu'}
-          </button>
-          <button onClick={() => download(draft, 'brouillon.json')}>
-            Exporter
           </button>
         </div>
         {preview ? (

@@ -1,61 +1,49 @@
-# Next.js replacement
+# Les Nicois en Vadrouille
 
-The repository root is the Next.js App Router application. It replaces the old Svelte app; the previous implementation remains available in Git history. The migration allows unlimited downtime: stop the old site's writers, import and verify the saved S3 data, then deploy this application. No production content is changed by checking out this branch.
+A Next.js App Router blog with TypeScript, Neon Postgres, Drizzle, Milkdown, Cloudinary, and Google Photos Picker.
 
-Uses Node 24 and npm. Run these commands from the repository root:
+## Development
 
-```sh
-npm ci
-cp .env.example .env.local
-npm run dev
-npm run check
-npm test
-npm run build
-```
+Use Node 24. Run `npm ci`, copy `.env.example` to `.env.local`, configure the values, then run `npm run dev`.
 
-Next loads `.env.local`; command-line tools require exported environment variables (or `node --env-file=.env.local --import tsx scripts/<script>.ts`). Never commit credentials or snapshot exports. Generate a scrypt password hash with `node scripts/password-hash.mjs`, supplying the password on stdin; set a random `SESSION_SECRET` of at least 32 characters. Sessions are signed, HttpOnly, SameSite=Lax and Secure in production. Change the session secret to revoke all sessions. Login throttling is shared in Postgres (30 attempts per 15 minutes). Mutation routes require same-origin requests and authenticated sessions. `EDITOR_WRITES_ENABLED=false` is the default.
+Next loads `.env.local`; command-line tools need exported variables or `node --env-file=.env.local --import tsx scripts/<script>.ts`. Never commit credentials. Apply the checked-in database schema with `npm run db:migrate`. Drizzle schema history is retained; no legacy content importer or export endpoint is included in the app.
 
-Apply the checked-in Drizzle SQL with `npm run db:migrate`. The database stores JSON metadata and Cloudinary references, never image bytes. `drafts` is the working copy; `publications` holds the current public snapshot; `published_snapshots` retains publication history. All updates check the revision under a transaction-scoped article lock. New articles expect revision 0; imported articles begin at 1. A conflict returns 409 with the current private draft. Browser recovery copies retain the base revision. The conflict UI offers export, comparison and explicit reconciliation. A save queue layers edits made during a request over the canonical response; it never blindly replaces newer typing. A lost successful response may surface as a recoverable conflict on retry.
+## Editor and drafts
 
-Public content uses the Next data cache for one hour; publish immediately expires the `publications` tag and affected route tree. Public route HTML is rendered per request against that cache. Editor routes and API responses are private and uncached. Public queries only read `publications`. Markdown is rendered without executable raw HTML.
+Generate a scrypt password hash with `node scripts/password-hash.mjs` (password on stdin). Configure `EDITOR_PASSWORD_HASH`, a random `SESSION_SECRET` of at least 32 characters, and the exact `APP_ORIGIN`. Editor sessions are signed, HttpOnly, SameSite=Lax, and Secure in production. Login throttling is shared in Postgres. Mutations require an editor session and a matching Origin header.
 
-## Email accounts (Neon Managed Better Auth)
+Draft edits autosave to Neon while online. Local recovery copies retain unsaved edits and their base revision. There are no browser-draft import or local/Neon export controls.
 
-`/auth/sign-up` and `/auth/sign-in` use `@neon/auth`; `/account` and `/api/account` check the session on the server. Email verification codes are supported when enabled on the branch. Accounts do not grant editor privileges: `/login`, the editor APIs, drafts and exports still require the separate shared editor password.
+`drafts` holds private working copies, `publications` holds public snapshots, and `published_snapshots` retains publication history. Each save checks the expected revision atomically. Two-tab conflicts return 409 and preserve the current work. Compare the server content, explicitly keep your edits on the newer revision and save, or confirm replacing them with the server version. The save queue serializes requests and retains edits made during a save. Publishing invalidates the public content cache; draft-only saves do not change the public blog.
 
-From the repository root, authenticate with `neon login`, then link the requested project:
+## Email accounts
 
-```sh
-neon init -y --project-id nameless-moon-46656370 --branch production --services postgres,auth
-neon deploy
-```
+Public email/password accounts use Neon's Managed Better Auth through `@neon/auth`. `/auth/sign-up` and `/auth/sign-in` provide the forms; `/account` and `/api/account` verify sessions on the server. Email verification codes are supported when enabled on the branch. These accounts do not grant access to the shared-password editor or private drafts.
 
-`neon.ts` declares Managed Auth. Deploy pulls the branch's `DATABASE_URL` and `NEON_AUTH_BASE_URL` into `.env.local` (or existing `.env`). Add a separately generated `NEON_AUTH_COOKIE_SECRET` of at least 32 random characters. Never commit these files. Auth requires an AWS project without IP Allow or Private Networking; keep any existing protections in place. No Better Auth database adapter or application migration is needed.
+`neon.ts` declares Managed Auth. Configure the branch's `NEON_AUTH_BASE_URL` and a separate random `NEON_AUTH_COOKIE_SECRET` of at least 32 characters. Add the frontend origin to Neon Auth's trusted domains.
 
-The migration maintenance proxy guards the application during cutover. Account protection is enforced inside the page and API handler; public blog pages remain public. Configure trusted origins for the deployed frontend in Neon before launch.
+With a local Next server running, `npm run auth:test:live` explicitly creates or reuses a real test account, checks the current user through SDK and server API, and tests sign-in/out, session restoration, wrong-password errors, and editor isolation. Credentials and receipts stay in ignored `.auth-test/` files with mode 0600. Set `AUTH_TEST_EMAIL` to a mailbox you control before the first run if verification is required; the script never disables verification. `AUTH_TEST_ORIGIN` defaults to `http://localhost:3000` and accepts only local servers. This test is not part of `npm test`.
 
-## Vercel deployment
+## Deployment
 
-Keep Vercel's Root Directory at the repository root (blank in the dashboard). `vercel.json` selects Next.js and overrides the old framework, install, build, development, and output settings. `package.json` and `.nvmrc` select Node 24. There is no nested application directory or Svelte build.
+Keep Vercel's Root Directory blank. `vercel.json` selects Next.js and the npm build commands; `package.json` and `.nvmrc` select Node 24. Set the variables from `.env.example` for Production. Merges to Vercel's tracked production branch deploy the root application; environment changes take effect in a new deployment.
 
-Set the production environment variables listed in `.env.example` in Vercel; local `.env.local` is never committed. The Neon Auth URL and cookie secret are separate from the editor password/session secret. Add the final website origin to Neon Auth's trusted domains and register the Google callback. Finish and verify the S3 article import before switching production to this application. Keep `EDITOR_WRITES_ENABLED=false` until the migration is verified. Merging into Vercel's tracked production branch then deploys the root application.
-
-With the configured local Next server running, run `npm run auth:test:live`. This explicitly creates a real test account in the configured Neon Auth service, reads it back via SDK and server API, tests session restoration, wrong-password errors, sign-out/sign-in, and verifies it cannot access the editor or exports. It retains one account per Auth endpoint for repeat runs; its generated password and receipt stay in ignored `migration-data/auth-test/` files with mode 0600. The default email is unique under `example.com`; set `AUTH_TEST_EMAIL` to a mailbox you control before the first run if email verification is required. The script never disables verification. `AUTH_TEST_ORIGIN` defaults to `http://localhost:3000` and accepts only local servers. This live test does not run with `npm test`.
+The application no longer uses `EDITOR_WRITES_ENABLED`, `MIGRATION_MAINTENANCE`, or `MIGRATION_MAINTENANCE_TOKEN`. Stale values do not block public pages, saves, or Google Photos authorization. Editor authentication and same-origin protection remain mandatory.
 
 ## Photos
 
-Enable Google Photos Picker API and configure an OAuth web client with the exact callback `${APP_ORIGIN}/api/photos/google/callback`; add permitted test users while the consent app is in testing. Only `photospicker.mediaitems.readonly` is requested. Google login is initiated from the editor in a separate tab, without navigating away from unsaved work. Credentials are kept in an encrypted HttpOnly cookie bound to the editor session, for the import only. No Google login is used to view the blog.
+Enable Google Photos Picker API and create an OAuth Web application client with callback `${APP_ORIGIN}/api/photos/google/callback`. Add the editor's Google account as a test user while the consent app is in Testing. Set `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`. Only the `photospicker.mediaitems.readonly` scope is requested.
 
-Connect Google, create a selection, open its official Picker link, complete selection, then Import / resume. Import processes one selected image per request, paginates and persists the cursor by selection ID. Each image is immediately fetched with the bearer token and uploaded to Cloudinary. Successful uploads are deduplicated using a stable source hash in Postgres and a deterministic Cloudinary public ID with `overwrite:false`, including recovery after a crash between upload and database insertion. Expired sessions require reauthorization/reselection; successful assets remain reusable. Finish / cancel cleans up the Picker session and local authorization. Do not run multiple selections concurrently in the same browser profile (one active Google import session).
+Connect Google from the editor, create a selection, open the official Picker, select photos, then import. Authorization opens a separate tab so the draft remains open. Google tokens are encrypted in HttpOnly cookies bound to the editor session and used only for importing. Selected image bytes are retrieved server-side and uploaded immediately to Cloudinary. Viewing published photos requires no Google authorization.
 
-Local JPEG/PNG/WebP/AVIF files are a fallback (4 MB per request, below Vercel's request limit). Both paths decode/rotate images and resize to a maximum dimension of 2,560 before upload. Videos are skipped explicitly. Originals remain with the owner. Cloudinary serves responsive `f_auto,q_auto` images directly, without Vercel image transformations. Existing Cloudinary assets are never uploaded by article migration.
+Photo imports are deduplicated in Postgres and by deterministic Cloudinary asset IDs. The browser keeps the pagination cursor for the current selection. After a page reload, resume replays the selection using the already imported assets rather than uploading duplicates. An expired Google session requires authorization again. Finish/cancel clears the Picker session and Google authorization. Use one active selection per browser profile.
 
-Use [AUTOMATION.md](AUTOMATION.md) to run the staged migration with secure credentials. See [MIGRATION.md](MIGRATION.md) for the simplified maintenance-window migration. It uses one target Neon database; a separate rehearsal is optional.
+Local JPEG/PNG/WebP/AVIF uploads are also supported (4 MB per request). Imported images are decoded, rotated, and resized to at most 2,560 pixels. Videos are skipped. Cloudinary serves responsive automatic-quality/format images directly; originals remain with their owner. `npm run usage` checks Cloudinary usage.
 
-## Validation
+## Tests
 
-`npm test` runs data-validation and save-queue tests. Database tests only run when `TEST_DATABASE_DISPOSABLE=true` and `DATABASE_URL` points at a disposable Postgres database whose schema has been migrated. They create synthetic records. Never enable this flag for production. Tests cover two-tab conflicts, publication isolation, repeat publishing, independent articles, migration no-op reruns preserving edits, checksum tampering, and rollback after a mid-import target conflict.
+`npm test` runs model/save-queue tests. `npm run check` runs TypeScript; `npm run build` creates the production build.
 
-Set `TEST_PRODUCTION_HTTP=true` after `npm run build` to also test a temporary production server on port 33179 against the disposable database, including authentication, draft privacy, conflicts, publication cache invalidation and export.
+Database tests require `TEST_DATABASE_DISPOSABLE=true` and a `DATABASE_URL` pointing to a disposable database with the schema applied. Never use production: these tests create synthetic articles. After a build, also set `TEST_PRODUCTION_HTTP=true` to exercise the production server's authentication, private drafts, revision conflicts, repeated publishing, and cache invalidation. The Google authorization-start/cancellation regression uses a local server and fake OAuth credentials without calling Google or writing to a database.
 
-External acceptance gates remain: frozen S3 export and source-data cleanup; verified import into the target Neon database; real Google consent, cancellation and expiry; Cloudinary usage; visual checks on mobile and desktop; and Vercel production cache behavior. A successful local build is not evidence these external gates have passed.
+Real Google consent/selection and visual layout still need interactive checks; HTTP tests do not substitute for them.

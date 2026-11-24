@@ -5,8 +5,13 @@ import { once } from 'node:events';
 import { scryptSync } from 'node:crypto';
 import { emptyArticle, articlePath } from '../lib/model';
 test(
-  'production HTTP: authentication, privacy, revision conflicts, cache invalidation and exports',
-  { skip: process.env.TEST_PRODUCTION_HTTP !== 'true', timeout: 60000 },
+  'production HTTP: authentication, privacy, revision conflicts, cache invalidation',
+  {
+    skip:
+      process.env.TEST_PRODUCTION_HTTP !== 'true' ||
+      process.env.TEST_DATABASE_DISPOSABLE !== 'true',
+    timeout: 60000,
+  },
   async () => {
     const origin = 'http://127.0.0.1:33179';
     const password = 'a-disposable-test-password';
@@ -27,7 +32,8 @@ test(
           APP_ORIGIN: origin,
           SESSION_SECRET: 'test-session-secret-with-at-least-32-characters',
           EDITOR_PASSWORD_HASH: `${salt}:${scryptSync(password, salt, 64).toString('hex')}`,
-          EDITOR_WRITES_ENABLED: 'true',
+          EDITOR_WRITES_ENABLED: 'false',
+          MIGRATION_MAINTENANCE: 'true',
         },
         stdio: ['ignore', 'pipe', 'pipe'],
       },
@@ -135,29 +141,6 @@ test(
         !(
           await (await fetch(`${origin}${articlePath(updated)}`)).text()
         ).includes(privateAgain.content),
-      );
-      const exported = await fetch(`${origin}/api/export`, { headers });
-      assert.equal(exported.status, 200);
-      assert.match(exported.headers.get('cache-control')!, /no-store/);
-      assert.ok(
-        (await exported.json()).drafts.some((d: { id: string }) => d.id === id),
-      );
-      const imported = await fetch(`${origin}/api/drafts/import`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify([{ key: `draft-${id}`, value: privateAgain }]),
-      });
-      assert.equal(imported.status, 200);
-      const importedId = (await imported.json()).imported[0];
-      const repeatedImport = await fetch(`${origin}/api/drafts/import`, {
-        method: 'POST',
-        headers,
-        body: JSON.stringify([{ key: `draft-${id}`, value: privateAgain }]),
-      });
-      assert.equal((await repeatedImport.json()).imported[0], importedId);
-      assert.equal(
-        (await fetch(`${origin}/adventures/${importedId}`)).status,
-        404,
       );
       const invalid = await send(
         {
