@@ -1,3 +1,4 @@
+import { env } from '$env/dynamic/private';
 import type { Album, GooglePhoto, Picture, PictureFormat } from '$lib/types';
 import type { RequestHandler } from '../$types';
 import { error, json } from '@sveltejs/kit';
@@ -6,6 +7,7 @@ import * as cheerio from 'cheerio';
 import { evaluate } from '$lib/utils/evaluate';
 
 export const POST: RequestHandler = async ({ request }) => {
+	if (env.LEGACY_PUBLISHING_DISABLED === 'true') throw error(503, 'Publishing frozen for migration');
 	if (!isAuthorized(request)) throw error(401, 'Not Authorized');
 
 	const body = await request.json();

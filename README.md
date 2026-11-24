@@ -1,3 +1,7 @@
+# Next.js migration
+
+The replacement app lives in [`next/`](next/README.md). The migration uses a maintenance window: the site can remain offline until import and validation are complete. See the [simplified migration runbook](next/MIGRATION.md) before changing Vercel’s root directory.
+
 # create-svelte
 
 Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
