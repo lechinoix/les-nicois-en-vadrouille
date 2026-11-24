@@ -1,5 +1,5 @@
 import type { Article } from '@/lib/model';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import Photo from './Photo';
 import Markdown from './Markdown';
 import Gallery from './Gallery';

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { publishedArticles } from '@/lib/public';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import Photo from '@/components/Photo';
 import ArticleList from '@/components/ArticleList';
 export const dynamic = 'force-dynamic';

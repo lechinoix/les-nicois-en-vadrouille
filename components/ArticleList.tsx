@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { articlePath, type Article } from '@/lib/model';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 import Photo from './Photo';
 const normalize = (s: string) =>
   s

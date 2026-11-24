@@ -1,7 +1,7 @@
 'use client';
 
 import { Menu } from '@base-ui/react/menu';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 
 export default function NavigationMenu() {
   return (

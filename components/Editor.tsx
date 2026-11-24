@@ -31,7 +31,7 @@ import { SaveQueue } from '@/lib/save-queue';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import Photo from './Photo';
-import sports from '@/lib/sports.json';
+import sports from '@/lib/sports';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
   TOP: 'Haut',
