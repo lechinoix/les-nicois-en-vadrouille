@@ -12,9 +12,9 @@ Next loads `.env.local`; command-line tools need exported variables or `node --e
 
 Generate a scrypt password hash with `node scripts/password-hash.mjs` (password on stdin). Configure `EDITOR_PASSWORD_HASH`, a random `SESSION_SECRET` of at least 32 characters, and the exact `APP_ORIGIN`. Editor sessions are signed, HttpOnly, SameSite=Lax, and Secure in production. Login throttling is shared in Postgres. Mutations require an editor session and a matching Origin header.
 
-Draft edits autosave to Neon while online. Local recovery copies retain unsaved edits and their base revision. There are no browser-draft import or local/Neon export controls.
+Draft edits autosave directly to Neon every two seconds while online. There are no localStorage draft copies, browser-draft imports, or local/Neon export controls. Changes waiting for a successful save exist only in the open page's memory. Offline or failed requests retain those edits and retry; keep the page open until it reports success. Closing or refreshing before a successful save can lose unsaved changes, so the editor warns before leaving.
 
-`drafts` holds private working copies, `publications` holds public snapshots, and `published_snapshots` retains publication history. Each save checks the expected revision atomically. Two-tab conflicts return 409 and preserve the current work. Compare the server content, explicitly keep your edits on the newer revision and save, or confirm replacing them with the server version. The save queue serializes requests and retains edits made during a save. Publishing invalidates the public content cache; draft-only saves do not change the public blog.
+`drafts` holds private working copies, `publications` holds public snapshots, and `published_snapshots` retains publication history. Each save checks the expected revision atomically. Two-tab conflicts return 409 and preserve the current in-memory work. Compare the server content, explicitly keep your edits on the newer revision and save, or confirm replacing them with the server version. The save queue serializes requests and retains edits made during a save. Publishing invalidates the public content cache; draft-only saves do not change the public blog.
 
 ## Email accounts
 
@@ -36,7 +36,7 @@ Enable Google Photos Picker API and create an OAuth Web application client with 
 
 Connect Google from the editor, create a selection, open the official Picker, select photos, then import. Authorization opens a separate tab so the draft remains open. Google tokens are encrypted in HttpOnly cookies bound to the editor session and used only for importing. Selected image bytes are retrieved server-side and uploaded immediately to Cloudinary. Viewing published photos requires no Google authorization.
 
-Photo imports are deduplicated in Postgres and by deterministic Cloudinary asset IDs. The browser keeps the pagination cursor for the current selection. After a page reload, resume replays the selection using the already imported assets rather than uploading duplicates. An expired Google session requires authorization again. Finish/cancel clears the Picker session and Google authorization. Use one active selection per browser profile.
+Photo imports are deduplicated in Postgres and by deterministic Cloudinary asset IDs. The active page keeps its pagination cursor in memory. After a page reload, resume replays the selection using the already imported assets rather than uploading duplicates. An expired Google session requires authorization again. Finish/cancel clears the Picker session and Google authorization. Use one active selection per browser profile.
 
 Local JPEG/PNG/WebP/AVIF uploads are also supported (4 MB per request). Imported images are decoded, rotated, and resized to at most 2,560 pixels. Videos are skipped. Cloudinary serves responsive automatic-quality/format images directly; originals remain with their owner. `npm run usage` checks Cloudinary usage.
 

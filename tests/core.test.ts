@@ -78,3 +78,30 @@ test('failed save retains work and revision for recovery', async () => {
   assert.equal(q.current.revision, 3);
   assert.equal(q.dirty, true);
 });
+
+test('retry persists the latest in-memory edits and adopts the database revision', async () => {
+  const initial: Draft = {
+    id: 'old_id',
+    data: article(),
+    revision: 1,
+    updatedAt: new Date(),
+  };
+  let online = false;
+  const q = new SaveQueue(
+    initial,
+    async (data, revision) => {
+      if (!online) throw new Error('Network unavailable');
+      assert.equal(revision, 1);
+      return { ...initial, data, revision: 2 };
+    },
+    () => {},
+  );
+  q.edit({ ...initial.data, content: 'First edit' });
+  await assert.rejects(q.save());
+  q.edit({ ...q.current.data, content: 'Latest edit' });
+  online = true;
+  await q.save();
+  assert.equal(q.current.data.content, 'Latest edit');
+  assert.equal(q.current.revision, 2);
+  assert.equal(q.dirty, false);
+});

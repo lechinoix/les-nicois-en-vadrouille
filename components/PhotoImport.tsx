@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import type { Picture } from '@/lib/model';
 async function api(action: string, pageToken?: string) {
   const r = await fetch('/api/photos/picker', {
@@ -16,6 +16,7 @@ export default function PhotoImport({
 }: {
   onPhotos: (p: Picture[]) => void;
 }) {
+  const progress = useRef({ id: '', cursor: '' });
   const [message, setMessage] = useState(''),
     [busy, setBusy] = useState(false),
     [pickerUrl, setPickerUrl] = useState('');
@@ -60,7 +61,7 @@ export default function PhotoImport({
           onClick={() =>
             run(async () => {
               const data = await api('create');
-              localStorage.removeItem('picker-cursor');
+              progress.current = { id: '', cursor: '' };
               setPickerUrl(data.pickerUri);
               setMessage(
                 'Ouvrez Google Photos, terminez la sélection, puis importez.',
@@ -87,14 +88,16 @@ export default function PhotoImport({
                 return;
               }
               let cursor =
-                localStorage.getItem(`picker-cursor-${status.id}`) || '';
+                progress.current.id === status.id
+                  ? progress.current.cursor
+                  : '';
               let skipped = 0;
               do {
                 const data = await api('import', cursor);
                 onPhotos(data.pictures);
                 skipped += data.skipped.length;
                 cursor = data.nextPageToken || '';
-                localStorage.setItem(`picker-cursor-${status.id}`, cursor);
+                progress.current = { id: status.id, cursor };
                 setMessage('Photos importées ; progression enregistrée.');
               } while (cursor);
               setMessage(`Import terminé. ${skipped} vidéo(s) ignorée(s).`);
@@ -108,7 +111,7 @@ export default function PhotoImport({
           onClick={() =>
             run(async () => {
               await fetch('/api/photos/picker', { method: 'DELETE' });
-              localStorage.removeItem('picker-cursor');
+              progress.current = { id: '', cursor: '' };
               setPickerUrl('');
               setMessage(
                 'Connexion Google fermée. Les photos importées sont conservées.',

@@ -13,8 +13,6 @@ export default function Editor({ initial }: { initial: Draft }) {
   const [draft, setDraft] = useState(initial),
     [message, setMessage] = useState(''),
     [conflict, setConflict] = useState<Draft | null>(null),
-    [recovery, setRecovery] = useState<Draft | null>(null),
-    [ready, setReady] = useState(false),
     [preview, setPreview] = useState(false),
     [source, setSource] = useState(false),
     [epoch, setEpoch] = useState(0);
@@ -34,6 +32,8 @@ export default function Editor({ initial }: { initial: Draft }) {
           if (r.status === 409) {
             queue.current!.blocked = true;
             setConflict(result.current);
+          } else if (r.status < 500) {
+            queue.current!.blocked = true;
           }
           throw new Error(result.error);
         }
@@ -42,42 +42,25 @@ export default function Editor({ initial }: { initial: Draft }) {
       },
       (d) => {
         setDraft(d);
-        try {
-          localStorage.setItem(`recovery-${d.id}`, JSON.stringify(d));
-        } catch {
-          setMessage(
-            'Stockage local indisponible : gardez cette page ouverte.',
-          );
-        }
+        if (queue.current?.dirty) setMessage('Modifications non enregistrées…');
       },
     );
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem(`recovery-${initial.id}`);
-      if (raw) {
-        const local = JSON.parse(raw);
-        if (JSON.stringify(local.data) !== JSON.stringify(initial.data)) {
-          setRecovery(local);
-          return;
-        }
-      }
-    } catch {
-      setMessage('Copie locale illisible.');
-    }
-    setReady(true);
-  }, [initial]);
-  useEffect(() => {
-    if (!ready) return;
     const timer = setInterval(() => {
       const q = queue.current!;
-      if (q.dirty && !q.blocked && navigator.onLine)
-        q.save().catch((e) => {
-          setMessage(e.message);
-          q.blocked = true;
-        });
+      if (!q.dirty || q.blocked) return;
+      if (!navigator.onLine) {
+        setMessage(
+          'Hors ligne : gardez cette page ouverte jusqu’à l’enregistrement.',
+        );
+        return;
+      }
+      q.save().catch((e) => {
+        setMessage(e.message);
+      });
     }, 2000);
     return () => clearInterval(timer);
-  }, [ready]);
+  }, []);
   useEffect(() => {
     const listener = (e: BeforeUnloadEvent) => {
       if (queue.current?.dirty) {
@@ -113,36 +96,9 @@ export default function Editor({ initial }: { initial: Draft }) {
       <p role="status" className="notice">
         {message || `Révision ${draft.revision} · Brouillon privé`}
       </p>
-      {recovery && (
-        <div className="notice error">
-          <p>
-            Une copie locale diffère du serveur. Vous pouvez la restaurer ; une
-            révision ancienne déclenchera un conflit.
-          </p>
-          <button
-            onClick={() => {
-              queue.current!.current = recovery;
-              queue.current!.edit(recovery.data);
-              setEpoch((x) => x + 1);
-              setRecovery(null);
-              setReady(true);
-            }}
-          >
-            Restaurer la copie locale
-          </button>
-          <button
-            onClick={() => {
-              setRecovery(null);
-              setReady(true);
-            }}
-          >
-            Utiliser la version serveur
-          </button>
-        </div>
-      )}
       {conflict && (
         <div className="notice error">
-          <h2>Conflit : aucune modification locale n’a été supprimée</h2>
+          <h2>Conflit : votre travail reste dans cette page</h2>
           <details>
             <summary>
               Voir le texte du serveur (révision {conflict.revision})
@@ -152,15 +108,15 @@ export default function Editor({ initial }: { initial: Draft }) {
           <button
             onClick={() => {
               queue.current!.current = {
-                ...draft,
+                ...queue.current!.current,
                 revision: conflict.revision,
               };
-              queue.current!.blocked = false;
+              // Keep autosave paused until the explicit save after comparison.
+              queue.current!.blocked = true;
               queue.current!.dirty = true;
               setDraft(queue.current!.current);
               setConflict(null);
               setMessage('Vérifiez votre fusion, puis enregistrez.');
-              setReady(false);
             }}
           >
             Garder mon travail sur cette révision (après comparaison)
@@ -185,7 +141,7 @@ export default function Editor({ initial }: { initial: Draft }) {
           </button>
         </div>
       )}
-      <fieldset disabled={!!recovery} style={{ border: 0, padding: 0 }}>
+      <fieldset style={{ border: 0, padding: 0 }}>
         <div className="actions">
           <button onClick={() => save()}>Enregistrer</button>
           <button onClick={() => save(true)} disabled={!!conflict}>
