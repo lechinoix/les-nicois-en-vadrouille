@@ -31,6 +31,7 @@ import { SaveQueue } from '@/lib/save-queue';
 import ArticleView from './ArticleView';
 import PhotoImport from './PhotoImport';
 import Photo from './Photo';
+import PhotoLegend from './PhotoLegend';
 import sports from '@/lib/sports';
 const coverPositions: Record<string, string> = {
   CENTER: 'Centre',
@@ -372,6 +373,7 @@ export default function Editor({ initial }: { initial: Draft }) {
                 </SelectContent>
               </Select>
             </div>
+            <PhotoLegend />
             <div className="photo-editor">
               {a.pictures.map((p, i) => (
                 <figure key={p.id}>
@@ -414,8 +416,8 @@ export default function Editor({ initial }: { initial: Draft }) {
                       variant="ghost"
                       size="icon"
                       className="photo-action"
-                      title="Avant"
-                      aria-label="Avant"
+                      title="Déplacer vers le début de la galerie"
+                      aria-label="Déplacer vers le début de la galerie"
                       disabled={!i}
                       onClick={() => {
                         const pictures = [...a.pictures];
@@ -432,8 +434,8 @@ export default function Editor({ initial }: { initial: Draft }) {
                       variant="ghost"
                       size="icon"
                       className="photo-action"
-                      title="Retirer"
-                      aria-label="Retirer"
+                      title="Retirer de la galerie"
+                      aria-label="Retirer de la galerie"
                       onClick={() =>
                         edit({
                           pictures: a.pictures.filter((x) => x.id !== p.id),
