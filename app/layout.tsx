@@ -1,6 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import sports from '@/lib/sports.json';
+import '@fontsource/roboto/100.css';
+import '@fontsource/roboto/100-italic.css';
+import '@fontsource/roboto/300.css';
+import '@fontsource/roboto/300-italic.css';
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/400-italic.css';
+import '@fontsource/roboto/700.css';
+import '@fontsource/roboto/700-italic.css';
 import './globals.css';
 export const metadata: Metadata = {
   title: 'Les Niçois en Vadrouille',

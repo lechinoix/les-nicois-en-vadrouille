@@ -18,6 +18,7 @@
     "usage": "node --import tsx scripts/usage.ts"
   },
   "dependencies": {
+    "@fontsource/roboto": "^5.3.0",
     "@milkdown/kit": "^7.17.1",
     "@milkdown/react": "^7.17.1",
     "@neon/auth": "^0.8.2",
